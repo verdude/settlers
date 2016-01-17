@@ -195,4 +195,164 @@ public class ServerProxy implements IProxy {
 		return false;
 	}
 
+	public boolean canUserLogin() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canUserRegister() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesList() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesCreate() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesJoin() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesSave() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesLoad() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesModel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesReset() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesCommandsGet() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesCommansPost() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesListAI() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canGamesAddAI() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canUtilChangeLogLevel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean utilChangeLogLevel(String logLevel) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canSendChat() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canAcceptTrade() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canDiscardCards() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canRollNumber() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canBuildRoad() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canBuildSettlement() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canBuildCity() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canOfferTrade() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canMaritimeTrade() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canRobPlayer() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canFinishTurn() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canBuyDevCard() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canSoldier() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canYearOfPlenty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canRoadBuilding() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canMonopoly() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canMonument() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -12,13 +12,23 @@ package client;
  */
 public interface IProxy {
 	/**
+	 * Asks the server if the client can log in
+	 * @return Whether the action is possible
+	 */
+	public boolean canUserLogin();
+	/**
 	 * Logs the caller in to the server, and sets their catan.user HTTP cookie
 	 * @param username The Username
 	 * @param password The Password
 	 * @return True if the log in was successful
 	 */
 	public boolean userLogin(String username, String password);
-	
+
+	/**
+	 * Asks the server if the client can register a new user
+	 * @return Whether the action is possible
+	 */
+	public boolean canUserRegister();
 	/**
 	 * 1) Creates a new user account
 	 * 2) Logs the caller in to the server as the new user, and sets their catan.user HTTP cookie
@@ -27,27 +37,47 @@ public interface IProxy {
 	 * @return True if the registration and log in were successful
 	 */
 	public boolean userRegister(String username, String password);
-	
+
+	/**
+	 * Asks the server if the client can get a list of games
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesList();
 	/**
 	 * This asks the server for a list of the games
 	 * @return The list of games in json form
 	 */
 	public String gamesList();
-	
+
+	/**
+	 * Asks the server if the client can create a game
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesCreate();
 	/**
 	 * This method creates a new game in the server called by the name given
 	 * @param name The name of the game to be created
 	 * @return True if the game was successfully created
 	 */
 	public boolean gamesCreate(String name);
-	
+
+	/**
+	 * Asks the server if the client can join a game
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesJoin();
 	/**
 	 * Joins a game of the given name on the server
 	 * @param name Name of the game to join
 	 * @return Whether the join was successful
 	 */
 	public boolean gamesJoin(String name);	
-	
+
+	/**
+	 * Asks the server if the client can save a game
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesSave();
 	/**
 	 * 
 	 * This method is for testing and debugging purposes. When a bug is found, you can use the
@@ -55,12 +85,16 @@ public interface IProxy {
 A developer can later restore the state of the game when the bug occurred by loading the
 previously saved file using the /games/load method. Game files are saved to and loaded from
 the server's saves/ directory.
-
 	 * @param name Name of the game to save
 	 * @return Whether the save was successful
 	 */
 	public boolean gamesSave(String name);
-	
+
+	/**
+	 * Asks the server if the client can load a game
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesLoad();
 	/**
 	 * This method is for testing and debugging purposes. When a bug is found, you can use the
 /games/save method to save the state of the game to a file, and attach the file to a bug report.
@@ -72,81 +106,141 @@ the server's saves/ directory.
 	 * @return Whether the load was successful
 	 */
 	public boolean gamesLoad(String name);
-	
+
+	/**
+	 * Asks the server if the client can get the current model ID
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesModel();
 	/**
 	 * Returns the current state of the game in JSON format.
 	 * @param version The version nember from the previously retrieved model
 	 * @return The current Model ID on the server
 	 */
 	public String gamesModel(String version);
-	
+
+	/**
+	 * Asks the server if the client can reset a game
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesReset();
 	/**
 	 * Clears out the command history of the current game.
 	 * @return Whether the reset was successful
 	 */
 	public boolean gamesReset();
-	
+
+	/**
+	 * Asks the server if the client can get a list of commands executed for the game
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesCommandsGet();
 	/**
 	 * Returns a list of commands that have been executed in the current game.
 	 * @return The list of commands
 	 */
 	public String gamesCommandsGet();
-	
+
+	/**
+	 * Asks the server if the client can post a list of command for the current game
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesCommansPost();
 	/**
 	 * Executes the specified command list in the current game
 	 * @param commandList The list of commands to be executed on the server in the current game
 	 * @return Whether the list of commands successfully executed
 	 */
 	public boolean gamesCommandsPost(String commandList);
-	
+
+	/**
+	 * Asks the server if the client can list AI players
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesListAI();
 	/**
 	 * The body contains a JSON string array enumerating the different types of AI players.
 These are the values that may be passed to the /game/addAI method.
 	 * @return Returns a list of supported AI player types
 	 */
 	public String gamesListAI();
-	
+
+	/**
+	 * Asks the server if the client can add an AI
+	 * @return Whether the action is possible
+	 */
+	public boolean canGamesAddAI();
 	/**
 	 * Adds an AI player to the current game.
 	 * @return Whether the AI player was added
 	 */
 	public boolean gamesAddAI();
-	
+
+	/**
+	 * Asks the server if the client can change the logging level
+	 * @return Whether the action is possible
+	 */
+	public boolean canUtilChangeLogLevel();
 	/**
 	 * Sets the server’s logging level.
 	 * @param logLevel The loglevel to set the server to
 	 * @return Whether the logLevel was set in the server
 	 */
-	public boolean utilChangLogLevel(String logLevel);
-	
+	public boolean utilChangeLogLevel(String logLevel);
+
+	/**
+	 * Asks the server if the client can send a chat message
+	 * @return Whether the action is possible
+	 */
+	public boolean canSendChat();
 	/**
 	 * Sends a message to the other players
 	 * @param message The message you want to send
 	 * @return Whether the message was sent
 	 */
 	public boolean sendChat(String message);
-	
+
+	/**
+	 * Asks the server if the client can accept a trade
+	 * @return Whether the action is possible
+	 */
+	public boolean canAcceptTrade();
 	/**
 	 * Accept a trade that has been presented
 	 * @param willAccept Whether the player accepted the trade
 	 * @return Whether the trade was accepted or not on the server
 	 */
 	public boolean acceptTrade(boolean willAccept);
-	
+
+	/**
+	 * Asks the server if the client can discard cards
+	 * @return Whether the action is possible
+	 */
+	public boolean canDiscardCards();
 	/**
 	 * Tells the server which cards you discarded
 	 * @param discardedCards The collection of cards to be discarded
 	 * @return Whether the action was successful on the server
 	 */
 	public boolean discardCards(ResourceHand discardedCards);
-	
+
+	/**
+	 * Asks the server if the client can roll
+	 * @return Whether the action is possible
+	 */
+	public boolean canRollNumber();
 	/**
 	 * Tells the server which number the player rolled
 	 * @param number Tells the server that you rolled this number
 	 * @return Whether the roll was prcessed on the server correctly
 	 */
 	public boolean rollNumber(int number);
-	
+
+	/**
+	 * Asks the server if the client can build a road
+	 * @return Whether the action is possible
+	 */
+	public boolean canBuildRoad();
 	/**
 	 * Places a road on the map
 	 * @param free Whether the piece was free of cost
@@ -155,6 +249,11 @@ These are the values that may be passed to the /game/addAI method.
 	 */
 	public boolean buildRoad(boolean free, EdgeLocation roadLocation);
 
+	/**
+	 * Asks the server if the client can build a settlement
+	 * @return Whether the action is possible
+	 */
+	public boolean canBuildSettlement();
 	/**
 	 * 
 	 * Builds a new settlement on the map
@@ -165,12 +264,22 @@ These are the values that may be passed to the /game/addAI method.
 	public boolean buildSettlement(boolean free, VertexLocation vertexLocation);
 
 	/**
+	 * Asks the server if the client can build a city
+	 * @return Whether the action is possible
+	 */
+	public boolean canBuildCity();
+	/**
 	 * Builds a new city on the map
 	 * @param vertexLocation The location of the city to be built
 	 * @return Whether the city was built
 	 */
 	public boolean buildCity(VertexLocation vertexLocation);
-	
+
+	/**
+	 * Asks the server if the client can offer a trade
+	 * @return Whether the action is possible
+	 */
+	public boolean canOfferTrade();
 	/**
 	 * Offers a trade from one player to the other for resources
 	 * @param offer The cards to be offered in a trade
@@ -178,7 +287,12 @@ These are the values that may be passed to the /game/addAI method.
 	 * @return Whether the offer was communicated correctly
 	 */
 	public boolean offerTrade(ResourceHand offer, playerIndex receiver);
-	
+
+	/**
+	 * Asks the server if the client can perform a maritime trade
+	 * @return Whether the action is possible
+	 */
+	public boolean canMaritimeTrade();
 	/**
 	 * Performs a maritme/ocean trade of resources
 	 * @param ratio What the exchange rate ratio is
@@ -187,7 +301,12 @@ These are the values that may be passed to the /game/addAI method.
 	 * @return Whether the maritime trade was successful
 	 */
 	public boolean maritimeTrade(int ratio, Resource inputResource, Resource outputResource);
-	
+
+	/**
+	 * Asks the server if the client can rob a player
+	 * @return Whether the action is possible
+	 */
+	public boolean canRobPlayer();
 	/**
 	 * Steals a card from a player
 	 * @param location The new location of the robber
@@ -195,7 +314,12 @@ These are the values that may be passed to the /game/addAI method.
 	 * @return Whether the thievery was successful
 	 */
 	public boolean robPlayer(HexLocation location, playerIndex victimIndex);
-	
+
+	/**
+	 * Asks the server if the client can finish their turn
+	 * @return Whether the action is possible
+	 */
+	public boolean canFinishTurn();
 	/**
 	 * Tells the server that this player has finished his turn
 	 * @return Whether the communication was successful
@@ -203,11 +327,21 @@ These are the values that may be passed to the /game/addAI method.
 	public boolean finishTurn();
 
 	/**
+	 * Asks the server if the client can buy a dev card
+	 * @return Whether the action is possible
+	 */
+	public boolean canBuyDevCard();
+	/**
 	 * Attempts to buy a develpoment card
 	 * @return Whether the action was successful
 	 */
 	public boolean buyDevCard();
 
+	/**
+	 * Asks the server if the client can play a soldier
+	 * @return Whether the action is possible
+	 */
+	public boolean canSoldier();
 	/**
 	 * A Soldier card is played
 	 * @param location The new robber location
@@ -215,7 +349,12 @@ These are the values that may be passed to the /game/addAI method.
 	 * @return Whether the action was successful
 	 */
 	public boolean soldier(HexLocation location, playerIndex victimIndex);
-	
+
+	/**
+	 * Asks the server if the client can play a year of plenty card
+	 * @return Whether the action is possible
+	 */
+	public boolean canYearOfPlenty();
 	/**
 	 * Plays the yearofplenty card
 	 * @param resource1 the first resource you want to receive
@@ -223,7 +362,12 @@ These are the values that may be passed to the /game/addAI method.
 	 * @return Whether the action was successful, playing the card
 	 */
 	public boolean yearOfPlenty(Resource resource1, Resource resource2);
-	
+
+	/**
+	 * Asks the server if the client can play a road building card
+	 * @return Whether the action is possible
+	 */
+	public boolean canRoadBuilding();
 	/**
 	 * Plays the RoadBuilding card
 	 * @param spot1 The first spot that is connected to one of your roads
@@ -231,14 +375,24 @@ These are the values that may be passed to the /game/addAI method.
 	 * @return Whether the RoadBilding card was played
 	 */
 	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2);
-	
+
+	/**
+	 * Asks the server if the client can play a monopoly card
+	 * @return Whether the action is possible
+	 */
+	public boolean canMonopoly();
 	/**
 	 * Plays the monopoly card
 	 * @param resource The resource being taken from other players
 	 * @return Whether the card was played successfully
 	 */
 	public boolean monopoly(Resource resource);
-	
+
+	/**
+	 * Asks the server if the client can play a monument card
+	 * @return Whether the action is possible
+	 */
+	public boolean canMonument();
 	/**
 	 * Plays the monument card
 	 * @return Whether the card was played
