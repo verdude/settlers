@@ -1,4 +1,4 @@
-package map;
+package client;
 
 public class Settlement {
 	int playerId;

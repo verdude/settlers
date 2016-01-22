@@ -212,7 +212,7 @@ public class ServerProxy implements IProxy {
 	/**
 	 * Inherited from implimented class
 	 */
-	public boolean offerTrade(ResourceHand offer, playerIndex receiver) {
+	public boolean offerTrade(ResourceHand offer, int receiver) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -229,7 +229,7 @@ public class ServerProxy implements IProxy {
 	/**
 	 * Inherited from implimented class
 	 */
-	public boolean robPlayer(HexLocation location, playerIndex victimIndex) {
+	public boolean robPlayer(HexLocation location, int victimIndex) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -253,7 +253,7 @@ public class ServerProxy implements IProxy {
 	/**
 	 * Inherited from implimented class
 	 */
-	public boolean soldier(HexLocation location, playerIndex victimIndex) {
+	public boolean soldier(HexLocation location, int victimIndex) {
 		// TODO Auto-generated method stub
 		return false;
 	}

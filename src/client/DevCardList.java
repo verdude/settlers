@@ -1,7 +1,9 @@
+package client;
+
 
 /**
  * @author santi
- *
+ * This is the bank for the Dev Cards.
  */
 public class DevCardList {
 

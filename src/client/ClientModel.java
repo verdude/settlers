@@ -1,3 +1,4 @@
+package client;
 
 import java.util.List;
 
@@ -30,22 +31,22 @@ public class ClientModel {
 	}
 
 	/**
-	 * Decrease the amount of the resource by the specified amount. The default amount is 1.
+	 * Decrease the amount of the resource by the specified amount.
 	 * @param resource: String, the type of resource
 	 * @param amount: int, The amount of the resource to remove from the bank
 	 * @pre The resource must exist and there must be at least `amount` amount of that resource in the bank
 	 * @post There will be `amount` less of that resource in the bank
 	 */
-	public void removeResource(String resource, int amount = 1) {}
+	public void removeResource(String resource, int amount) {}
 
 	/**
-	 * Increase the amount of the resource by the specified amount. The default amount is 1.
+	 * Increase the amount of the resource by the specified amount.
 	 * @param resource: String, the type of resource
 	 * @param amount: int, The amount of the resource to add to the bank
 	 * @pre The resource must exist and there must be at least `amount` less than 19 of that resource in the bank
 	 * @post There will be `amount` more of that resource in the bank
 	 */
-	public void addResource(String resource, int amount = 1) {}
+	public void addResource(String resource, int amount) {}
 
 	/**
 	 * Adds a MessageLine to the chat and log
@@ -68,14 +69,14 @@ public class ClientModel {
 	 * @post If the receiver accepts, then the posotive resources will be given to the receiver and the negative will be 
 	 * given to the sender
 	 */
-	public List<TradeOffer> offerTrade(List<Integer> offer, int sender, int receiver) {}
+	public List<TradeOffer> offerTrade(List<Integer> offer, int sender, int receiver) {return null;}
 	
 	/**
 	 * Switches to the next player; player 0 if currently on player 3
 	 * @pre None
 	 * @post Calls Player.endTurn(), updates the version and the if there is one. Updates the turn tracker with the status
 	 */
-	public int endTurn() {}
+	public int endTurn() {return 0;}
 
 	/**
 	 * @return the bank
@@ -129,7 +130,7 @@ public class ClientModel {
 	/**
 	 * @param map the map to set
 	 */
-	public void setMap(Map map) {
+	public void setMap(GameMap map) {
 		this.map = map;
 	}
 

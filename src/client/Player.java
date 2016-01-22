@@ -1,3 +1,5 @@
+package client;
+
 import java.util.List;
 
 
@@ -178,14 +180,14 @@ public class Player {
 	/**
 	 * @return gets the list of dev cards owned by player not bought this turn
 	 */
-	public List<DevCard> getOldDevCards() {
+	public List<Card> getOldDevCards() {
 		return oldDevCards;
 	}
 	
 	/**
 	 * @param oldDevCards oldDevCards to set (List<DevCard>)
 	 */
-	public void setOldDevCards(List<DevCard> oldDevCards) {
+	public void setOldDevCards(List<Card> oldDevCards) {
 		this.oldDevCards = oldDevCards;
 	}
 	

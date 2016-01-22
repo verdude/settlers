@@ -1,8 +1,8 @@
-package map;
+package client;
 
 public class VertexObject {
 	Player owner;
-	VertexObject location;
+	VertexLocation location;
 	
 	
 	public VertexObject(){
@@ -10,10 +10,10 @@ public class VertexObject {
 	}
 	
 	// Getters
-	public Player 	getOwner() 						{ return owner; 			}
-	public Location getLocation() 					{ return location; 			}
+	public Player 	getOwner() 							{ return owner; 			}
+	public VertexLocation getLocation()					{ return location; 			}
 	
 	// Setters
-	public void setOwner(Player owner) 				{ this.owner = owner; 		}
-	public void setLocation(VertexObject location) 	{ this.location = location; }
+	public void setOwner(Player owner) 					{ this.owner = owner; 		}
+	public void setLocation(VertexLocation location) 	{ this.location = location; }
 }

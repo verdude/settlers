@@ -1,7 +1,9 @@
+package client;
 
-
+/**
+ * This is the 'bank' class. Tracks the amount of resources that are not owned by a player.
+ */
 public class ResourceList {
-
 	
 	private int brick;
 	private int ore;

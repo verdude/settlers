@@ -1,8 +1,8 @@
-package map;
+package client;
 
 import java.util.*;
 
-public class Map {
+public class GameMap {
 	int RADIUS;			// It appears that the map will have a radius of 2;					
 	Robber robber;
 	List<Hex> 			hexList;
@@ -14,7 +14,7 @@ public class Map {
 	
 	
 	//methods
-	public Map(){
+	public GameMap(){
 		// Not sure if the Map has any dependencies...
 	}
 	
