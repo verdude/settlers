@@ -8,7 +8,6 @@ public class TurnTracker {
 	private int largestArmy;// (index): The index of who has the biggest army (3 or more), -1 if no one has it
 	
 	
-	
 	/**
 	 * @return index of the player who's turn it is (0-3)
 	 */
@@ -45,7 +44,7 @@ public class TurnTracker {
 	}
 	
 	/**
-	 * @param longestRoad longestRoad to set (int)
+	 * @param longestRoad longestRoad to set to a plyer's index (int)
 	 */
 	public void setLongestRoad(int longestRoad) {
 		this.longestRoad = longestRoad;

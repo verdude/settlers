@@ -10,8 +10,8 @@ public class Player {
 	private boolean discarded; // Whether or not the player has discarded this discard phase
 	private int monuments; // Number of monuments the player has played
 	private String name;
-	private List<Card> newDevCards; // New dev cards that the player has bought this turn
-	private List<Card> oldDevCards; // Dev cards that the player had at the beginning of the turn
+	private List<DevCard> newDevCards; // New dev cards that the player has bought this turn
+	private List<DevCard> oldDevCards; // Dev cards that the player had at the beginning of the turn
 	private int playerIndex;
 	private boolean playedDevCard;// Whether or not a player has played a dev card this turn
 	private int playerID;
@@ -165,28 +165,28 @@ public class Player {
 	/**
 	 * @return gets the list of dev cards bought this turn
 	 */
-	public List<Card> getNewDevCards() {
+	public List<DevCard> getNewDevCards() {
 		return newDevCards;
 	}
 	
 	/**
 	 * @param newDevCards newDevCards to set (List[Card])
 	 */
-	public void setNewDevCards(List<Card> newDevCards) {
+	public void setNewDevCards(List<DevCard> newDevCards) {
 		this.newDevCards = newDevCards;
 	}
 	
 	/**
 	 * @return gets the list of dev cards owned by player not bought this turn
 	 */
-	public List<Card> getOldDevCards() {
+	public List<DevCard> getOldDevCards() {
 		return oldDevCards;
 	}
 	
 	/**
 	 * @param oldDevCards oldDevCards to set (List[DevCard])
 	 */
-	public void setOldDevCards(List<Card> oldDevCards) {
+	public void setOldDevCards(List<DevCard> oldDevCards) {
 		this.oldDevCards = oldDevCards;
 	}
 	
