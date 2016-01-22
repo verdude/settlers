@@ -26,7 +26,7 @@ public class Player {
 	
 	
 	/** Simulates the rolling of two dice
-	 * 
+	 * @return The number rolled (sum of both dice)
 	 * @pre  It has to be the beginning of the player's turn
 	 * @post an int (1-12) with the same odds as that of rolling two dice
 	 */
@@ -171,7 +171,7 @@ public class Player {
 	}
 	
 	/**
-	 * @param newDevCards newDevCards to set (List<Card>)
+	 * @param newDevCards newDevCards to set (List[Card])
 	 */
 	public void setNewDevCards(List<Card> newDevCards) {
 		this.newDevCards = newDevCards;
@@ -185,7 +185,7 @@ public class Player {
 	}
 	
 	/**
-	 * @param oldDevCards oldDevCards to set (List<DevCard>)
+	 * @param oldDevCards oldDevCards to set (List[DevCard])
 	 */
 	public void setOldDevCards(List<Card> oldDevCards) {
 		this.oldDevCards = oldDevCards;
@@ -241,7 +241,7 @@ public class Player {
 	}
 	
 	/**
-	 * @param resources resources to set (List<Card>)
+	 * @param resources resources to set (List[Card])
 	 */
 	public void setResources(List<Card> resources) {
 		this.resources = resources;

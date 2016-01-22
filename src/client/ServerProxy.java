@@ -148,14 +148,6 @@ public class ServerProxy implements IProxy {
 	/**
 	 * Inherited from implimented class
 	 */
-	public boolean utilChangLogLevel(String logLevel) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implimented class
-	 */
 	public boolean sendChat(String message) {
 		// TODO Auto-generated method stub
 		return false;

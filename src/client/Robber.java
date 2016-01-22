@@ -10,7 +10,7 @@ public class Robber {
 	/**	Moves the Robber when the player rolls 7
 	 * @pre		Robber has a valid location
 	 * post		New location is not the same as old location
-	 * @param location
+	 * @param location, The new hex location for the robber
 	 */
 	public void move(HexLocation location){}
 	

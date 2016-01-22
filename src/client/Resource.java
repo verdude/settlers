@@ -12,7 +12,7 @@ public class Resource {
 	private String type; // [ore || brick || wood || wool || wheat]
 
 	/**
-	 * 
+	 * @param type = [ore || brick || wood || wool || wheat]
 	 */
 	public Resource(String type) {
 		// TODO Auto-generated constructor stub

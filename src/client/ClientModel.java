@@ -57,9 +57,10 @@ public class ClientModel {
 
 	/**
 	 * Sender makes a trade offer for any number of items to the receiver
-	 * @param offer: List<Integer>, posotive numbers are resources being offered, negative are resources being asked for
+	 * @param offer: List[Integer], posotive numbers are resources being offered, negative are resources being asked for
 	 * @param sender: int, The index of the sender in the player array
-	 * @param reveiver: int, The index of the receiver in the player array
+	 * @param receiver: int, The index of the receiver in the player array
+	 * @return Whether the trade was successfull.
 	 * @pre The offer array must not be empty
 	 * @pre All offered resources must be owned by the sender
 	 * @pre All requested resources must be owned by the receiver
@@ -69,14 +70,14 @@ public class ClientModel {
 	 * @post If the receiver accepts, then the posotive resources will be given to the receiver and the negative will be 
 	 * given to the sender
 	 */
-	public List<TradeOffer> offerTrade(List<Integer> offer, int sender, int receiver) {return null;}
+	public boolean offerTrade(List<Integer> offer, int sender, int receiver) {return false;}
 	
 	/**
 	 * Switches to the next player; player 0 if currently on player 3
 	 * @pre None
-	 * @post Calls Player.endTurn(), updates the version and the if there is one. Updates the turn tracker with the status
+	 * @post Calls Player.endTurn(), updates the version and the if there is one. Updates the turn tracker with the status. Updates the winner if the player has won.
 	 */
-	public int endTurn() {return 0;}
+	public void endTurn() {}
 
 	/**
 	 * @return the bank
