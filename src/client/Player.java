@@ -1,5 +1,6 @@
-import java.util.List;
+package client;
 
+import java.util.List;
 
 public class Player {
 	
