@@ -1,8 +1,0 @@
-package map;
-
-import java.util.*;
-
-public class Map {
-	// fields
-	List<Hex> hexList = new ArrayList<Hex>();
-}

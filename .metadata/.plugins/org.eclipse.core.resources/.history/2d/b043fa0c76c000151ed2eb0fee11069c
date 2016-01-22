@@ -1,8 +1,0 @@
-package map;
-
-public class EdgeLocation {
-	int x;
-	int y;
-	Direction direction;
-	
-}

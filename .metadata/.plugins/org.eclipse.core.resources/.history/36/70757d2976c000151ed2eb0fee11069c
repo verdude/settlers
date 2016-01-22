@@ -1,6 +1,0 @@
-package map;
-
-public class HexLocation {
-	int x;
-	int y;
-}

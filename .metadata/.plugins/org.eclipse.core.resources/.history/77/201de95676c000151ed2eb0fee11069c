@@ -1,6 +1,0 @@
-package map;
-
-public class EdgeValue {
-	Player owner;
-	Location location;
-}

@@ -1,7 +1,0 @@
-package map;
-
-
-public class Map {
-	// fields
-	Hex[] hexList;
-}
