@@ -229,7 +229,7 @@ public interface IProxy {
 	 */
 	public boolean canUtilChangeLogLevel();
 	/**
-	 * Sets the server’s logging level.
+	 * Sets the server's logging level.
 	 * @param logLevel The loglevel to set the server to
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The logging level on the server is set equal to logLevel
@@ -367,7 +367,7 @@ public interface IProxy {
 	 * @post A trade aggreement is presented to the player corresponding to receiver. The trade is made if receiver accepts the trade. The receiver receives offer and the offering player receives the counter part of the trade.
 	 * @return Whether the offer was communicated correctly
 	 */
-	public boolean offerTrade(ResourceHand offer, playerIndex receiver);
+	public boolean offerTrade(ResourceHand offer, int receiver);
 
 	/**
 	 * Asks the server if the client can perform a maritime trade
@@ -402,7 +402,7 @@ public interface IProxy {
 	 * @post The robber's new location is location and the player at victimIndex is less one card, and that card is given to the robbing player.
 	 * @return Whether the thievery was successful
 	 */
-	public boolean robPlayer(HexLocation location, playerIndex victimIndex);
+	public boolean robPlayer(HexLocation location, int victimIndex);
 
 	/**
 	 * Asks the server if the client can finish their turn
@@ -449,7 +449,7 @@ public interface IProxy {
 	 * @post The robber is placed in location, receiving that as a new location, and the victimIndex-player is less one card which is added to the player's hand who played the soldier card.
 	 * @return Whether the action was successful
 	 */
-	public boolean soldier(HexLocation location, playerIndex victimIndex);
+	public boolean soldier(HexLocation location, int victimIndex);
 
 	/**
 	 * Asks the server if the client can play a year of plenty card

@@ -9,6 +9,3 @@ sample/*
 bin/*
 .metadata/*
 .recommenders/*
-.classpath
-.project
-/bin/

@@ -1,7 +1,5 @@
 package client;
 
-package map;
-
 public class Port {
 	Resource resourceType;
 	VertexObject location;

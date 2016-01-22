@@ -19,7 +19,7 @@ public class ServerPoller {
 	 * Takes in a proxy in order to call the methods to check the 
 	 * ServerModel's version and to retrieve it if needed in order to
 	 * update.
-	 * @param An IProxy to be used to query the server for needed updates
+	 * @param proxy, An IProxy to be used to query the server for needed updates
 	 * @pre proxy is not null
 	 * @post The proxy will be loaded and the other methods in ServerPoller will be callable after creation of a ServerPoller instance.
 	 */

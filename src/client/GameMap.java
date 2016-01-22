@@ -2,7 +2,7 @@ package client;
 
 import java.util.*;
 
-public class Map {
+public class GameMap {
 	int RADIUS;			// It appears that the map will have a radius of 2;					
 	Robber robber;
 	List<Hex> 			hexList;
@@ -14,14 +14,14 @@ public class Map {
 	
 	
 	//methods
-	public Map(){
+	public GameMap(){
 		// Not sure if the Map has any dependencies...
 	}
 	
 	/** Moves the robber to a different position on the map
 	 * @pre 	The current player must have rolled a 7;
 	 * @post 	The robber will be moved to a different position on the map
-	 * @param 	position
+	 * @param 	position, the VertextObject where the robber will be placed
 	 */
 	public void moveRobber(VertexObject position){}
 	
@@ -29,7 +29,7 @@ public class Map {
 	 * @pre 	The player has to have the resources (1 wheat, 1 brick, 1 lumber, 1 sheep) for a settlement and the vertex has to be connected
 	 * 			  to a player's road and at least 2 edges away from another settlement or city. And the player has a settlement left.
 	 * @post 	A settlement will be placed at the desired vertex
-	 * @param 	(vertex): the vertex where the player wants to place the settlement
+	 * @param position, (vertex): the vertex where the player wants to place the settlement
 	 */
 	public void placeSettlement(VertexObject position){}
 	
@@ -37,7 +37,7 @@ public class Map {
 	 * @pre 	The player must have the resources (2 wheat, 3 ore) for a city and the vertex must be connected 
 	 * 			  to a player's road and at least 2 edges away from another settlement or city. And the player has a city left.
 	 * @post 	a city will be placed at the desired vertex
-	 * @param 	(vertex): the vertex where the player wants to place the city
+	 * @param position, (vertex): the vertex where the player wants to place the city
 	 */
 	public void placeCity(VertexObject position){}
 	
@@ -45,7 +45,7 @@ public class Map {
 	 * @pre 	The player must have the resources (1 lumber, 1 brick) for a road and the edge must be connected 
 	 * 			  to a player's road or municipality and the edge must not be occupied by another piece. And the player has a road left.
 	 * @post 	a road will be placed at the desired edge
-	 * @param 	(edge): the edge where the player wants to place a road
+	 * @param position, (edge): the edge where the player wants to place a road
 	 */
 	public void placeRoad(VertexObject position){}
 	

@@ -50,7 +50,7 @@ public class TradeOffer {
 	}
 	
 	/**
-	 * @param offer offer to be set (List<Integer>)
+	 * @param offer offer to be set (List[Integer])
 	 */
 	public void setOffer(List<Integer> offer) {
 		this.offer = offer;
