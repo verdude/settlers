@@ -12,7 +12,7 @@ public class Robber {
 	 * post		New location is not the same as old location
 	 * @param location
 	 */
-	public move(HexLocation location){}
+	public void move(HexLocation location){}
 	
 	public HexLocation getLocation() 				{ return location; 			}
 	public void setLocation(HexLocation location) 	{ this.location = location; }
