@@ -3,6 +3,9 @@
  */
 package client;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * @author S Jacob Powell
  *	The needUpdate method of this class should be called periodically
@@ -14,6 +17,15 @@ package client;
  */
 public class ServerPoller {
 
+	/**
+	 * To be used to thread and frequently poll the server.
+	 */
+	private Timer timer = new Timer();
+	/**
+	 * This will be used to tell the Timer what task to perform.
+	 */
+	private TimerTask timerTask;
+	
 	private IProxy proxy;
 	/**
 	 * Takes in a proxy in order to call the methods to check the 
