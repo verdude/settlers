@@ -1,0 +1,8 @@
+package map;
+
+public class Port {
+	Resource resource;
+	Location location;
+	Direction direction;
+	Double ratio;
+}

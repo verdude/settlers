@@ -1,0 +1,11 @@
+package map;
+
+public class Hex {
+	//fields
+	Location location;
+	Resource resource;
+	int number;
+	
+	//methods
+	
+}

@@ -1,0 +1,22 @@
+package map;
+
+public class Hex {
+	HexLocation location;
+	Resource resource;
+	int number;
+	
+	
+	public Hex() {
+		//...
+	}
+	
+	// Getters
+	public HexLocation getLocation() 				{ return location; 			}
+	public Resource 	getResource() 				{ return resource; 			}
+	public int 			getNumber() 				{ return number; 			}
+	
+	// Setters
+	public void setLocation(HexLocation location) 	{ this.location = location; }
+	public void setResource(Resource resource) 		{ this.resource = resource; }
+	public void setNumber(int number) 				{ this.number = number; 	}
+}

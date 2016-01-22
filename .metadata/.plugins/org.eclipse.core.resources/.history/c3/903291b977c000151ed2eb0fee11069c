@@ -1,0 +1,21 @@
+package map;
+
+public class EdgeValue {
+	Player owner;
+	Location location;
+	
+	
+	public EdgeValue() {
+		//...
+	}
+	
+	// Getters
+	public Player getOwner() 					{ return owner; 	}
+	public Location getLocation() 				{ return location; 	}
+	
+	// Setters
+	public void setOwner(Player owner) 			{ this.owner = owner; 		}
+	public void setLocation(Location location) 	{ this.location = location; }
+	
+	
+}

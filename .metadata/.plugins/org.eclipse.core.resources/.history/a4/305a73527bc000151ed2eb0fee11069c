@@ -1,0 +1,25 @@
+package map;
+
+public class Port {
+	Resource resource;
+	Location location;
+	Direction direction;
+	Double ratio;
+	
+	
+	public Port(){
+		//...
+	}
+	
+	//Getters
+	public Resource getResource() 					{ return resource; 				}
+	public Location getLocation() 					{ return location; 				}
+	public Direction getDirection() 				{ return direction;	 			}
+	public Double getRatio() 						{ return ratio; 				}
+	
+	//Setters
+	public void setResource(Resource resource) 		{ this.resource = resource;		}
+	public void setLocation(Location location) 		{ this.location = location; 	}
+	public void setDirection(Direction direction) 	{ this.direction = direction;	}
+	public void setRatio(Double ratio) 				{ this.ratio = ratio; 			}	
+}
