@@ -1,0 +1,6 @@
+package map;
+
+public class City {
+	int playerId;
+	VertexObject location;
+}
