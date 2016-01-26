@@ -12,13 +12,6 @@ package client;
  */
 public interface IProxy {
 	/**
-	 * Asks the server if the client can log in
-	 * @pre None
-	 * @post True if client can perform userLogin
-	 * @return Whether the action is possible
-	 */
-	public boolean canUserLogin();
-	/**
 	 * Logs the caller in to the server, and sets their catan.user HTTP cookie
 	 * @param username The Username
 	 * @param password The Password
@@ -28,13 +21,6 @@ public interface IProxy {
 	 */
 	public boolean userLogin(String username, String password);
 
-	/**
-	 * Asks the server if the client can register a new user
-	 * @pre None
-	 * @post True if client can perform userRegister
-	 * @return Whether the action is possible
-	 */
-	public boolean canUserRegister();
 	/**
 	 * 1) Creates a new user account
 	 * 2) Logs the caller in to the server as the new user, and sets their catan.user HTTP cookie
@@ -47,13 +33,6 @@ public interface IProxy {
 	public boolean userRegister(String username, String password);
 
 	/**
-	 * Asks the server if the client can get a list of games
-	 * @pre None
-	 * @post True if client can perform gamesList
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesList();
-	/**
 	 * This asks the server for a list of the games
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A json containing all of the current games is returned
@@ -61,13 +40,6 @@ public interface IProxy {
 	 */
 	public String gamesList();
 
-	/**
-	 * Asks the server if the client can create a game
-	 * @pre None
-	 * @post True if client can perform gamesCreate
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesCreate();
 	/**
 	 * This method creates a new game in the server called by the name given
 	 * @param name The name of the game to be created
@@ -78,13 +50,6 @@ public interface IProxy {
 	public boolean gamesCreate(String name);
 
 	/**
-	 * Asks the server if the client can join a game
-	 * @pre None
-	 * @post True if client can perform gamesJoin
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesJoin();
-	/**
 	 * Joins a game of the given name on the server
 	 * @param name Name of the game to join
 	 * @pre The corresponding "canDo" method returns true.
@@ -93,13 +58,6 @@ public interface IProxy {
 	 */
 	public boolean gamesJoin(String name);	
 
-	/**
-	 * Asks the server if the client can save a game
-	 * @pre None
-	 * @post True if client can perform gamesSave
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesSave();
 	/**
 	 * 
 	 * This method is for testing and debugging purposes. 
@@ -112,13 +70,6 @@ public interface IProxy {
 	public boolean gamesSave(String name);
 
 	/**
-	 * Asks the server if the client can load a game
-	 * @pre None
-	 * @post True if client can perform gamesLoad
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesLoad();
-	/**
 	 * This method is for testing and debugging purposes. 
 	 * Game files are loaded from the server's saves/ directory.
 	 * @param name Name of the game to load
@@ -129,13 +80,6 @@ public interface IProxy {
 	public boolean gamesLoad(String name);
 
 	/**
-	 * Asks the server if the client can get the current model ID
-	 * @pre None
-	 * @post True if client can perform gamesModel
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesModel();
-	/**
 	 * Returns the current state of the game in JSON format.
 	 * @param version The version number from the previously retrieved model
 	 * @pre The corresponding "canDo" method returns true.
@@ -145,13 +89,6 @@ public interface IProxy {
 	public String gamesModel(String version);
 
 	/**
-	 * Asks the server if the client can reset a game
-	 * @pre None
-	 * @post True if client can perform gamesReset
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesReset();
-	/**
 	 * Clears out the command history of the current game.
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The current game is reverted back to the equivalent that no commands had been called.
@@ -160,13 +97,6 @@ public interface IProxy {
 	public boolean gamesReset();
 
 	/**
-	 * Asks the server if the client can get a list of commands executed for the game
-	 * @pre None
-	 * @post True if client can perform gamesCommandsGet
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesCommandsGet();
-	/**
 	 * Returns a list of commands that have been executed in the current game.
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A list of all the commands that have been executed is returned.
@@ -174,13 +104,6 @@ public interface IProxy {
 	 */
 	public String gamesCommandsGet();
 
-	/**
-	 * Asks the server if the client can post a list of command for the current game
-	 * @pre None
-	 * @post True if client can perform gamesCommandsPost
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesCommansPost();
 	/**
 	 * Executes the specified command list in the current game
 	 * @param commandList The list of commands to be executed on the server in the current game
@@ -191,13 +114,6 @@ public interface IProxy {
 	public boolean gamesCommandsPost(String commandList);
 
 	/**
-	 * Asks the server if the client can list AI players
-	 * @pre None
-	 * @post True if client can perform gamesListAI
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesListAI();
-	/**
 	 * The body contains a JSON string array enumerating the different types of AI players.
 	 * These are the values that may be passed to the /game/addAI method.
 	 * @pre The corresponding "canDo" method returns true.
@@ -207,13 +123,6 @@ public interface IProxy {
 	public String gamesListAI();
 
 	/**
-	 * Asks the server if the client can add an AI
-	 * @pre None
-	 * @post True if client can perform gamesAddAI
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesAddAI();
-	/**
 	 * Adds an AI player to the current game.
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post An AI player is appended to the list of AI players found on the server and will be in the AI list.
@@ -221,13 +130,6 @@ public interface IProxy {
 	 */
 	public boolean gamesAddAI();
 
-	/**
-	 * Asks the server if the client can change the logging level
-	 * @pre None
-	 * @post True if client can perform utilChangeLogLevel
-	 * @return Whether the action is possible
-	 */
-	public boolean canUtilChangeLogLevel();
 	/**
 	 * Sets the server's logging level.
 	 * @param logLevel The loglevel to set the server to
@@ -238,13 +140,6 @@ public interface IProxy {
 	public boolean utilChangeLogLevel(String logLevel);
 
 	/**
-	 * Asks the server if the client can send a chat message
-	 * @pre None
-	 * @post True if client can perform acceptTrade
-	 * @return Whether the action is possible
-	 */
-	public boolean canSendChat();
-	/**
 	 * Sends a message to the other players
 	 * @param message The message you want to send
 	 * @pre The corresponding "canDo" method returns true.
@@ -253,13 +148,6 @@ public interface IProxy {
 	 */
 	public boolean sendChat(String message);
 
-	/**
-	 * Asks the server if the client can accept a trade
-	 * @pre None
-	 * @post True if client can perform acceptTrade
-	 * @return Whether the action is possible
-	 */
-	public boolean canAcceptTrade();
 	/**
 	 * Accept a trade that has been presented
 	 * @param willAccept Whether the player accepted the trade
@@ -270,13 +158,6 @@ public interface IProxy {
 	public boolean acceptTrade(boolean willAccept);
 
 	/**
-	 * Asks the server if the client can discard cards
-	 * @pre None
-	 * @post True if client can perform discardCards
-	 * @return Whether the action is possible
-	 */
-	public boolean canDiscardCards();
-	/**
 	 * Tells the server which cards you discarded
 	 * @param discardedCards The collection of cards to be discarded
 	 * @pre The corresponding "canDo" method returns true.
@@ -285,13 +166,6 @@ public interface IProxy {
 	 */
 	public boolean discardCards(ResourceHand discardedCards);
 
-	/**
-	 * Asks the server if the client can roll
-	 * @pre None
-	 * @post True if client can perform rollNumber
-	 * @return Whether the action is possible
-	 */
-	public boolean canRollNumber();
 	/**
 	 * Tells the server which number the player rolled
 	 * @param number Tells the server that you rolled this number
@@ -302,13 +176,6 @@ public interface IProxy {
 	public boolean rollNumber(int number);
 
 	/**
-	 * Asks the server if the client can build a road
-	 * @pre None
-	 * @post True if client can perform buildRoad
-	 * @return Whether the action is possible
-	 */
-	public boolean canBuildRoad();
-	/**
 	 * Places a road on the map
 	 * @param free Whether the piece was free of cost
 	 * @param roadLocation The new location for the road
@@ -318,13 +185,6 @@ public interface IProxy {
 	 */
 	public boolean buildRoad(boolean free, EdgeLocation roadLocation);
 
-	/**
-	 * Asks the server if the client can build a settlement
-	 * @pre None
-	 * @post True if client can perform buildSettlement
-	 * @return Whether the action is possible
-	 */
-	public boolean canBuildSettlement();
 	/**
 	 * 
 	 * Builds a new settlement on the map
@@ -337,13 +197,6 @@ public interface IProxy {
 	public boolean buildSettlement(boolean free, VertexLocation vertexLocation);
 
 	/**
-	 * Asks the server if the client can build a city
-	 * @pre None
-	 * @post True if client can perform buildCity
-	 * @return Whether the action is possible
-	 */
-	public boolean canBuildCity();
-	/**
 	 * Builds a new city on the map
 	 * @param vertexLocation The location of the city to be built
 	 * @pre The corresponding "canDo" method returns true.
@@ -352,13 +205,6 @@ public interface IProxy {
 	 */
 	public boolean buildCity(VertexLocation vertexLocation);
 
-	/**
-	 * Asks the server if the client can offer a trade
-	 * @pre None
-	 * @post True if client can perform offerTrade
-	 * @return Whether the action is possible
-	 */
-	public boolean canOfferTrade();
 	/**
 	 * Offers a trade from one player to the other for resources
 	 * @param offer The cards to be offered in a trade
@@ -369,13 +215,6 @@ public interface IProxy {
 	 */
 	public boolean offerTrade(ResourceHand offer, int receiver);
 
-	/**
-	 * Asks the server if the client can perform a maritime trade
-	 * @pre None
-	 * @post True if client can perform maritimeTrade
-	 * @return Whether the action is possible
-	 */
-	public boolean canMaritimeTrade();
 	/**
 	 * Performs a maritme/ocean trade of resources
 	 * @param ratio What the exchange rate ratio is
@@ -388,13 +227,6 @@ public interface IProxy {
 	public boolean maritimeTrade(int ratio, Resource inputResource, Resource outputResource);
 
 	/**
-	 * Asks the server if the client can rob a player
-	 * @pre None
-	 * @post True if client can perform robPlayer
-	 * @return Whether the action is possible
-	 */
-	public boolean canRobPlayer();
-	/**
 	 * Steals a card from a player
 	 * @param location The new location of the robber
 	 * @param victimIndex The playerIndex of the person from which the card will be stolen
@@ -405,13 +237,6 @@ public interface IProxy {
 	public boolean robPlayer(HexLocation location, int victimIndex);
 
 	/**
-	 * Asks the server if the client can finish their turn
-	 * @pre None
-	 * @post True if client can perform finishTurn
-	 * @return Whether the action is possible
-	 */
-	public boolean canFinishTurn();
-	/**
 	 * Tells the server that this player has finished his turn
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The player can no longer perform and turn-related actions and the next player in the queue receives the currentTurn that the finishing player lost.
@@ -420,13 +245,6 @@ public interface IProxy {
 	public boolean finishTurn();
 
 	/**
-	 * Asks the server if the client can buy a dev card
-	 * @pre None
-	 * @post True if client can perform buyDevCard
-	 * @return Whether the action is possible
-	 */
-	public boolean canBuyDevCard();
-	/**
 	 * At@pre Nonets to buy a develpoment card
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The players resources are given to the bank in the amount required for a dev card. The player receives a dev card.
@@ -434,13 +252,6 @@ public interface IProxy {
 	 */
 	public boolean buyDevCard();
 
-	/**
-	 * Asks the server if the client can play a soldier
-	 * @pre None
-	 * @post True if client can perform soldier
-	 * @return Whether the action is possible
-	 */
-	public boolean canSoldier();
 	/**
 	 * A Soldier card is played
 	 * @param location The new robber location
@@ -452,13 +263,6 @@ public interface IProxy {
 	public boolean soldier(HexLocation location, int victimIndex);
 
 	/**
-	 * Asks the server if the client can play a year of plenty card
-	 * @pre None
-	 * @post True if client can perform yearOfPlenty
-	 * @return Whether the action is possible
-	 */
-	public boolean canYearOfPlenty();
-	/**
 	 * Plays the yearofplenty card
 	 * @param resource1 the first resource you want to receive
 	 * @param resource2 the second resource you want to receive
@@ -468,13 +272,6 @@ public interface IProxy {
 	 */
 	public boolean yearOfPlenty(Resource resource1, Resource resource2);
 
-	/**
-	 * Asks the server if the client can play a road building card
-	 * @pre None
-	 * @post True if client can perform roadBuilding
-	 * @return Whether the action is possible
-	 */
-	public boolean canRoadBuilding();
 	/**
 	 * Plays the RoadBuilding card
 	 * @param spot1 The first spot that is connected to one of your roads
@@ -486,13 +283,6 @@ public interface IProxy {
 	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2);
 
 	/**
-	 * Asks the server if the client can play a monopoly card
-	 * @pre None
-	 * @post True if client can perform monopoly
-	 * @return Whether the action is possible
-	 */
-	public boolean canMonopoly();
-	/**
 	 * Plays the monopoly card
 	 * @param resource The resource being taken from other players
 	 * @pre The corresponding "canDo" method returns true.
@@ -501,13 +291,6 @@ public interface IProxy {
 	 */
 	public boolean monopoly(Resource resource);
 
-	/**
-	 * Asks the server if the client can play a monument card
-	 * @pre None
-	 * @post True if client can perform monument
-	 * @return Whether the action is possible
-	 */
-	public boolean canMonument();
 	/**
 	 * Plays the monument card
 	 * @pre The corresponding "canDo" method returns true.
