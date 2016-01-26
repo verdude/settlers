@@ -42,7 +42,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean userLogin(String username, String password) {
@@ -51,7 +51,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean userRegister(String username, String password) {
@@ -60,7 +60,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public String gamesList() {
@@ -69,7 +69,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean gamesCreate(String name) {
@@ -78,7 +78,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean gamesJoin(String name) {
@@ -87,7 +87,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean gamesSave(String name) {
@@ -96,7 +96,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean gamesLoad(String name) {
@@ -105,7 +105,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public String gamesModel(String version) {
@@ -114,7 +114,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean gamesReset() {
@@ -123,7 +123,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public String gamesCommandsGet() {
@@ -132,7 +132,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean gamesCommandsPost(String commandList) {
@@ -141,7 +141,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public String gamesListAI() {
@@ -150,7 +150,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean gamesAddAI() {
@@ -159,7 +159,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean sendChat(String message) {
@@ -168,7 +168,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean acceptTrade(boolean willAccept) {
@@ -177,7 +177,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean discardCards(ResourceHand discardedCards) {
@@ -186,7 +186,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean rollNumber(int number) {
@@ -195,7 +195,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean buildRoad(boolean free, EdgeLocation roadLocation) {
@@ -204,7 +204,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean buildSettlement(boolean free, VertexLocation vertexLocation) {
@@ -213,7 +213,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean buildCity(VertexLocation vertexLocation) {
@@ -222,7 +222,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean offerTrade(ResourceHand offer, int receiver) {
@@ -231,7 +231,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean maritimeTrade(int ratio, Resource inputResource,
@@ -241,7 +241,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean robPlayer(HexLocation location, int victimIndex) {
@@ -250,7 +250,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean finishTurn() {
@@ -259,7 +259,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean buyDevCard() {
@@ -268,7 +268,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean soldier(HexLocation location, int victimIndex) {
@@ -277,7 +277,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean yearOfPlenty(Resource resource1, Resource resource2) {
@@ -286,7 +286,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
@@ -295,7 +295,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean monopoly(Resource resource) {
@@ -304,7 +304,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean monument() {
@@ -313,7 +313,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canUserLogin() {
@@ -322,7 +322,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canUserRegister() {
@@ -331,7 +331,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesList() {
@@ -340,7 +340,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesCreate() {
@@ -349,7 +349,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesJoin() {
@@ -358,7 +358,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesSave() {
@@ -367,7 +367,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesLoad() {
@@ -376,7 +376,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesModel() {
@@ -385,7 +385,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesReset() {
@@ -394,7 +394,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesCommandsGet() {
@@ -403,7 +403,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesCommansPost() {
@@ -412,7 +412,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesListAI() {
@@ -421,7 +421,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canGamesAddAI() {
@@ -430,7 +430,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean canUtilChangeLogLevel() {
@@ -439,7 +439,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implimented class
+	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
 	public boolean utilChangeLogLevel(String logLevel) {
@@ -447,4 +447,142 @@ public class ServerProxy implements IProxy {
 		return false;
 	}
 
+=======
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canSendChat() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canAcceptTrade() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canDiscardCards() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canRollNumber() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canBuildRoad() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canBuildSettlement() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canBuildCity() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canOfferTrade() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canMaritimeTrade() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canRobPlayer() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canFinishTurn() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canBuyDevCard() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canSoldier() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canYearOfPlenty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canRoadBuilding() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canMonopoly() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Inherited from implemented class
+	 */
+	public boolean canMonument() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+>>>>>>> After adding exceptions and some condo’s
 }

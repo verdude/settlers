@@ -6,12 +6,25 @@ public class MessageList {
 
 	private List<MessageLine> lines;
 	
+	
+	
+	/**
+	 * @param message message of type MessageLine to be added to lines
+	 * @return true if the message can be added, false otherwise
+	 * @pre None
+	 * @post true if the message can be added, false otherwise
+	 */
+	public boolean canAddMessage(MessageLine message){
+		return false;
+	}
+	
 	/** Adds a message to the MessageList 
 	 * @pre none
 	 * @post a MessageLine will be added to the List[MessageLine] in MessageList
 	 * @param message, a MessageLine that will be added to the list
+	 * @throws Exception if addMessage() runs and dies when it shouldn't 
 	 */
-	public void addMessage(MessageLine message){}
+	public void addMessage(MessageLine message) throws Exception{}
 
 	/**
 	 * @return gets all of the current MessageLines (List[MessgeLine])

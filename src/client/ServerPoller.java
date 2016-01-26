@@ -44,8 +44,9 @@ public class ServerPoller {
 	 * @pre None
 	 * @post The server's model number is different if true, false otherwise
 	 * @return Whether the local ClientModel needs an update
+	 * @throws ServerException when this function fails when it shouldn't
 	 */
-	public boolean needUpdate() {
+	public boolean needUpdate() throws ServerException{
 		return false;
 	}
 	
@@ -54,8 +55,9 @@ public class ServerPoller {
 	 * and loads it into the ClientModel locally
 	 * @pre needUdate() returns true
 	 * @post The local model class is replaced with a clone of the model class on the server
+	 * @throws ServerException when this function fails when it shouldn't
 	 */
-	public void update() {
+	public void update() throws ServerException{
 		
 	}
 	
