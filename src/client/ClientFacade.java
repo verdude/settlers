@@ -2,7 +2,7 @@ package client;
 
 import java.util.List;
 
-public class ClientModel {
+public class ClientFacade {
 	
 	private ResourceList bank;
 	private MessageList chat;
