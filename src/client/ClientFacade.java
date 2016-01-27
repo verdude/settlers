@@ -4,7 +4,6 @@ import java.util.List;
 
 public class ClientModel {
 	
-	private ClientFacade clientFacade;
 	private ResourceList bank;
 	private MessageList chat;
 	private MessageList log;
@@ -19,7 +18,7 @@ public class ClientModel {
 	 * Default Constructor
 	 * 
 	 */
-	public ClientModel() {
+	public ClientFacade() {
 		bank = new ResourceList();
 		chat = new MessageList();
 		log = new MessageList();
