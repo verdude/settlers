@@ -87,6 +87,7 @@ public class Player {
 	 * and the vertex has to be connected to a player's road and at least 2 edges away from another settlement or city.
 	 * And the player has a settlement left.
 	 * It also has to be the player's turn
+	 * @param vertex The object on the vertex
 	 * @return true if the player can play a settlement, false otherwise
 	 * @pre none
 	 * @post whether or not a player can play a settlement

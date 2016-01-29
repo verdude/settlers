@@ -3,6 +3,8 @@
  */
 package client;
 
+import java.util.List;
+
 /**
  * @author S Jacob Powell
  *	This is the Interface which will be implemented by the ServerProxy
@@ -164,7 +166,7 @@ public interface IProxy {
 	 * @post discardedCards is 1 card bigger and contains the card that is no longer in the player's possession, as it was discarded.
 	 * @return Whether the action was successful on the server
 	 */
-	public boolean discardCards(ResourceHand discardedCards);
+	public boolean discardCards(List<Resource> discardedCards);
 
 	/**
 	 * Tells the server which number the player rolled
@@ -189,21 +191,21 @@ public interface IProxy {
 	 * 
 	 * Builds a new settlement on the map
 	 * @param free Whether the settlement was free of cost
-	 * @param vertexLocation The new location of the settlement
+	 * @param vertexObject The new location of the settlement
 	 * @pre The corresponding "canDo" method returns true.
-	 * @post A settlement is built on vertexLocation if free is true. Otherwise, it is not built.
+	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether the settlement was built
 	 */
-	public boolean buildSettlement(boolean free, VertexLocation vertexLocation);
+	public boolean buildSettlement(boolean free, VertexObject vertexObject);
 
 	/**
 	 * Builds a new city on the map
-	 * @param vertexLocation The location of the city to be built
+	 * @param vertexObject The location of the city to be built
 	 * @pre The corresponding "canDo" method returns true.
-	 * @post A city is built on vertexLocation if free is true. Otherwise, it is not built.
+	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether the city was built
 	 */
-	public boolean buildCity(VertexLocation vertexLocation);
+	public boolean buildCity(VertexObject vertexObject);
 
 	/**
 	 * Offers a trade from one player to the other for resources
@@ -213,7 +215,7 @@ public interface IProxy {
 	 * @post A trade aggreement is presented to the player corresponding to receiver. The trade is made if receiver accepts the trade. The receiver receives offer and the offering player receives the counter part of the trade.
 	 * @return Whether the offer was communicated correctly
 	 */
-	public boolean offerTrade(ResourceHand offer, int receiver);
+	public boolean offerTrade(TradeOffer offer, int receiver);
 
 	/**
 	 * Performs a maritme/ocean trade of resources

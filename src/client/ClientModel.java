@@ -118,16 +118,23 @@ public class ClientModel {
 	 * @throws ClientException when this function fails when it shouldn't
 	 */
 	public void addChatMessage(MessageLine line) throws ClientException {
-		chat.addMessage(line);
-		log.addMessage(line);
+		try {
+			chat.addMessage(line);
+			log.addMessage(line);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ClientException();
+		}
 	}
 	
 	/**
 	 * Switches to the next player; player 0 if currently on player 3
+	 * @throws ClientException 
 	 * @pre None
 	 * @post Calls Player.endTurn(), updates the version and the if there is one. Updates the turn tracker with the status. Updates the winner if the player has won.
 	 */
-	public void endTurn() {
+	public void endTurn() throws ClientException {
 		int currentTurn = turnTracker.getCurrentTurn();
 		players[currentTurn].endTurn();
 		if(currentTurn + 1 > players.length) {

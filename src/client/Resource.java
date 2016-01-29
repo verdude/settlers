@@ -9,18 +9,20 @@ package client;
  */
 public class Resource {
 	
-	private String type; // [ore || brick || wood || sheep || wheat]
+	/*
+	 * The type of Resource Card maps to the ResourceEnum
+	 */
+	private int type;
 
 	/**
-	 * @param type = [ore || brick || wood || sheep || wheat]
+	 * @param type = [ 0 || 1 || 2 || 3 || 4 ]
 	 */
-	public Resource(String type) {
-		// TODO Auto-generated constructor stub
+	public Resource(int type) {
 		this.type = type;
 	}
 
-	public String getType() {return type;}
+	public int getType() {return type;}
 
-	public void setType(String type) {this.type = type;}
+	public void setType(int type) {this.type = type;}
 
 }

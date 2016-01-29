@@ -6,8 +6,6 @@ public class MessageList {
 
 	private List<MessageLine> lines;
 	
-	
-	
 	/**
 	 * @param message message of type MessageLine to be added to lines
 	 * @return true if the message can be added, false otherwise

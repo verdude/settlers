@@ -3,6 +3,8 @@
  */
 package client;
 
+import java.util.List;
+
 /**
  * @author S Jacob Powell
  *
@@ -180,7 +182,7 @@ public class ServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public boolean discardCards(ResourceHand discardedCards) {
+	public boolean discardCards(List<Resource> discardedCards) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -207,7 +209,7 @@ public class ServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public boolean buildSettlement(boolean free, VertexLocation vertexLocation) {
+	public boolean buildSettlement(boolean free, VertexObject vertextObject) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -216,7 +218,7 @@ public class ServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public boolean buildCity(VertexLocation vertexLocation) {
+	public boolean buildCity(VertexObject vertextObject) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -225,7 +227,7 @@ public class ServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public boolean offerTrade(ResourceHand offer, int receiver) {
+	public boolean offerTrade(TradeOffer offer, int receiver) {
 		// TODO Auto-generated method stub
 		return false;
 	}
