@@ -1,7 +1,7 @@
 package client;
 
 public class EdgeValue {
-	Player owner;
+	int owner; // index of the player that is the owner
 	VertexObject location;
 	
 	
@@ -10,10 +10,10 @@ public class EdgeValue {
 	}
 	
 	// Getters
-	public Player 		getOwner() 					{ return owner; 			}
+	public int 		getOwner() 					{ return owner; 			}
 	public VertexObject getLocation() 				{ return location; 			}
 	
 	// Setters
-	public void setOwner(Player owner) 				{ this.owner = owner; 		}
+	public void setOwner(int owner) 				{ this.owner = owner; 		}
 	public void setLocation(VertexObject location) 	{ this.location = location; }
 }

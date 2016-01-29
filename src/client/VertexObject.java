@@ -1,8 +1,8 @@
 package client;
 
 public class VertexObject {
-	Player owner;
-	VertexLocation location;
+	int owner; // The index of the player that owns the vertex
+	EdgeLocation location;
 	
 	
 	public VertexObject(){
@@ -10,10 +10,10 @@ public class VertexObject {
 	}
 	
 	// Getters
-	public Player 	getOwner() 							{ return owner; 			}
-	public VertexLocation getLocation()					{ return location; 			}
+	public int 	getOwner() 							{ return owner; 			}
+	public EdgeLocation getLocation()					{ return location; 			}
 	
 	// Setters
-	public void setOwner(Player owner) 					{ this.owner = owner; 		}
-	public void setLocation(VertexLocation location) 	{ this.location = location; }
+	public void setOwner(int owner) 					{ this.owner = owner; 		}
+	public void setLocation(EdgeLocation location) 	{ this.location = location; }
 }

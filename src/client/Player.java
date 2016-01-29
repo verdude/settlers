@@ -1,11 +1,14 @@
 package client;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Player {
 	
 	
 	private int cities; // Number of cities the player has left to play
+	private int settlements;
 	private String color;
 	private boolean discarded; // Whether or not the player has discarded this discard phase
 	private int monuments; // Number of monuments the player has played
@@ -15,13 +18,32 @@ public class Player {
 	private int playerIndex;
 	private boolean playedDevCard;// Whether or not a player has played a dev card this turn
 	private int playerID;
-	private List<Card> resources;
+	ResourceList resources;
 	private int roads;
-	private int settlements;
 	private int soldiers;
 	private int victoryPoints;
+	boolean hasRolled;
 	
 	
+	Player(){
+		
+		cities = 4;
+		settlements = 5;
+		newDevCards = new ArrayList<DevCard>();
+		oldDevCards = new ArrayList<DevCard>();
+		color = "";
+		discarded = false;
+		monuments = 0;
+		name = "";
+		playerIndex = 0;
+		playedDevCard = false;
+		playerID = 0;
+		resources = new ResourceList();
+		roads = 15;
+		soldiers = 0;
+		victoryPoints = 0;
+		hasRolled = false;
+	}
 	
 	/**Checks to see if a player can roll.
 	 * It has to be the player's turn and they can only roll once per turn.
@@ -30,7 +52,13 @@ public class Player {
 	 * @post true if the player can roll, false otherwise
 	 */
 	public boolean canRollNumber(){
-		return false;
+		
+		if(!hasRolled){ // need to check if it is the player's turn as well
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
 	/** Simulates the rolling of two dice
@@ -40,7 +68,17 @@ public class Player {
 	 * @throws ClientException when the precondition is not met
 	 */
 	public int rollNumber() throws ClientException{
-		return 0;
+		if(canRollNumber()){
+			hasRolled = true;
+			Random rand = new Random();
+			int roll = rand.nextInt(6)+1;
+			roll += rand.nextInt(6)+1;
+			return roll;
+		}else{
+			throw new ClientException();
+		}
+		
+		
 	}
 	
 	/**
@@ -48,21 +86,45 @@ public class Player {
 	 * The player has to have the resources (1 wheat, 1 brick, 1 lumber, 1 sheep) for a settlement
 	 * and the vertex has to be connected to a player's road and at least 2 edges away from another settlement or city.
 	 * And the player has a settlement left.
+	 * It also has to be the player's turn
 	 * @return true if the player can play a settlement, false otherwise
 	 * @pre none
 	 * @post whether or not a player can play a settlement
 	 */
-	public boolean canPlaySettlement(){
-		return false;
+	public boolean canPlaySettlement(VertexObject vertex){
+		if(settlements > 0 && vertex.getOwner() == -1
+				&& !vertex.getLocation().equals(null) 
+				&& resources.getWheat() >= 1 && resources.getSheep() >= 1
+				&& resources.getBrick() >= 1 && resources.getWood() >= 1){ // if there is a direction associated with the vertex
+			//resources is of type ResourceList need to see change implementation
+			//How to see if the player's road is connected?
+			return true;
+			
+		}else{
+			return false;
+		}
 	}
 	
 	/** Places a settlement for the player on a given vertex
 	 * @param vertex the vertex where the player wants to place the settlement
 	 * @pre canPlaySettlement() returns true
-	 * @post a settlement will be placed at the desired vertex
+	 * @post a settlement will be placed at the desired vertex and settlements will be decremented by 1
 	 * @throws ClientException when the precondition is not met
 	 */
-	public void playSettlement(VertexObject vertex)throws ClientException{}
+	public void playSettlement(VertexObject vertex)throws ClientException{
+		if(canPlaySettlement(vertex)){
+			settlements--;
+			vertex.setOwner(this.playerIndex);
+			resources.setBrick(resources.getBrick() - 1);
+			resources.setWood(resources.getWood() - 1);
+			resources.setWheat(resources.getWheat() - 1);
+			resources.setSheep(resources.getSheep() - 1);
+
+			
+		}else{
+			throw new ClientException();
+		}
+	}
 	
 	/**
 	 * Checks if a player can play a city.
@@ -74,15 +136,32 @@ public class Player {
 	 * @pre none
 	 * @post whether or not a player can play a city
 	 */
-	public boolean canPlayCity(){
-		return false;
+	public boolean canPlayCity(VertexObject vertex){
+		if(cities > 0 && vertex.getOwner() == this.playerIndex && !vertex.getLocation().equals(null)
+				&& resources.getOre() >= 3 && resources.getWheat() >= 2){
+			//need to check player turn and if there is already a settlement there
+			return true;
+		}else{
+			return false;
+		}
 	}
 	/** Places a city for the player on a given vertex
 	 * @param vertex the vertex where the player wants to place the city
 	 * @pre canPlayCity() returns true
 	 * @post a city will be placed at the desired vertex
 	 */
-	public void playCity(VertexObject vertex) throws ClientException {}
+	public void playCity(VertexObject vertex) throws ClientException {
+		if(canPlayCity(vertex)){
+			settlements++;
+			cities--;
+			resources.setOre(resources.getOre() - 3);
+			resources.setWheat(resources.getWheat() - 2);
+			// how do we determine if the vertex has a city or a settlement?
+			
+		}else{
+			throw new ClientException();
+		}
+	}
 	
 	/** The player has to have the resources (1 lumber, 1 brick) for a road 
 	 * and the edge has to be connected to a player's road or municipality 
@@ -92,8 +171,14 @@ public class Player {
 	 * @pre none
 	 * @post whether or not a player can play a road
 	 */
-	public boolean canPlayRoad(){
-		return false;
+	public boolean canPlayRoad(EdgeValue edge){
+		if(resources.getBrick() >= 1 && resources.getWood() >= 1
+				&& edge.getOwner() == -1 && roads > 0){
+			// have to see if it's the player's turn
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	/** Places a road for the player on a given edge
@@ -102,19 +187,36 @@ public class Player {
 	 * @post a road will be placed at the desired edge
 	 * @throws ClientException if the precondition isn't met
 	 */
-	public void playRoad(EdgeValue edge) throws ClientException{}
+	public void playRoad(EdgeValue edge) throws ClientException{
+		if(canPlayRoad(edge)){
+			roads--;
+			resources.setBrick(resources.getBrick() - 1);
+			resources.setWood(resources.getWood() - 1);
+			edge.setOwner(this.playerIndex);
+			
+		}else{
+			throw new ClientException();
+		}
+		
+	}
 	
 	
 	/**
 	 * Checks to see if a player can buy a dev card.
-	 * If the player has the resources (1 ore, 1 wool, 1 wheat) required for a dev card 
+	 * If the player has the resources (1 ore, 1 sheep, 1 wheat) required for a dev card 
 	 * and there is at least one dev card in the bank
 	 * @return true if the player can buy a dev card, false otherwise
 	 * @pre none
 	 * @post true if the player can buy a dev card, false otherwise
 	 */
 	public boolean canBuyDevCard(){
-		return false;
+		if(resources.getOre() > 0 && resources.getSheep() > 0 && resources.getWheat() > 0){
+			//How can I check if there is a dev card in the bank?
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
 	/**
@@ -123,7 +225,15 @@ public class Player {
 	 * @post a dev card will be added to the player's newDevCard list
 	 * @throws ClientException
 	 */
-	public void buyDevCard() throws ClientException{}
+	public void buyDevCard() throws ClientException{
+		if(canBuyDevCard()){
+			//add devCard to newDevCards
+			
+			
+		}else{
+			throw new ClientException();
+		}
+	}
 	
 	
 	/**
@@ -133,15 +243,37 @@ public class Player {
 	 * @post true if the player can use a dev card, false otherwise
 	 */
 	public boolean canUseDevCard(DevCard card){
-		return false;
+		if(!playedDevCard){
+			for(DevCard tempCard : oldDevCards){ //Go through old devCards and see if you have the dev card in there
+				if(tempCard.equals(card)){
+					return true;
+				}
+			}
+			return false;
+		}else{
+			return false;
+		}
 	}
 	
 	/** Plays a dev card for the player
 	 * @param card dev card the player wants to play
 	 * @pre the player has to have the dev card that he wants to play in oldDevCards
 	 * @post the effects of the dev card take effect in the game
+	 * @throws ClientException if the preconditions aren't met
 	 */
-	public void useDevCard(DevCard card){}
+	public void useDevCard(DevCard card) throws ClientException{
+		if(canUseDevCard(card)){
+			for(int i = 0; i < oldDevCards.size(); i++){ 
+				if(oldDevCards.get(i).equals(card)){
+					oldDevCards.remove(i); // Get rid of the Dev Card
+					// How can I tell what type of dev card it is?
+				}
+			}
+		}
+		else{
+			throw new ClientException();
+		}
+	}
 	
 	/**
 	 * Sees if the player can or cannot offer the trade.
@@ -149,7 +281,8 @@ public class Player {
 	 * @pre None
 	 * @post true if the trade can be offered, false otherwise
 	 */
-	public boolean canOfferTrade(){
+	public boolean canOfferTrade(TradeOffer offer){
+		
 		return false;
 	}
 	
@@ -157,9 +290,11 @@ public class Player {
 	 * @param offer Trade that is offered (TradeOffer)
 	 * @pre the player has to have the resources that they want to offer
 	 * @post the trade is offered to another player
-	 * @throws ClientException If the funciton runs, but the trade cannot be offered.
+	 * @throws ClientException If the function runs, but the trade cannot be offered.
 	 */
-	public void offerTrade(TradeOffer offer)throws ClientException{}
+	public void offerTrade(TradeOffer offer)throws ClientException{
+		//I need to know more about how Resources is going to be implemented to make this work
+	}
 	
 	
 	/**
@@ -190,6 +325,7 @@ public class Player {
 	 * @post true if the player can end his turn, false otherwise
 	 */
 	public boolean canEndTurn() {
+		//It just has to be the player's turn
 		return false;
 	}
 	
@@ -199,7 +335,19 @@ public class Player {
 	 * @post moves newDevCards to oldDevCards. Checks to see if the player has won (10 vicotry points)
 	 * @throws ClientException If this function tries to run when the player can't end his turn. 
 	 */
-	public void endTurn() throws ClientException{}
+	public void endTurn() throws ClientException{
+		if(canEndTurn()){
+			hasRolled = false;
+			playedDevCard = false;
+			for(DevCard card : newDevCards){ // move bought dev cards to the usable list of dev cards (oldDevCards)
+				oldDevCards.add(card);
+			}
+			//make a function call to move the turn to the next player
+			
+		}else{
+			throw new ClientException();
+		}
+	}
 
 
 	/**
@@ -345,14 +493,14 @@ public class Player {
 	/**
 	 * @return gets the list of resource cards that the player has
 	 */
-	public List<Card> getResources() {
+	public ResourceList getResources() {
 		return resources;
 	}
 	
 	/**
 	 * @param resources resources to set (List[Card])
 	 */
-	public void setResources(List<Card> resources) {
+	public void setResources(ResourceList resources) {
 		this.resources = resources;
 	}
 	
