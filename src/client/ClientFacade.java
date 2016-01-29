@@ -4,27 +4,30 @@ import java.util.List;
 
 public class ClientFacade {
 	
+	private ClientModel  clientModel;
 	private ResourceList bank;
-	private MessageList chat;
-	private MessageList log;
-	private GameMap map;
-	private Player[] players;
-	private TradeOffer tradeOffer;
-	private TurnTracker turnTracker;
-	private int version;
-	private int winner;
+	private MessageList  chat;
+	private MessageList  log;
+	private GameMap 	 map;
+	private Player[] 	 players;
+	private TradeOffer 	 tradeOffer;
+	private TurnTracker  turnTracker;
+	private int 		 version;
+	private int 		 winner;
+	
 
 	/**
 	 * Default Constructor
 	 * 
 	 */
 	public ClientFacade() {
-		bank = new ResourceList();
-		chat = new MessageList();
-		log = new MessageList();
-		map = new GameMap();
-		players = new Player[4];
-		tradeOffer = new TradeOffer();
+		clientModel	= new ClientModel();
+		bank 		= new ResourceList();
+		chat 		= new MessageList();
+		log 		= new MessageList();
+		map 		= new GameMap();
+		players 	= new Player[4];
+		tradeOffer 	= new TradeOffer();
 		turnTracker = new TurnTracker();
 		version = 0;
 		winner = -1;
