@@ -24,7 +24,9 @@ public class MessageList {
 	 * @param message, a MessageLine that will be added to the list
 	 * @throws Exception if addMessage() runs and dies when it shouldn't 
 	 */
-	public void addMessage(MessageLine message) throws Exception{}
+	public void addMessage(MessageLine message) throws Exception {
+		lines.add(message);
+	}
 
 	/**
 	 * @return gets all of the current MessageLines (List[MessgeLine])

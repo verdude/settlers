@@ -4,7 +4,6 @@ import java.util.List;
 
 public class ClientModel {
 	
-	private ClientFacade clientFacade;
 	private ResourceList bank;
 	private MessageList chat;
 	private MessageList log;
@@ -39,7 +38,9 @@ public class ClientModel {
 	 * @post There will be `amount` less of that resource in the bank
 	 * @throws ClientException if this function runs and dies when it shouldn't
 	 */
-	public void removeResource(String resource, int amount) throws ClientException{}
+	public void removeResource(String resource, int amount) throws ClientException{
+		//TO-DO
+		}
 
 	/**
 	 * Increase the amount of the resource by the specified amount.
@@ -49,7 +50,9 @@ public class ClientModel {
 	 * @post There will be `amount` more of that resource in the bank
 	 * @throws ClientException when this function fails when it shouldn't
 	 */
-	public void addResource(String resource, int amount) throws ClientException {}
+	public void addResource(String resource, int amount) throws ClientException {
+		//TO-DO
+	}
 
 	/**
 	 * Adds a MessageLine to the chat and log
@@ -57,7 +60,9 @@ public class ClientModel {
 	 * @post The line will be added to both the chat and the log lists
 	 * @throws ClientException when this function fails when it shouldn't
 	 */
-	public void addChatMessage(MessageLine line) throws ClientException{}
+	public void addChatMessage(MessageLine line) throws ClientException{
+		//TO-DO
+	}
 
 	/**
 	 * Sender makes a trade offer for any number of items to the receiver
@@ -75,7 +80,10 @@ public class ClientModel {
 	 * given to the sender
 	 * @throws ClientException when this function fails when it shouldn't
 	 */
-	public boolean offerTrade(List<Integer> offer, int sender, int receiver) throws ClientException{return false;}
+	public boolean offerTrade(List<Integer> offer, int sender, int receiver) throws ClientException{
+		//TO-DO
+		return false;
+	}
 	
 	/**
 	 * Switches to the next player; player 0 if currently on player 3
@@ -83,6 +91,7 @@ public class ClientModel {
 	 * @post Calls Player.endTurn(), updates the version and the if there is one. Updates the turn tracker with the status. Updates the winner if the player has won.
 	 */
 	public void endTurn() {
+		//TO-DO
 		
 	}
 
@@ -219,6 +228,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canUserLogin() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -228,6 +238,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canUserRegister() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -237,6 +248,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesList() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -246,6 +258,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesCreate() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -255,6 +268,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesJoin() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -264,6 +278,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesSave() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -273,6 +288,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesLoad() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -282,6 +298,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesModel() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -291,6 +308,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesReset() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -300,6 +318,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesCommandsGet() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -309,6 +328,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesCommansPost() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -318,6 +338,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesListAI() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -327,6 +348,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canGamesAddAI() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -336,6 +358,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canUtilChangeLogLevel() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -345,6 +368,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canSendChat() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -354,6 +378,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canAcceptTrade() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -363,6 +388,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canDiscardCards() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -372,6 +398,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canRollNumber() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -381,6 +408,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildRoad() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -390,6 +418,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildSettlement() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -399,6 +428,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildCity() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -408,6 +438,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canOfferTrade() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -417,6 +448,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canMaritimeTrade() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -426,6 +458,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canRobPlayer() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -435,6 +468,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canFinishTurn() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -444,6 +478,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuyDevCard() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -453,6 +488,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canSoldier() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -462,6 +498,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canYearOfPlenty() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -471,6 +508,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canRoadBuilding() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -480,6 +518,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canMonument() {
+		//TO-DO
 		return false;
 	}
 	/**
@@ -489,6 +528,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canMonopoly() {
+		//TO-DO
 		return false;
 	}
 }
