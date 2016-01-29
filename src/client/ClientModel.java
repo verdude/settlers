@@ -24,7 +24,6 @@ public class ClientModel {
 		log = new MessageList();
 		map = new GameMap();
 		players = new Player[4];
-		tradeOffer = new TradeOffer();
 		turnTracker = new TurnTracker();
 		version = 0;
 		winner = -1;
@@ -38,9 +37,38 @@ public class ClientModel {
 	 * @post There will be `amount` less of that resource in the bank
 	 * @throws ClientException if this function runs and dies when it shouldn't
 	 */
-	public void removeResource(String resource, int amount) throws ClientException{
-		//TO-DO
+	public void removeResource(String resource, int amount) throws ClientException {
+		resource = resource.toLowerCase();
+		switch(resource){
+			case "brick":
+				bank.setBrick(bank.getBrick() - amount);
+				if(bank.getBrick() < 0) {
+					bank.setBrick(0);
+				}
+			case "ore":
+				bank.setOre(bank.getOre() - amount);
+				if(bank.getOre() < 0) {
+					bank.setOre(0);
+				}
+			case "sheep":
+				bank.setSheep(bank.getSheep() - amount);
+				if(bank.getSheep() < 0) {
+					bank.setSheep(0);
+				}
+			case "wheat":
+				bank.setWheat(bank.getWheat() - amount);
+				if(bank.getWheat() < 0) {
+					bank.setWheat(0);
+				}
+			case "wood":
+				bank.setWood(bank.getWood() - amount);
+				if(bank.getWood() < 0) {
+					bank.setWood(0);
+				}
+			default:
+				throw new ClientException("Exception thrown in removeResource");
 		}
+	}
 
 	/**
 	 * Increase the amount of the resource by the specified amount.
@@ -51,7 +79,36 @@ public class ClientModel {
 	 * @throws ClientException when this function fails when it shouldn't
 	 */
 	public void addResource(String resource, int amount) throws ClientException {
-		//TO-DO
+		resource = resource.toLowerCase();
+		switch(resource){
+			case "brick":
+				bank.setBrick(bank.getBrick() + amount);
+				if(bank.getBrick() > bank.initial) {
+					bank.setBrick(bank.initial);
+				}
+			case "ore":
+				bank.setOre(bank.getOre() + amount);
+				if(bank.getOre() > bank.initial) {
+					bank.setOre(bank.initial);
+				}
+			case "sheep":
+				bank.setSheep(bank.getSheep() + amount);
+				if(bank.getSheep() > bank.initial) {
+					bank.setSheep(bank.initial);
+				}
+			case "wheat":
+				bank.setWheat(bank.getWheat() + amount);
+				if(bank.getWheat() > bank.initial) {
+					bank.setWheat(bank.initial);
+				}
+			case "wood":
+				bank.setWood(bank.getWood() + amount);
+				if(bank.getWood() > bank.initial) {
+					bank.setWood(bank.initial);
+				}
+			default:
+				throw new ClientException("Exception thrown in addResource");
+		}
 	}
 
 	/**
@@ -60,29 +117,9 @@ public class ClientModel {
 	 * @post The line will be added to both the chat and the log lists
 	 * @throws ClientException when this function fails when it shouldn't
 	 */
-	public void addChatMessage(MessageLine line) throws ClientException{
-		//TO-DO
-	}
-
-	/**
-	 * Sender makes a trade offer for any number of items to the receiver
-	 * @param offer: List[Integer], positive numbers are resources being offered, negative are resources being asked for
-	 * @param sender: int, The index of the sender in the player array
-	 * @param receiver: int, The index of the receiver in the player array
-	 * @return Whether the trade was successful.
-	 * @pre The offer array must not be empty
-	 * @pre All offered resources must be owned by the sender
-	 * @pre All requested resources must be owned by the receiver
-	 * @pre It must be the sender's turn
-	 * @pre The sender and receiver numbers must map to a player in the player array
-	 * @pre The sender &ne; receiver
-	 * @post If the receiver accepts, then the positive resources will be given to the receiver and the negative will be 
-	 * given to the sender
-	 * @throws ClientException when this function fails when it shouldn't
-	 */
-	public boolean offerTrade(List<Integer> offer, int sender, int receiver) throws ClientException{
-		//TO-DO
-		return false;
+	public void addChatMessage(MessageLine line) throws ClientException {
+		chat.addMessage(line);
+		log.addMessage(line);
 	}
 	
 	/**
@@ -91,8 +128,13 @@ public class ClientModel {
 	 * @post Calls Player.endTurn(), updates the version and the if there is one. Updates the turn tracker with the status. Updates the winner if the player has won.
 	 */
 	public void endTurn() {
-		//TO-DO
-		
+		int currentTurn = turnTracker.getCurrentTurn();
+		players[currentTurn].endTurn();
+		if(currentTurn + 1 > players.length) {
+			turnTracker.setCurrentTurn(0);
+		} else {
+			turnTracker.setCurrentTurn(currentTurn + 1);
+		}
 	}
 
 	/**

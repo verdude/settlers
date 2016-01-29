@@ -447,7 +447,6 @@ public class ServerProxy implements IProxy {
 		return false;
 	}
 
-=======
 	/**
 	 * Inherited from implemented class
 	 */
@@ -584,5 +583,4 @@ public class ServerProxy implements IProxy {
 		return false;
 	}
 
->>>>>>> After adding exceptions and some condo’s
 }

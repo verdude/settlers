@@ -9,10 +9,10 @@ package client;
  */
 public class Resource {
 	
-	private String type; // [ore || brick || wood || wool || wheat]
+	private String type; // [ore || brick || wood || sheep || wheat]
 
 	/**
-	 * @param type = [ore || brick || wood || wool || wheat]
+	 * @param type = [ore || brick || wood || sheep || wheat]
 	 */
 	public Resource(String type) {
 		// TODO Auto-generated constructor stub
