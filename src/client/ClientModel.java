@@ -42,28 +42,28 @@ public class ClientModel {
 		switch(resource){
 			case "brick":
 				bank.setBrick(bank.getBrick() - amount);
-				if(bank.getBrick() < 0) {
-					bank.setBrick(0);
+				if(bank.getBrick() < bank.min) {
+					bank.setBrick(bank.min);
 				}
 			case "ore":
 				bank.setOre(bank.getOre() - amount);
-				if(bank.getOre() < 0) {
-					bank.setOre(0);
+				if(bank.getOre() < bank.min) {
+					bank.setOre(bank.min);
 				}
 			case "sheep":
 				bank.setSheep(bank.getSheep() - amount);
-				if(bank.getSheep() < 0) {
-					bank.setSheep(0);
+				if(bank.getSheep() < bank.min) {
+					bank.setSheep(bank.min);
 				}
 			case "wheat":
 				bank.setWheat(bank.getWheat() - amount);
-				if(bank.getWheat() < 0) {
-					bank.setWheat(0);
+				if(bank.getWheat() < bank.min) {
+					bank.setWheat(bank.min);
 				}
 			case "wood":
 				bank.setWood(bank.getWood() - amount);
-				if(bank.getWood() < 0) {
-					bank.setWood(0);
+				if(bank.getWood() < bank.min) {
+					bank.setWood(bank.min);
 				}
 			default:
 				throw new ClientException("Exception thrown in removeResource");
@@ -83,28 +83,28 @@ public class ClientModel {
 		switch(resource){
 			case "brick":
 				bank.setBrick(bank.getBrick() + amount);
-				if(bank.getBrick() > bank.initial) {
-					bank.setBrick(bank.initial);
+				if(bank.getBrick() > bank.max) {
+					bank.setBrick(bank.max);
 				}
 			case "ore":
 				bank.setOre(bank.getOre() + amount);
-				if(bank.getOre() > bank.initial) {
-					bank.setOre(bank.initial);
+				if(bank.getOre() > bank.max) {
+					bank.setOre(bank.max);
 				}
 			case "sheep":
 				bank.setSheep(bank.getSheep() + amount);
-				if(bank.getSheep() > bank.initial) {
-					bank.setSheep(bank.initial);
+				if(bank.getSheep() > bank.max) {
+					bank.setSheep(bank.max);
 				}
 			case "wheat":
 				bank.setWheat(bank.getWheat() + amount);
-				if(bank.getWheat() > bank.initial) {
-					bank.setWheat(bank.initial);
+				if(bank.getWheat() > bank.max) {
+					bank.setWheat(bank.max);
 				}
 			case "wood":
 				bank.setWood(bank.getWood() + amount);
-				if(bank.getWood() > bank.initial) {
-					bank.setWood(bank.initial);
+				if(bank.getWood() > bank.max) {
+					bank.setWood(bank.max);
 				}
 			default:
 				throw new ClientException("Exception thrown in addResource");

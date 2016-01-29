@@ -10,12 +10,13 @@ public class ResourceList {
 	private int sheep;
 	private int wheat;
 	private int wood;
-	final int initial = 19;
+	public final int max = 19;
+	public final int min = 0;
 	
 	/**
 	 * Sets all resources to the initial value (19).
 	 */
-	public ResourceList() {
+	public ResourceList(int initial) {
 		brick = ore = sheep = wheat = wood = initial;
 	}
 
