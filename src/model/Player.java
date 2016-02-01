@@ -102,8 +102,7 @@ public class Player {
 	 */
 	public boolean canPlaySettlement(){
 		if(settlements > 0 	&& resources.getWheat() >= 1 && resources.getSheep() >= 1
-				&& resources.getBrick() >= 1 && resources.getWood() >= 1){ // if there is a direction associated with the vertex
-			
+				&& resources.getBrick() >= 1 && resources.getWood() >= 1){ 
 			return true;
 			
 		}else{
@@ -366,7 +365,7 @@ public class Player {
 	 * @pre None
 	 * @post true if the player can end his turn, false otherwise
 	 */
-	public boolean canEndTurn() {
+	public boolean canFinishTurn() {
 		//It just has to be the player's turn which is already assumed to have been checked
 		return true;
 	}
@@ -378,7 +377,7 @@ public class Player {
 	 * @throws ClientException If this function tries to run when the player can't end his turn. 
 	 */
 	public void endTurn() throws ClientException{
-		if(canEndTurn()){
+		if(canFinishTurn()){
 			hasRolled = false;
 			playedDevCard = false;
 			for(DevCard card : newDevCards){ // move bought dev cards to the usable list of dev cards (oldDevCards)
