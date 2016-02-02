@@ -10,8 +10,8 @@ public class ResourceList {
 	private int sheep;
 	private int wheat;
 	private int wood;
-	public final int max = 19;
-	public final int min = 0;
+	public final static int max = 19;
+	public final static int min = 0;
 	
 	/**
 	 * Sets all resources to the initial value (19).

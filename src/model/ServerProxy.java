@@ -315,272 +315,149 @@ public class ServerProxy implements IProxy {
 	}
 
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can log in
+	 * @pre None
+	 * @post True if client can perform userLogin
+	 * @return Whether the action is possible
 	 */
 	public boolean canUserLogin() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can register a new user
+	 * @pre None
+	 * @post True if client can perform userRegister
+	 * @return Whether the action is possible
 	 */
 	public boolean canUserRegister() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can get a list of games
+	 * @pre None
+	 * @post True if client can perform gamesList
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesList() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can create a game
+	 * @pre None
+	 * @post True if client can perform gamesCreate
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesCreate() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can join a game
+	 * @pre None
+	 * @post True if client can perform gamesJoin
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesJoin() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can save a game
+	 * @pre None
+	 * @post True if client can perform gamesSave
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesSave() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can load a game
+	 * @pre None
+	 * @post True if client can perform gamesLoad
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesLoad() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can get the current model ID
+	 * @pre None
+	 * @post True if client can perform gamesModel
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesModel() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can reset a game
+	 * @pre None
+	 * @post True if client can perform gamesReset
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesReset() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can get a list of commands executed for the game
+	 * @pre None
+	 * @post True if client can perform gamesCommandsGet
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesCommandsGet() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can post a list of command for the current game
+	 * @pre None
+	 * @post True if client can perform gamesCommandsPost
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesCommansPost() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can list AI players
+	 * @pre None
+	 * @post True if client can perform gamesListAI
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesListAI() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
+	
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can add an AI
+	 * @pre None
+	 * @post True if client can perform gamesAddAI
+	 * @return Whether the action is possible
 	 */
 	public boolean canGamesAddAI() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
-
 	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
+	 * Checks the model to see if the client can change the logging level
+	 * @pre None
+	 * @post True if client can perform utilChangeLogLevel
+	 * @return Whether the action is possible
 	 */
 	public boolean canUtilChangeLogLevel() {
-		// TODO Auto-generated method stub
+		//TO-DO
 		return false;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
+	@Override
 	public boolean utilChangeLogLevel(String logLevel) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canSendChat() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canAcceptTrade() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canDiscardCards() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canRollNumber() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canBuildRoad() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canBuildSettlement() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canBuildCity() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canOfferTrade() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canMaritimeTrade() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canRobPlayer() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canFinishTurn() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canBuyDevCard() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canSoldier() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canYearOfPlenty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canRoadBuilding() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canMonopoly() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 */
-	public boolean canMonument() {
 		// TODO Auto-generated method stub
 		return false;
 	}

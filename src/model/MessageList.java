@@ -1,10 +1,11 @@
 package client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageList {
 
-	private List<MessageLine> lines;
+	private List<MessageLine> lines = new ArrayList<MessageLine>();
 	
 	/**
 	 * @param message message of type MessageLine to be added to lines

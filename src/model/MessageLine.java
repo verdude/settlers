@@ -7,10 +7,10 @@ public class MessageLine {
 	private String source;
 	
 	
-	
-	
-	
-	
+	public MessageLine(String message, String source) {
+		this.message = message;
+		this.source = source;
+	}
 	
 	/**
 	 * @return current message(String)

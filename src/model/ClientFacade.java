@@ -26,7 +26,7 @@ public class ClientFacade {
 	 */
 	public ClientFacade() {
 		clientModel	= new ClientModel();
-		bank 		= new ResourceList();
+		bank 		= new ResourceList(ResourceList.max);
 		chat 		= new MessageList();
 		log 		= new MessageList();
 		map 		= new GameMap();
