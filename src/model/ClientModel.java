@@ -19,7 +19,7 @@ public class ClientModel {
 	 * 
 	 */
 	public ClientModel() {
-		bank = new ResourceList();
+		bank = new ResourceList(ResourceList.max);
 		chat = new MessageList();
 		log = new MessageList();
 		map = new GameMap();
@@ -45,28 +45,34 @@ public class ClientModel {
 				if(bank.getBrick() < bank.min) {
 					bank.setBrick(bank.min);
 				}
+				break;
 			case "ore":
 				bank.setOre(bank.getOre() - amount);
 				if(bank.getOre() < bank.min) {
 					bank.setOre(bank.min);
 				}
+				break;
 			case "sheep":
 				bank.setSheep(bank.getSheep() - amount);
 				if(bank.getSheep() < bank.min) {
 					bank.setSheep(bank.min);
 				}
+				break;
 			case "wheat":
 				bank.setWheat(bank.getWheat() - amount);
 				if(bank.getWheat() < bank.min) {
 					bank.setWheat(bank.min);
 				}
+				break;
 			case "wood":
 				bank.setWood(bank.getWood() - amount);
 				if(bank.getWood() < bank.min) {
 					bank.setWood(bank.min);
 				}
+				break;
 			default:
 				throw new ClientException("Exception thrown in removeResource");
+				break;
 		}
 	}
 
@@ -86,28 +92,34 @@ public class ClientModel {
 				if(bank.getBrick() > bank.max) {
 					bank.setBrick(bank.max);
 				}
+				break;
 			case "ore":
 				bank.setOre(bank.getOre() + amount);
 				if(bank.getOre() > bank.max) {
 					bank.setOre(bank.max);
 				}
+				break;
 			case "sheep":
 				bank.setSheep(bank.getSheep() + amount);
 				if(bank.getSheep() > bank.max) {
 					bank.setSheep(bank.max);
 				}
+				break;
 			case "wheat":
 				bank.setWheat(bank.getWheat() + amount);
 				if(bank.getWheat() > bank.max) {
 					bank.setWheat(bank.max);
 				}
+				break;
 			case "wood":
 				bank.setWood(bank.getWood() + amount);
 				if(bank.getWood() > bank.max) {
 					bank.setWood(bank.max);
 				}
+				break;
 			default:
 				throw new ClientException("Exception thrown in addResource");
+				break;
 		}
 	}
 

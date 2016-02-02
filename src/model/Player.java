@@ -38,7 +38,7 @@ public class Player {
 		playerIndex = 0;
 		playedDevCard = false;
 		playerID = 0;
-		resources = new ResourceList();
+		resources = new ResourceList(ResourceList.min);
 		roads = 15;
 		soldiers = 0;
 		victoryPoints = 0;
