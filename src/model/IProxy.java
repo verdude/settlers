@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/client/IProxy.java
 /**
  * 
  */

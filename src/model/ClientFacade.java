@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/client/ClientFacade.java
-package client;
-=======
 package model;
->>>>>>> DAVID OSTLER'S work:src/model/ClientFacade.java
 
 import java.util.List;
 
