@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import shared.definitions.CatanColor;
+import shared.definitions.DevCardType;
+
 public class Player {
 	
 	
 	private int cities; // Number of cities the player has left to play
 	private int settlements;
-	private String color;
+	private CatanColor color;
 	private boolean discarded; // Whether or not the player has discarded this discard phase
 	private int monuments; // Number of monuments the player has played
 	private String name;
@@ -18,27 +21,35 @@ public class Player {
 	private int playerIndex;
 	private boolean playedDevCard;// Whether or not a player has played a dev card this turn
 	private int playerID;
-	ResourceList resources;
+	private ResourceList resources;
+	public boolean isHasRolled() {
+		return hasRolled;
+	}
+
+	public void setHasRolled(boolean hasRolled) {
+		this.hasRolled = hasRolled;
+	}
+
 	private int roads;
 	private int soldiers;
 	private int victoryPoints;
-	boolean hasRolled;
+	private boolean hasRolled;
 	
 	
-	Player(){
+	public Player(String name, CatanColor color, int playerIndex){
 		
 		cities = 4;
 		settlements = 5;
 		newDevCards = new ArrayList<DevCard>();
 		oldDevCards = new ArrayList<DevCard>();
-		color = "";
+		this.color = color;
 		discarded = false;
 		monuments = 0;
-		name = "";
-		playerIndex = 0;
+		this.name = name;
+		this.playerIndex = playerIndex;
 		playedDevCard = false;
 		playerID = 0;
-		resources = new ResourceList(ResourceList.min);
+		resources = new ResourceList(0);
 		roads = 15;
 		soldiers = 0;
 		victoryPoints = 0;
@@ -92,13 +103,9 @@ public class Player {
 	 * @pre none
 	 * @post whether or not a player can play a settlement
 	 */
-	public boolean canPlaySettlement(VertexObject vertex){
-		if(settlements > 0 && vertex.getOwner() == -1
-				&& !vertex.getLocation().equals(null) 
-				&& resources.getWheat() >= 1 && resources.getSheep() >= 1
-				&& resources.getBrick() >= 1 && resources.getWood() >= 1){ // if there is a direction associated with the vertex
-			//resources is of type ResourceList need to see change implementation
-			//How to see if the player's road is connected?
+	public boolean canPlaySettlement(){
+		if(settlements > 0 	&& resources.getWheat() >= 1 && resources.getSheep() >= 1
+				&& resources.getBrick() >= 1 && resources.getWood() >= 1){ 
 			return true;
 			
 		}else{
@@ -112,10 +119,10 @@ public class Player {
 	 * @post a settlement will be placed at the desired vertex and settlements will be decremented by 1
 	 * @throws ClientException when the precondition is not met
 	 */
-	public void playSettlement(VertexObject vertex)throws ClientException{
-		if(canPlaySettlement(vertex)){
+	public void playSettlement()throws ClientException{
+		if(canPlaySettlement()){
 			settlements--;
-			vertex.setOwner(this.playerIndex);
+			//vertex.setOwner(this.playerIndex);
 			resources.setBrick(resources.getBrick() - 1);
 			resources.setWood(resources.getWood() - 1);
 			resources.setWheat(resources.getWheat() - 1);
@@ -137,10 +144,8 @@ public class Player {
 	 * @pre none
 	 * @post whether or not a player can play a city
 	 */
-	public boolean canPlayCity(VertexObject vertex){
-		if(cities > 0 && vertex.getOwner() == this.playerIndex && !vertex.getLocation().equals(null)
-				&& resources.getOre() >= 3 && resources.getWheat() >= 2){
-			//need to check player turn and if there is already a settlement there
+	public boolean canPlayCity(){
+		if(cities > 0 && resources.getOre() >= 3 && resources.getWheat() >= 2){
 			return true;
 		}else{
 			return false;
@@ -151,8 +156,8 @@ public class Player {
 	 * @pre canPlayCity() returns true
 	 * @post a city will be placed at the desired vertex
 	 */
-	public void playCity(VertexObject vertex) throws ClientException {
-		if(canPlayCity(vertex)){
+	public void playCity() throws ClientException {
+		if(canPlayCity()){
 			settlements++;
 			cities--;
 			resources.setOre(resources.getOre() - 3);
@@ -172,9 +177,9 @@ public class Player {
 	 * @pre none
 	 * @post whether or not a player can play a road
 	 */
-	public boolean canPlayRoad(EdgeValue edge){
+	public boolean canPlayRoad(){
 		if(resources.getBrick() >= 1 && resources.getWood() >= 1
-				&& edge.getOwner() == -1 && roads > 0){
+				 && roads > 0){
 			// have to see if it's the player's turn
 			return true;
 		}else{
@@ -188,12 +193,12 @@ public class Player {
 	 * @post a road will be placed at the desired edge
 	 * @throws ClientException if the precondition isn't met
 	 */
-	public void playRoad(EdgeValue edge) throws ClientException{
-		if(canPlayRoad(edge)){
+	public void playRoad() throws ClientException{
+		if(canPlayRoad()){
 			roads--;
 			resources.setBrick(resources.getBrick() - 1);
 			resources.setWood(resources.getWood() - 1);
-			edge.setOwner(this.playerIndex);
+//			edge.setOwner(this.playerIndex);
 			
 		}else{
 			throw new ClientException();
@@ -229,7 +234,11 @@ public class Player {
 	public void buyDevCard() throws ClientException{
 		if(canBuyDevCard()){
 			//add devCard to newDevCards
-			
+			resources.setOre(resources.getOre() -1 );
+			resources.setWheat(resources.getWheat() -1 );
+			resources.setSheep(resources.getSheep() -1 );
+
+
 			
 		}else{
 			throw new ClientException();
@@ -268,6 +277,7 @@ public class Player {
 				if(oldDevCards.get(i).equals(card)){
 					oldDevCards.remove(i); // Get rid of the Dev Card
 					// How can I tell what type of dev card it is?
+					
 				}
 			}
 		}
@@ -293,11 +303,19 @@ public class Player {
 	 * @post the trade is offered to another player
 	 * @throws ClientException If the function runs, but the trade cannot be offered.
 	 */
-	public void offerTrade(TradeOffer offer)throws ClientException{
+	public void offerTrade(TradeOffer offer) throws ClientException{
 		//I need to know more about how Resources is going to be implemented to make this work
+		if(canOfferTrade(offer)){
+			
+		}else{
+			throw new ClientException();
+		}
 	}
 	
-	
+//	public enum ResourceBarElement
+//	{
+//		WOOD, BRICK, SHEEP, WHEAT, ORE, ROAD, SETTLEMENT, CITY, BUY_CARD, PLAY_CARD, SOLDIERS
+//	}
 	/**
 	 * @param offer trade that is being decided (TradeOffer)
 	 * @return true if the trade can be offered, false otherwise
@@ -305,7 +323,28 @@ public class Player {
 	 * @post true if the trade can be offered, false otherwise
 	 */
 	public boolean canDecideTrade(TradeOffer offer){
-		return false;
+		if(offer.getReceiver() == this.playerIndex){
+			List<Integer> offeredResources = new ArrayList<Integer>();
+			List<Integer> requestedResources = new ArrayList<Integer>();
+			
+			for(Integer i : offer.getOffer()){// Sort resources offered and those being requested from the offer
+				if(i > 0){
+					offeredResources.add(i);
+				}else{
+					requestedResources.add(i);
+				}
+			}
+			 
+			//needs more implementation, How to tell what numbers are what resource
+			for(Integer i : requestedResources){
+				
+			}
+			
+
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	/** The player chooses whether or not to accept an offered trade 
@@ -313,9 +352,14 @@ public class Player {
 	 * @return true if trade is accepted, false otherwise
 	 * @pre the player has to have the desired resources
 	 * @post the trade is either accepted or denied
+	 * @throws ClientException when the preconditions aren't met
 	 */
-	public boolean decideTrade(TradeOffer offer){
-		return false;
+	public boolean decideTrade(TradeOffer offer) throws ClientException{
+		if(canDecideTrade(offer)){
+			return false;
+		}else{
+			throw new ClientException();
+		}
 	}
 	
 	
@@ -325,9 +369,9 @@ public class Player {
 	 * @pre None
 	 * @post true if the player can end his turn, false otherwise
 	 */
-	public boolean canEndTurn() {
-		//It just has to be the player's turn
-		return false;
+	public boolean canFinishTurn() {
+		//It just has to be the player's turn which is already assumed to have been checked
+		return true;
 	}
 	
 	/**
@@ -337,13 +381,12 @@ public class Player {
 	 * @throws ClientException If this function tries to run when the player can't end his turn. 
 	 */
 	public void endTurn() throws ClientException{
-		if(canEndTurn()){
+		if(canFinishTurn()){
 			hasRolled = false;
 			playedDevCard = false;
 			for(DevCard card : newDevCards){ // move bought dev cards to the usable list of dev cards (oldDevCards)
 				oldDevCards.add(card);
 			}
-			//make a function call to move the turn to the next player
 			
 		}else{
 			throw new ClientException();
@@ -368,14 +411,14 @@ public class Player {
 	/**
 	 * @return the color of the player
 	 */
-	public String getColor() {
+	public CatanColor getColor() {
 		return color;
 	}
 	
 	/**
 	 * @param color color to set the player to
 	 */
-	public void setColor(String color) {
+	public void setColor(CatanColor color) {
 		this.color = color;
 	}
 	
@@ -429,7 +472,7 @@ public class Player {
 	}
 	
 	/**
-	 * @param newDevCards newDevCards to set (List[Card])
+	 * @param newDevCards newDevCards to set (List[DevCard])
 	 */
 	public void setNewDevCards(List<DevCard> newDevCards) {
 		this.newDevCards = newDevCards;
