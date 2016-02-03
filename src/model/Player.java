@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import shared.definitions.CatanColor;
+import shared.definitions.DevCardType;
+
 public class Player {
 	
 	
 	private int cities; // Number of cities the player has left to play
 	private int settlements;
-	private String color;
+	private CatanColor color;
 	private boolean discarded; // Whether or not the player has discarded this discard phase
 	private int monuments; // Number of monuments the player has played
 	private String name;
@@ -33,7 +36,7 @@ public class Player {
 	private boolean hasRolled;
 	
 	
-	Player(String name, String color, int playerIndex){
+	public Player(String name, CatanColor color, int playerIndex){
 		
 		cities = 4;
 		settlements = 5;
@@ -274,6 +277,7 @@ public class Player {
 				if(oldDevCards.get(i).equals(card)){
 					oldDevCards.remove(i); // Get rid of the Dev Card
 					// How can I tell what type of dev card it is?
+					
 				}
 			}
 		}
@@ -407,14 +411,14 @@ public class Player {
 	/**
 	 * @return the color of the player
 	 */
-	public String getColor() {
+	public CatanColor getColor() {
 		return color;
 	}
 	
 	/**
 	 * @param color color to set the player to
 	 */
-	public void setColor(String color) {
+	public void setColor(CatanColor color) {
 		this.color = color;
 	}
 	
@@ -468,7 +472,7 @@ public class Player {
 	}
 	
 	/**
-	 * @param newDevCards newDevCards to set (List[Card])
+	 * @param newDevCards newDevCards to set (List[DevCard])
 	 */
 	public void setNewDevCards(List<DevCard> newDevCards) {
 		this.newDevCards = newDevCards;

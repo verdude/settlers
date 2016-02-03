@@ -4,6 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import model.ClientException;
+import model.Player;
+import model.ResourceList;
+import shared.definitions.CatanColor;
+
 public class PlayerTest {
 	static Player test1;
 
@@ -12,7 +17,8 @@ public class PlayerTest {
 
 	@Test
 	public void testRollNumber() {
-		 test1 = new Player("sean","white",0);
+
+		test1 = new Player("sean", CatanColor.WHITE,0);
 		assertTrue(test1.canRollNumber());
 		int roll = -1;
 		try {
@@ -31,7 +37,7 @@ public class PlayerTest {
 
 	@Test
 	public void testPlaySettlement(){
-		test1 = new Player("sean","white",0);
+		test1 = new Player("sean", CatanColor.WHITE,0);
 		assertFalse(test1.canPlaySettlement());// not enough resources to play a settlement
 		test1.setResources(new ResourceList(6));// enough resources to buy 6 settlements
 		int wheat = 6;
@@ -67,7 +73,7 @@ public class PlayerTest {
 
 	@Test
 	public void testPlayCity(){
-		test1 = new Player("sean","white",0);
+		test1 = new Player("sean", CatanColor.WHITE,0);
 		assertFalse(test1.canPlayCity());// not enough resources to play a settlement
 		test1.getResources().setOre(15);;// enough ore to buy 5 cities
 		test1.getResources().setWheat(10);;// enough wheat to buy 5 cities
@@ -75,9 +81,9 @@ public class PlayerTest {
 
 		int ore = 15;
 		int wheat = 10;
-		
+
 		int cities = 4; // the number of cities a player starts with
-		
+
 		test1.setSettlements(1);//
 		int settlements = 1;
 		try {
@@ -88,7 +94,7 @@ public class PlayerTest {
 				wheat -= 2;
 				ore -= 3;
 				settlements++;
-				
+
 				assertEquals(cities, test1.getCities());
 				assertEquals(settlements, test1.getSettlements());
 				assertEquals(ore,test1.getResources().getOre());
@@ -105,16 +111,16 @@ public class PlayerTest {
 
 
 	}
-	
+
 	@Test
 	public void testPlayRoad(){
-		test1 = new Player("sean","white",0);
-		
+		test1 = new Player("sean", CatanColor.WHITE,0);
+
 		assertFalse(test1.canPlayRoad());// not enough resources to play a road
 		test1.getResources().setBrick(16);// enough brick to build 16 roads
 		test1.getResources().setWood(16);// enough wood to build 16 roads
 
-		
+
 		int wood = 16;
 		int brick = 16;
 		int roads = 15; // the number of roads a player starts with
@@ -123,7 +129,7 @@ public class PlayerTest {
 				test1.playRoad();
 
 				roads--;
-				
+
 				wood--;
 				brick--;
 
