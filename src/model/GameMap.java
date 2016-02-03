@@ -15,7 +15,11 @@ public class GameMap {
 	
 	//methods
 	public GameMap(){
-		// Not sure if the Map has any dependencies...
+		hexList = new ArrayList<Hex>();
+		portList = new ArrayList<Port>();
+		roadList = new ArrayList<Road>();
+		settlementList = new ArrayList<Settlement>();
+		cityList = new ArrayList<City>();
 	}
 	
 	/** Moves the robber to a different position on the map

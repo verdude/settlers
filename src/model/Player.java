@@ -361,8 +361,7 @@ public class Player {
 			throw new ClientException();
 		}
 	}
-	
-	
+		
 	/**
 	 * Checks to see if the player can end his turn.
 	 * @return true if the player can end his turn, false otherwise
@@ -373,6 +372,26 @@ public class Player {
 		//It just has to be the player's turn which is already assumed to have been checked
 		return true;
 	}
+	/** Offers a trade to another player
+	 * @param offer Trade that is offered (TradeOffer)
+	 * @pre the player has to have the resources that they want to offer
+	 * @post the trade is offered to another player
+	 * @throws ClientException If the function runs, but the trade cannot be offered.
+	 */
+	public void offerTrade(TradeOffer offer)throws ClientException{
+		//I need to know more about how Resources is going to be implemented to make this work
+	}
+	
+	/** The player chooses whether or not to accept an offered trade 
+	 * @param offer the offer that has been given (TradeOffer)
+	 * @return true if trade is accepted, false otherwise
+	 * @pre the player has to have the desired resources
+	 * @post the trade is either accepted or denied
+	 */
+	public boolean decideTrade(TradeOffer offer){
+		return false;
+	}
+	
 	
 	/**
 	 * Ends the player's turn and
@@ -602,145 +621,5 @@ public class Player {
 	public void setVictoryPoints(int victoryPoints) {
 		this.victoryPoints = victoryPoints;
 	}
-	
-	/**
-	 * Checks the model to see if the client can accept a trade
-	 * @pre None
-	 * @post True if client can perform acceptTrade
-	 * @return Whether the action is possible
-	 */
-	public boolean canAcceptTrade() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can discard cards
-	 * @pre None
-	 * @post True if client can perform discardCards
-	 * @return Whether the action is possible
-	 */
-	public boolean canDiscardCards() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can build a road
-	 * @pre None
-	 * @post True if client can perform buildRoad
-	 * @return Whether the action is possible
-	 */
-	public boolean canBuildRoad() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can build a settlement
-	 * @pre None
-	 * @post True if client can perform buildSettlement
-	 * @return Whether the action is possible
-	 */
-	public boolean canBuildSettlement() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can build a city
-	 * @pre None
-	 * @post True if client can perform buildCity
-	 * @return Whether the action is possible
-	 */
-	public boolean canBuildCity() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can offer a trade
-	 * @pre None
-	 * @post True if client can perform offerTrade
-	 * @return Whether the action is possible
-	 */
-	public boolean canOfferTrade() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can perform a maritime trade
-	 * @pre None
-	 * @post True if client can perform maritimeTrade
-	 * @return Whether the action is possible
-	 */
-	public boolean canMaritimeTrade() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can rob a player
-	 * @pre None
-	 * @post True if client can perform robPlayer
-	 * @return Whether the action is possible
-	 */
-	public boolean canRobPlayer() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can finish their turn
-	 * @pre None
-	 * @post True if client can perform finishTurn
-	 * @return Whether the action is possible
-	 */
-	public boolean canFinishTurn() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can play a soldier
-	 * @pre None
-	 * @post True if client can perform soldier
-	 * @return Whether the action is possible
-	 */
-	public boolean canSoldier() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can play a year of plenty card
-	 * @pre None
-	 * @post True if client can perform yearOfPlenty
-	 * @return Whether the action is possible
-	 */
-	public boolean canYearOfPlenty() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can play a road building card
-	 * @pre None
-	 * @post True if client can perform roadBuilding
-	 * @return Whether the action is possible
-	 */
-	public boolean canRoadBuilding() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can play a monument card
-	 * @pre None
-	 * @post True if client can perform monument
-	 * @return Whether the action is possible
-	 */
-	public boolean canMonument() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can play a monopoly card
-	 * @pre None
-	 * @post True if client can perform monopoly
-	 * @return Whether the action is possible
-	 */
-	public boolean canMonopoly() {
-		//TO-DO
-		return false;
-	}
+
 }
