@@ -4,7 +4,6 @@
 .settings/*
 Updates.txt
 build.xml
-demo/*
 java/*
 sample/*
 bin/*
