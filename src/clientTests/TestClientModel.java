@@ -1,4 +1,4 @@
-package client.test;
+package clientTests;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
