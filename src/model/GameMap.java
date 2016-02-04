@@ -3,8 +3,8 @@ package model;
 import java.util.*;
 
 public class GameMap {
-	int RADIUS;			// It appears that the map will have a radius of 2;					
-	Robber robber;
+	int 				RADIUS;			// It appears that the map will have a radius of 2;					
+	Robber 				robber;
 	List<Hex> 			hexList;
 	List<Port> 			portList;
 	List<Road> 			roadList;
@@ -15,11 +15,11 @@ public class GameMap {
 	
 	//methods
 	public GameMap(){
-		hexList = new ArrayList<Hex>();
-		portList = new ArrayList<Port>();
-		roadList = new ArrayList<Road>();
-		settlementList = new ArrayList<Settlement>();
-		cityList = new ArrayList<City>();
+		hexList 		= new ArrayList<Hex>();
+		portList 		= new ArrayList<Port>();
+		roadList 		= new ArrayList<Road>();
+		settlementList 	= new ArrayList<Settlement>();
+		cityList 		= new ArrayList<City>();
 	}
 	
 	/** Moves the robber to a different position on the map

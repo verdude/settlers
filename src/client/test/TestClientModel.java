@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import client.ClientException;
-import client.ClientModel;
-import client.MessageLine;
+import model.ClientException;
+import model.ClientModel;
+import model.MessageLine;
 
 public class TestClientModel {
 

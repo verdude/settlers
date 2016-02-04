@@ -1,7 +1,7 @@
 /**
  * 
  */
-package client;
+package model;
 
 import java.util.List;
 

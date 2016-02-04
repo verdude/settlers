@@ -372,26 +372,6 @@ public class Player {
 		//It just has to be the player's turn which is already assumed to have been checked
 		return true;
 	}
-	/** Offers a trade to another player
-	 * @param offer Trade that is offered (TradeOffer)
-	 * @pre the player has to have the resources that they want to offer
-	 * @post the trade is offered to another player
-	 * @throws ClientException If the function runs, but the trade cannot be offered.
-	 */
-	public void offerTrade(TradeOffer offer)throws ClientException{
-		//I need to know more about how Resources is going to be implemented to make this work
-	}
-	
-	/** The player chooses whether or not to accept an offered trade 
-	 * @param offer the offer that has been given (TradeOffer)
-	 * @return true if trade is accepted, false otherwise
-	 * @pre the player has to have the desired resources
-	 * @post the trade is either accepted or denied
-	 */
-	public boolean decideTrade(TradeOffer offer){
-		return false;
-	}
-	
 	
 	/**
 	 * Ends the player's turn and
