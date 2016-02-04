@@ -11,9 +11,9 @@ public class VertexObject {
 	
 	// Getters
 	public int 	getOwner() 							{ return owner; 			}
-	public EdgeLocation getLocation()					{ return location; 			}
+	public EdgeLocation getLocation()				{ return location; 			}
 	
 	// Setters
-	public void setOwner(int owner) 					{ this.owner = owner; 		}
+	public void setOwner(int owner) 				{ this.owner = owner; 		}
 	public void setLocation(EdgeLocation location) 	{ this.location = location; }
 }

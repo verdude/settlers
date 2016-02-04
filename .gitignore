@@ -3,7 +3,6 @@
 .project
 .settings/*
 Updates.txt
-build.xml
 java/*
 sample/*
 bin/*
