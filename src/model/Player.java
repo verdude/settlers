@@ -9,17 +9,16 @@ import shared.definitions.DevCardType;
 
 public class Player {
 	
-	
-	private int cities; // Number of cities the player has left to play
+	private int cities; 				// Number of cities the player has left to play
 	private int settlements;
 	private CatanColor color;
-	private boolean discarded; // Whether or not the player has discarded this discard phase
-	private int monuments; // Number of monuments the player has played
+	private boolean discarded; 			// Whether or not the player has discarded this discard phase
+	private int monuments; 				// Number of monuments the player has played
 	private String name;
 	private List<DevCardType> newDevCards; // New dev cards that the player has bought this turn
 	private List<DevCardType> oldDevCards; // Dev cards that the player had at the beginning of the turn
 	private int playerIndex;
-	private boolean playedDevCard;// Whether or not a player has played a dev card this turn
+	private boolean playedDevCard;		// Whether or not a player has played a dev card this turn
 	private int playerID;
 	private ResourceList resources;
 	public boolean getHasRolled() {

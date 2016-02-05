@@ -39,14 +39,12 @@ public class TestClientModel {
 		model.removeResource("wood", 20);
 		assertTrue(model.getBank().getWood() == 0);
 	}
-	
 	@Test(expected=ClientException.class)
 	public void testRemoveResourceErrors() throws ClientException {
 		ClientModel model = new ClientModel();
 		model.removeResource("sdgdggg", 2);
 	}
 	
-
 	@Test
 	public void testAddResource() throws ClientException {
 		ClientModel model = new ClientModel();
@@ -61,7 +59,6 @@ public class TestClientModel {
 		model.addResource("wood", 20);
 		assertTrue(model.getBank().getWood() == 19);
 	}
-	
 	@Test(expected=ClientException.class)
 	public void testAddResourceErrors() throws ClientException {
 		ClientModel model = new ClientModel();
@@ -81,5 +78,12 @@ public class TestClientModel {
 	public void testEndTurn() throws ClientException {
 //		new ClientModel().endTurn();
 		//Do the players need to be initialized in the model?
+	}
+
+	
+	// test Can-Do methods
+	@Test
+	public void testCanSendChat() {
+		
 	}
 }

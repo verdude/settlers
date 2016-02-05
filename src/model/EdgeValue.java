@@ -12,7 +12,7 @@ public class EdgeValue {
 	}
 	
 	// Getters
-	public int 		getOwner() 					{ return owner; 			}
+	public int 		getOwner() 						{ return owner; 			}
 	public EdgeLocation getLocation() 				{ return location; 			}
 	
 	// Setters

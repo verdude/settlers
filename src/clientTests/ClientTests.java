@@ -16,10 +16,12 @@ public class ClientTests {
 	public static void main(String[] args){
 		String[] testClasses = new String[]{
 				/*
-				 * reference 
+				 * reference junits here...
 				 */
 				
-//				model.className1, model.className2, model.className3 
+				"clientTests.PlayerTest",
+				"clientTests.TestClientModel",
+				"clientTests.GameMapTest" 
 		};
 		
 		org.junit.runner.JUnitCore.main(testClasses);

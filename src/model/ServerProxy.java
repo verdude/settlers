@@ -15,6 +15,7 @@ import java.util.List;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
 /**
  * @author S Jacob Powell
@@ -434,6 +435,30 @@ public class ServerProxy implements IProxy {
 	@Override
 	public String monument(int playerIndex) {
 		return post("moves/Monument", "{\"type\": \"Monument\", \"playerIndex\": " + playerIndex + "}");
+	}
+
+	@Override
+	public boolean buildSettlement(boolean free, VertexLocation vertexObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean buildCity(VertexLocation vertexObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean buildSettlement(boolean free, VertexLocation vertexObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean buildCity(VertexLocation vertexObject) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
