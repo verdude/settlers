@@ -4,15 +4,27 @@ import java.util.List;
 
 public class ClientFacade {
 	
-	private ClientModel  clientModel;
+	private static ClientModel  clientModel;
+	private static ClientFacade singleton;
 	
 
 	/**
 	 * Default Constructor
 	 * 
 	 */
-	public ClientFacade() {
+	private ClientFacade() {
 		clientModel	= new ClientModel();
+	}
+
+	/**
+	 * Creates and returns the ClientFacade singleton if it doesn't already exist
+	 * @return The client facade singleton
+	 */
+	public static ClientFacade getSingleton() {
+		if (singleton == null) {
+			singleton = new ClientFacade();
+		}
+		return singleton;
 	}
 
 	/**
@@ -63,6 +75,7 @@ public class ClientFacade {
 	 * @post Calls Player.endTurn(), updates the version and the if there is one. Updates the turn tracker with the status. Updates the winner if the player has won.
 	 */
 	public void endTurn() {}
+
 
 	
 }
