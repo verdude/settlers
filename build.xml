@@ -10,8 +10,13 @@
      
     <!-- Input folders -->
     <property name="java.dir" value="java"/>
+<<<<<<< Updated upstream
     <property name="java.src.dir" value="${java.dir}/src"/>
     <property name="java.lib.dir" value="${java.dir}/lib"/>
+=======
+    <property name="java.src.dir" value="src"/>
+    <property name="java.lib.dir" value="lib"/>
+>>>>>>> Stashed changes
     <!-- JavaScript source folder -->
     <property name="javascript.dir" value="gameplay/js"/>
     
@@ -25,7 +30,11 @@
 	<property name="demo.dir" value="demo"/>
     <property name="server.jar.file" value="${demo.dir}/server.jar"/>
     <property name="client.jar.file" value="${demo.dir}/client.jar"/>
+<<<<<<< Updated upstream
   
+=======
+  	<property name="clientTests.dir" value="src/clientTests"/>
+>>>>>>> Stashed changes
 	<!-- CLASSPATHS -->
 	<!-- ********** -->
     
@@ -35,6 +44,14 @@
 		</fileset>
 	</path>
 
+<<<<<<< Updated upstream
+=======
+	<path id="all-classpath">
+		<path refid="java.lib.classpath"/>
+		<pathelement location="${java.build}"/>
+	</path>
+
+>>>>>>> Stashed changes
 	<!-- TARGETS -->
 	<!-- ******* -->
      
@@ -81,7 +98,11 @@
     -->
 
   	<property name="java.dir" location="java"/>
+<<<<<<< Updated upstream
 	<property name="java.src" location="${java.dir}/src"/>
+=======
+	<property name="java.src" location="src"/>
+>>>>>>> Stashed changes
 	<property name="java.images" location="${java.dir}/images"/>
 	<property name="java.build" location="${java.dir}/build"/>
 	<property name="java.dist" location="${java.dir}/dist"/>
@@ -154,6 +175,23 @@
     <target name="make-tester-zip" depends="package" description="makes a zip file for your testing team">
         <zip destfile="./tester.zip" basedir="${java.dist}" />
     </target>
+<<<<<<< Updated upstream
   
+=======
+
+	<target name="junit" description="runs JUnit tests">
+		<antcall target="init">
+		</antcall>
+
+		<antcall target="compile">
+		</antcall>
+
+    	<java classname="src\clientTests.ClientTests" fork="yes">
+	    	<classpath>
+	    		<path refid="all-classpath"/>
+	    	</classpath>
+    	</java>
+	</target>  
+>>>>>>> Stashed changes
 </project>
 
