@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.definitions.DevCardType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.locations.*;
@@ -291,8 +292,9 @@ public class ClientModel {
 	 * @post True if client can perform sendChat
 	 * @return Whether the action is possible
 	 */
-	public boolean canSendChat() {
-		//TO-DO
+	public boolean canSendChat(MessageLine message) {
+		
+		
 		return false;
 	}	
 	/**
@@ -301,8 +303,48 @@ public class ClientModel {
 	 * @post True if client can perform acceptTrade
 	 * @return Whether the action is possible
 	 */
-	public boolean canAcceptTrade() {
-		//TO-DO
+	public boolean canAcceptTrade(int playerIndex, TradeOffer offer ) {
+		Player player = players[playerIndex];
+		ResourceList resources = player.getResources();
+		
+		List<Integer> offeredResources = new ArrayList<Integer>();
+		List<Integer> requestedResources = new ArrayList<Integer>();
+		
+		sortOffer(offer, offeredResources, requestedResources);
+		
+		
+		
+		int oreRequested = 0;
+		int wheatRequested = 0;
+		int sheepRequested = 0;
+		int brickRequested = 0;
+		int woodRequested = 0;
+		
+		for(Integer i : requestedResources){
+			switch(i){
+			 case 0:
+				 woodRequested++;
+				 break;
+			 case 1:
+				 brickRequested++;
+				 break;
+			 case 2:
+				 sheepRequested++;
+				 break;
+			 case 3:
+				 wheatRequested++;
+				 break;
+			 case 4:
+				 oreRequested++;
+				 break;
+	
+			}
+		}
+		if(resources.getBrick() < brickRequested || resources.getOre() < oreRequested || resources.getSheep() < sheepRequested 
+				|| resources.getWheat() < wheatRequested || resources.getWood() < woodRequested){
+			return false;
+		}
+		
 		return false;
 	}
 	/**
@@ -336,7 +378,7 @@ public class ClientModel {
 
 
 		if(resources.getBrick() >= 1 && resources.getWood() >= 1
-				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex){
+				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled()){
 			List<Road> roadList = map.getRoadList();
 			for(Road r : roadList){
 				EdgeValue tempEdgeValue = r.getLocation();
@@ -520,7 +562,7 @@ public class ClientModel {
 		VertexLocation settLoc = vertex.getLocation();
 		VertexDirection settDir = settLoc.getDir();
 
-		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() >=0 ){
+		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() >=0 || !player.getHasRolled()){
 			return false;
 
 		}
@@ -531,7 +573,6 @@ public class ClientModel {
 		HexLocation settHexLoc = settLoc.getHexLoc();
 		HexLocation nwNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.NorthWest);
 		HexLocation neNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.NorthEast);
-		HexLocation nNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.North);
 		HexLocation sNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.South);
 		HexLocation seNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.SouthEast);
 		HexLocation swNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.SouthWest);
@@ -715,190 +756,28 @@ public class ClientModel {
 
 
 		VertexLocation cityLoc = vertex.getLocation();
-		VertexDirection cityDir = cityLoc.getDir();
 
-		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() >=0 ){
+		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() == player.getPlayerIndex() || !player.getHasRolled()){
 			return false;
 
 		}
 		
-		boolean hasRoadAttached = false;
-		boolean twoAway = true;
-
-		HexLocation cityHexLoc = cityLoc.getHexLoc();
-		HexLocation nwNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.NorthWest);
-		HexLocation neNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.NorthEast);
-		HexLocation sNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.South);
-		HexLocation seNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.SouthEast);
-		HexLocation swNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.SouthWest);
 
 		if(player.getCities() > 0 && resources.getOre() >= 3 && resources.getWheat() >= 2){
-
-			for(Road r : map.getRoadList()){
-
-				if(r.getPlayerId() == player.getPlayerID()){
-					HexLocation tempHexLoc = r.getLocation().getLocation().getHexLoc();
-					EdgeDirection tempDir = r.getLocation().getLocation().getDir();
-
-					switch(cityDir){
-					
-						case West:
-							if(tempHexLoc.equals(cityHexLoc) && tempDir.equals(EdgeDirection.NorthWest)){
-								hasRoadAttached = true;
-							}else if(tempHexLoc.equals(swNeighbor) && 
-									(tempDir.equals(EdgeDirection.North)
-											|| tempDir.equals(EdgeDirection.NorthEast))){
-								hasRoadAttached = true;
-							}
-	
-							break;
-						case NorthWest:
-							if(tempHexLoc.equals(cityHexLoc) && 
-									(tempDir.equals(EdgeDirection.NorthWest)
-											|| tempDir.equals(EdgeDirection.North))){
-								hasRoadAttached = true;
-							}else if(tempHexLoc.equals(nwNeighbor) && 
-									(tempDir.equals(EdgeDirection.NorthEast))){
-								hasRoadAttached = true;
-							}
-	
-							break;
-						case NorthEast:
-							
-							if(tempHexLoc.equals(cityHexLoc) && 
-									(tempDir.equals(EdgeDirection.NorthEast)
-											|| tempDir.equals(EdgeDirection.North))){
-								hasRoadAttached = true;
-							}else if(tempHexLoc.equals(neNeighbor) && 
-									(tempDir.equals(EdgeDirection.NorthWest))){
-								hasRoadAttached = true;
-							}
-	
-							break;
-	
-	
-						default:
-							
-
-					}
-				}
-
-			}
-			
+		
 			for(Settlement s : map.getSettlementList()){
 
-					HexLocation tempHexLoc = s.getLocation().getLocation().getHexLoc();
-					VertexDirection tempDir = s.getLocation().getLocation().getDir();
-
-					switch(cityDir){
-					
-						case West:
-							if(tempHexLoc.equals(cityHexLoc) && tempDir.equals(VertexDirection.NorthWest)){
-								twoAway = false;
-							}else if(tempHexLoc.equals(swNeighbor) && 
-									tempDir.equals(VertexDirection.NorthWest)){
-								twoAway = false;
-							}else if(tempHexLoc.equals(sNeighbor) && 
-									tempDir.equals(VertexDirection.NorthWest)){
-								twoAway = false;
-							}
-	
-							break;
-						case NorthWest:
-							if(tempHexLoc.equals(cityHexLoc) && 
-									(tempDir.equals(VertexDirection.West)
-											|| tempDir.equals(VertexDirection.NorthEast))){
-								twoAway = false;
-							}else if(tempHexLoc.equals(nwNeighbor) && 
-									tempDir.equals(VertexDirection.NorthWest)){
-								twoAway = false;
-							}
-	
-							break;
-						case NorthEast:
-							
-							if(tempHexLoc.equals(cityHexLoc) && 
-									tempDir.equals(VertexDirection.NorthWest)){
-								twoAway = false;
-							}else if(tempHexLoc.equals(seNeighbor) && 
-									(tempDir.equals(VertexDirection.NorthWest))){
-								twoAway = false;
-							}else if(tempHexLoc.equals(neNeighbor) && 
-									(tempDir.equals(VertexDirection.NorthWest))){
-								twoAway = false;
-							}
-				
-	
-							break;
-	
-	
-						default:
-							
-
-					}
+				//If there is a settlement at the vertexLocation and the player is the owner of the settlement
+				if(s.getLocation().getLocation().equals(vertex.getLocation()) && s.getPlayerId() == player.getPlayerID()){
+					return true;
 				}
-			
-			for(City c : map.getCityList()){
-
-				HexLocation tempHexLoc = c.getLocation().getLocation().getHexLoc();
-				VertexDirection tempDir = c.getLocation().getLocation().getDir();
-
-				switch(cityDir){
-				
-					case West:
-						if(tempHexLoc.equals(cityHexLoc) && tempDir.equals(VertexDirection.NorthWest)){
-							twoAway = false;
-						}else if(tempHexLoc.equals(swNeighbor) && 
-								tempDir.equals(VertexDirection.NorthWest)){
-							twoAway = false;
-						}else if(tempHexLoc.equals(sNeighbor) && 
-								tempDir.equals(VertexDirection.NorthWest)){
-							twoAway = false;
-						}
-
-						break;
-					case NorthWest:
-						if(tempHexLoc.equals(cityHexLoc) && 
-								(tempDir.equals(VertexDirection.West)
-										|| tempDir.equals(VertexDirection.NorthEast))){
-							twoAway = false;
-						}else if(tempHexLoc.equals(nwNeighbor) && 
-								tempDir.equals(VertexDirection.NorthWest)){
-							twoAway = false;
-						}
-
-						break;
-					case NorthEast:
-						
-						if(tempHexLoc.equals(cityHexLoc) && 
-								tempDir.equals(VertexDirection.NorthWest)){
-							twoAway = false;
-						}else if(tempHexLoc.equals(seNeighbor) && 
-								(tempDir.equals(VertexDirection.NorthWest))){
-							twoAway = false;
-						}else if(tempHexLoc.equals(neNeighbor) && 
-								(tempDir.equals(VertexDirection.NorthWest))){
-							twoAway = false;
-						}
-			
-
-						break;
-
-
-					default:
-						
-
-				}
-			}
-
-
-
+			}			
 		}
-
-
-		return twoAway && hasRoadAttached;
-		
+		return false;
 	}
+
+			
+	
 	/**
 	 * Checks the model to see if the client can offer a trade
 	 * @pre None
@@ -908,20 +787,15 @@ public class ClientModel {
 	public boolean canOfferTrade(int playerIndex, TradeOffer offer) {
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
-		if(turnTracker.getCurrentTurn() != playerIndex){
+		if(turnTracker.getCurrentTurn() != playerIndex || !player.getHasRolled()){
 			return false;
 		}
 		
 		List<Integer> offeredResources = new ArrayList<Integer>();
 		List<Integer> requestedResources = new ArrayList<Integer>();
 		
-		for(Integer i : offer.getOffer()){// Sort resources offered and those being requested from the offer
-			if(i > 0){
-				offeredResources.add(i);
-			}else{
-				requestedResources.add(i);
-			}
-		}
+		sortOffer(offer, offeredResources, requestedResources);
+		
 		int oreOffered = 0;
 		int wheatOffered = 0;
 		int sheepOffered = 0;
@@ -955,6 +829,16 @@ public class ClientModel {
 		}
 		return true;
 	}
+	
+	public void sortOffer(TradeOffer offer, List<Integer> offeredResources, List<Integer> requestedResources){
+		for(Integer i : offer.getOffer()){// Sort resources offered and those being requested from the offer
+			if(i > 0){
+				offeredResources.add(i);
+			}else{
+				requestedResources.add(i);
+			}
+		}
+	}
 	/**
 	 * Checks the model to see if the client can perform a maritime trade
 	 * @pre None
@@ -969,7 +853,7 @@ public class ClientModel {
 		
 		List<PortType> portsWithAccess = new ArrayList<>();
 		
-		if(turnTracker.getCurrentTurn() != playerIndex){
+		if(turnTracker.getCurrentTurn() != playerIndex || !player.getHasRolled()){
 			return false;
 		}
 		
@@ -978,11 +862,8 @@ public class ClientModel {
 			PortType portType = p.getResourceType();
 			EdgeDirection portDir = p.getDirection();
 			
-			HexLocation nwNeighbor = portHex.getNeighborLoc(EdgeDirection.NorthWest);
-			HexLocation neNeighbor = portHex.getNeighborLoc(EdgeDirection.NorthEast);
-			HexLocation sNeighbor = portHex.getNeighborLoc(EdgeDirection.South);
+		
 			HexLocation seNeighbor = portHex.getNeighborLoc(EdgeDirection.SouthEast);
-			HexLocation swNeighbor = portHex.getNeighborLoc(EdgeDirection.SouthWest);
 			
 			for(Settlement s : map.getSettlementList()){
 				
@@ -1018,6 +899,8 @@ public class ClientModel {
 
 								access = true;
 							}
+							break;
+						default:
 							break;
 			
 					}
@@ -1113,7 +996,58 @@ public class ClientModel {
 		Player player = players[playerIndex];
 		HexLocation robberLocation = robber.getLocation();
 		
+		HexLocation seNeighbor = robberLocation.getNeighborLoc(EdgeDirection.SouthEast);
+		HexLocation swNeighbor = robberLocation.getNeighborLoc(EdgeDirection.SouthWest);
+
+		for(Settlement s : map.getSettlementList()){
+			
+			VertexLocation settLoc = s.getLocation().getLocation();
+			HexLocation settHex = settLoc.getHexLoc();
+			VertexDirection settDir = settLoc.getDir();
+			if(s.getPlayerId() == player.getPlayerID()){
+				if(settHex.equals(robberLocation) && (settDir.equals(VertexDirection.West) 
+						||settDir.equals(VertexDirection.NorthWest) 
+						|| settDir.equals(VertexDirection.NorthEast) )){
+					
+					return true;
+				}else if(settHex.equals(seNeighbor) && (settDir.equals(VertexDirection.West )
+						|| settDir.equals(VertexDirection.NorthWest))){
+					return true;
+					
+				} else if(settHex.equals(swNeighbor) && settDir.equals(VertexDirection.NorthWest)){
+					return true;
+					
+				} 
+			}
+			
+			
+			
+		}
 		
+	for(City c : map.getCityList()){
+				
+				VertexLocation cityLoc = c.getLocation().getLocation();
+				HexLocation cityHex = cityLoc.getHexLoc();
+				VertexDirection cityDir = cityLoc.getDir();
+				if(c.getPlayerId() == player.getPlayerID()){
+					if(cityHex.equals(robberLocation) && (cityDir.equals(VertexDirection.West) 
+							||cityDir.equals(VertexDirection.NorthWest) 
+							|| cityDir.equals(VertexDirection.NorthEast) )){
+						
+						return true;
+					}else if(cityHex.equals(seNeighbor) && (cityDir.equals(VertexDirection.West )
+							|| cityDir.equals(VertexDirection.NorthWest))){
+						return true;
+						
+					} else if(cityHex.equals(swNeighbor) && cityDir.equals(VertexDirection.NorthWest)){
+						return true;
+						
+					} 
+				}
+				
+				
+				
+			}
 		
 		return false;
 	}
@@ -1123,9 +1057,13 @@ public class ClientModel {
 	 * @post True if client can perform finishTurn
 	 * @return Whether the action is possible
 	 */
-	public boolean canFinishTurn() {
-		//TO-DO
-		return false;
+	public boolean canFinishTurn(int playerIndex) {
+		Player player = players[playerIndex];
+		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	/**
 	 * Checks the model to see if the client can play a soldier
@@ -1133,8 +1071,13 @@ public class ClientModel {
 	 * @post True if client can perform soldier
 	 * @return Whether the action is possible
 	 */
-	public boolean canSoldier() {
-		//TO-DO
+	public boolean canSoldier(int playerIndex) {
+		Player player = players[playerIndex];
+
+		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
+				&& player.hasDevCard(DevCardType.SOLDIER)){
+			return true;
+		}
 		return false;
 	}
 	/**
@@ -1143,8 +1086,13 @@ public class ClientModel {
 	 * @post True if client can perform yearOfPlenty
 	 * @return Whether the action is possible
 	 */
-	public boolean canYearOfPlenty() {
-		//TO-DO
+	public boolean canYearOfPlenty(int playerIndex) {
+		Player player = players[playerIndex];
+
+		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
+				&& player.hasDevCard(DevCardType.YEAR_OF_PLENTY)){
+			return true;
+		}
 		return false;
 	}
 	/**
@@ -1153,8 +1101,13 @@ public class ClientModel {
 	 * @post True if client can perform roadBuilding
 	 * @return Whether the action is possible
 	 */
-	public boolean canRoadBuilding() {
-		//TO-DO
+	public boolean canRoadBuilding(int playerIndex) {
+		Player player = players[playerIndex];
+
+		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
+				&& player.hasDevCard(DevCardType.ROAD_BUILD)){
+			return true;
+		}
 		return false;
 	}
 	/**
@@ -1163,8 +1116,13 @@ public class ClientModel {
 	 * @post True if client can perform monument
 	 * @return Whether the action is possible
 	 */
-	public boolean canMonument() {
-		//TO-DO
+	public boolean canMonument(int playerIndex) {
+		Player player = players[playerIndex];
+
+		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
+				&& player.hasDevCard(DevCardType.MONUMENT)){
+			return true;
+		}
 		return false;
 	}
 	/**
@@ -1173,9 +1131,28 @@ public class ClientModel {
 	 * @post True if client can perform monopoly
 	 * @return Whether the action is possible
 	 */
-	public boolean canMonopoly() {
-		//TO-DO
+	public boolean canMonopoly(int playerIndex) {
+		Player player = players[playerIndex];
+
+		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
+				&& player.hasDevCard(DevCardType.MONOPOLY)){
+			return true;
+		}
 		return false;
 	}
+	
+	public boolean canRollNumber(int playerIndex){
+		
+		Player player = players[playerIndex];
+		
+		if(turnTracker.getCurrentTurn() == playerIndex && !player.getHasRolled()){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+	
 
 }

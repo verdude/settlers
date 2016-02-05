@@ -22,7 +22,7 @@ public class Player {
 	private boolean playedDevCard;// Whether or not a player has played a dev card this turn
 	private int playerID;
 	private ResourceList resources;
-	public boolean isHasRolled() {
+	public boolean getHasRolled() {
 		return hasRolled;
 	}
 
@@ -601,6 +601,16 @@ public class Player {
 	 */
 	public void setVictoryPoints(int victoryPoints) {
 		this.victoryPoints = victoryPoints;
+	}
+	
+	public boolean hasDevCard(DevCardType card){
+		for(DevCardType c : oldDevCards){
+			if(c.equals(card)){
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 }
