@@ -48,7 +48,7 @@ public interface IProxy {
 	 * @post A game is created and can now be joined and referenced by the name passed in.
 	 * @return The model
 	 */
-	public String gamesCreate(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name);
+	public String gamesCreate(String randomTiles, String randomNumbers, String randomPorts, String name);
 
 	/**
 	 * Joins a game of the given name on the server
@@ -87,7 +87,7 @@ public interface IProxy {
 	 * @post The server's model of the current state of the game is cloned and set as the current game model locally.
 	 * @return The model
 	 */
-	public String gameModel(String version);
+	public String gamesModel(String version);
 
 	/**
 	 * Clears out the command history of the current game.
@@ -195,7 +195,7 @@ public interface IProxy {
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return The model
 	 */
-	public String buildSettlement(int playerIndex, VertexObject vertexObject, String free);
+	public String buildSettlement(int playerIndex, shared.locations.VertexLocation vertexLocation, String free);
 
 	/**
 	 * Builds a new city on the map
@@ -204,7 +204,7 @@ public interface IProxy {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return The model
 	 */
-	public String buildCity(int playerIndex, VertexObject vertexObject);
+	public String buildCity(int playerIndex, shared.locations.VertexLocation vertexLocation, String free);
 
 	/**
 	 * Offers a trade from one player to the other for resources
@@ -214,7 +214,7 @@ public interface IProxy {
 	 * @post A trade aggreement is presented to the player corresponding to receiver. The trade is made if receiver accepts the trade. The receiver receives offer and the offering player receives the counter part of the trade.
 	 * @return The model
 	 */
-	public String offerTrade(int playerIndex, TradeOffer offer, int receiver);
+	public String offerTrade(int playerIndex, TradeOffer offer);
 
 	/**
 	 * Performs a maritme/ocean trade of resources
