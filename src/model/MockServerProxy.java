@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import shared.locations.*;
+
 /**
  * @author S Jacob Powell
  *

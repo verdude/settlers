@@ -16,8 +16,8 @@ public class Player {
 	private boolean discarded; // Whether or not the player has discarded this discard phase
 	private int monuments; // Number of monuments the player has played
 	private String name;
-	private List<DevCard> newDevCards; // New dev cards that the player has bought this turn
-	private List<DevCard> oldDevCards; // Dev cards that the player had at the beginning of the turn
+	private List<DevCardType> newDevCards; // New dev cards that the player has bought this turn
+	private List<DevCardType> oldDevCards; // Dev cards that the player had at the beginning of the turn
 	private int playerIndex;
 	private boolean playedDevCard;// Whether or not a player has played a dev card this turn
 	private int playerID;
@@ -40,8 +40,8 @@ public class Player {
 		
 		cities = 4;
 		settlements = 5;
-		newDevCards = new ArrayList<DevCard>();
-		oldDevCards = new ArrayList<DevCard>();
+		newDevCards = new ArrayList<DevCardType>();
+		oldDevCards = new ArrayList<DevCardType>();
 		this.color = color;
 		discarded = false;
 		monuments = 0;
@@ -49,7 +49,7 @@ public class Player {
 		this.playerIndex = playerIndex;
 		playedDevCard = false;
 		playerID = 0;
-		resources = new ResourceList(0);
+		resources = new ResourceList(ResourceList.min);
 		roads = 15;
 		soldiers = 0;
 		victoryPoints = 0;
@@ -237,7 +237,8 @@ public class Player {
 			resources.setOre(resources.getOre() -1 );
 			resources.setWheat(resources.getWheat() -1 );
 			resources.setSheep(resources.getSheep() -1 );
-
+			
+			
 
 			
 		}else{
@@ -252,9 +253,9 @@ public class Player {
 	 * @pre none
 	 * @post true if the player can use a dev card, false otherwise
 	 */
-	public boolean canUseDevCard(DevCard card){
+	public boolean canUseDevCard(DevCardType card){
 		if(!playedDevCard){
-			for(DevCard tempCard : oldDevCards){ //Go through old devCards and see if you have the dev card in there
+			for(DevCardType tempCard : oldDevCards){ //Go through old devCards and see if you have the dev card in there
 				if(tempCard.equals(card)){
 					return true;
 				}
@@ -271,7 +272,7 @@ public class Player {
 	 * @post the effects of the dev card take effect in the game
 	 * @throws ClientException if the preconditions aren't met
 	 */
-	public void useDevCard(DevCard card) throws ClientException{
+	public void useDevCard(DevCardType card) throws ClientException{
 		if(canUseDevCard(card)){
 			for(int i = 0; i < oldDevCards.size(); i++){ 
 				if(oldDevCards.get(i).equals(card)){
@@ -383,7 +384,7 @@ public class Player {
 		if(canFinishTurn()){
 			hasRolled = false;
 			playedDevCard = false;
-			for(DevCard card : newDevCards){ // move bought dev cards to the usable list of dev cards (oldDevCards)
+			for(DevCardType card : newDevCards){ // move bought dev cards to the usable list of dev cards (oldDevCards)
 				oldDevCards.add(card);
 			}
 			
@@ -466,28 +467,28 @@ public class Player {
 	/**
 	 * @return gets the list of dev cards bought this turn
 	 */
-	public List<DevCard> getNewDevCards() {
+	public List<DevCardType> getNewDevCards() {
 		return newDevCards;
 	}
 	
 	/**
 	 * @param newDevCards newDevCards to set (List[DevCard])
 	 */
-	public void setNewDevCards(List<DevCard> newDevCards) {
+	public void setNewDevCards(List<DevCardType> newDevCards) {
 		this.newDevCards = newDevCards;
 	}
 	
 	/**
 	 * @return gets the list of dev cards owned by player not bought this turn
 	 */
-	public List<DevCard> getOldDevCards() {
+	public List<DevCardType> getOldDevCards() {
 		return oldDevCards;
 	}
 	
 	/**
 	 * @param oldDevCards oldDevCards to set (List[DevCard])
 	 */
-	public void setOldDevCards(List<DevCard> oldDevCards) {
+	public void setOldDevCards(List<DevCardType> oldDevCards) {
 		this.oldDevCards = oldDevCards;
 	}
 	

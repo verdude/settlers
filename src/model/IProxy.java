@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import shared.locations.*;
+
 /**
  * @author S Jacob Powell
  *	This is the Interface which will be implemented by the ServerProxy
@@ -193,7 +195,7 @@ public interface IProxy {
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether the settlement was built
 	 */
-	public boolean buildSettlement(boolean free, VertexObject vertexObject);
+	public boolean buildSettlement(boolean free, VertexLocation vertexObject);
 
 	/**
 	 * Builds a new city on the map
@@ -202,7 +204,7 @@ public interface IProxy {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether the city was built
 	 */
-	public boolean buildCity(VertexObject vertexObject);
+	public boolean buildCity(VertexLocation vertexObject);
 
 	/**
 	 * Offers a trade from one player to the other for resources

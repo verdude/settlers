@@ -1,8 +1,10 @@
 package model;
 
+import shared.locations.HexLocation;
+
 public class Hex {
 	HexLocation location;
-	Resource resourceType;
+	String resourceType;
 	int number;
 	
 	
@@ -12,11 +14,11 @@ public class Hex {
 	
 	// Getters
 	public HexLocation	getLocation() 					{ return location; 					}
-	public Resource 	getResourceType() 				{ return resourceType;				}
+	public String 	getResourceType() 				{ return resourceType;				}
 	public int 			getNumber() 					{ return number; 					}
 	
 	// Setters
 	public void setLocation(HexLocation location) 		{ this.location = location; 		}
-	public void setResourceType(Resource resourceType) 	{ this.resourceType = resourceType; }
+	public void setResourceType(String resourceType) 	{ this.resourceType = resourceType; }
 	public void setNumber(int number) 					{ this.number = number; 			}
 }

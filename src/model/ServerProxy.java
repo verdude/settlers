@@ -5,6 +5,9 @@ package model;
 
 import java.util.List;
 
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+
 /**
  * @author S Jacob Powell
  *

@@ -1,5 +1,7 @@
 package model;
 
+import shared.locations.HexLocation;
+
 public class Robber {
 	HexLocation location;
 	
