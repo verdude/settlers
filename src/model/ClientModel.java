@@ -764,7 +764,7 @@ public class ClientModel {
 		ResourceList resources = player.getResources();		
 
 
-		VertexLocation cityLoc = vertex.getLocation();
+		//VertexLocation cityLoc = vertex.getLocation();
 
 		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() == player.getPlayerIndex() || !player.getHasRolled()){
 			return false;
@@ -951,6 +951,8 @@ public class ClientModel {
 								access = true;
 							}
 							break;
+					default:
+						break;
 			
 					}
 					
@@ -1184,7 +1186,6 @@ public class ClientModel {
 	}
 	
 	public boolean canPlaceRobber(int playerIndex){
-		Player player = players[playerIndex];
 		if(turnTracker.getCurrentTurn() == playerIndex && roll == 7){
 			return true;
 		}

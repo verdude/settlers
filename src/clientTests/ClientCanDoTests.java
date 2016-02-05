@@ -6,18 +6,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.*;
+
 public class ClientCanDoTests {
 
+	private static ClientModel model;
+	private GameMap map;
+	
 	@Before
 	public static void setUpBefore() throws Exception {
-		
+		model = new ClientModel();
 		
 		
 		
 	}
 
 	@After
-	public static void tearDownAfterClass() throws Exception {
+	public static void tearDownAfter() throws Exception {
 	}
 
 	@Test
