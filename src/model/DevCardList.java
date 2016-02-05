@@ -95,5 +95,9 @@ public class DevCardList {
 	public void setSoldier(int soldier) {
 		this.soldier = soldier;
 	}
+	
+	public int getTotal(){
+		return monument + soldier + monopoly + yearOfPlenty + roadBuilding;
+	}
 
 }

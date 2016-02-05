@@ -19,6 +19,10 @@ public class ClientModel {
 	private TurnTracker turnTracker;
 	private int version;
 	private int winner;
+	
+	
+	private DevCardList devCardList;
+	int roll;
 
 	/**
 	 * Default Constructor
@@ -33,6 +37,8 @@ public class ClientModel {
 		turnTracker = new TurnTracker();
 		version = 0;
 		winner = -1;
+		setDevCardList(new DevCardList());
+		roll = 0;
 	}
 
 	/**
@@ -348,13 +354,17 @@ public class ClientModel {
 		return false;
 	}
 	/**
-	 * Checks the model to see if the client can discard cards
+	 * Sees if the player has more than seven cards if a 7 is rolled
 	 * @pre None
 	 * @post True if client can perform discardCards
 	 * @return Whether the action is possible
 	 */
-	public boolean canDiscardCards() {
-		//TO-DO
+	public boolean canDiscardCards(int playerIndex ) {
+		Player player = players[playerIndex];
+		if(player.getResources().getTotal() > 7){
+			return true;
+		}
+		
 		return false;
 	}
 	/**
@@ -991,8 +1001,8 @@ public class ClientModel {
 	 * @post True if client can perform robPlayer
 	 * @return Whether the action is possible
 	 */
-	public boolean canRobPlayer(int playerIndex, Robber robber) {
-		
+	public boolean canRobPlayer(int playerIndex) {
+		Robber robber = map.getRobber();
 		Player player = players[playerIndex];
 		HexLocation robberLocation = robber.getLocation();
 		
@@ -1153,6 +1163,34 @@ public class ClientModel {
 		
 	}
 	
+	public boolean canBuyDevCard(int playerIndex){
+		Player player = players[playerIndex];
+		ResourceList resources = player.getResources();
+		
+		if(resources.getOre() > 0 && resources.getSheep() > 0 && resources.getWheat() > 0
+				&& devCardList.getTotal() > 0){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+
+	public DevCardList getDevCardList() {
+		return devCardList;
+	}
+
+	public void setDevCardList(DevCardList devCardList) {
+		this.devCardList = devCardList;
+	}
 	
+	public boolean canPlaceRobber(int playerIndex){
+		Player player = players[playerIndex];
+		if(turnTracker.getCurrentTurn() == playerIndex && roll == 7){
+			return true;
+		}
+		
+		return false;
+	}
 
 }

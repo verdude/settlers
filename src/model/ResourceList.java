@@ -12,6 +12,7 @@ public class ResourceList {
 	private int wood;
 	public final static int max = 19;
 	public final static int min = 0;
+	private int total;
 	
 	/**
 	 * Sets all resources to the initial value (19).
@@ -89,5 +90,12 @@ public class ResourceList {
 	public void setWood(int wood) {
 		this.wood = wood;
 	}
+
+	public int getTotal() {
+		total = wood + brick + wheat + sheep + ore;
+		return total;
+	}
+
+	
 
 }

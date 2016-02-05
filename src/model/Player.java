@@ -62,15 +62,15 @@ public class Player {
 	 * @pre none
 	 * @post true if the player can roll, false otherwise
 	 */
-	public boolean canRollNumber(){
-		
-		if(!hasRolled){ // need to check if it is the player's turn as well
-			return true;
-		}else{
-			return false;
-		}
-		
-	}
+//	public boolean canRollNumber(){
+//		
+//		if(!hasRolled){ // need to check if it is the player's turn as well
+//			return true;
+//		}else{
+//			return false;
+//		}
+//		
+//	}
 	
 	/** Simulates the rolling of two dice
 	 * @return The number rolled (sum of both dice)
@@ -79,15 +79,15 @@ public class Player {
 	 * @throws ClientException when the precondition is not met
 	 */
 	public int rollNumber() throws ClientException{
-		if(canRollNumber()){
+		//if(canRollNumber()){
 			hasRolled = true;
 			Random rand = new Random();
 			int roll = rand.nextInt(6)+1;
 			roll += rand.nextInt(6)+1;
 			return roll;
-		}else{
-			throw new ClientException();
-		}
+//		}else{
+//			throw new ClientException();
+//		}
 		
 		
 	}
@@ -103,15 +103,15 @@ public class Player {
 	 * @pre none
 	 * @post whether or not a player can play a settlement
 	 */
-	public boolean canPlaySettlement(){
-		if(settlements > 0 	&& resources.getWheat() >= 1 && resources.getSheep() >= 1
-				&& resources.getBrick() >= 1 && resources.getWood() >= 1){ 
-			return true;
-			
-		}else{
-			return false;
-		}
-	}
+//	public boolean canPlaySettlement(){
+//		if(settlements > 0 	&& resources.getWheat() >= 1 && resources.getSheep() >= 1
+//				&& resources.getBrick() >= 1 && resources.getWood() >= 1){ 
+//			return true;
+//			
+//		}else{
+//			return false;
+//		}
+//	}
 	
 	/** Places a settlement for the player on a given vertex
 	 * @param vertex the vertex where the player wants to place the settlement
@@ -120,7 +120,7 @@ public class Player {
 	 * @throws ClientException when the precondition is not met
 	 */
 	public void playSettlement()throws ClientException{
-		if(canPlaySettlement()){
+		//if(canPlaySettlement()){
 			settlements--;
 			//vertex.setOwner(this.playerIndex);
 			resources.setBrick(resources.getBrick() - 1);
@@ -129,9 +129,9 @@ public class Player {
 			resources.setSheep(resources.getSheep() - 1);
 
 			
-		}else{
-			throw new ClientException();
-		}
+//		}else{
+//			throw new ClientException();
+//		}
 	}
 	
 	/**
@@ -144,29 +144,28 @@ public class Player {
 	 * @pre none
 	 * @post whether or not a player can play a city
 	 */
-	public boolean canPlayCity(){
-		if(cities > 0 && resources.getOre() >= 3 && resources.getWheat() >= 2){
-			return true;
-		}else{
-			return false;
-		}
-	}
+//	public boolean canPlayCity(){
+//		if(cities > 0 && resources.getOre() >= 3 && resources.getWheat() >= 2){
+//			return true;
+//		}else{
+//			return false;
+//		}
+//	}
 	/** Places a city for the player on a given vertex
 	 * @param vertex the vertex where the player wants to place the city
 	 * @pre canPlayCity() returns true
 	 * @post a city will be placed at the desired vertex
 	 */
 	public void playCity() throws ClientException {
-		if(canPlayCity()){
+		//if(canPlayCity()){
 			settlements++;
 			cities--;
 			resources.setOre(resources.getOre() - 3);
 			resources.setWheat(resources.getWheat() - 2);
-			// how do we determine if the vertex has a city or a settlement?
 			
-		}else{
-			throw new ClientException();
-		}
+//		}else{
+//			throw new ClientException();
+//		}
 	}
 	
 	/** The player has to have the resources (1 lumber, 1 brick) for a road 
@@ -177,16 +176,16 @@ public class Player {
 	 * @pre none
 	 * @post whether or not a player can play a road
 	 */
-	public boolean canPlayRoad(){
-		if(resources.getBrick() >= 1 && resources.getWood() >= 1
-				 && roads > 0){
-			// have to see if it's the player's turn
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
+//	public boolean canPlayRoad(){
+//		if(resources.getBrick() >= 1 && resources.getWood() >= 1
+//				 && roads > 0){
+//			// have to see if it's the player's turn
+//			return true;
+//		}else{
+//			return false;
+//		}
+//	}
+//	
 	/** Places a road for the player on a given edge
 	 * @param edge the edge where the player wants to place a road
 	 * @pre canPlayRoad() returns true
@@ -194,15 +193,15 @@ public class Player {
 	 * @throws ClientException if the precondition isn't met
 	 */
 	public void playRoad() throws ClientException{
-		if(canPlayRoad()){
+		//if(canPlayRoad()){
 			roads--;
 			resources.setBrick(resources.getBrick() - 1);
 			resources.setWood(resources.getWood() - 1);
 //			edge.setOwner(this.playerIndex);
 			
-		}else{
-			throw new ClientException();
-		}
+//		}else{
+//			throw new ClientException();
+//		}
 		
 	}
 	
@@ -215,15 +214,15 @@ public class Player {
 	 * @pre none
 	 * @post true if the player can buy a dev card, false otherwise
 	 */
-	public boolean canBuyDevCard(){
-		if(resources.getOre() > 0 && resources.getSheep() > 0 && resources.getWheat() > 0){
-			//How can I check if there is a dev card in the bank?
-			return true;
-		}else{
-			return false;
-		}
-		
-	}
+//	public boolean canBuyDevCard(){
+//		if(resources.getOre() > 0 && resources.getSheep() > 0 && resources.getWheat() > 0){
+//			//How can I check if there is a dev card in the bank?
+//			return true;
+//		}else{
+//			return false;
+//		}
+//		
+//	}
 	
 	/**
 	 * Buys a dev card and places it in the players newDevCards list 
@@ -232,8 +231,9 @@ public class Player {
 	 * @throws ClientException
 	 */
 	public void buyDevCard() throws ClientException{
-		if(canBuyDevCard()){
-			//add devCard to newDevCards
+		//if(canBuyDevCard()){
+			
+			
 			resources.setOre(resources.getOre() -1 );
 			resources.setWheat(resources.getWheat() -1 );
 			resources.setSheep(resources.getSheep() -1 );
@@ -241,9 +241,9 @@ public class Player {
 			
 
 			
-		}else{
-			throw new ClientException();
-		}
+//		}else{
+//			throw new ClientException();
+//		}
 	}
 	
 	
@@ -253,18 +253,18 @@ public class Player {
 	 * @pre none
 	 * @post true if the player can use a dev card, false otherwise
 	 */
-	public boolean canUseDevCard(DevCardType card){
-		if(!playedDevCard){
-			for(DevCardType tempCard : oldDevCards){ //Go through old devCards and see if you have the dev card in there
-				if(tempCard.equals(card)){
-					return true;
-				}
-			}
-			return false;
-		}else{
-			return false;
-		}
-	}
+//	public boolean canUseDevCard(DevCardType card){
+//		if(!playedDevCard){
+//			for(DevCardType tempCard : oldDevCards){ //Go through old devCards and see if you have the dev card in there
+//				if(tempCard.equals(card)){
+//					return true;
+//				}
+//			}
+//			return false;
+//		}else{
+//			return false;
+//		}
+//	}
 	
 	/** Plays a dev card for the player
 	 * @param card dev card the player wants to play
@@ -273,19 +273,18 @@ public class Player {
 	 * @throws ClientException if the preconditions aren't met
 	 */
 	public void useDevCard(DevCardType card) throws ClientException{
-		if(canUseDevCard(card)){
+		//if(canUseDevCard(card)){
 			for(int i = 0; i < oldDevCards.size(); i++){ 
 				if(oldDevCards.get(i).equals(card)){
-					oldDevCards.remove(i); // Get rid of the Dev Card
-					// How can I tell what type of dev card it is?
+					oldDevCards.remove(i); 
 					
 				}
 			}
 		}
-		else{
-			throw new ClientException();
-		}
-	}
+//		else{
+//			throw new ClientException();
+//		}
+//	}
 	
 	/**
 	 * Sees if the player can or cannot offer the trade.
@@ -293,10 +292,10 @@ public class Player {
 	 * @pre None
 	 * @post true if the trade can be offered, false otherwise
 	 */
-	public boolean canOfferTrade(TradeOffer offer){
-		
-		return false;
-	}
+//	public boolean canOfferTrade(TradeOffer offer){
+//		
+//		return false;
+//	}
 	
 	/** Offers a trade to another player
 	 * @param offer Trade that is offered (TradeOffer)
@@ -305,12 +304,14 @@ public class Player {
 	 * @throws ClientException If the function runs, but the trade cannot be offered.
 	 */
 	public void offerTrade(TradeOffer offer) throws ClientException{
-		//I need to know more about how Resources is going to be implemented to make this work
-		if(canOfferTrade(offer)){
-			
-		}else{
-			throw new ClientException();
-		}
+		
+		
+//		//I need to know more about how Resources is going to be implemented to make this work
+//		if(canOfferTrade(offer)){
+//			
+//		}else{
+//			throw new ClientException();
+//		}
 	}
 	
 //	public enum ResourceBarElement
