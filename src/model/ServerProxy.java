@@ -203,11 +203,13 @@ public class ServerProxy implements IProxy {
 				+ "\", \"name\": \"" + name + "\"}");
 	}
 
+	//Doesn't need junit test
 	@Override
 	public String gamesSave(int id, String name) {
 		return post("games/save", "{\"id\": \"" + id + "\", \"name\": \"" + name	 + "\"}");
 	}
 
+	//Doesn't need junit test
 	@Override
 	public String gamesLoad(String name) {
 		return post("games/load", "{\"name\": \"" + name + "\"}");
