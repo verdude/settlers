@@ -26,13 +26,23 @@ public class ServerPoller {
 	/**
 	 * This will be used to tell the Timer what task to perform.
 	 */
-	private TimerTask timerTask;
+//	private TimerTask timerTask;
 	/**
 	 * The interval at which the needUpdate function will be called.
 	 */
 	private final int pollInterval = 3000;
 	
 	private IProxy proxy;
+	
+	private static ServerPoller SINGLETON;
+	
+	public static ServerPoller getSingleton(IProxy proxy) {
+		if(SINGLETON == null) {
+			SINGLETON = new ServerPoller(proxy);
+		}
+		return SINGLETON;
+	}
+	
 	/**
 	 * Takes in a proxy in order to call the methods to check the 
 	 * ServerModel's version and to retrieve it if needed in order to
@@ -41,7 +51,7 @@ public class ServerPoller {
 	 * @pre proxy is not null
 	 * @post The proxy will be loaded and the other methods in ServerPoller will be callable after creation of a ServerPoller instance.
 	 */
-	public ServerPoller(IProxy proxy) {
+	private ServerPoller(IProxy proxy) {
 		this.proxy = proxy;
 		timer = new Timer();
 		// start the poller
@@ -68,12 +78,13 @@ public class ServerPoller {
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
 	private boolean needUpdate() throws ServerException {
-		int version = 0;//ClientFacade.getSingleton().getVersion();
-		if (/*proxy.getVersion > clientFacade.getVersion*/) {
-			return true;
-		} else {
-			return false;
-		}
+//		int version = 0;//ClientFacade.getSingleton().getVersion();
+//		if (/*proxy.getVersion > clientFacade.getVersion*/) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+		return /*extra*/ true;
 	}
 	
 	/**

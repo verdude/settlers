@@ -2,7 +2,9 @@ package model;
 
 import java.util.List;
 
-import shared.locations.*;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 
 /**
  * @author S Jacob Powell
@@ -165,7 +167,7 @@ public interface IProxy {
 	 * @post discardedCards is 1 card bigger and contains the card that is no longer in the player's possession, as it was discarded.
 	 * @return The model
 	 */
-	public String discardCards(int playerIndex, List<Resource> discardedCards);
+	public String discardCards(int playerIndex, List<ResourceType> discardedCards);
 
 	/**
 	 * Tells the server which number the player rolled
@@ -184,7 +186,7 @@ public interface IProxy {
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
 	 * @return The model
 	 */
-	public String buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free);
+	public String buildRoad(int playerIndex, EdgeValue roadLocation, boolean free);
 
 	/**
 	 * 
@@ -195,7 +197,7 @@ public interface IProxy {
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return The model
 	 */
-	public String buildSettlement(int playerIndex, shared.locations.VertexLocation vertexLocation, String free);
+	public String buildSettlement(int playerIndex, VertexObject vertexObject, String free);
 
 	/**
 	 * Builds a new city on the map
@@ -204,7 +206,7 @@ public interface IProxy {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return The model
 	 */
-	public String buildCity(int playerIndex, shared.locations.VertexLocation vertexLocation, String free);
+	public String buildCity(int playerIndex, VertexObject vertexObject, String free);
 
 	/**
 	 * Offers a trade from one player to the other for resources
@@ -225,7 +227,7 @@ public interface IProxy {
 	 * @post The player is less inputResource and more outputResource according to the ratio.
 	 * @return The model
 	 */
-	public String maritimeTrade(int playerIndex, int ratio, Resource inputResource, Resource outputResource);
+	public String maritimeTrade(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource);
 
 	/**
 	 * Steals a card from a player
@@ -271,7 +273,7 @@ public interface IProxy {
 	 * @post You receive resource1 and resource2 of your choice. (Check rules)
 	 * @return The model
 	 */
-	public String yearOfPlenty(int playerIndex, Resource resource1, Resource resource2);
+	public String yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2);
 
 	/**
 	 * Plays the RoadBuilding card
@@ -290,7 +292,7 @@ public interface IProxy {
 	 * @post The player receives resource from every one of the players. They no longer have the corresponding resource and the year of plenty-playing player has their cards. (Check rules)
 	 * @return The model
 	 */
-	public String monopoly(Resource resource, int playerIndex);
+	public String monopoly(ResourceType resource, int playerIndex);
 
 	/**
 	 * Plays the monument card

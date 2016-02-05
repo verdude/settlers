@@ -1,6 +1,5 @@
 package model;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Converter {
@@ -13,7 +12,8 @@ public class Converter {
 	 * @pre None
 	 * @post The JSON data contained in the file is parsed and maps it to the model objects.
 	 */
-	public void deserialize(File jsonData)throws FileNotFoundException{
+	public static Object deserialize(String jsonData) {
+		return jsonData;
 		
 	}
 	
@@ -24,7 +24,7 @@ public class Converter {
 	 * @post The object serialized as JSON
 	 * @throws ClientException when this function fails when it shouldn't 
 	 */
-	public Object serialize(Object o) throws ClientException{
+	public static String serialize(Object o) throws ClientException{
 		return null;
 		
 	}

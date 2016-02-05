@@ -2,7 +2,9 @@ package model;
 
 import java.util.List;
 
-import shared.locations.*;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 
 /**
  * @author S Jacob Powell
@@ -174,7 +176,6 @@ public class MockServerProxy implements IProxy {
 	 */
 	@Override
 	public String gamesModel(String version) {
-		
 		return "{\r\n" + 
 				"  \"deck\": {\r\n" + 
 				"    \"yearOfPlenty\": 2,\r\n" + 
@@ -815,7 +816,6 @@ public class MockServerProxy implements IProxy {
 				"  \"winner\": -1,\r\n" + 
 				"  \"version\": 0\r\n" + 
 				"}";
->>>>>>> Finished ServerProxy and MockServerProxy. Not sure what JUnit to do, maybe only in using ClientFacade.
 	}
 
 	@Override
@@ -863,7 +863,7 @@ public class MockServerProxy implements IProxy {
 	}
 
 	@Override
-	public String discardCards(int playerIndex, List<Resource> discardedCards) {
+	public String discardCards(int playerIndex, List<ResourceType> discardedCards) {
 		
 		return gamesModel("");
 	}
@@ -875,20 +875,19 @@ public class MockServerProxy implements IProxy {
 	}
 
 	@Override
-	public String buildRoad(int playerIndex, EdgeLocation roadLocation,
-			boolean free) {
+	public String buildRoad(int playerIndex, EdgeValue roadLocation, boolean free) {
 		
 		return gamesModel("");
 	}
 
 	@Override
-	public String buildSettlement(int playerIndex, shared.locations.VertexLocation vertexLocation, String free) {
+	public String buildSettlement(int playerIndex, VertexObject vertexObject, String free) {
 		
 		return gamesModel("");
 	}
 
 	@Override
-	public String buildCity(int playerIndex, shared.locations.VertexLocation vertexLocation, String free) {
+	public String buildCity(int playerIndex, VertexObject vertexObject, String free) {
 		
 		return gamesModel("");
 	}
@@ -901,7 +900,7 @@ public class MockServerProxy implements IProxy {
 
 	@Override
 	public String maritimeTrade(int playerIndex, int ratio,
-			Resource inputResource, Resource outputResource) {
+			ResourceType inputResource, ResourceType outputResource) {
 		
 		return gamesModel("");
 	}
@@ -936,8 +935,8 @@ public class MockServerProxy implements IProxy {
 	}
 
 	@Override
-	public String yearOfPlenty(int playerIndex, Resource resource1,
-			Resource resource2) {
+	public String yearOfPlenty(int playerIndex, ResourceType resource1,
+			ResourceType resource2) {
 		
 		return gamesModel("");
 	}
@@ -950,7 +949,7 @@ public class MockServerProxy implements IProxy {
 	}
 
 	@Override
-	public String monopoly(Resource resource, int playerIndex) {
+	public String monopoly(ResourceType resource, int playerIndex) {
 		
 		return gamesModel("");
 	}

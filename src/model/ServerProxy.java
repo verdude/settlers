@@ -12,6 +12,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
@@ -30,6 +31,14 @@ public class ServerProxy implements IProxy {
 	private String encodedCookie;
 //	private String decodedCookie;
 	private String gameID;
+	private static ServerProxy SINGLETON;
+	
+	public static ServerProxy getSingleton(String HOST, String PORT) throws MalformedURLException {
+		if(SINGLETON == null) {
+			SINGLETON = new ServerProxy(HOST, PORT);
+		}
+		return SINGLETON;
+	}
 	
 	/**
 	 * 
@@ -39,7 +48,7 @@ public class ServerProxy implements IProxy {
 	 * @pre HOST and PORT are not null and correct
 	 * @post the ServerProxy is connected and ready to use
 	 */
-	public ServerProxy(String HOST, String PORT) throws MalformedURLException {
+	private ServerProxy(String HOST, String PORT) throws MalformedURLException {
 		this.HOST = HOST;
 		this.PORT = PORT;
 		mainURL = new URL("http://" + HOST + ":" + PORT + "/");
@@ -262,29 +271,29 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public String discardCards(int playerIndex, List<Resource> discardedCards) {
+	public String discardCards(int playerIndex, List<ResourceType> discardedCards) {
 		int wood = 0;
 		int brick = 0;
 		int sheep = 0;
 		int wheat = 0;
 		int ore = 0;
-		for(Resource resource : discardedCards)
+		for(ResourceType resource : discardedCards)
 		{
-			switch(resource.getType())
+			switch(resource)
 			{
-				case 0:
+				case WOOD:
 					wood++;
 					break;
-				case 1:
+				case BRICK:
 					brick++;
 					break;
-				case 2:
+				case SHEEP:
 					sheep++;
 					break;
-				case 3:
+				case WHEAT:
 					wheat++;
 					break;
-				case 4:
+				case ORE:
 					ore++;
 					break;
 			}
@@ -305,34 +314,34 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public String buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
+	public String buildRoad(int playerIndex, EdgeValue roadLocation, boolean free) {
 		return post("moves/buildRoad", "{\"type\": \"buildRoad\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"roadLocation\": {"
-				+ "\"x\": \"" + roadLocation.getX() + "\", "
-				+ "\"y\": \"" + roadLocation.getY() + "\", "
-				+ "\"direction\": \"" + roadLocation.getDirection() + "\", "
+				+ "\"x\": \"" + roadLocation.getLocation().getHexLoc().getX() + "\", "
+				+ "\"y\": \"" + roadLocation.getLocation().getHexLoc().getY() + "\", "
+				+ "\"direction\": \"" + roadLocation.getLocation().getDir() + "\", "
 				+ "}, "
 				+ "\"free\": \"" + free + "\"}");
 	}
 
 	@Override
-	public String buildSettlement(int playerIndex, shared.locations.VertexLocation vertexLocation, String free) {
+	public String buildSettlement(int playerIndex, VertexObject vertexObject, String free) {
 		return post("moves/buildSettlement", "{\"type\": \"buildSettlement\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"vertexLocation\": {"
-				+ "\"x\": \"" + vertexLocation.getHexLoc().getX() + "\", "
-				+ "\"y\": \"" + vertexLocation.getHexLoc().getY() + "\", "
-				+ "\"direction\": \"" + vertexLocation.getDir() + "\", "
+				+ "\"x\": \"" + vertexObject.getLocation().getHexLoc().getX() + "\", "
+				+ "\"y\": \"" + vertexObject.getLocation().getHexLoc().getY() + "\", "
+				+ "\"direction\": \"" + vertexObject.getLocation().getDir() + "\", "
 				+ "}, "
 				+ "\"free\": \"" + free + "\"}");
 	}
 
 	@Override
-	public String buildCity(int playerIndex, shared.locations.VertexLocation vertexLocation, String free) {
+	public String buildCity(int playerIndex, VertexObject vertexObject, String free) {
 		return post("moves/buildCity", "{\"type\": \"buildCity\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"vertexLocation\": {"
-				+ "\"x\": \"" + vertexLocation.getHexLoc().getX() + "\", "
-				+ "\"y\": \"" + vertexLocation.getHexLoc().getY() + "\", "
-				+ "\"direction\": \"" + vertexLocation.getDir() + "\", "
+				+ "\"x\": \"" + vertexObject.getLocation().getHexLoc().getX() + "\", "
+				+ "\"y\": \"" + vertexObject.getLocation().getHexLoc().getY() + "\", "
+				+ "\"direction\": \"" + vertexObject.getLocation().getDir() + "\", "
 				+ "}, "
 				+ "\"free\": \"" + free + "\"}");
 	}
@@ -353,11 +362,11 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public String maritimeTrade(int playerIndex, int ratio, Resource inputResource, Resource outputResource) {
+	public String maritimeTrade(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource) {
 		return post("moves/maritimeTrade", "{\"type\": \"maritimeTrade\", \"playerIndex\": " + playerIndex 
 				+ "\", \"ratio\": \"" + ratio + "\", "
-				+ "\", \"inputResource\": \"" + inputResource.getType() + "\", "
-				+ "\", \"outputResource\": \"" + outputResource.getType() + "\""
+				+ "\", \"inputResource\": \"" + inputResource.toString() + "\", "
+				+ "\", \"outputResource\": \"" + outputResource.toString() + "\""
 				+ "}");
 	}
 
@@ -392,10 +401,10 @@ public class ServerProxy implements IProxy {
 	}
 	
 	@Override
-	public String yearOfPlenty(int playerIndex, Resource resource1, Resource resource2) {
+	public String yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
 		return post("moves/yearOfPlenty", "{\"type\": \"yearOfPlenty\", \"playerIndex\": " + playerIndex 
-				+ "\", \"resource1\": \"" + resource1 + "\""
-				+ "\", \"resource2\": \"" + resource2 + "\""
+				+ "\", \"resource1\": \"" + resource1.toString() + "\""
+				+ "\", \"resource2\": \"" + resource2.toString() + "\""
 				+ "}");
 	}
 
@@ -403,164 +412,20 @@ public class ServerProxy implements IProxy {
 	public String roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
 		return post("moves/roadBuilding", "{\"type\": \"roadBuilding\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"spot1\": {"
-				+ "\"x\": \"" + spot1.getX() + "\", "
-				+ "\"y\": \"" + spot1.getY() + "\", "
-				+ "\"direction\": \"" + spot1.getDirection() + "\", "
+				+ "\"x\": \"" + spot1.getHexLoc().getX() + "\", "
+				+ "\"y\": \"" + spot1.getHexLoc().getY() + "\", "
+				+ "\"direction\": \"" + spot1.getDir() + "\", "
 				+ "}, "
 				+ "\"spot2\": {"
-				+ "\"x\": \"" + spot2.getX() + "\", "
-				+ "\"y\": \"" + spot2.getY() + "\", "
-				+ "\"direction\": \"" + spot2.getDirection() + "\", "
+				+ "\"x\": \"" + spot2.getHexLoc().getX() + "\", "
+				+ "\"y\": \"" + spot2.getHexLoc().getY() + "\", "
+				+ "\"direction\": \"" + spot2.getDir() + "\", "
 				+ "}}");
 	}
 
 	@Override
-	public String monopoly(Resource resource, int playerIndex) {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-<<<<<<< HEAD
-		return false;
-	}
-
-	/**
-	 * Checks the model to see if the client can log in
-	 * @pre None
-	 * @post True if client can perform userLogin
-	 * @return Whether the action is possible
-	 */
-	public boolean canUserLogin() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can register a new user
-	 * @pre None
-	 * @post True if client can perform userRegister
-	 * @return Whether the action is possible
-	 */
-	public boolean canUserRegister() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can get a list of games
-	 * @pre None
-	 * @post True if client can perform gamesList
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesList() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can create a game
-	 * @pre None
-	 * @post True if client can perform gamesCreate
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesCreate() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can join a game
-	 * @pre None
-	 * @post True if client can perform gamesJoin
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesJoin() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can save a game
-	 * @pre None
-	 * @post True if client can perform gamesSave
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesSave() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can load a game
-	 * @pre None
-	 * @post True if client can perform gamesLoad
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesLoad() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can get the current model ID
-	 * @pre None
-	 * @post True if client can perform gameModel
-	 * @return Whether the action is possible
-	 */
-	public boolean canGameModel() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can reset a game
-	 * @pre None
-	 * @post True if client can perform gamesReset
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesReset() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can get a list of commands executed for the game
-	 * @pre None
-	 * @post True if client can perform gamesCommandsGet
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesCommandsGet() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can post a list of command for the current game
-	 * @pre None
-	 * @post True if client can perform gamesCommandsPost
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesCommansPost() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can list AI players
-	 * @pre None
-	 * @post True if client can perform gamesListAI
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesListAI() {
-		//TO-DO
-		return false;
-	}
-	
-	/**
-	 * Checks the model to see if the client can add an AI
-	 * @pre None
-	 * @post True if client can perform gamesAddAI
-	 * @return Whether the action is possible
-	 */
-	public boolean canGamesAddAI() {
-		//TO-DO
-		return false;
-	}
-	/**
-	 * Checks the model to see if the client can change the logging level
-	 * @pre None
-	 * @post True if client can perform utilChangeLogLevel
-	 * @return Whether the action is possible
-	 */
-	public boolean canUtilChangeLogLevel() {
-		return post("moves/Monopoly", "{\"type\": \"Monopoly\", \"resource\": \"" + resource 
+	public String monopoly(ResourceType resource, int playerIndex) {
+		return post("moves/Monopoly", "{\"type\": \"Monopoly\", \"resource\": \"" + resource.toString() 
 				+ "\", \"playerIndex\": " + playerIndex + "}");
 	}
 
