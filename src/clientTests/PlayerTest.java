@@ -19,13 +19,11 @@ public class PlayerTest {
 	public void testRollNumber() {
 
 		test1 = new Player("sean", CatanColor.WHITE,0);
-		assertTrue(test1.canRollNumber());
 		int roll = -1;
 		try {
 			for(int i = 0; i < 100; i++){ // perform a hundred rolls 
 				roll = test1.rollNumber();
 				assertTrue(roll > 1 && roll < 13);	
-				assertFalse(test1.canRollNumber()); // should only be able to roll once per turn
 				test1.setHasRolled(false);
 			}
 		} catch (ClientException e) {
@@ -38,7 +36,6 @@ public class PlayerTest {
 	@Test
 	public void testPlaySettlement(){
 		test1 = new Player("sean", CatanColor.WHITE,0);
-		assertFalse(test1.canPlaySettlement());// not enough resources to play a settlement
 		test1.setResources(new ResourceList(6));// enough resources to buy 6 settlements
 		int wheat = 6;
 		int sheep = 6;
@@ -63,7 +60,6 @@ public class PlayerTest {
 				assertEquals(sheep,test1.getResources().getSheep());
 
 			}
-			assertFalse(test1.canPlaySettlement()); // has enough resources, but not enough settlements
 
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -74,7 +70,6 @@ public class PlayerTest {
 	@Test
 	public void testPlayCity(){
 		test1 = new Player("sean", CatanColor.WHITE,0);
-		assertFalse(test1.canPlayCity());// not enough resources to play a settlement
 		test1.getResources().setOre(15);;// enough ore to buy 5 cities
 		test1.getResources().setWheat(10);;// enough wheat to buy 5 cities
 		assertEquals(test1.getResources().getOre(),15);
@@ -102,7 +97,6 @@ public class PlayerTest {
 
 
 			}
-			assertFalse(test1.canPlayCity());
 
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -116,7 +110,6 @@ public class PlayerTest {
 	public void testPlayRoad(){
 		test1 = new Player("sean", CatanColor.WHITE,0);
 
-		assertFalse(test1.canPlayRoad());// not enough resources to play a road
 		test1.getResources().setBrick(16);// enough brick to build 16 roads
 		test1.getResources().setWood(16);// enough wood to build 16 roads
 
@@ -139,7 +132,6 @@ public class PlayerTest {
 				assertEquals(wood,test1.getResources().getWood());
 
 			}
-			assertFalse(test1.canPlayRoad()); // has enough resources, but not enough roads
 
 		} catch (ClientException e) {
 			e.printStackTrace();

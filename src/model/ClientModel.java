@@ -15,7 +15,7 @@ public class ClientModel {
 	private MessageList log;
 	private GameMap map;
 	private Player[] players;
-	private TradeOffer tradeOffer;
+	private TradeOffer offer;
 	private TurnTracker turnTracker;
 	private int version;
 	private int winner;
@@ -239,14 +239,14 @@ public class ClientModel {
 	 * @return the tradeOffer
 	 */
 	public TradeOffer getTradeOffer() {
-		return tradeOffer;
+		return offer;
 	}
 
 	/**
 	 * @param tradeOffer the tradeOffer to set
 	 */
 	public void setTradeOffer(TradeOffer tradeOffer) {
-		this.tradeOffer = tradeOffer;
+		this.offer = tradeOffer;
 	}
 
 	/**
@@ -298,18 +298,17 @@ public class ClientModel {
 	 * @post True if client can perform sendChat
 	 * @return Whether the action is possible
 	 */
-	public boolean canSendChat(MessageLine message) {
-		
-		
-		return false;
+	public boolean canSendChat(String message) {
+		return true;
 	}	
+	
 	/**
 	 * Checks the model to see if the client can accept a trade
 	 * @pre None
 	 * @post True if client can perform acceptTrade
 	 * @return Whether the action is possible
 	 */
-	public boolean canAcceptTrade(int playerIndex, TradeOffer offer ) {
+	public boolean canAcceptTrade(int playerIndex ) {
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 		
@@ -794,7 +793,7 @@ public class ClientModel {
 	 * @post True if client can perform offerTrade
 	 * @return Whether the action is possible
 	 */
-	public boolean canOfferTrade(int playerIndex, TradeOffer offer) {
+	public boolean canOfferTrade(int playerIndex) {
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 		if(turnTracker.getCurrentTurn() != playerIndex || !player.getHasRolled()){

@@ -303,17 +303,17 @@ public class Player {
 	 * @post the trade is offered to another player
 	 * @throws ClientException If the function runs, but the trade cannot be offered.
 	 */
-	public void offerTrade(TradeOffer offer) throws ClientException{
-		
-		
-//		//I need to know more about how Resources is going to be implemented to make this work
-//		if(canOfferTrade(offer)){
-//			
-//		}else{
-//			throw new ClientException();
-//		}
-	}
-	
+//	public void offerTrade(TradeOffer offer) throws ClientException{
+//		
+//		
+////		//I need to know more about how Resources is going to be implemented to make this work
+////		if(canOfferTrade(offer)){
+////			
+////		}else{
+////			throw new ClientException();
+////		}
+//	}
+//	
 //	public enum ResourceBarElement
 //	{
 //		WOOD, BRICK, SHEEP, WHEAT, ORE, ROAD, SETTLEMENT, CITY, BUY_CARD, PLAY_CARD, SOLDIERS
@@ -324,30 +324,30 @@ public class Player {
 	 * @pre None
 	 * @post true if the trade can be offered, false otherwise
 	 */
-	public boolean canDecideTrade(TradeOffer offer){
-		if(offer.getReceiver() == this.playerIndex){
-			List<Integer> offeredResources = new ArrayList<Integer>();
-			List<Integer> requestedResources = new ArrayList<Integer>();
-			
-			for(Integer i : offer.getOffer()){// Sort resources offered and those being requested from the offer
-				if(i > 0){
-					offeredResources.add(i);
-				}else{
-					requestedResources.add(i);
-				}
-			}
-			 
-			//needs more implementation, How to tell what numbers are what resource
-			for(Integer i : requestedResources){
-				
-			}
-			
-
-			return true;
-		}else{
-			return false;
-		}
-	}
+//	public boolean canDecideTrade(TradeOffer offer){
+//		if(offer.getReceiver() == this.playerIndex){
+//			List<Integer> offeredResources = new ArrayList<Integer>();
+//			List<Integer> requestedResources = new ArrayList<Integer>();
+//			
+//			for(Integer i : offer.getOffer()){// Sort resources offered and those being requested from the offer
+//				if(i > 0){
+//					offeredResources.add(i);
+//				}else{
+//					requestedResources.add(i);
+//				}
+//			}
+//			 
+//			//needs more implementation, How to tell what numbers are what resource
+//			for(Integer i : requestedResources){
+//				
+//			}
+//			
+//
+//			return true;
+//		}else{
+//			return false;
+//		}
+//	}
 	
 	/** The player chooses whether or not to accept an offered trade 
 	 * @param offer the offer that has been given (TradeOffer)
@@ -356,13 +356,13 @@ public class Player {
 	 * @post the trade is either accepted or denied
 	 * @throws ClientException when the preconditions aren't met
 	 */
-	public boolean decideTrade(TradeOffer offer) throws ClientException{
-		if(canDecideTrade(offer)){
-			return false;
-		}else{
-			throw new ClientException();
-		}
-	}
+//	public boolean decideTrade(TradeOffer offer) throws ClientException{
+//		//if(canDecideTrade(offer)){
+//			return false;
+////		}else{
+////			throw new ClientException();
+////		}
+//	}
 		
 	/**
 	 * Checks to see if the player can end his turn.
