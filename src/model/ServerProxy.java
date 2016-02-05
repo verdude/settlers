@@ -113,7 +113,7 @@ public class ServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public String gamesModel(String version) {
+	public String gameModel(String version) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -390,10 +390,10 @@ public class ServerProxy implements IProxy {
 	/**
 	 * Checks the model to see if the client can get the current model ID
 	 * @pre None
-	 * @post True if client can perform gamesModel
+	 * @post True if client can perform gameModel
 	 * @return Whether the action is possible
 	 */
-	public boolean canGamesModel() {
+	public boolean canGameModel() {
 		//TO-DO
 		return false;
 	}

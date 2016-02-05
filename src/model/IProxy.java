@@ -87,7 +87,7 @@ public interface IProxy {
 	 * @post The server's model of the current state of the game is cloned and set as the current game model locally.
 	 * @return The current Model ID on the server
 	 */
-	public String gamesModel(String version);
+	public String gameModel(String version);
 
 	/**
 	 * Clears out the command history of the current game.

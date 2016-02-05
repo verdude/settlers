@@ -109,7 +109,7 @@ public class MockServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public String gamesModel(String version) {
+	public String gameModel(String version) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -380,7 +380,7 @@ public class MockServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public boolean canGamesModel() {
+	public boolean canGameModel() {
 		// TODO Auto-generated method stub
 		return false;
 	}

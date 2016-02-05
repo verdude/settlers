@@ -3,6 +3,8 @@
  */
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,6 +27,10 @@ public class ServerPoller {
 	 * This will be used to tell the Timer what task to perform.
 	 */
 	private TimerTask timerTask;
+	/**
+	 * The interval at which the needUpdate function will be called.
+	 */
+	private final int pollInterval = 3000;
 	
 	private IProxy proxy;
 	/**
@@ -37,6 +43,21 @@ public class ServerPoller {
 	 */
 	public ServerPoller(IProxy proxy) {
 		this.proxy = proxy;
+		timer = new Timer();
+		// start the poller
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+					if (needUpdate()) {
+						update();
+					}
+				} catch (ServerException e) {
+					e.printStackTrace();
+					System.out.println("[Error] - Checking for update Failed...(ServerPoller).");
+				}
+            }
+        }, 0, pollInterval);
 	}
 
 	/**
@@ -46,8 +67,13 @@ public class ServerPoller {
 	 * @return Whether the local ClientModel needs an update
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
-	public boolean needUpdate() throws ServerException{
-		return false;
+	private boolean needUpdate() throws ServerException {
+		int version = 0;//ClientFacade.getSingleton().getVersion();
+		if (/*proxy.getVersion > clientFacade.getVersion*/) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -57,8 +83,17 @@ public class ServerPoller {
 	 * @post The local model class is replaced with a clone of the model class on the server
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
-	public void update() throws ServerException{
-		
+	private void update() throws ServerException{
+		int version = 0;//ClientFacade.getSingleton().getVersion();
+		PrintWriter out;
+		try {
+			// write the model to the file
+			out = new PrintWriter("json/model.json");
+			out.print(proxy.gamesModel(Integer.toString(version)));
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
 }
