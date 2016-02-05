@@ -959,36 +959,4 @@ public class MockServerProxy implements IProxy {
 		
 		return gamesModel("");
 	}
-
-<<<<<<< Updated upstream
-	
-=======
-	@Override
-	public boolean buildSettlement(boolean free, VertexLocation vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean buildCity(VertexLocation vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
-	@Override
-	public boolean buildSettlement(boolean free, VertexLocation vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean buildCity(VertexLocation vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
->>>>>>> Stashed changes
 }

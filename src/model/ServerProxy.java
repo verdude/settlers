@@ -436,29 +436,4 @@ public class ServerProxy implements IProxy {
 	public String monument(int playerIndex) {
 		return post("moves/Monument", "{\"type\": \"Monument\", \"playerIndex\": " + playerIndex + "}");
 	}
-
-	@Override
-	public boolean buildSettlement(boolean free, VertexLocation vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean buildCity(VertexLocation vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean buildSettlement(boolean free, VertexLocation vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean buildCity(VertexLocation vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
