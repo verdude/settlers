@@ -42,110 +42,148 @@ public class MockServerProxy implements IProxy {
 		return PORT;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean userLogin(String username, String password) {
+	@Override
+	public String userLogin(String username, String password) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean userRegister(String username, String password) {
+	@Override
+	public String userRegister(String username, String password) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
+	@Override
 	public String gamesList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesCreate(String name) {
+	@Override
+	public String gamesCreate(boolean randomTiles, boolean randomNumbers,
+			boolean randomPorts, String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
+	}
+
+	@Override
+	public String gamesJoin(int ID, String color) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String gamesSave(int ID, String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String gamesLoad(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public boolean gamesJoin(String name) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesSave(String name) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesLoad(String name) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
+	@Override
 	public String gameModel(String version) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesReset() {
+	@Override
+	public String gamesReset() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
+	@Override
 	public String gamesCommandsGet() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesCommandsPost(String commandList) {
+	@Override
+	public String gamesCommandsPost(String commandList) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
+	@Override
 	public String gamesListAI() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String gamesAddAI(String AIType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String utilChangeLogLevel(String logLevel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String sendChat(int playerIndex, String message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String acceptTrade(int playerIndex, boolean willAccept) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String discardCards(int playerIndex, List<Resource> discardedCards) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String rollNumber(int playerIndex, int number) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String buildRoad(int playerIndex, EdgeLocation roadLocation,
+			boolean free) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String buildSettlement(int playerIndex, VertexObject vertexObject,
+			String free) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String buildCity(int playerIndex, VertexObject vertexObject) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String offerTrade(int playerIndex, TradeOffer offer, int receiver) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String maritimeTrade(int playerIndex, int ratio,
+			Resource inputResource, Resource outputResource) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -154,298 +192,56 @@ public class MockServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public boolean gamesAddAI() {
+	@Override
+	public String robPlayer(int playerIndex, int victimIndex,
+			HexLocation location) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean sendChat(String message) {
+	@Override
+	public String finishTurn(int playerIndex) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean acceptTrade(boolean willAccept) {
+	@Override
+	public String buyDevCard(int playerIndex) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean discardCards(List<Resource> discardedCards) {
+	@Override
+	public String soldier(int playerIndex, int victimIndex, HexLocation location) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean rollNumber(int number) {
+	@Override
+	public String yearOfPlenty(int playerIndex, Resource resource1,
+			Resource resource2) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean buildRoad(boolean free, EdgeLocation roadLocation) {
+	@Override
+	public String roadBuilding(int playerIndex, EdgeLocation spot1,
+			EdgeLocation spot2) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean buildSettlement(boolean free, VertexObject vertexObject) {
+	@Override
+	public String monopoly(Resource resource, int playerIndex) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean buildCity(VertexObject vertexObject) {
+	@Override
+	public String monument(int playerIndex) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean offerTrade(TradeOffer offer, int receiver) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean maritimeTrade(int ratio, Resource inputResource,
-			Resource outputResource) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean robPlayer(HexLocation location, int victimIndex) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean finishTurn() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean buyDevCard() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean soldier(HexLocation location, int victimIndex) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean yearOfPlenty(Resource resource1, Resource resource2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean monopoly(Resource resource) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean monument() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canUserLogin() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canUserRegister() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesList() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesCreate() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesJoin() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesSave() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesLoad() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGameModel() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesReset() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesCommandsGet() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesCommansPost() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesListAI() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canGamesAddAI() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean canUtilChangeLogLevel() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean utilChangeLogLevel(String logLevel) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 }

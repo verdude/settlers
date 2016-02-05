@@ -3,6 +3,14 @@
  */
 package model;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import shared.locations.EdgeLocation;
@@ -19,17 +27,26 @@ import shared.locations.HexLocation;
 public class ServerProxy implements IProxy {
 	private final String HOST;
 	private final String PORT;
+	private final URL mainURL;
+	private String encodedCookie;
+	private String decodedCookie;
+	private String gameID;
 	
 	/**
 	 * 
 	 * @param HOST The hostname of the server
 	 * @param PORT The Port on which the server program is to be accessed
+	 * @throws MalformedURLException 
 	 * @pre HOST and PORT are not null and correct
 	 * @post the ServerProxy is connected and ready to use
 	 */
-	public ServerProxy(String HOST, String PORT) {
+	public ServerProxy(String HOST, String PORT) throws MalformedURLException {
 		this.HOST = HOST;
 		this.PORT = PORT;
+		mainURL = new URL("http://" + HOST + ":" + PORT + "/");
+		encodedCookie = "";
+		decodedCookie = "";
+		gameID = "";
 	}	
 	
 	/**
@@ -46,74 +63,147 @@ public class ServerProxy implements IProxy {
 		return PORT;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean userLogin(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public String post(String endPoint, String data)
+	{
+		try {
+			byte[] postData = data.getBytes(StandardCharsets.UTF_8);
+			int postDataLength = postData.length;
+			HttpURLConnection conn= (HttpURLConnection) new URL(mainURL, endPoint).openConnection();           
+			conn.setDoOutput(true);
+			conn.setInstanceFollowRedirects(false);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestProperty("charset", "utf-8");
+			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
+			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie + "; catan.game=" + gameID);
+			conn.setUseCaches(false);
+			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+			wr.write(postData);
+			StringBuilder response = new StringBuilder();
+			String line;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = reader.readLine()) != null) {
+			    response.append(line);
+			}
+			return response.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Error";
+		}
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean userRegister(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public String get(String endPoint)
+	{
+		try {
+			HttpURLConnection conn= (HttpURLConnection) new URL(mainURL, endPoint).openConnection();           
+			conn.setDoOutput(true);
+			conn.setInstanceFollowRedirects(false);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestProperty("charset", "utf-8");
+			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie + "; catan.game=" + gameID);
+			conn.setUseCaches(false);
+			
+			StringBuilder response = new StringBuilder();
+			String line;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = reader.readLine()) != null) {
+			    response.append(line);
+			}
+			return response.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Error";
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public String userLogin(String username, String password) {		
+		try {
+			byte[] postData = ("{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}").getBytes(StandardCharsets.UTF_8);
+			int postDataLength = postData.length;
+			HttpURLConnection conn= (HttpURLConnection) new URL(mainURL, "user/login").openConnection();           
+			conn.setDoOutput(true);
+			conn.setInstanceFollowRedirects(false);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestProperty("charset", "utf-8");
+			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
+			conn.setUseCaches(false);
+			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+			wr.write(postData);
+			StringBuilder response = new StringBuilder();
+			String line;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			encodedCookie = conn.getHeaderField("Set-cookie").split(";")[0].split("=")[1];
+			decodedCookie = URLDecoder.decode(encodedCookie);
+			while ((line = reader.readLine()) != null) {
+			    response.append(line);
+			}
+			return response.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Error";
+		}
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
+	@Override
+	public String gamesJoin(int ID, String color) {
+		try {
+			byte[] postData = ("{\"id\": \"" + ID + "\", \"color\": \"" + color + "\"}").getBytes(StandardCharsets.UTF_8);
+			int postDataLength = postData.length;
+			HttpURLConnection conn= (HttpURLConnection) new URL(mainURL, "games/join").openConnection();           
+			conn.setDoOutput(true);
+			conn.setInstanceFollowRedirects(false);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestProperty("charset", "utf-8");
+			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
+			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie);
+			conn.setUseCaches(false);
+			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+			wr.write(postData);
+			StringBuilder response = new StringBuilder();
+			String line;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			gameID = conn.getHeaderField("Set-cookie").split(";")[0].split("catan.game=")[1];
+			while ((line = reader.readLine()) != null) {
+			    response.append(line);
+			}
+			return response.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Error";
+		}
+	}
+
+	@Override
+	public String userRegister(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public String gamesList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesCreate(String name) {
+	@Override
+	public String gamesCreate(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesJoin(String name) {
+	@Override
+	public String gamesSave(int ID, String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesSave(String name) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesLoad(String name) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public String gameModel(String version) {
+	@Override
+	public String gamesLoad(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -122,198 +212,146 @@ public class ServerProxy implements IProxy {
 	 * Inherited from implemented class
 	 * @return Whether the method was a success
 	 */
-	public boolean gamesReset() {
-		// TODO Auto-generated method stub
-		return false;
+	public String gamesModel() {
+		return get("game/model");
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
+	@Override
+	public String gamesReset() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public String gamesCommandsGet() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesCommandsPost(String commandList) {
+	@Override
+	public String gamesCommandsPost(String commandList) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
+	@Override
 	public String gamesListAI() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean gamesAddAI() {
+	@Override
+	public String gamesAddAI(String AIType) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean sendChat(String message) {
+	@Override
+	public String utilChangeLogLevel(String logLevel) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean acceptTrade(boolean willAccept) {
+	@Override
+	public String sendChat(int playerIndex, String message) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean discardCards(List<Resource> discardedCards) {
+	@Override
+	public String acceptTrade(int playerIndex, boolean willAccept) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean rollNumber(int number) {
+	@Override
+	public String discardCards(int playerIndex, List<Resource> discardedCards) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean buildRoad(boolean free, EdgeLocation roadLocation) {
+	@Override
+	public String rollNumber(int playerIndex, int number) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean buildSettlement(boolean free, VertexObject vertextObject) {
+	@Override
+	public String buildRoad(int playerIndex, EdgeLocation roadLocation,
+			boolean free) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean buildCity(VertexObject vertextObject) {
+	@Override
+	public String buildSettlement(int playerIndex, VertexObject vertexObject,
+			String free) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean offerTrade(TradeOffer offer, int receiver) {
+	@Override
+	public String buildCity(int playerIndex, VertexObject vertexObject) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean maritimeTrade(int ratio, Resource inputResource,
-			Resource outputResource) {
+	@Override
+	public String offerTrade(int playerIndex, TradeOffer offer, int receiver) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean robPlayer(HexLocation location, int victimIndex) {
+	@Override
+	public String maritimeTrade(int playerIndex, int ratio,
+			Resource inputResource, Resource outputResource) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean finishTurn() {
+	@Override
+	public String robPlayer(int playerIndex, int victimIndex,
+			HexLocation location) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean buyDevCard() {
+	@Override
+	public String finishTurn(int playerIndex) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean soldier(HexLocation location, int victimIndex) {
+	@Override
+	public String buyDevCard(int playerIndex) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean yearOfPlenty(Resource resource1, Resource resource2) {
+	@Override
+	public String soldier(int playerIndex, int victimIndex, HexLocation location) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
+	@Override
+	public String yearOfPlenty(int playerIndex, Resource resource1,
+			Resource resource2) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean monopoly(Resource resource) {
+	@Override
+	public String roadBuilding(int playerIndex, EdgeLocation spot1,
+			EdgeLocation spot2) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	/**
-	 * Inherited from implemented class
-	 * @return Whether the method was a success
-	 */
-	public boolean monument() {
+	@Override
+	public String monopoly(Resource resource, int playerIndex) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return false;
 	}
 
@@ -460,9 +498,9 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public boolean utilChangeLogLevel(String logLevel) {
+	public String monument(int playerIndex) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 }
