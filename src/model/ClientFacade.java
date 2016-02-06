@@ -12,7 +12,6 @@ public class ClientFacade {
 	private static ClientFacade singleton;
 	private static ServerProxy proxy;
 	
-
 	/**
 	 * Default Constructor
 	 * 
@@ -223,8 +222,9 @@ public class ClientFacade {
 		if(canDo)
 		{
 			try {
+				clientModel.getMap().placeRoad(roadLocation);
 				clientModel.getPlayers()[playerIndex].playRoad();
-			} catch (ClientException e) {
+			} catch (ClientException | GameMapException e) {
 				e.printStackTrace();
 				return false;
 			}
@@ -248,8 +248,9 @@ public class ClientFacade {
 		if(canDo)
 		{
 			try {
+				clientModel.getMap().placeSettlement(vertexObject);
 				clientModel.getPlayers()[playerIndex].playSettlement();
-			} catch (ClientException e) {
+			} catch (ClientException | GameMapException e) {
 				e.printStackTrace();
 				return false;
 			}
@@ -271,8 +272,9 @@ public class ClientFacade {
 		if(canDo)
 		{
 			try {
+				clientModel.getMap().placeCity(vertexObject);
 				clientModel.getPlayers()[playerIndex].playCity();
-			} catch (ClientException e) {
+			} catch (ClientException | GameMapException e) {
 				e.printStackTrace();
 				return false;
 			}
@@ -331,6 +333,12 @@ public class ClientFacade {
 		boolean canDo = clientModel.canRobPlayer(playerIndex);
 		if(canDo)
 		{
+			try {
+				clientModel.getMap().moveRobber(location);
+			} catch (GameMapException e) {
+				e.printStackTrace();
+				return false;
+			}
 			String model = proxy.robPlayer(playerIndex, victimIndex, location);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}

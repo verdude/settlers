@@ -11,6 +11,7 @@ import model.ServerProxy;
 import model.TradeOffer;
 import model.VertexObject;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -23,11 +24,14 @@ import shared.locations.VertexLocation;
 
 public class ServerProxyTests {
 
-	ServerProxy proxy;
-	
+	static ServerProxy proxy;
 	@BeforeClass
-	public void loginJoinGame() throws MalformedURLException {
+	public static void setUp() throws MalformedURLException {
 		proxy = ServerProxy.getSingleton("localhost", "8081");
+	}
+	
+	@Before
+	public void loginJoinGame() throws MalformedURLException {
 		userLoginTest();
 		gamesJoinTest();
 	}
@@ -44,56 +48,6 @@ public class ServerProxyTests {
 	@Test
 	public void gamesJoinTest() {
 		assertNotEquals(proxy.gamesJoin(0, "orange"), "Error");
-	}
-
-	@Test
-	public void userRegisterTest() {
-		assertNotEquals(proxy.userRegister("NewUser", "NewPass"), "Error");
-	}
-
-	@Test
-	public void gamesListTest() {
-		assertNotEquals(proxy.gamesList(), "Error");
-	}
-
-	@Test
-	public void gamesCreateTest() {
-		assertNotEquals(proxy.gamesCreate("true", "true", "true", "TheNameGame"), "Error");
-	}
-	
-	@Test
-	public void gamesModelTest(String version) {
-		assertNotEquals(proxy.gamesModel(""), "Error");
-	}
-
-	@Test
-	public void gamesResetTest() {
-		assertNotEquals(proxy.gamesReset(), "Error");
-	}
-
-	@Test
-	public void gamesCommandsGetTest() {
-		assertNotEquals(proxy.gamesCommandsGet(), "Error");
-	}
-
-	@Test
-	public void gamesCommandsPostTest() {
-		assertNotEquals(proxy.gamesCommandsPost("[]"), "Error");
-	}
-
-	@Test
-	public void gamesListAITest() {
-		assertNotEquals(proxy.gamesListAI(), "Error");
-	}
-
-	@Test
-	public void gamesAddAITest() {
-		assertNotEquals(proxy.gamesAddAI("LARGEST_ARMY"), "Error");
-	}
-
-	@Test
-	public void utilChangeLogLevelTest() {
-		assertNotEquals(proxy.utilChangeLogLevel("ALL"), "Error");
 	}
 
 	@Test
