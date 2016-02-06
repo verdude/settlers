@@ -56,11 +56,6 @@ public class ServerProxyTests {
 	}
 
 	@Test
-	public void acceptTradeTest() {
-		assertNotEquals(proxy.acceptTrade(0, true), "Error");
-	}
-
-	@Test
 	public void discardCardsTest() {
 		assertNotEquals(proxy.discardCards(0, new ArrayList<ResourceType>()), "Error");
 	}
@@ -107,6 +102,7 @@ public class ServerProxyTests {
 		trade.setReceiver(1);
 		trade.setSender(0);
 		assertNotEquals(proxy.offerTrade(0, trade), "Error");
+		assertNotEquals(proxy.acceptTrade(0, true), "Error");
 	}
 
 	@Test

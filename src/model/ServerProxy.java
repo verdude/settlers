@@ -265,11 +265,6 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public String acceptTrade(int playerIndex, boolean willAccept) {
-		return post("moves/acceptTrade", "{\"type\": \"acceptTrade\", \"playerIndex\": " + playerIndex + ", \"willAccept\": \"" + willAccept + "\"}");
-	}
-
-	@Override
 	public String discardCards(int playerIndex, List<ResourceType> discardedCards) {
 		int wood = 0;
 		int brick = 0;
@@ -359,6 +354,12 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
+	public String acceptTrade(int playerIndex, boolean willAccept) {
+		return post("moves/acceptTrade", "{\"type\": \"acceptTrade\", \"playerIndex\": "
+	+ playerIndex + ", \"willAccept\": " + willAccept + "}");
+	}
+
+	@Override
 	public String maritimeTrade(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource) {
 		return post("moves/maritimeTrade", "{\"type\": \"maritimeTrade\", \"playerIndex\": " + playerIndex 
 				+ ", \"ratio\": " + ratio + ", "
@@ -370,7 +371,7 @@ public class ServerProxy implements IProxy {
 	@Override
 	public String robPlayer(int playerIndex, int victimIndex, HexLocation location) {
 		return post("moves/robPlayer", "{\"type\": \"robPlayer\", \"playerIndex\": " + playerIndex 
-				+ "\", \"victimIndex\": " + victimIndex + ", "
+				+ ", \"victimIndex\": " + victimIndex + ", "
 				+ "\"location\": {"
 				+ "\"x\": " + location.getX() + ", "
 				+ "\"y\": " + location.getY()
@@ -389,34 +390,34 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String soldier(int playerIndex, int victimIndex, HexLocation location) {
-		return post("moves/soldier", "{\"type\": \"soldier\", \"playerIndex\": " + playerIndex 
-				+ "\", \"victimIndex\": " + victimIndex + ", "
-				+ "\", \"location\": {"
-				+ "\", \"x\": " + location.getX() + ", "
-				+ "\", \"y\": " + location.getY()
+		return post("moves/Soldier", "{\"type\": \"Soldier\", \"playerIndex\": " + playerIndex 
+				+ ", \"victimIndex\": " + victimIndex + ", "
+				+ "\"location\": {"
+				+ "\"x\": " + location.getX() + ", "
+				+ "\"y\": " + location.getY()
 				+ "}}");
 	}
 	
 	@Override
 	public String yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
-		return post("moves/yearOfPlenty", "{\"type\": \"yearOfPlenty\", \"playerIndex\": " + playerIndex 
-				+ "\", \"resource1\": " + resource1.toString() + ""
-				+ ", \"resource2\": " + resource2.toString() + ""
+		return post("moves/Year_of_Plenty", "{\"type\": \"Year_of_Plenty\", \"playerIndex\": " + playerIndex 
+				+ ", \"resource1\": " + resource1.toString()
+				+ ", \"resource2\": " + resource2.toString()
 				+ "}");
 	}
 
 	@Override
 	public String roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
-		return post("moves/roadBuilding", "{\"type\": \"roadBuilding\", \"playerIndex\": " + playerIndex + ", "
+		return post("moves/Road_Building", "{\"type\": \"Road_Building\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"spot1\": {"
 				+ "\"x\": " + spot1.getHexLoc().getX() + ", "
 				+ "\"y\": " + spot1.getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + spot1.getDir().toString() + "\", "
+				+ "\"direction\": \"" + spot1.getDir().toString() + "\""
 				+ "}, "
 				+ "\"spot2\": {"
 				+ "\"x\": " + spot2.getHexLoc().getX() + ", "
 				+ "\"y\": " + spot2.getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + spot2.getDir().toString() + "\", "
+				+ "\"direction\": \"" + spot2.getDir().toString() + "\""
 				+ "}}");
 	}
 
