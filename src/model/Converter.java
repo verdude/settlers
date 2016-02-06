@@ -31,4 +31,9 @@ public class Converter {
 		return gson.toJson(o);
 	}
 	
+	public static void main(String[] args) {
+		MockServerProxy p = MockServerProxy.getSingleton("localhost", "8081");
+		Converter.deserialize(p.gamesModel("0"));
+	}
+	
 }
