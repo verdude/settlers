@@ -4,9 +4,11 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.EdgeValue;
 import model.ServerProxy;
+import model.TradeOffer;
 import model.VertexObject;
 
 import org.junit.BeforeClass;
@@ -125,29 +127,42 @@ public class ServerProxyTests {
 	@Test
 	public void buildSettlementTest() {
 		VertexObject vertexObject = new VertexObject();
-		vertexObject.setLocation(new HexLocation(0, 0));
-		 new VertexObject(new HexLocation(0, 0), VertexDirection.East)
-		assertNotEquals(proxy.buildSettlement(0,, "true"), "Error");
+		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
+		vertexObject.setOwner(0);
+		assertNotEquals(proxy.buildSettlement(0, vertexObject, "true"), "Error");
 	}
 
 	@Test
 	public void buildCityTest() {
-//		assertNotEquals(proxy.buildCity(0, new VertexLocation(new HexLocation(0, 0), VertexDirection.East), "true"), "Error");
+		VertexObject vertexObject = new VertexObject();
+		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
+		vertexObject.setOwner(0);
+		assertNotEquals(proxy.buildCity(0, vertexObject, "true"), "Error");
 	}
 
 	@Test
 	public void offerTradeTest() {
-//		assertNotEquals(proxy.offerTrade(0, new TradeOffer()), "Error");
+		List<Integer> resources = new ArrayList<Integer>();
+		resources.add(2);
+		resources.add(5);
+		resources.add(0);
+		resources.add(-2);
+		resources.add(-2);
+		TradeOffer trade = new TradeOffer();
+		trade.setOffer(resources);
+		trade.setReceiver(1);
+		trade.setSender(0);
+		assertNotEquals(proxy.offerTrade(0, trade), "Error");
 	}
 
 	@Test
 	public void maritimeTradeTest() {
-//		assertNotEquals(proxy.maritimeTrade(0, 2, new Resource(0), new Resource(0)), "Error");
+		assertNotEquals(proxy.maritimeTrade(0, 2, ResourceType.BRICK, ResourceType.ORE), "Error");
 	}
 
 	@Test
 	public void robPlayerTest() {
-//		assertNotEquals(proxy.robPlayer(0, 3, new model.HexLocation()), "Error");
+		assertNotEquals(proxy.robPlayer(0, 3, new HexLocation(0, 0)), "Error");
 	}
 
 	@Test
@@ -162,26 +177,30 @@ public class ServerProxyTests {
 
 	@Test
 	public void soldierTest() {
-//		assertNotEquals(proxy.soldier(0, 3, new model.HexLocation()), "Error");
+		assertNotEquals(proxy.soldier(0, 3, new HexLocation(0, 0)), "Error");
 	}
 
 	@Test
 	public void yearOfPlentyTest() {
-//		assertNotEquals(proxy.yearOfPlenty(0, new Resource(0), new Resource(0)), "Error");
+		assertNotEquals(proxy.yearOfPlenty(0, ResourceType.BRICK, ResourceType.ORE), "Error");
 	}
 
 	@Test
 	public void roadBuildingTest() {
-//		assertNotEquals(proxy.roadBuilding(0, new EdgeLocation(), new EdgeLocation()), "Error");
+		EdgeValue edgeValue =  new EdgeValue();
+		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
+		edgeValue.setOwner(0);
+		assertNotEquals(proxy.roadBuilding(0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.North),
+												new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North)), "Error");
 	}
 
 	@Test
 	public void monopolyTest() {
-//		assertNotEquals(proxy.monopoly(new Resource(0), 0), "Error");
+		assertNotEquals(proxy.monopoly(ResourceType.BRICK, 0), "Error");
 	}
 
 	@Test
 	public void monumentTest() {
-//		assertNotEquals(proxy.monument(0), "Error");
+		assertNotEquals(proxy.monument(0), "Error");
 	}
 }

@@ -20,8 +20,11 @@ public class ClientTests {
 				 */
 				
 				"clientTests.PlayerTest",
-				"clientTests.TestClientModel",
-				"clientTests.GameMapTest" 
+				"clientTests.ClientModelTests",
+				"clientTests.GameMapTest" ,
+				"clientTests.ClientCanDoTests",
+				"clientTests.ClientFacadeTest",
+				"clientTests.ServerProxyTests"
 		};
 		
 		org.junit.runner.JUnitCore.main(testClasses);
