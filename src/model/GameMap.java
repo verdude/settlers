@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+import shared.locations.HexLocation;
+
 public class GameMap {
 	int 				RADIUS;			// It appears that the map will have a radius of 2;					
 	Robber 				robber;
@@ -28,7 +30,7 @@ public class GameMap {
 	 * @param 	position, the VertextObject where the robber will be placed
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
-	public void moveRobber(VertexObject position) throws GameMapException{}
+	public void moveRobber(HexLocation position) throws GameMapException{}
 	
 	/** Places a settlement for the player on a given vertex
 	 * @pre 	The player has to have the resources (1 wheat, 1 brick, 1 lumber, 1 sheep) for a settlement and the vertex has to be connected
@@ -58,7 +60,7 @@ public class GameMap {
 	 * @param position, (edge): the edge where the player wants to place a road
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
-	public void placeRoad(VertexObject position) throws GameMapException{}
+	public void placeRoad(EdgeValue position) throws GameMapException{}
 	
 	
 	
