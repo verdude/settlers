@@ -76,7 +76,7 @@ public class ServerPoller {
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
 	private void needUpdate() throws ServerException {
-		int version = ClientFacade.getSingleton().getVersion();
+		int version = ClientFacade.getSingleton(proxy).getVersion();
 		String response = proxy.gamesModel(Integer.toString(version));
 		if (!response.equals("true")) {
 			update(response);
@@ -93,7 +93,7 @@ public class ServerPoller {
 	 */
 	private void update(String jsonModel) throws ServerException{
 		ClientModel newModel = (ClientModel) Converter.deserialize(jsonModel);
-		ClientFacade facade = ClientFacade.getSingleton();
+		ClientFacade facade = ClientFacade.getSingleton(proxy);
 		if (newModel.getVersion() > facade.getVersion()) {
 			// means the version one the client is old
 			facade.updateModel(newModel);
