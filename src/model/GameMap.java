@@ -15,13 +15,14 @@ public class GameMap {
 	
 	
 	
-	//methods
+	// Methods
 	public GameMap(){
 		hexList 		= new ArrayList<Hex>();
 		portList 		= new ArrayList<Port>();
 		roadList 		= new ArrayList<Road>();
 		settlementList 	= new ArrayList<Settlement>();
 		cityList 		= new ArrayList<City>();
+		robber			= new Robber();
 	}
 	
 	/** Moves the robber to a different position on the map

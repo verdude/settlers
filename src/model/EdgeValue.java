@@ -3,7 +3,7 @@ package model;
 import shared.locations.EdgeLocation;
 
 public class EdgeValue {
-	int owner; // index of the player that is the owner
+	int owner; 				// index of the player that is the owner
 	EdgeLocation location;
 	
 	
