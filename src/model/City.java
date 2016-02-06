@@ -5,6 +5,11 @@ public class City {
 	VertexObject location;
 	
 	public City(){}
+	public City(VertexObject position){
+		
+		this.setLocation(position);
+		
+	}
 	
 	public int 			getPlayerId()				{ return playerId; 			}
 	public VertexObject getLocation() 				{ return location; 			}

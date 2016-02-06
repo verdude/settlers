@@ -30,7 +30,9 @@ public class GameMap {
 	 * @param 	position, the VertextObject where the robber will be placed
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
-	public void moveRobber(HexLocation position) throws GameMapException{}
+	public void moveRobber(HexLocation position) throws GameMapException {
+		robber.move(position);
+	}
 	
 	/** Places a settlement for the player on a given vertex
 	 * @pre 	The player has to have the resources (1 wheat, 1 brick, 1 lumber, 1 sheep) for a settlement and the vertex has to be connected
@@ -39,8 +41,7 @@ public class GameMap {
 	 * @param position, (vertex): the vertex where the player wants to place the settlement
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
-	public void placeSettlement(VertexObject position) throws GameMapException{
-
+	public void placeSettlement(VertexObject position) throws GameMapException {
 		settlementList.add(new Settlement(position));
 	}
 	
@@ -51,9 +52,8 @@ public class GameMap {
 	 * @param position, (vertex): the vertex where the player wants to place the city
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
-	public void placeCity(VertexObject position) throws GameMapException{
-		
-//		cityList.add(new City(position));
+	public void placeCity(VertexObject position) throws GameMapException {
+		cityList.add(new City(position));
 	}
 	
 	/** Places a road for the player on a given edge
@@ -63,7 +63,9 @@ public class GameMap {
 	 * @param position, (edge): the edge where the player wants to place a road
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
-	public void placeRoad(EdgeValue position) throws GameMapException{}
+	public void placeRoad(EdgeValue position) throws GameMapException {
+		roadList.add(new Road(position));
+	}
 	
 	
 	

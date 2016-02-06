@@ -7,9 +7,9 @@ public class Settlement {
 	VertexObject location;
 	
 	public Settlement(){}
-	public Settlement(VertexObject postition){
+	public Settlement(VertexObject position){
 		
-		this.setLocation(postition);
+		this.setLocation(position);
 		
 	}
 	
