@@ -75,7 +75,7 @@ public class ServerProxyTests {
 		EdgeValue edgeValue =  new EdgeValue();
 		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
-		assertNotEquals(proxy.buildRoad(0, edgeValue, true), "Error");
+		assertNotEquals(proxy.buildRoad(0, edgeValue, "true"), "Error");
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class ServerProxyTests {
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
 		vertexObject.setOwner(0);
-		assertNotEquals(proxy.buildCity(0, vertexObject, "true"), "Error");
+		assertNotEquals(proxy.buildCity(0, vertexObject), "Error");
 	}
 
 	@Test

@@ -186,7 +186,7 @@ public interface IProxy {
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
 	 * @return The model
 	 */
-	public String buildRoad(int playerIndex, EdgeValue roadLocation, boolean free);
+	public String buildRoad(int playerIndex, EdgeValue roadLocation, String free);
 
 	/**
 	 * 
@@ -206,7 +206,7 @@ public interface IProxy {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return The model
 	 */
-	public String buildCity(int playerIndex, VertexObject vertexObject, String free);
+	public String buildCity(int playerIndex, VertexObject vertexObject);
 
 	/**
 	 * Offers a trade from one player to the other for resources

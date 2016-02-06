@@ -1,6 +1,3 @@
-/**
- * 
- */
 package model;
 
 import java.io.BufferedReader;
@@ -15,7 +12,6 @@ import java.util.List;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
-import shared.locations.VertexLocation;
 
 /**
  * @author S Jacob Powell
@@ -96,7 +92,7 @@ public class ServerProxy implements IProxy {
 			}
 			return response.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return "Error";
 		}
 	}
@@ -121,7 +117,7 @@ public class ServerProxy implements IProxy {
 			}
 			return response.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return "Error";
 		}
 	}
@@ -151,7 +147,7 @@ public class ServerProxy implements IProxy {
 			}
 			return response.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return "Error";
 		}
 	}
@@ -181,7 +177,7 @@ public class ServerProxy implements IProxy {
 			}
 			return response.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return "Error";
 		}
 	}
@@ -198,16 +194,16 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String gamesCreate(String randomTiles, String randomNumbers, String randomPorts, String name) {
-		return post("games/create", "{\"randomTiles\": \"" + randomTiles 
-				+ "\", \"randomNumbers\": \"" + randomNumbers 
-				+ "\", \"randomPorts\": \"" + randomPorts 
-				+ "\", \"name\": \"" + name + "\"}");
+		return post("games/create", "{\"randomTiles\": " + randomTiles 
+				+ ", \"randomNumbers\": " + randomNumbers 
+				+ ", \"randomPorts\": " + randomPorts 
+				+ ", \"name\": \"" + name + "\"}");
 	}
 
 	//Doesn't need junit test
 	@Override
 	public String gamesSave(int id, String name) {
-		return post("games/save", "{\"id\": \"" + id + "\", \"name\": \"" + name	 + "\"}");
+		return post("games/save", "{\"id\": \"" + id + "\", \"name\": \"" + name + "\"}");
 	}
 
 	//Doesn't need junit test
@@ -303,50 +299,49 @@ public class ServerProxy implements IProxy {
 		}
 		return post("moves/discardCards", "{\"type\": \"discardCards\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"discardedCards\": {"
-				+ "\"brick\": \"" + brick + "\", "
-				+ "\"ore\": \"" + ore + "\", "
-				+ "\"sheep\": \"" + sheep + "\", "
-				+ "\"wheat\": \"" + wheat + "\", "
-				+ "\"wood\": \"" + wood + "\""
+				+ "\"brick\": " + brick + ", "
+				+ "\"ore\": " + ore + ", "
+				+ "\"sheep\": " + sheep + ", "
+				+ "\"wheat\": " + wheat + ", "
+				+ "\"wood\": " + wood + ""
 				+ "}}");
 	}
 
 	@Override
 	public String rollNumber(int playerIndex, int number) {
-		return post("moves/rollNumber", "{\"type\": \"rollNumber\", \"playerIndex\": " + playerIndex + ", \"number\": \"" + number + "\"}");
+		return post("moves/rollNumber", "{\"type\": \"rollNumber\", \"playerIndex\": " + playerIndex + ", \"number\": " + number + "}");
 	}
 
 	@Override
-	public String buildRoad(int playerIndex, EdgeValue roadLocation, boolean free) {
+	public String buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
 		return post("moves/buildRoad", "{\"type\": \"buildRoad\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"roadLocation\": {"
-				+ "\"x\": \"" + roadLocation.getLocation().getHexLoc().getX() + "\", "
-				+ "\"y\": \"" + roadLocation.getLocation().getHexLoc().getY() + "\", "
-				+ "\"direction\": \"" + roadLocation.getLocation().getDir() + "\", "
+				+ "\"x\": " + roadLocation.getLocation().getHexLoc().getX() + ", "
+				+ "\"y\": " + roadLocation.getLocation().getHexLoc().getY() + ", "
+				+ "\"direction\": \"" + roadLocation.getLocation().getDir().toString() + "\""
 				+ "}, "
-				+ "\"free\": \"" + free + "\"}");
+				+ "\"free\": " + free + "}");
 	}
 
 	@Override
 	public String buildSettlement(int playerIndex, VertexObject vertexObject, String free) {
 		return post("moves/buildSettlement", "{\"type\": \"buildSettlement\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"vertexLocation\": {"
-				+ "\"x\": \"" + vertexObject.getLocation().getHexLoc().getX() + "\", "
-				+ "\"y\": \"" + vertexObject.getLocation().getHexLoc().getY() + "\", "
-				+ "\"direction\": \"" + vertexObject.getLocation().getDir() + "\", "
+				+ "\"x\": " + vertexObject.getLocation().getHexLoc().getX() + ", "
+				+ "\"y\": " + vertexObject.getLocation().getHexLoc().getY() + ", "
+				+ "\"direction\": \"" + vertexObject.getLocation().getDir().toString() + "\""
 				+ "}, "
-				+ "\"free\": \"" + free + "\"}");
+				+ "\"free\": " + free + "}");
 	}
 
 	@Override
-	public String buildCity(int playerIndex, VertexObject vertexObject, String free) {
+	public String buildCity(int playerIndex, VertexObject vertexObject) {
 		return post("moves/buildCity", "{\"type\": \"buildCity\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"vertexLocation\": {"
-				+ "\"x\": \"" + vertexObject.getLocation().getHexLoc().getX() + "\", "
-				+ "\"y\": \"" + vertexObject.getLocation().getHexLoc().getY() + "\", "
-				+ "\"direction\": \"" + vertexObject.getLocation().getDir() + "\", "
-				+ "}, "
-				+ "\"free\": \"" + free + "\"}");
+				+ "\"x\": " + vertexObject.getLocation().getHexLoc().getX() + ", "
+				+ "\"y\": " + vertexObject.getLocation().getHexLoc().getY() + ", "
+				+ "\"direction\": \"" + vertexObject.getLocation().getDir().toString() + "\""
+				+ "}}");
 	}
 
 	@Override
@@ -354,22 +349,21 @@ public class ServerProxy implements IProxy {
 		List<Integer> offerList = offer.getOffer();
 		return post("moves/offerTrade", "{\"type\": \"offerTrade\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"offer\": {"
-				+ "\"brick\": \"" + offerList.get(1) + "\", "
-				+ "\"ore\": \"" + offerList.get(4) + "\", "
-				+ "\"sheep\": \"" + offerList.get(2) + "\", "
-				+ "\"wheat\": \"" + offerList.get(3) + "\", "
-				+ "\"wood\": \"" + offerList.get(0) + "\""
-				+ "}, "
-				+ "\"receiver\": \"" + offer.getReceiver() + "\"," 
+				+ "\"brick\": " + offerList.get(1) + ", "
+				+ "\"ore\": " + offerList.get(4) + ", "
+				+ "\"sheep\": " + offerList.get(2) + ", "
+				+ "\"wheat\": " + offerList.get(3) + ", "
+				+ "\"wood\": " + offerList.get(0) + "}, "
+				+ "\"receiver\": " + offer.getReceiver()
 				+ "}");
 	}
 
 	@Override
 	public String maritimeTrade(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource) {
 		return post("moves/maritimeTrade", "{\"type\": \"maritimeTrade\", \"playerIndex\": " + playerIndex 
-				+ "\", \"ratio\": \"" + ratio + "\", "
-				+ "\", \"inputResource\": \"" + inputResource.toString() + "\", "
-				+ "\", \"outputResource\": \"" + outputResource.toString() + "\""
+				+ ", \"ratio\": " + ratio + ", "
+				+ "\"inputResource\": \"" + inputResource.toString() + "\", "
+				+ "\"outputResource\": \"" + outputResource.toString() + "\""
 				+ "}");
 	}
 
@@ -377,9 +371,9 @@ public class ServerProxy implements IProxy {
 	public String robPlayer(int playerIndex, int victimIndex, HexLocation location) {
 		return post("moves/robPlayer", "{\"type\": \"robPlayer\", \"playerIndex\": " + playerIndex 
 				+ "\", \"victimIndex\": " + victimIndex + ", "
-				+ "\", \"location\": {"
-				+ "\", \"x\": \"" + location.getX() + "\", "
-				+ "\", \"y\": \"" + location.getY() + "\""
+				+ "\"location\": {"
+				+ "\"x\": " + location.getX() + ", "
+				+ "\"y\": " + location.getY()
 				+ "}}");
 	}
 
@@ -398,16 +392,16 @@ public class ServerProxy implements IProxy {
 		return post("moves/soldier", "{\"type\": \"soldier\", \"playerIndex\": " + playerIndex 
 				+ "\", \"victimIndex\": " + victimIndex + ", "
 				+ "\", \"location\": {"
-				+ "\", \"x\": \"" + location.getX() + "\", "
-				+ "\", \"y\": \"" + location.getY() + "\""
+				+ "\", \"x\": " + location.getX() + ", "
+				+ "\", \"y\": " + location.getY()
 				+ "}}");
 	}
 	
 	@Override
 	public String yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
 		return post("moves/yearOfPlenty", "{\"type\": \"yearOfPlenty\", \"playerIndex\": " + playerIndex 
-				+ "\", \"resource1\": \"" + resource1.toString() + "\""
-				+ "\", \"resource2\": \"" + resource2.toString() + "\""
+				+ "\", \"resource1\": " + resource1.toString() + ""
+				+ ", \"resource2\": " + resource2.toString() + ""
 				+ "}");
 	}
 
@@ -415,14 +409,14 @@ public class ServerProxy implements IProxy {
 	public String roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
 		return post("moves/roadBuilding", "{\"type\": \"roadBuilding\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"spot1\": {"
-				+ "\"x\": \"" + spot1.getHexLoc().getX() + "\", "
-				+ "\"y\": \"" + spot1.getHexLoc().getY() + "\", "
-				+ "\"direction\": \"" + spot1.getDir() + "\", "
+				+ "\"x\": " + spot1.getHexLoc().getX() + ", "
+				+ "\"y\": " + spot1.getHexLoc().getY() + ", "
+				+ "\"direction\": \"" + spot1.getDir().toString() + "\", "
 				+ "}, "
 				+ "\"spot2\": {"
-				+ "\"x\": \"" + spot2.getHexLoc().getX() + "\", "
-				+ "\"y\": \"" + spot2.getHexLoc().getY() + "\", "
-				+ "\"direction\": \"" + spot2.getDir() + "\", "
+				+ "\"x\": " + spot2.getHexLoc().getX() + ", "
+				+ "\"y\": " + spot2.getHexLoc().getY() + ", "
+				+ "\"direction\": \"" + spot2.getDir().toString() + "\", "
 				+ "}}");
 	}
 

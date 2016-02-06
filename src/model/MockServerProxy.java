@@ -23,6 +23,16 @@ public class MockServerProxy implements IProxy {
 	 * @pre HOST and PORT are not "" and correct
 	 * @post the ServerProxy is connected and ready to use
 	 */
+	
+	private static MockServerProxy SINGLETON;
+	
+	public static MockServerProxy getSingleton(String HOST, String PORT) {
+		if(SINGLETON == null) {
+			SINGLETON = new MockServerProxy(HOST, PORT);
+		}
+		return SINGLETON;
+	}
+	
 	public MockServerProxy(String HOST, String PORT) {
 	}	
 	
@@ -875,7 +885,7 @@ public class MockServerProxy implements IProxy {
 	}
 
 	@Override
-	public String buildRoad(int playerIndex, EdgeValue roadLocation, boolean free) {
+	public String buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
 		
 		return gamesModel("");
 	}
@@ -887,7 +897,7 @@ public class MockServerProxy implements IProxy {
 	}
 
 	@Override
-	public String buildCity(int playerIndex, VertexObject vertexObject, String free) {
+	public String buildCity(int playerIndex, VertexObject vertexObject) {
 		
 		return gamesModel("");
 	}

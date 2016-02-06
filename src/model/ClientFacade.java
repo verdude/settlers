@@ -10,14 +10,15 @@ public class ClientFacade {
 	
 	private static ClientModel  clientModel;
 	private static ClientFacade singleton;
-	private static ServerProxy proxy;
+	private IProxy proxy;
 	
 	/**
 	 * Default Constructor
 	 * 
 	 */
-	private ClientFacade() {
+	private ClientFacade(IProxy proxy) {
 		clientModel	= new ClientModel();
+		this.proxy = proxy;
 		ServerPoller.getSingleton(proxy);
 	}
 
@@ -25,9 +26,9 @@ public class ClientFacade {
 	 * Creates and returns the ClientFacade singleton if it doesn't already exist
 	 * @return The client facade singleton
 	 */
-	public static ClientFacade getSingleton() {
+	public static ClientFacade getSingleton(IProxy proxy) {
 		if (singleton == null) {
-			singleton = new ClientFacade();
+			singleton = new ClientFacade(proxy);
 		}
 		return singleton;
 	}
@@ -217,7 +218,7 @@ public class ClientFacade {
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
 	 * @return Whether it was attempted
 	 */
-	public boolean buildRoad(int playerIndex, EdgeValue roadLocation, boolean free) {
+	public boolean buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
 		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation);
 		if(canDo)
 		{
@@ -267,7 +268,7 @@ public class ClientFacade {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public boolean buildCity(int playerIndex, VertexObject vertexObject, String free) {
+	public boolean buildCity(int playerIndex, VertexObject vertexObject) {
 		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject);
 		if(canDo)
 		{
@@ -278,7 +279,7 @@ public class ClientFacade {
 				e.printStackTrace();
 				return false;
 			}
-			String model = proxy.buildCity(playerIndex, vertexObject, free);
+			String model = proxy.buildCity(playerIndex, vertexObject);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
 		return canDo;
