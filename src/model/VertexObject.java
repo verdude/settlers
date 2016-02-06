@@ -8,6 +8,7 @@ public class VertexObject {
 	
 	
 	public VertexObject(){
+		owner = -1;
 		//...
 	}
 	

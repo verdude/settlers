@@ -2,11 +2,11 @@ package model;
 
 import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
-import shared.locations.VertexLocation;
+import shared.locations.HexLocation;
 
 public class Port {
 	PortType resourceType;
-	VertexLocation location;
+	HexLocation location;
 	EdgeDirection direction;
 	Double ratio;
 	
@@ -17,13 +17,13 @@ public class Port {
 	
 	//Getters
 	public PortType 	getResourceType() 				{ return resourceType; 				}
-	public VertexLocation getLocation() 					{ return location; 					}
+	public HexLocation getLocation() 					{ return location; 					}
 	public EdgeDirection 	getDirection() 					{ return direction;	 				}
 	public Double 		getRatio() 						{ return ratio; 					}
 	
 	//Setters
 	public void setResourceType(PortType resourceType) 	{ this.resourceType = resourceType;	}
-	public void setLocation(VertexLocation location) 		{ this.location = location; 		}
+	public void setLocation(HexLocation location) 		{ this.location = location; 		}
 	public void setDirection(EdgeDirection direction) 		{ this.direction = direction;		}
 	public void setRatio(Double ratio) 					{ this.ratio = ratio; 				}	
 }

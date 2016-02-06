@@ -22,7 +22,7 @@ public class ClientModel {
 	
 	
 	private DevCardList devCardList;
-	int roll;
+	private int roll;
 
 	/**
 	 * Default Constructor
@@ -41,6 +41,14 @@ public class ClientModel {
 		roll = 0;
 	}
 
+	
+	public int getRoll(){
+		return roll;
+	}
+	
+	public void setRoll(int roll){
+		this.roll = roll;
+	}
 	/**
 	 * Decrease the amount of the resource by the specified amount.
 	 * @param resource: String, the type of resource
@@ -299,6 +307,9 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canSendChat(String message) {
+		if(message.length() > 300){
+			return false;
+		}
 		return true;
 	}	
 	
@@ -309,6 +320,9 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canAcceptTrade(int playerIndex ) {
+		if(offer.getReceiver() != playerIndex){
+			return false;
+		}
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 		
@@ -327,19 +341,19 @@ public class ClientModel {
 		
 		for(Integer i : requestedResources){
 			switch(i){
-			 case 0:
+			 case -1:
 				 woodRequested++;
 				 break;
-			 case 1:
+			 case -2:
 				 brickRequested++;
 				 break;
-			 case 2:
+			 case -3:
 				 sheepRequested++;
 				 break;
-			 case 3:
+			 case -4:
 				 wheatRequested++;
 				 break;
-			 case 4:
+			 case -5:
 				 oreRequested++;
 				 break;
 	
@@ -350,7 +364,7 @@ public class ClientModel {
 			return false;
 		}
 		
-		return false;
+		return true;
 	}
 	/**
 	 * Sees if the player has more than seven cards if a 7 is rolled
@@ -571,7 +585,7 @@ public class ClientModel {
 		VertexLocation settLoc = vertex.getLocation();
 		VertexDirection settDir = settLoc.getDir();
 
-		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() >=0 || !player.getHasRolled()){
+		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() >= 0 || !player.getHasRolled()){
 			return false;
 
 		}
@@ -795,8 +809,10 @@ public class ClientModel {
 	 */
 	public boolean canOfferTrade(int playerIndex) {
 		Player player = players[playerIndex];
+		
 		ResourceList resources = player.getResources();
-		if(turnTracker.getCurrentTurn() != playerIndex || !player.getHasRolled()){
+		if(turnTracker.getCurrentTurn() != playerIndex || !player.getHasRolled() || 
+				offer.getSender() != playerIndex || offer.getReceiver() >3 || offer.getReceiver() < 0){
 			return false;
 		}
 		
@@ -812,19 +828,19 @@ public class ClientModel {
 		int woodOffered = 0;
 		for(Integer i : offeredResources){
 			switch(i){
-			 case 0:
+			 case 1:
 				 woodOffered++;
 				 break;
-			 case 1:
+			 case 2:
 				 brickOffered++;
 				 break;
-			 case 2:
+			 case 3:
 				 sheepOffered++;
 				 break;
-			 case 3:
+			 case 4:
 				 wheatOffered++;
 				 break;
-			 case 4:
+			 case 5:
 				 oreOffered++;
 				 break;
 	
@@ -867,7 +883,7 @@ public class ClientModel {
 		}
 		
 		for(Port p : map.getPortList()){
-			HexLocation portHex = p.getLocation().getHexLoc();
+			HexLocation portHex = p.getLocation();
 			PortType portType = p.getResourceType();
 			EdgeDirection portDir = p.getDirection();
 			
@@ -1151,6 +1167,8 @@ public class ClientModel {
 		}
 		return false;
 	}
+	
+	
 	
 	public boolean canRollNumber(int playerIndex){
 		
