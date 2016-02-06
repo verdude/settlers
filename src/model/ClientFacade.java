@@ -136,17 +136,17 @@ public class ClientFacade {
 	 * @post A message is sent to the other players.
 	 * @return Whether it was attempted
 	 */
-	public boolean sendChat(int playerIndex, String message) {
+	public boolean sendChat(String playerName, String message) {
 		boolean canDo = clientModel.canSendChat(message);
 		if(canDo)
 		{
 			try {
-				clientModel.addChatMessage(new MessageLine(message, playerIndex));
+				clientModel.addChatMessage(new MessageLine(message, playerName));
 			} catch (ClientException e) {
 				e.printStackTrace();
 				return false;
 			}
-			String model = proxy.sendChat(playerIndex, message);
+			String model = proxy.sendChat(playerName, message);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
 		return canDo;

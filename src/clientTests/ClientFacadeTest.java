@@ -169,7 +169,7 @@ public class ClientFacadeTest {
 
 	@Test
 	public void sendChatTest() {
-		assertTrue(facade.sendChat(0, "orangeMessage"));
+		assertTrue(facade.sendChat("Sam", "orangeMessage"));
 	}
 
 	@Test

@@ -73,7 +73,7 @@ public class ClientModelTests {
 	@Test
 	public void testAddChatMessage() throws ClientException {
 		ClientModel model = new ClientModel();
-		MessageLine message = new MessageLine("This is the message", 0);
+		MessageLine message = new MessageLine("This is the message", "Sam");
 		model.addChatMessage(message);
 		assertTrue(model.getChat().getLines().get(0) == message);
 		assertTrue(model.getLog().getLines().get(0) == message);

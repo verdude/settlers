@@ -15,8 +15,8 @@ public class Player {
 	private boolean discarded; 			// Whether or not the player has discarded this discard phase
 	private int monuments; 				// Number of monuments the player has played
 	private String name;
-	private List<DevCardType> newDevCards; // New dev cards that the player has bought this turn
-	private List<DevCardType> oldDevCards; // Dev cards that the player had at the beginning of the turn
+	private DevCardList newDevCards; // New dev cards that the player has bought this turn
+	private DevCardList oldDevCards; // Dev cards that the player had at the beginning of the turn
 	private int playerIndex;
 	private boolean playedDevCard;		// Whether or not a player has played a dev card this turn
 	private int playerID;
@@ -39,8 +39,8 @@ public class Player {
 		
 		cities = 4;
 		settlements = 5;
-		newDevCards = new ArrayList<DevCardType>();
-		oldDevCards = new ArrayList<DevCardType>();
+		newDevCards = new DevCardList();
+		oldDevCards = new DevCardList();
 		this.color = color;
 		discarded = false;
 		monuments = 0;
@@ -112,7 +112,7 @@ public class Player {
 //		}
 //	}
 	
-	/** Places a settlement for the player on a given vertex
+	/** Places a settlement for the player on a given vertexArrayList<DevCardType>
 	 * @param vertex the vertex where the player wants to place the settlement
 	 * @pre canPlaySettlement() returns true
 	 * @post a settlement will be placed at the desired vertex and settlements will be decremented by 1
@@ -273,11 +273,41 @@ public class Player {
 	 */
 	public void useDevCard(DevCardType card) throws ClientException{
 		//if(canUseDevCard(card)){
-			for(int i = 0; i < oldDevCards.size(); i++){ 
+			// This bit is commented to implement the devcardlist rather than the list
+			/*for(int i = 0; i < oldDevCards.size(); i++){ 
 				if(oldDevCards.get(i).equals(card)){
 					oldDevCards.remove(i); 
 					
 				}
+			}*/
+			switch(card){
+			case MONOPOLY:
+				if (oldDevCards.getMonopoly() > 0) {
+					oldDevCards.setMonopoly(oldDevCards.getMonopoly()+1);
+				}
+				break;
+			case YEAR_OF_PLENTY:
+				if (oldDevCards.getYearOfPlenty() > 0) {
+					oldDevCards.setYearOfPlenty(oldDevCards.getYearOfPlenty()+1);
+				}
+				break;
+			case SOLDIER:
+				if (oldDevCards.getSoldier() > 0) {
+					oldDevCards.setSoldier(oldDevCards.getSoldier()+1);
+				}
+				break;
+			case ROAD_BUILD:
+				if (oldDevCards.getRoadBuilding() > 0) {
+					oldDevCards.setRoadBuilding(oldDevCards.getRoadBuilding()+1);
+				}
+				break;
+			case MONUMENT:
+				if (oldDevCards.getMonument() > 0) {
+					oldDevCards.setMonument(oldDevCards.getMonument()+1);
+				}
+				break;
+			default:
+				throw new ClientException("Exception thrown in useDevCard");
 			}
 		}
 //		else{
@@ -384,10 +414,11 @@ public class Player {
 		if(canFinishTurn()){
 			hasRolled = false;
 			playedDevCard = false;
-			for(DevCardType card : newDevCards){ // move bought dev cards to the usable list of dev cards (oldDevCards)
-				oldDevCards.add(card);
-			}
-			
+			oldDevCards.setMonopoly(oldDevCards.getMonopoly()+newDevCards.getMonopoly());
+			oldDevCards.setSoldier(oldDevCards.getSoldier()+newDevCards.getSoldier());
+			oldDevCards.setYearOfPlenty(oldDevCards.getYearOfPlenty()+newDevCards.getYearOfPlenty());
+			oldDevCards.setRoadBuilding(oldDevCards.getRoadBuilding()+newDevCards.getRoadBuilding());
+			oldDevCards.setMonument(oldDevCards.getMonument()+newDevCards.getMonument());
 		}else{
 			throw new ClientException();
 		}
@@ -467,28 +498,28 @@ public class Player {
 	/**
 	 * @return gets the list of dev cards bought this turn
 	 */
-	public List<DevCardType> getNewDevCards() {
+	public DevCardList getNewDevCards() {
 		return newDevCards;
 	}
 	
 	/**
 	 * @param newDevCards newDevCards to set (List[DevCard])
 	 */
-	public void setNewDevCards(List<DevCardType> newDevCards) {
+	public void setNewDevCards(DevCardList newDevCards) {
 		this.newDevCards = newDevCards;
 	}
 	
 	/**
 	 * @return gets the list of dev cards owned by player not bought this turn
 	 */
-	public List<DevCardType> getOldDevCards() {
+	public DevCardList getOldDevCards() {
 		return oldDevCards;
 	}
 	
 	/**
 	 * @param oldDevCards oldDevCards to set (List[DevCard])
 	 */
-	public void setOldDevCards(List<DevCardType> oldDevCards) {
+	public void setOldDevCards(DevCardList oldDevCards) {
 		this.oldDevCards = oldDevCards;
 	}
 	
@@ -604,13 +635,34 @@ public class Player {
 	}
 	
 	public boolean hasDevCard(DevCardType card){
-		for(DevCardType c : oldDevCards){
-			if(c.equals(card)){
+		switch(card){
+		case MONOPOLY:
+			if (oldDevCards.getMonopoly() > 0) {
 				return true;
 			}
+			break;
+		case YEAR_OF_PLENTY:
+			if (oldDevCards.getYearOfPlenty() > 0) {
+				return true;
+			}
+			break;
+		case SOLDIER:
+			if (oldDevCards.getSoldier() > 0) {
+				return true;
+			}
+			break;
+		case ROAD_BUILD:
+			if (oldDevCards.getRoadBuilding() > 0) {
+				return true;
+			}
+			break;
+		case MONUMENT:
+			if (oldDevCards.getMonument() > 0) {
+				return true;
+			}
+			break;
 		}
 		return false;
-		
 	}
 
 }

@@ -52,7 +52,7 @@ public class ServerProxyTests {
 
 	@Test
 	public void sendChatTest() {
-		assertNotEquals(proxy.sendChat(0, "hi"), "Error");		
+		assertNotEquals(proxy.sendChat("Sam", "hi"), "Error");		
 	}
 
 	@Test

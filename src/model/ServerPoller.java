@@ -3,8 +3,6 @@
  */
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,10 +21,6 @@ public class ServerPoller {
 	 * To be used to thread and frequently poll the server.
 	 */
 	private Timer timer = new Timer();
-	/**
-	 * This will be used to tell the Timer what task to perform.
-	 */
-	private TimerTask timerTask;
 	/**
 	 * The interval at which the needUpdate function will be called.
 	 */

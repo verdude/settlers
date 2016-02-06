@@ -4,10 +4,10 @@ public class MessageLine {
 
 	
 	private String message;
-	private int source;
+	private String source;
 	
 	
-	public MessageLine(String message, int source) {
+	public MessageLine(String message, String source) {
 		this.message = message;
 		this.source = source;
 	}
@@ -27,13 +27,13 @@ public class MessageLine {
 	/** 
 	 * @return source of message (String)
 	 */
-	public int getSource() {
+	public String getSource() {
 		return source;
 	}
 	/**
 	 * @param source sets the source of the message (String)
 	 */
-	public void setSource(int source) {
+	public void setSource(String source) {
 		this.source = source;
 	}
 }

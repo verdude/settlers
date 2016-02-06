@@ -10,7 +10,7 @@ import shared.locations.*;
 
 public class ClientModel {
 
-	private ResourceList bank;
+	private ResourceList deck;
 	private MessageList chat;
 	private MessageList log;
 	private GameMap map;
@@ -29,7 +29,7 @@ public class ClientModel {
 	 * 
 	 */
 	public ClientModel() {
-		bank = new ResourceList(ResourceList.max);
+		deck = new ResourceList(ResourceList.max);
 		chat = new MessageList();
 		log = new MessageList();
 		map = new GameMap();
@@ -61,33 +61,33 @@ public class ClientModel {
 		resource = resource.toLowerCase();
 		switch(resource){
 		case "brick":
-			bank.setBrick(bank.getBrick() - amount);
-			if(bank.getBrick() < ResourceList.min) {
-				bank.setBrick(ResourceList.min);
+			deck.setBrick(deck.getBrick() - amount);
+			if(deck.getBrick() < ResourceList.min) {
+				deck.setBrick(ResourceList.min);
 			}
 			break;
 		case "ore":
-			bank.setOre(bank.getOre() - amount);
-			if(bank.getOre() < ResourceList.min) {
-				bank.setOre(ResourceList.min);
+			deck.setOre(deck.getOre() - amount);
+			if(deck.getOre() < ResourceList.min) {
+				deck.setOre(ResourceList.min);
 			}
 			break;
 		case "sheep":
-			bank.setSheep(bank.getSheep() - amount);
-			if(bank.getSheep() < ResourceList.min) {
-				bank.setSheep(ResourceList.min);
+			deck.setSheep(deck.getSheep() - amount);
+			if(deck.getSheep() < ResourceList.min) {
+				deck.setSheep(ResourceList.min);
 			}
 			break;
 		case "wheat":
-			bank.setWheat(bank.getWheat() - amount);
-			if(bank.getWheat() < ResourceList.min) {
-				bank.setWheat(ResourceList.min);
+			deck.setWheat(deck.getWheat() - amount);
+			if(deck.getWheat() < ResourceList.min) {
+				deck.setWheat(ResourceList.min);
 			}
 			break;
 		case "wood":
-			bank.setWood(bank.getWood() - amount);
-			if(bank.getWood() < ResourceList.min) {
-				bank.setWood(ResourceList.min);
+			deck.setWood(deck.getWood() - amount);
+			if(deck.getWood() < ResourceList.min) {
+				deck.setWood(ResourceList.min);
 			}
 			break;
 		default:
@@ -107,33 +107,33 @@ public class ClientModel {
 		resource = resource.toLowerCase();
 		switch(resource){
 		case "brick":
-			bank.setBrick(bank.getBrick() + amount);
-			if(bank.getBrick() > ResourceList.max) {
-				bank.setBrick(ResourceList.max);
+			deck.setBrick(deck.getBrick() + amount);
+			if(deck.getBrick() > ResourceList.max) {
+				deck.setBrick(ResourceList.max);
 			}
 			break;
 		case "ore":
-			bank.setOre(bank.getOre() + amount);
-			if(bank.getOre() > ResourceList.max) {
-				bank.setOre(ResourceList.max);
+			deck.setOre(deck.getOre() + amount);
+			if(deck.getOre() > ResourceList.max) {
+				deck.setOre(ResourceList.max);
 			}
 			break;
 		case "sheep":
-			bank.setSheep(bank.getSheep() + amount);
-			if(bank.getSheep() > ResourceList.max) {
-				bank.setSheep(ResourceList.max);
+			deck.setSheep(deck.getSheep() + amount);
+			if(deck.getSheep() > ResourceList.max) {
+				deck.setSheep(ResourceList.max);
 			}
 			break;
 		case "wheat":
-			bank.setWheat(bank.getWheat() + amount);
-			if(bank.getWheat() > ResourceList.max) {
-				bank.setWheat(ResourceList.max);
+			deck.setWheat(deck.getWheat() + amount);
+			if(deck.getWheat() > ResourceList.max) {
+				deck.setWheat(ResourceList.max);
 			}
 			break;
 		case "wood":
-			bank.setWood(bank.getWood() + amount);
-			if(bank.getWood() > ResourceList.max) {
-				bank.setWood(ResourceList.max);
+			deck.setWood(deck.getWood() + amount);
+			if(deck.getWood() > ResourceList.max) {
+				deck.setWood(ResourceList.max);
 			}
 			break;
 		default:
@@ -177,14 +177,14 @@ public class ClientModel {
 	 * @return the bank
 	 */
 	public ResourceList getBank() {
-		return bank;
+		return deck;
 	}
 
 	/**
 	 * @param bank the bank to set
 	 */
 	public void setBank(ResourceList bank) {
-		this.bank = bank;
+		this.deck = bank;
 	}
 
 	/**
@@ -775,7 +775,8 @@ public class ClientModel {
 	 */
 	public boolean canBuildCity(int playerIndex, VertexObject vertex) {
 		Player player = players[playerIndex];
-		ResourceList resources = player.getResources();		
+		System.out.println(""+(player==null));
+		ResourceList resources = player.getResources();
 
 
 		//VertexLocation cityLoc = vertex.getLocation();

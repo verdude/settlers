@@ -149,7 +149,7 @@ public interface IProxy {
 	 * @post A message is sent to the other players.
 	 * @return The model
 	 */
-	public String sendChat(int playerIndex, String message);
+	public String sendChat(String playerName, String message);
 
 	/**
 	 * Accept a trade that has been presented
