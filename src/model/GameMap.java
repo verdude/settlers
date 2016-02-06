@@ -40,7 +40,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeSettlement(VertexObject position) throws GameMapException{
-		
+
 		settlementList.add(new Settlement(position));
 	}
 	
@@ -51,7 +51,10 @@ public class GameMap {
 	 * @param position, (vertex): the vertex where the player wants to place the city
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
-	public void placeCity(VertexObject position) throws GameMapException{}
+	public void placeCity(VertexObject position) throws GameMapException{
+		
+//		cityList.add(new City(position));
+	}
 	
 	/** Places a road for the player on a given edge
 	 * @pre 	The player must have the resources (1 lumber, 1 brick) for a road and the edge must be connected 

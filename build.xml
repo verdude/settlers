@@ -161,7 +161,14 @@
         <zip destfile="./tester.zip" basedir="${java.dist}" />
     </target>
 
-	<target name="test" description="runs JUnit tests" depends="compile">
+	<target name="test" description="runs JUnit tests" depends="clean, compile">
+		<parallel>
+			<daemons>
+				<antcall target="server">
+				</antcall>
+			</daemons>
+		</parallel>
+		
     	<java classname="clientTests.ClientTests" fork="yes">
 	    	<classpath>
 	    		<path refid="all-classpath"/>
