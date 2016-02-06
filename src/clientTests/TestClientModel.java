@@ -76,8 +76,8 @@ public class TestClientModel {
 	
 	@Test
 	public void testEndTurn() throws ClientException {
-//		new ClientModel().endTurn();
-		//Do the players need to be initialized in the model?
+		new ClientModel().endTurn();
+//		Do the players need to be initialized in the model?
 	}
 
 	

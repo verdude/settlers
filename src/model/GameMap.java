@@ -37,7 +37,10 @@ public class GameMap {
 	 * @param position, (vertex): the vertex where the player wants to place the settlement
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
-	public void placeSettlement(VertexObject position) throws GameMapException{}
+	public void placeSettlement(VertexObject position) throws GameMapException{
+		
+		settlementList.add(new Settlement(position));
+	}
 	
 	/** Places a city for the player on a given vertex
 	 * @pre 	The player must have the resources (2 wheat, 3 ore) for a city and the vertex must be connected 
