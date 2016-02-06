@@ -72,7 +72,7 @@ public class ServerProxy implements IProxy {
 		return PORT;
 	}
 
-	public String post(String endPoint, String data)
+	private String post(String endPoint, String data)
 	{
 		try {
 			byte[] postData = data.getBytes(StandardCharsets.UTF_8);
@@ -101,7 +101,7 @@ public class ServerProxy implements IProxy {
 		}
 	}
 
-	public String get(String endPoint)
+	private String get(String endPoint)
 	{
 		try {
 			HttpURLConnection conn= (HttpURLConnection) new URL(mainURL, endPoint).openConnection();           

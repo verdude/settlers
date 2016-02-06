@@ -33,6 +33,10 @@ public class ClientFacade {
 		return singleton;
 	}
 	
+	public int getVersion() {
+		return clientModel.getVersion();
+	}
+	
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
 	}
@@ -136,6 +140,12 @@ public class ClientFacade {
 		boolean canDo = clientModel.canSendChat(message);
 		if(canDo)
 		{
+			try {
+				clientModel.addChatMessage(new MessageLine(message, playerIndex));
+			} catch (ClientException e) {
+				e.printStackTrace();
+				return false;
+			}
 			String model = proxy.sendChat(playerIndex, message);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
@@ -183,10 +193,17 @@ public class ClientFacade {
 	 * @post The result of rolling the current number is performed.
 	 * @return Whether it was attempted
 	 */
-	public boolean rollNumber(int playerIndex, int number) {
+	public boolean rollNumber(int playerIndex) {
 		boolean canDo = clientModel.canRollNumber(playerIndex);
 		if(canDo)
 		{
+			int number;
+			try {
+				number = clientModel.getPlayers()[playerIndex].rollNumber();
+			} catch (ClientException e) {
+				e.printStackTrace();
+				return false;
+			}
 			String model = proxy.rollNumber(playerIndex, number);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
@@ -205,6 +222,12 @@ public class ClientFacade {
 		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation);
 		if(canDo)
 		{
+			try {
+				clientModel.getPlayers()[playerIndex].playRoad();
+			} catch (ClientException e) {
+				e.printStackTrace();
+				return false;
+			}
 			String model = proxy.buildRoad(playerIndex, roadLocation, free);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
@@ -224,6 +247,12 @@ public class ClientFacade {
 		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject);
 		if(canDo)
 		{
+			try {
+				clientModel.getPlayers()[playerIndex].playSettlement();
+			} catch (ClientException e) {
+				e.printStackTrace();
+				return false;
+			}
 			String model = proxy.buildSettlement(playerIndex, vertexObject, free);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
@@ -241,6 +270,12 @@ public class ClientFacade {
 		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject);
 		if(canDo)
 		{
+			try {
+				clientModel.getPlayers()[playerIndex].playCity();
+			} catch (ClientException e) {
+				e.printStackTrace();
+				return false;
+			}
 			String model = proxy.buildCity(playerIndex, vertexObject, free);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
@@ -312,6 +347,12 @@ public class ClientFacade {
 		boolean canDo = clientModel.canFinishTurn(playerIndex);
 		if(canDo)
 		{
+			try {
+				clientModel.endTurn();
+			} catch (ClientException e) {
+				e.printStackTrace();
+				return false;
+			}
 			String model = proxy.finishTurn(playerIndex);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
@@ -328,6 +369,12 @@ public class ClientFacade {
 		boolean canDo = clientModel.canBuyDevCard(playerIndex);
 		if(canDo)
 		{
+			try {
+				clientModel.getPlayers()[playerIndex].buyDevCard();
+			} catch (ClientException e) {
+				e.printStackTrace();
+				return false;
+			}
 			String model = proxy.buyDevCard(playerIndex);
 			updateModel((ClientModel) Converter.deserialize(model));
 		}
