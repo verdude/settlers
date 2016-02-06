@@ -26,7 +26,7 @@ public class ServerPoller {
 	/**
 	 * This will be used to tell the Timer what task to perform.
 	 */
-//	private TimerTask timerTask;
+	private TimerTask timerTask;
 	/**
 	 * The interval at which the needUpdate function will be called.
 	 */
@@ -59,9 +59,7 @@ public class ServerPoller {
             @Override
             public void run() {
                 try {
-					if (needUpdate()) {
-						update();
-					}
+					needUpdate();
 				} catch (ServerException e) {
 					e.printStackTrace();
 					System.out.println("[Error] - Checking for update Failed...(ServerPoller).");
@@ -71,40 +69,34 @@ public class ServerPoller {
 	}
 
 	/**
-	 * 
+	 * Used to check if the client's model needs an update
 	 * @pre None
 	 * @post The server's model number is different if true, false otherwise
 	 * @return Whether the local ClientModel needs an update
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
-	private boolean needUpdate() throws ServerException {
-//		int version = 0;//ClientFacade.getSingleton().getVersion();
-//		if (/*proxy.getVersion > clientFacade.getVersion*/) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-		return /*extra*/ true;
+	private void needUpdate() throws ServerException {
+		int version = ClientFacade.getSingleton().getVersion();
+		String response = proxy.gamesModel(Integer.toString(version));
+		if (!response.equals("true")) {
+			update(response);
+		}
 	}
 	
 	/**
 	 * The update method will use the proxy to get the latest ServerModel
 	 * and loads it into the ClientModel locally
+	 * @param jsonModel String client model as json
 	 * @pre needUdate() returns true
 	 * @post The local model class is replaced with a clone of the model class on the server
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
-	private void update() throws ServerException{
-		int version = 0;//ClientFacade.getSingleton().getVersion();
-		PrintWriter out;
-		try {
-			// write the model to the file
-			out = new PrintWriter("json/model.json");
-			out.print(proxy.gamesModel(Integer.toString(version)));
-			out.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	private void update(String jsonModel) throws ServerException{
+		ClientModel newModel = (ClientModel) Converter.deserialize(jsonModel);
+		ClientFacade facade = ClientFacade.getSingleton();
+		if (newModel.getVersion() > facade.getVersion()) {
+			// means the version one the client is old
+			facade.updateModel(newModel);
 		}
 	}
 }

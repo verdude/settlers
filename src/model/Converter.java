@@ -2,6 +2,8 @@ package model;
 
 import java.io.FileNotFoundException;
 
+import com.google.gson.Gson;
+
 public class Converter {
 
 
@@ -13,8 +15,8 @@ public class Converter {
 	 * @post The JSON data contained in the file is parsed and maps it to the model objects.
 	 */
 	public static Object deserialize(String jsonData) {
-		return jsonData;
-		
+		Gson gson = new Gson();
+		return gson.fromJson(jsonData, ClientModel.class);
 	}
 	
 	/**
@@ -25,8 +27,8 @@ public class Converter {
 	 * @throws ClientException when this function fails when it shouldn't 
 	 */
 	public static String serialize(Object o) throws ClientException{
-		return null;
-		
+		Gson gson = new Gson();
+		return gson.toJson(o);
 	}
 	
 }
