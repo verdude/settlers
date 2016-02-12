@@ -25,6 +25,15 @@ public class DevCardList {
 		soldier = 14;
 		monument = 5;
 	}
+	//Constructor for a player so that they can start with an empty DevCardList
+	public DevCardList(int startValue){
+		
+		this.setMonopoly(startValue);
+		this.setMonument(startValue);
+		this.setRoadBuilding(startValue);
+		this.setSoldier(startValue);
+		this.setYearOfPlenty(startValue);
+	}
 
 	/**
 	 * @return the monopoly

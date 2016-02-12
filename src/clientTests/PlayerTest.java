@@ -42,28 +42,31 @@ public class PlayerTest {
 		int wood = 6;
 		int brick = 6;
 		int settlements = 5; // the number of settlements a player starts with
-		try {
-			for (int i = 0; i < 5; i++){ // play all of the settlements that the player has
+
+		for (int i = 0; i < 5; i++){ // play all of the settlements that the player has
+			
+			try {
 				test1.playSettlement();
-
-				settlements--;
-				wheat--;
-				sheep--;
-				wood--;
-				brick--;
-
-				assertEquals(settlements, test1.getSettlements());
-
-				assertEquals(brick,test1.getResources().getBrick());
-				assertEquals(wheat,test1.getResources().getWheat());
-				assertEquals(wood,test1.getResources().getWood());
-				assertEquals(sheep,test1.getResources().getSheep());
-
+			} catch (ClientException e) {
+				e.printStackTrace();
 			}
 
-		} catch (ClientException e) {
-			e.printStackTrace();
+			settlements--;
+			wheat--;
+			sheep--;
+			wood--;
+			brick--;
+
+			assertEquals(settlements, test1.getSettlements());
+
+			assertEquals(brick,test1.getResources().getBrick());
+			assertEquals(wheat,test1.getResources().getWheat());
+			assertEquals(wood,test1.getResources().getWood());
+			assertEquals(sheep,test1.getResources().getSheep());
+
 		}
+
+
 
 	}
 
@@ -107,7 +110,7 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void testPlayRoad(){
+	public void testPlayRoad() {
 		test1 = new Player("sean", CatanColor.WHITE,0);
 
 		test1.getResources().setBrick(16);// enough brick to build 16 roads
@@ -117,25 +120,27 @@ public class PlayerTest {
 		int wood = 16;
 		int brick = 16;
 		int roads = 15; // the number of roads a player starts with
-		try {
-			for (int i = 0; i < 15; i++){ // play all of the roads that the player has
+
+		for (int i = 0; i < 15; i++){ // play all of the roads that the player has
+			try {
 				test1.playRoad();
-
-				roads--;
-
-				wood--;
-				brick--;
-
-				assertEquals(roads, test1.getRoads());
-
-				assertEquals(brick,test1.getResources().getBrick());
-				assertEquals(wood,test1.getResources().getWood());
-
+			} catch (ClientException e) {
+				e.printStackTrace();
 			}
 
-		} catch (ClientException e) {
-			e.printStackTrace();
+			roads--;
+
+			wood--;
+			brick--;
+
+			assertEquals(roads, test1.getRoads());
+
+			assertEquals(brick,test1.getResources().getBrick());
+			assertEquals(wood,test1.getResources().getWood());
+
 		}
+
+
 
 	}
 

@@ -3,10 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import shared.definitions.DevCardType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
-import shared.locations.*;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 public class ClientModel {
 
@@ -1103,7 +1106,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
-				&& player.hasDevCard(DevCardType.SOLDIER)){
+				&& player.getOldDevCards().getSoldier() > 0){
 			return true;
 		}
 		return false;
@@ -1118,7 +1121,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
-				&& player.hasDevCard(DevCardType.YEAR_OF_PLENTY)){
+				&& player.getOldDevCards().getYearOfPlenty() > 0){
 			return true;
 		}
 		return false;
@@ -1133,7 +1136,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
-				&& player.hasDevCard(DevCardType.ROAD_BUILD)){
+				&& player.getOldDevCards().getRoadBuilding() > 0){
 			return true;
 		}
 		return false;
@@ -1148,7 +1151,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
-				&& player.hasDevCard(DevCardType.MONUMENT)){
+				&& player.getOldDevCards().getMonument() > 0) {
 			return true;
 		}
 		return false;
@@ -1163,7 +1166,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled() && !player.getPlayedDevCard() 
-				&& player.hasDevCard(DevCardType.MONOPOLY)){
+				&& player.getOldDevCards().getMonopoly() > 0){
 			return true;
 		}
 		return false;
@@ -1171,6 +1174,12 @@ public class ClientModel {
 	
 	
 	
+	/**
+	 * @param playerIndex (int)
+	 * @return true if the player can roll a number, false otherwise
+	 * @pre none
+	 * @post true if the player can roll a number, false otherwise
+	 */
 	public boolean canRollNumber(int playerIndex){
 		
 		Player player = players[playerIndex];
@@ -1183,7 +1192,13 @@ public class ClientModel {
 		
 	}
 	
-	public boolean canBuyDevCard(int playerIndex){
+	/**
+	 * @param playerIndex (int)
+	 * @return true if a player can buy a dev card, false otherwise
+	 * @pre none
+	 * @post true if a player can play a dev card, false otherwise
+	 */
+	public boolean canBuyDevCard(int playerIndex) {
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 		
