@@ -32,6 +32,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
+
 public class ClientCanDoTests {
 
 	private static  ClientModel model;
@@ -269,8 +270,8 @@ public class ClientCanDoTests {
 	}
 	@Test
 	public void canYearOfPlentyTest(){
-		DevCardList oldDevCards =new DevCardList();
-		oldDevCards.setYearOfPlenty(oldDevCards.getYearOfPlenty()+1);
+		List<DevCardType> oldDevCards =new ArrayList<>();
+		oldDevCards.add(DevCardType.YEAR_OF_PLENTY);
 		
 		model.getPlayers()[0].setOldDevCards(oldDevCards);
 		assertTrue(model.canYearOfPlenty(0));
@@ -279,8 +280,8 @@ public class ClientCanDoTests {
 	
 	@Test
 	public void canMonopolyTest(){
-		DevCardList oldDevCards =new DevCardList();
-		oldDevCards.setMonopoly(oldDevCards.getMonopoly()+1);
+		List<DevCardType> oldDevCards =new ArrayList<>();
+		oldDevCards.add(DevCardType.MONOPOLY);
 		
 		model.getPlayers()[0].setOldDevCards(oldDevCards);
 		assertTrue(model.canMonopoly(0));
@@ -289,8 +290,8 @@ public class ClientCanDoTests {
 	
 	@Test
 	public void canMonumentTest(){
-		DevCardList oldDevCards =new DevCardList();
-		oldDevCards.setMonument(oldDevCards.getMonument()+1);
+		List<DevCardType> oldDevCards =new ArrayList<>();
+		oldDevCards.add(DevCardType.MONUMENT);
 		
 		model.getPlayers()[0].setOldDevCards(oldDevCards);
 		assertTrue(model.canMonument(0));
@@ -299,8 +300,8 @@ public class ClientCanDoTests {
 	
 	@Test
 	public void canRoadBuildingTest(){
-		DevCardList oldDevCards =new DevCardList();
-		oldDevCards.setRoadBuilding(oldDevCards.getRoadBuilding()+1);
+		List<DevCardType> oldDevCards =new ArrayList<>();
+		oldDevCards.add(DevCardType.ROAD_BUILD);
 		
 		model.getPlayers()[0].setOldDevCards(oldDevCards);
 		assertTrue(model.canRoadBuilding(0));
@@ -309,8 +310,8 @@ public class ClientCanDoTests {
 	
 	@Test
 	public void canSoldierTest(){
-		DevCardList oldDevCards =new DevCardList();
-		oldDevCards.setSoldier(oldDevCards.getSoldier()+1);
+		List<DevCardType> oldDevCards =new ArrayList<>();
+		oldDevCards.add(DevCardType.SOLDIER);
 		
 		model.getPlayers()[0].setOldDevCards(oldDevCards);
 		assertTrue(model.canSoldier(0));
