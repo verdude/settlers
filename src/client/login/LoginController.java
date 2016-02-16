@@ -1,7 +1,12 @@
 package client.login;
 
-import client.base.*;
-import client.misc.*;
+import java.net.MalformedURLException;
+
+import client.base.Controller;
+import client.base.IAction;
+import client.misc.IMessageView;
+import model.ClientFacade;
+import model.ServerProxy;
 
 //import java.net.*;
 //import java.io.*;
@@ -73,20 +78,46 @@ public class LoginController extends Controller implements ILoginController {
 		
 		// TODO: log in user
 		
-
+		boolean success;
+		try {
+			success = ClientFacade.getSingleton(ServerProxy.getSingleton("localhost", "8081"))
+					.userLogin(getLoginView().getLoginUsername(), getLoginView().getLoginPassword());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			success = false;
+			e.printStackTrace();
+		}
+		System.out.println(success);
 		// If log in succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
+		if (success) {
+			getLoginView().closeModal();
+			loginAction.execute();
+		}
 	}
 
 	@Override
 	public void register() {
 		
 		// TODO: register new user (which, if successful, also logs them in)
-		
-		// If register succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
+		boolean success;
+		try {
+			if (getLoginView().getRegisterPassword().equals(getLoginView().getRegisterPasswordRepeat())) {
+				success = ClientFacade.getSingleton(ServerProxy.getSingleton("localhost", "8081"))
+						.userRegister(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
+			} else {
+				success = false;
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			success = false;
+			e.printStackTrace();
+		}
+		System.out.println(success);
+		// If log in succeeded
+		if (success) {
+			getLoginView().closeModal();
+			loginAction.execute();
+		}
 	}
 
 }

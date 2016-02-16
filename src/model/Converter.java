@@ -15,6 +15,7 @@ public class Converter {
 	 * @post The JSON data contained in the file is parsed and maps it to the model objects.
 	 */
 	public static Object deserialize(String jsonData) {
+		System.out.println(jsonData);
 		Gson gson = new Gson();
 		return gson.fromJson(jsonData, ClientModel.class);
 	}
