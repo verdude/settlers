@@ -8,16 +8,29 @@ public class Converter {
 
 
 	/**
-	 * Deserializes and parses the game model data and maps it to the model objects.
+	 * Deserializes and json into a ClientModel object
 	 * @param jsonData The json to de-serialize
 	 * @throws FileNotFoundException When the file is not found.
 	 * @pre None
 	 * @post The JSON data contained in the file is parsed and maps it to the model objects.
 	 */
 	public static Object deserialize(String jsonData) {
-		System.out.println(jsonData);
 		Gson gson = new Gson();
 		return gson.fromJson(jsonData, ClientModel.class);
+	}
+
+	/**
+	 * Generic version of Deserialize for whatever class is passed in
+	 * @param jsonData The json to de-serialize
+	 * @param classType The class of the object accessed by ClassName.class
+	 * @throws FileNotFoundException When the file is not found.
+	 * @return Object of Type classType
+	 * @pre None
+	 * @post The JSON data contained in the file is parsed and creates an object of type classType
+	 */
+	public static <T> T deserialize(String jsonData, Class<T> classType) {
+		Gson gson = new Gson();
+		return gson.fromJson(jsonData, classType);
 	}
 	
 	/**
