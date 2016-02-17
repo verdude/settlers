@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import client.base.Controller;
 import client.base.IAction;
 import client.misc.IMessageView;
+import client.misc.MessageView;
 import model.ClientFacade;
 import model.ServerProxy;
 
@@ -87,11 +88,16 @@ public class LoginController extends Controller implements ILoginController {
 			success = false;
 			e.printStackTrace();
 		}
-		System.out.println(success);
+
+		getLoginView().closeModal();
+		loginAction.execute();
 		// If log in succeeded
-		if (success) {
-			getLoginView().closeModal();
-			loginAction.execute();
+		if (!success) {
+			IMessageView error = new MessageView();
+			error.setTitle("Error!");
+			error.setMessage("Login failed, bad password or username.");
+			getLoginView().showModal();
+			error.showModal();
 		}
 	}
 
