@@ -14,7 +14,7 @@ public class Converter {
 	 * @pre None
 	 * @post The JSON data contained in the file is parsed and maps it to the model objects.
 	 */
-	public static Object deserialize(String jsonData) {
+	public static Object deserializeClientModel(String jsonData) {
 		Gson gson = new Gson();
 		return gson.fromJson(jsonData, ClientModel.class);
 	}
@@ -32,6 +32,11 @@ public class Converter {
 		Gson gson = new Gson();
 		return gson.fromJson(jsonData, classType);
 	}
+
+	public static <T> T deserializeArray(String jsonArray, Class<T> classType) {
+		Gson gson = new Gson();
+		return gson.fromJson(jsonArray, classType);
+	}
 	
 	/**
 	 * @param o The object to Serialize
@@ -43,11 +48,6 @@ public class Converter {
 	public static String serialize(Object o) throws ClientException{
 		Gson gson = new Gson();
 		return gson.toJson(o);
-	}
-	
-	public static void main(String[] args) {
-		MockServerProxy p = MockServerProxy.getSingleton("localhost", "8081");
-		Converter.deserialize(p.gamesModel("0"));
 	}
 	
 }

@@ -1,9 +1,13 @@
 package client.join;
 
+import client.base.Controller;
+import client.base.IAction;
+import client.data.GameInfo;
+import client.misc.IMessageView;
+import model.ClientException;
+import model.ClientFacade;
+import model.Converter;
 import shared.definitions.CatanColor;
-import client.base.*;
-import client.data.*;
-import client.misc.*;
 
 
 /**
@@ -89,7 +93,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
-		
+		try {
+			GameInfo[] games = (GameInfo[]) Converter.deserializeArray(ClientFacade.getSingleton().gamesList(), GameInfo[].class);
+			getJoinGameView().setGames(games, ClientFacade.getSingleton().getLocalPlayer());
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getJoinGameView().showModal();
 	}
 
@@ -113,7 +123,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void startJoinGame(GameInfo game) {
-
+		
 		getSelectColorView().showModal();
 	}
 

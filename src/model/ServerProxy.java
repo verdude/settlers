@@ -37,6 +37,13 @@ public class ServerProxy implements IProxy {
 		return SINGLETON;
 	}
 	
+	public static ServerProxy getSingleton() throws ClientException {
+		if(SINGLETON == null) {
+			throw new ClientException();
+		}
+		return SINGLETON;
+	}
+	
 	/**
 	 * 
 	 * @param HOST The hostname of the server

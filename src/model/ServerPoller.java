@@ -86,7 +86,7 @@ public class ServerPoller {
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
 	private void update(String jsonModel) throws ServerException{
-		ClientModel newModel = (ClientModel) Converter.deserialize(jsonModel);
+		ClientModel newModel = (ClientModel) Converter.deserializeClientModel(jsonModel);
 		ClientFacade facade = ClientFacade.getSingleton(proxy);
 		if (newModel.getVersion() > facade.getVersion()) {
 			// means the version one the client is old

@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+import client.data.PlayerInfo;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -11,6 +12,7 @@ public class ClientFacade {
 	private static ClientModel  clientModel;
 	private static ClientFacade singleton;
 	private IProxy proxy;
+	private PlayerInfo localPlayer;
 	
 	/**
 	 * Default Constructor
@@ -33,12 +35,28 @@ public class ClientFacade {
 		return singleton;
 	}
 	
+	public static ClientFacade getSingleton() throws ClientException {
+		if (singleton == null) {
+			throw new ClientException();
+		}
+		return singleton;
+	}
+	
 	public int getVersion() {
 		return clientModel.getVersion();
 	}
 	
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
+	}
+	
+	private void createLocalPlayer(String name) {
+		localPlayer = new PlayerInfo();
+		localPlayer.setName(name);
+	}
+	
+	public PlayerInfo getLocalPlayer() {
+		return localPlayer;
 	}
 
 	/**
@@ -51,6 +69,7 @@ public class ClientFacade {
 	 */
 	public boolean userLogin(String username, String password) {
 		String response = proxy.userLogin(username, password);
+		createLocalPlayer(username);
 		return response.contains("Success");
 	}
 
@@ -65,6 +84,7 @@ public class ClientFacade {
 	 */
 	public boolean userRegister(String username, String password) {
 		String response = proxy.userRegister(username, password);
+		createLocalPlayer(username);
 		return response.contains("Success");
 	}
 
@@ -147,7 +167,7 @@ public class ClientFacade {
 				return false;
 			}
 			String model = proxy.sendChat(playerName, message);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -164,7 +184,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.acceptTrade(playerIndex, willAccept);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -181,7 +201,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.discardCards(playerIndex, discardedCards);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -205,7 +225,7 @@ public class ClientFacade {
 				return false;
 			}
 			String model = proxy.rollNumber(playerIndex, number);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -230,7 +250,7 @@ public class ClientFacade {
 				return false;
 			}
 			String model = proxy.buildRoad(playerIndex, roadLocation, free);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -256,7 +276,7 @@ public class ClientFacade {
 				return false;
 			}
 			String model = proxy.buildSettlement(playerIndex, vertexObject, free);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -280,7 +300,7 @@ public class ClientFacade {
 				return false;
 			}
 			String model = proxy.buildCity(playerIndex, vertexObject);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -298,7 +318,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.offerTrade(playerIndex, offer);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -317,7 +337,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.maritimeTrade(playerIndex, ratio, inputResource, outputResource);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -341,7 +361,7 @@ public class ClientFacade {
 				return false;
 			}
 			String model = proxy.robPlayer(playerIndex, victimIndex, location);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -363,7 +383,7 @@ public class ClientFacade {
 				return false;
 			}
 			String model = proxy.finishTurn(playerIndex);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -385,7 +405,7 @@ public class ClientFacade {
 				return false;
 			}
 			String model = proxy.buyDevCard(playerIndex);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -403,7 +423,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.soldier(playerIndex, victimIndex, location);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -421,7 +441,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.yearOfPlenty(playerIndex, resource1, resource2);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -439,7 +459,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.roadBuilding(playerIndex, spot1, spot2);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -456,7 +476,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.monopoly(resource, playerIndex);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}
@@ -472,7 +492,7 @@ public class ClientFacade {
 		if(canDo)
 		{
 			String model = proxy.monument(playerIndex);
-			updateModel((ClientModel) Converter.deserialize(model));
+			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;
 	}

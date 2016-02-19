@@ -1,11 +1,15 @@
 package client.main;
 
+import java.net.MalformedURLException;
+
 import javax.swing.*;
 
 import client.catan.*;
 import client.login.*;
 import client.join.*;
 import client.misc.*;
+import model.ClientFacade;
+import model.ServerProxy;
 import client.base.*;
 
 /**
@@ -43,6 +47,13 @@ public class Catan extends JFrame
 	
 	public static void main(final String[] args)
 	{
+		try {
+			ClientFacade.getSingleton(ServerProxy.getSingleton("localhost", "8081"));
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("cant make server");
+			e1.printStackTrace();
+		}
 		try
 		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

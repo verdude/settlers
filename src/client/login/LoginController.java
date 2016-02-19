@@ -1,13 +1,11 @@
 package client.login;
 
-import java.net.MalformedURLException;
-
 import client.base.Controller;
 import client.base.IAction;
 import client.misc.IMessageView;
 import client.misc.MessageView;
+import model.ClientException;
 import model.ClientFacade;
-import model.ServerProxy;
 
 //import java.net.*;
 //import java.io.*;
@@ -81,9 +79,9 @@ public class LoginController extends Controller implements ILoginController {
 		
 		boolean success;
 		try {
-			success = ClientFacade.getSingleton(ServerProxy.getSingleton("localhost", "8081"))
+			success = ClientFacade.getSingleton()
 					.userLogin(getLoginView().getLoginUsername(), getLoginView().getLoginPassword());
-		} catch (MalformedURLException e) {
+		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			success = false;
 			e.printStackTrace();
@@ -108,17 +106,16 @@ public class LoginController extends Controller implements ILoginController {
 		boolean success;
 		try {
 			if (getLoginView().getRegisterPassword().equals(getLoginView().getRegisterPasswordRepeat())) {
-				success = ClientFacade.getSingleton(ServerProxy.getSingleton("localhost", "8081"))
+				success = ClientFacade.getSingleton()
 						.userRegister(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
 			} else {
 				success = false;
 			}
-		} catch (MalformedURLException e) {
+		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			success = false;
 			e.printStackTrace();
 		}
-		System.out.println(success);
 		// If log in succeeded
 		if (success) {
 			getLoginView().closeModal();
