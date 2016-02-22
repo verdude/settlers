@@ -1,5 +1,7 @@
 package client.join;
 
+import java.util.ArrayList;
+
 import client.base.Controller;
 import client.base.IAction;
 import client.data.GameInfo;
@@ -95,7 +97,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void start() {
 		try {
-			GameInfo[] games = (GameInfo[]) Converter.deserializeArray(ClientFacade.getSingleton().gamesList(), GameInfo[].class);
+			GameInfo[] games = (GameInfo[]) Converter.deserializeGamesArray(ClientFacade.getSingleton().gamesList());
 			getJoinGameView().setGames(games, ClientFacade.getSingleton().getLocalPlayer());
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
@@ -124,6 +126,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		String gameName = getNewGameView().getTitle();
 		try {
 			ClientFacade.getSingleton().gamesCreate(randomTiles, randomNumbers, randomPorts, gameName);
+			ClientFacade.getSingleton().gamesJoin(ClientFacade.getSingleton().getLocalPlayer().getId(), "Puce");
 		} catch (ClientException e) {
 			System.out.println("Could not create game");
 			e.printStackTrace();

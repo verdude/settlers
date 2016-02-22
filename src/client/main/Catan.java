@@ -66,7 +66,7 @@ public class Catan extends JFrame
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run()
 			{
-				new Catan();
+				Catan catan = new Catan();
 				
 				PlayerWaitingView playerWaitingView = new PlayerWaitingView();
 				final PlayerWaitingController playerWaitingController = new PlayerWaitingController(
@@ -106,7 +106,6 @@ public class Catan extends JFrame
 						joinController.start();
 					}
 				});
-				loginView.setController(loginController);
 				loginView.setController(loginController);
 				
 				loginController.start();

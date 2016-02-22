@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 import client.data.PlayerInfo;
+import client.map.MapController;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -21,7 +22,7 @@ public class ClientFacade {
 	private ClientFacade(IProxy proxy) {
 		clientModel	= new ClientModel();
 		this.proxy = proxy;
-		ServerPoller.getSingleton(proxy);
+//		ServerPoller.getSingleton(proxy);
 	}
 
 	/**
@@ -48,6 +49,7 @@ public class ClientFacade {
 	
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
+		
 	}
 	
 	private void createLocalPlayer(String name) {

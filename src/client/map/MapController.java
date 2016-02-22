@@ -1,11 +1,19 @@
 package client.map;
 
-import java.util.*;
+import java.util.Random;
 
-import shared.definitions.*;
-import shared.locations.*;
-import client.base.*;
-import client.data.*;
+import client.base.Controller;
+import client.data.RobPlayerInfo;
+import model.ClientModel;
+import shared.definitions.CatanColor;
+import shared.definitions.HexType;
+import shared.definitions.PieceType;
+import shared.definitions.PortType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 
 /**
@@ -34,6 +42,10 @@ public class MapController extends Controller implements IMapController {
 	}
 	private void setRobView(IRobView robView) {
 		this.robView = robView;
+	}
+	
+	protected void updateFromModel(ClientModel model) {
+		
 	}
 	
 	protected void initFromModel() {
