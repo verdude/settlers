@@ -125,8 +125,14 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		String randomPorts = getNewGameView().getUseRandomPorts()+"";
 		String gameName = getNewGameView().getTitle();
 		try {
-			ClientFacade.getSingleton().gamesCreate(randomTiles, randomNumbers, randomPorts, gameName);
-			ClientFacade.getSingleton().gamesJoin(ClientFacade.getSingleton().getLocalPlayer().getId(), "Puce");
+			String gameData = ClientFacade.getSingleton().gamesCreate(randomTiles, randomNumbers, randomPorts, gameName);
+			GameInfo game = Converter.deserialize(gameData, GameInfo.class);
+			boolean joinSuccess = ClientFacade.getSingleton().gamesJoin(game.getId(), "puce");
+			if (joinSuccess) {
+				System.out.println("Joined game.");
+			} else {
+				System.out.println("Failed to join the new game.");
+			}
 		} catch (ClientException e) {
 			System.out.println("Could not create game");
 			e.printStackTrace();
