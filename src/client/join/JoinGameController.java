@@ -1,7 +1,5 @@
 package client.join;
 
-import java.util.ArrayList;
-
 import client.base.Controller;
 import client.base.IAction;
 import client.data.GameInfo;

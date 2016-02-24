@@ -102,7 +102,6 @@ public class LoginController extends Controller implements ILoginController {
 	@Override
 	public void register() {
 		
-		// TODO: register new user (which, if successful, also logs them in)
 		boolean success;
 		try {
 			if (getLoginView().getRegisterPassword().equals(getLoginView().getRegisterPasswordRepeat())) {
@@ -112,7 +111,6 @@ public class LoginController extends Controller implements ILoginController {
 				success = false;
 			}
 		} catch (ClientException e) {
-			// TODO Auto-generated catch block
 			success = false;
 			e.printStackTrace();
 		}

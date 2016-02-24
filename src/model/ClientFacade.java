@@ -52,9 +52,10 @@ public class ClientFacade {
 		
 	}
 	
-	private void createLocalPlayer(String name) {
+	public void createLocalPlayer(String name, int id) {
 		localPlayer = new PlayerInfo();
 		localPlayer.setName(name);
+		localPlayer.setId(id);
 	}
 	
 	public PlayerInfo getLocalPlayer() {
@@ -71,7 +72,7 @@ public class ClientFacade {
 	 */
 	public boolean userLogin(String username, String password) {
 		String response = proxy.userLogin(username, password);
-		createLocalPlayer(username);
+		createLocalPlayer(username, -1);
 		return response.contains("Success");
 	}
 
@@ -86,7 +87,7 @@ public class ClientFacade {
 	 */
 	public boolean userRegister(String username, String password) {
 		String response = proxy.userRegister(username, password);
-		createLocalPlayer(username);
+		createLocalPlayer(username, -1);
 		return response.contains("Success");
 	}
 
@@ -113,13 +114,15 @@ public class ClientFacade {
 	}
 
 	/**
-	 * Joins a game of the given name on the server
-	 * @param name Name of the game to join
+	 * Joins a game of the given id on the server
+	 * @param id ID of the game to join
+	 * @param color The color for the player. Must be all lower case.
 	 * @pre The corresponding "canDo" method returns true.
-	 * @post The user is added to the game que and all other game components as a player.
+	 * @post The user is added to the game queue and all other game components as a player.
 	 * @return Whether it was successful
 	 */
 	public boolean gamesJoin(int ID, String color) {
+		// do we need a canJoinGame?
 		String response = proxy.gamesJoin(ID, color);
 		return response.contains("Success");
 	}	
