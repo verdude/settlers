@@ -1,6 +1,5 @@
 package model;
 
-import shared.locations.VertexLocation;
 
 public class Settlement {
 	int playerId;

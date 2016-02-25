@@ -2,13 +2,9 @@ package client.map;
 
 import java.util.Random;
 
-import client.base.Controller;
-import client.data.RobPlayerInfo;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
-import model.ServerPoller;
-import model.ServerProxy;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
@@ -18,6 +14,8 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
+import client.base.Controller;
+import client.data.RobPlayerInfo;
 
 
 /**
@@ -35,10 +33,9 @@ public class MapController extends Controller implements IMapController {
 		
 		initFromModel();
 		try {
-			ServerPoller.getSingleton(ServerProxy.getSingleton(), this);
+			ClientFacade.getSingleton().addObserver(this);
 		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			System.out.println("ServerPoller didn't start");
+			System.out.println("Error when adding to the observer list");
 			e.printStackTrace();
 		}
 	}

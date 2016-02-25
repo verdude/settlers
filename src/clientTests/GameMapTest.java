@@ -1,14 +1,12 @@
 package clientTests;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertTrue;
+import model.EdgeValue;
+import model.GameMap;
+import model.GameMapException;
+import model.VertexObject;
 
 import org.junit.Test;
-
-import shared.definitions.CatanColor;
-import shared.locations.HexLocation;
-import model.*;
 
 public class GameMapTest {
 	static GameMap testMap;

@@ -3,6 +3,8 @@ package client.resources;
 import java.util.*;
 
 import client.base.*;
+import model.ClientException;
+import model.ClientFacade;
 import model.ClientModel;
 
 
@@ -18,6 +20,12 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		super(view);
 		
 		elementActions = new HashMap<ResourceBarElement, IAction>();
+		try {
+			ClientFacade.getSingleton().addObserver(this);
+		} catch (ClientException e) {
+			System.out.println("Error when adding to the observer list");
+			e.printStackTrace();
+		}
 	}
 
 	@Override

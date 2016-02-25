@@ -1,9 +1,10 @@
 package client.communication;
 
 import java.util.*;
-import java.util.List;
 
 import client.base.*;
+import model.ClientException;
+import model.ClientFacade;
 import model.ClientModel;
 import shared.definitions.*;
 
@@ -18,6 +19,12 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		super(view);
 		
 		initFromModel();
+		try {
+			ClientFacade.getSingleton().addObserver(this);
+		} catch (ClientException e) {
+			System.out.println("Error when adding to the observer list");
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

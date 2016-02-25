@@ -2,6 +2,8 @@ package client.turntracker;
 
 import shared.definitions.CatanColor;
 import client.base.*;
+import model.ClientException;
+import model.ClientFacade;
 import model.ClientModel;
 
 
@@ -15,6 +17,12 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		super(view);
 		
 		initFromModel();
+		try {
+			ClientFacade.getSingleton().addObserver(this);
+		} catch (ClientException e) {
+			System.out.println("Error when adding to the observer list");
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

@@ -2,10 +2,13 @@ package client.map;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import client.base.*;
 import client.data.*;
+import model.ClientException;
+import model.ClientFacade;
 import model.ClientModel;
 import shared.definitions.*;
 import shared.locations.*;
@@ -94,6 +97,12 @@ public class MapView extends PanelView implements IMapView
 		
 		overlay = new MapOverlay(map);
 		overlay.setController(overlayController);
+		try {
+			ClientFacade.getSingleton().addObserver(overlayController);
+		} catch (ClientException e) {
+			System.out.println("Error when adding to the observer list");
+			e.printStackTrace();
+		}
 		overlay.startDrop(pieceType, pieceColor, isCancelAllowed);
 		overlay.showModal();
 	}

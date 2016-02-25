@@ -145,6 +145,7 @@ public class ServerProxy implements IProxy {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public String userLogin(String username, String password) {		
 		try {

@@ -3,6 +3,8 @@ package client.domestic;
 import shared.definitions.*;
 import client.base.*;
 import client.misc.*;
+import model.ClientException;
+import model.ClientFacade;
 import model.ClientModel;
 
 
@@ -31,6 +33,12 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);
+		try {
+			ClientFacade.getSingleton().addObserver(this);
+		} catch (ClientException e) {
+			System.out.println("Error when adding to the observer list");
+			e.printStackTrace();
+		}
 	}
 	
 	public IDomesticTradeView getTradeView() {

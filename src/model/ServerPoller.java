@@ -6,8 +6,6 @@ package model;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import client.map.MapController;
-
 /**
  * @author S Jacob Powell
  *	The needUpdate method of this class should be called periodically
@@ -32,11 +30,10 @@ public class ServerPoller {
 	
 	private static ServerPoller SINGLETON;
 	
-	private MapController controller;
 	
-	public static ServerPoller getSingleton(IProxy proxy, MapController controller) {
+	public static ServerPoller getSingleton(IProxy proxy) {
 		if(SINGLETON == null) {
-			SINGLETON = new ServerPoller(proxy, controller);
+			SINGLETON = new ServerPoller(proxy);
 		}
 		return SINGLETON;
 	}
@@ -49,9 +46,8 @@ public class ServerPoller {
 	 * @pre proxy is not null
 	 * @post The proxy will be loaded and the other methods in ServerPoller will be callable after creation of a ServerPoller instance.
 	 */
-	private ServerPoller(IProxy proxy, MapController controller) {
+	private ServerPoller(IProxy proxy) {
 		this.proxy = proxy;
-		this.controller = controller;
 		timer = new Timer();
 		// start the poller
         timer.schedule(new TimerTask() {
@@ -95,8 +91,8 @@ public class ServerPoller {
 		ClientModel newModel = (ClientModel) Converter.deserializeClientModel(jsonModel);
 		ClientFacade facade = ClientFacade.getSingleton(proxy);
 		if (newModel.getVersion() > facade.getVersion()) {
-			// means the version one the client is oldChar
-			controller.updateFromModel(newModel);
+			// means the version on the client is old
+			facade.updateModel(newModel);
 		}
 	}
 }

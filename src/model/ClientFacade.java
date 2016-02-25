@@ -1,11 +1,13 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import client.data.PlayerInfo;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import client.base.IObserver;
+import client.data.PlayerInfo;
 
 public class ClientFacade {
 	
@@ -13,6 +15,7 @@ public class ClientFacade {
 	private static ClientFacade singleton;
 	private IProxy proxy;
 	private PlayerInfo localPlayer;
+	private List<IObserver> observers;
 	
 	/**
 	 * Default Constructor
@@ -21,6 +24,7 @@ public class ClientFacade {
 	private ClientFacade(IProxy proxy) {
 		clientModel	= new ClientModel();
 		this.proxy = proxy;
+		observers = new ArrayList<IObserver>();
 //		ServerPoller.getSingleton(proxy);
 	}
 
@@ -48,7 +52,13 @@ public class ClientFacade {
 	
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
-		
+		for(IObserver observer : observers) {
+			observer.notify(clientModel);
+		}
+	}
+	
+	public void addObserver(IObserver newObserver) {
+		observers.add(newObserver);
 	}
 	
 	public void createLocalPlayer(String name) {

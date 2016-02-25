@@ -2,6 +2,8 @@ package client.devcards;
 
 import shared.definitions.ResourceType;
 import client.base.*;
+import model.ClientException;
+import model.ClientFacade;
 import model.ClientModel;
 
 
@@ -30,6 +32,12 @@ public class DevCardController extends Controller implements IDevCardController 
 		this.buyCardView = buyCardView;
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;
+		try {
+			ClientFacade.getSingleton().addObserver(this);
+		} catch (ClientException e) {
+			System.out.println("Error when adding to the observer list");
+			e.printStackTrace();
+		}
 	}
 
 	public IPlayDevCardView getPlayCardView() {

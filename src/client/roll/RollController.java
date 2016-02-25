@@ -1,6 +1,8 @@
 package client.roll;
 
 import client.base.*;
+import model.ClientException;
+import model.ClientFacade;
 import model.ClientModel;
 
 
@@ -22,6 +24,12 @@ public class RollController extends Controller implements IRollController {
 		super(view);
 		
 		setResultView(resultView);
+		try {
+			ClientFacade.getSingleton().addObserver(this);
+		} catch (ClientException e) {
+			System.out.println("Error when adding to the observer list");
+			e.printStackTrace();
+		}
 	}
 	
 	public IRollResultView getResultView() {

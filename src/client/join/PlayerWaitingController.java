@@ -17,6 +17,12 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public PlayerWaitingController(IPlayerWaitingView view) {
 
 		super(view);
+		try {
+			ClientFacade.getSingleton().addObserver(this);
+		} catch (ClientException e) {
+			System.out.println("Error when adding to the observer list");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
