@@ -24,6 +24,13 @@ import shared.locations.HexLocation;
  */
 public class ServerProxy implements IProxy {
 	private final String HOST;
+	/**
+	 * @return the gameID
+	 */
+	public String getGameID() {
+		return gameID;
+	}
+
 	private final String PORT;
 	private final URL mainURL;
 	private String encodedCookie;

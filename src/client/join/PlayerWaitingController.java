@@ -1,6 +1,11 @@
 package client.join;
 
-import client.base.*;
+import client.base.Controller;
+import client.data.GameInfo;
+import model.ClientException;
+import model.ClientFacade;
+import model.Converter;
+import model.ServerProxy;
 
 
 /**
@@ -21,8 +26,31 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 	@Override
 	public void start() {
-
 		getView().showModal();
+		try {
+			GameInfo[] games = Converter.deserializeGamesArray(ClientFacade.getSingleton().gamesList());
+			boolean waitingForPlayers = true;
+			while (waitingForPlayers) {
+				for (GameInfo game : games) {
+					if (game.getId() == Integer.parseInt(ServerProxy.getSingleton().getGameID())) {
+						if (game.getPlayers().size() == 4) {
+							getView().closeModal();
+							waitingForPlayers = false;
+						} else {
+							try {
+								Thread.sleep(3000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						break;
+					}
+				}
+			}
+		} catch (ClientException e) {
+			System.out.println("Error getting game list");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
