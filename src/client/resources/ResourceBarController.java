@@ -1,11 +1,12 @@
 package client.resources;
 
-import java.util.*;
+import client.base.Controller;
+import client.base.IAction;
+import client.data.PlayerInfo;
+import model.*;
 
-import client.base.*;
-import model.ClientException;
-import model.ClientFacade;
-import model.ClientModel;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -83,8 +84,34 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		// TODO Auto-generated method stub
-		
+		PlayerInfo currentPlayer =null;
+
+		try {
+			currentPlayer = ClientFacade.getSingleton().getLocalPlayer();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+		Player player = model.getPlayers()[currentPlayer.getPlayerIndex()];
+		ResourceList resources = player.getResources();
+
+		//Set resource amounts for the local player based off of the current model
+		getView().setElementAmount(ResourceBarElement.BRICK, resources.getBrick());
+		getView().setElementAmount(ResourceBarElement.WHEAT, resources.getWheat());
+		getView().setElementAmount(ResourceBarElement.WOOD, resources.getWood());
+		getView().setElementAmount(ResourceBarElement.SHEEP, resources.getSheep());
+		getView().setElementAmount(ResourceBarElement.ORE, resources.getOre());
+
+		//Set how many roads, settlements, soldiers, and cities the local player has
+		getView().setElementAmount(ResourceBarElement.ROAD,player.getRoads());
+		getView().setElementAmount(ResourceBarElement.CITY,player.getCities());
+		getView().setElementAmount(ResourceBarElement.SETTLEMENT,player.getSettlements());
+		getView().setElementAmount(ResourceBarElement.SOLDIERS,player.getSoldiers());
+
+
+
+
+
 	}
 
 }

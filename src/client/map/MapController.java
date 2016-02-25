@@ -1,21 +1,16 @@
 package client.map;
 
-import java.util.Random;
-
-import model.ClientException;
-import model.ClientFacade;
-import model.ClientModel;
+import client.base.Controller;
+import client.data.RobPlayerInfo;
+import model.*;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
-import client.base.Controller;
-import client.data.RobPlayerInfo;
+import shared.locations.*;
+
+import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -188,10 +183,38 @@ public class MapController extends Controller implements IMapController {
 	@Override
 	public void notify(ClientModel model) {
 		if (model.getPlayers().length == 4) {
+
+			List<City> cities = model.getMap().getCityList();
+			List<Settlement> settlements =  model.getMap().getSettlementList();
+			List<Road> roads = model.getMap().getRoadList();
+
+			//Place all of the cities front the model on the map
+			for(City city : cities) {
+
+				int playerIndex = city.getLocation().getOwner();
+				CatanColor color = model.getPlayers()[playerIndex].getColor();
+				getView().placeCity(city.getLocation().getLocation(), color);
+			}
+
+			//Place all of the settlements front the model on the map
+			for(Settlement settlement : settlements) {
+
+				int playerIndex = settlement.getLocation().getOwner();
+				CatanColor color = model.getPlayers()[playerIndex].getColor();
+				getView().placeSettlement(settlement.getLocation().getLocation(), color);
+			}
+
+			//Place all of the roads front the model on the map
+			for(Road road : roads) {
+
+				int playerIndex = road.getLocation().getOwner();
+				CatanColor color = model.getPlayers()[playerIndex].getColor();
+				getView().placeRoad(road.getLocation().getLocation(), color);
+			}
+
 			try {
 				ClientFacade.getSingleton().updateModel(model);
 			} catch (ClientException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

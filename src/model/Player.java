@@ -1,9 +1,9 @@
 package model;
 
-import java.util.Random;
-
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
+
+import java.util.Random;
 
 public class Player {
 	
@@ -399,6 +399,8 @@ public class Player {
 	 * @return the number of victory points the player has (int)
 	 */
 	public int getVictoryPoints() {
+
+		victoryPoints = 2*(4 - cities) + (5 - settlements) + monuments;
 		return victoryPoints;
 	}
 	
@@ -439,5 +441,7 @@ public class Player {
 		}
 		return false;
 	}
+
+
 
 }

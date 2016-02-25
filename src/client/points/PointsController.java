@@ -1,9 +1,8 @@
 package client.points;
 
 import client.base.*;
-import model.ClientException;
-import model.ClientFacade;
-import model.ClientModel;
+import client.data.PlayerInfo;
+import model.*;
 
 
 /**
@@ -57,8 +56,26 @@ public class PointsController extends Controller implements IPointsController {
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		// TODO Auto-generated method stub
-		
+		PlayerInfo currentPlayer =null;
+
+		try {
+			currentPlayer = ClientFacade.getSingleton().getLocalPlayer();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+		Player player = model.getPlayers()[currentPlayer.getPlayerIndex()];
+		TurnTracker turnTracker = model.getTurnTracker();
+		int  victoryPoints = player.getVictoryPoints();
+
+		if(turnTracker.getLargestArmy() != -1 && turnTracker.getLargestArmy() == player.getPlayerIndex()){
+			victoryPoints += 2;
+		}
+		if(turnTracker.getLongestRoad() != -1 && turnTracker.getLongestRoad() == player.getPlayerIndex()){
+			victoryPoints += 2;
+		}
+
+		getPointsView().setPoints(victoryPoints);
 	}
 	
 }
