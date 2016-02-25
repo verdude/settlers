@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -26,8 +27,16 @@ public class ServerProxy implements IProxy {
 	private final String PORT;
 	private final URL mainURL;
 	private String encodedCookie;
-//	private String decodedCookie;
+	private String decodedCookie;
 	private String gameID;
+	private String playerID;
+	/**
+	 * @return the playerID
+	 */
+	public String getPlayerID() {
+		return playerID;
+	}
+
 	private static ServerProxy SINGLETON;
 	
 	public static ServerProxy getSingleton(String HOST, String PORT) throws MalformedURLException {
@@ -148,7 +157,8 @@ public class ServerProxy implements IProxy {
 			String line;
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			encodedCookie = conn.getHeaderField("Set-cookie").split(";")[0].split("=")[1];
-//			decodedCookie = URLDecoder.decode(encodedCookie);
+			decodedCookie = URLDecoder.decode(encodedCookie);
+			playerID = decodedCookie.split("playerID\":")[1].split("}")[0];
 			while ((line = reader.readLine()) != null) {
 			    response.append(line);
 			}

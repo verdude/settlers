@@ -38,7 +38,7 @@ public class ClientModel {
 		map = new GameMap();
 		players = new Player[4];
 		turnTracker = new TurnTracker();
-		version = 0;
+		version = -1;
 		winner = -1;
 		setDevCardList(new DevCardList());
 		roll = 0;

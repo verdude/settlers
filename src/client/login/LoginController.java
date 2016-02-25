@@ -116,6 +116,13 @@ public class LoginController extends Controller implements ILoginController {
 		}
 		// If log in succeeded
 		if (success) {
+			try {
+				ClientFacade.getSingleton()
+					.userLogin(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
+			} catch (ClientException e) {
+				System.out.println("Failed to login new user");
+				e.printStackTrace();
+			}
 			getLoginView().closeModal();
 			loginAction.execute();
 		}

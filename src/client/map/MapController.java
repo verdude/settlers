@@ -4,7 +4,11 @@ import java.util.Random;
 
 import client.base.Controller;
 import client.data.RobPlayerInfo;
+import model.ClientException;
+import model.ClientFacade;
 import model.ClientModel;
+import model.ServerPoller;
+import model.ServerProxy;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
@@ -30,6 +34,13 @@ public class MapController extends Controller implements IMapController {
 		setRobView(robView);
 		
 		initFromModel();
+		try {
+			ServerPoller.getSingleton(ServerProxy.getSingleton(), this);
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			System.out.println("ServerPoller didn't start");
+			e.printStackTrace();
+		}
 	}
 	
 	public IMapView getView() {
@@ -44,13 +55,21 @@ public class MapController extends Controller implements IMapController {
 		this.robView = robView;
 	}
 	
-	protected void updateFromModel(ClientModel model) {
-		
+	public void updateFromModel(ClientModel model) {
+		if (model.getPlayers().length == 4) {
+			try {
+				ClientFacade.getSingleton().updateModel(model);
+			} catch (ClientException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	protected void initFromModel() {
 		
-		//<temp>
+		//random placeholder
 		
 		Random rand = new Random();
 

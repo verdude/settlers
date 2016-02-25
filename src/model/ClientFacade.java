@@ -3,7 +3,6 @@ package model;
 import java.util.List;
 
 import client.data.PlayerInfo;
-import client.map.MapController;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -52,10 +51,19 @@ public class ClientFacade {
 		
 	}
 	
-	public void createLocalPlayer(String name, int id) {
+	public void createLocalPlayer(String name) {
 		localPlayer = new PlayerInfo();
 		localPlayer.setName(name);
-		localPlayer.setId(id);
+		try {
+			System.out.println(ServerProxy.getSingleton().getPlayerID());
+			localPlayer.setId(new Integer(ServerProxy.getSingleton().getPlayerID()));
+		} catch (NumberFormatException e) {
+			System.out.println("Could not set local player Id");
+			e.printStackTrace();
+		} catch (ClientException e) {
+			System.out.println("User Id Error in cookie. ClientFacade createLocalPlayer.");
+			e.printStackTrace();
+		}
 	}
 	
 	public PlayerInfo getLocalPlayer() {
@@ -72,7 +80,7 @@ public class ClientFacade {
 	 */
 	public boolean userLogin(String username, String password) {
 		String response = proxy.userLogin(username, password);
-		createLocalPlayer(username, -1);
+		createLocalPlayer(username);
 		return response.contains("Success");
 	}
 
@@ -87,7 +95,6 @@ public class ClientFacade {
 	 */
 	public boolean userRegister(String username, String password) {
 		String response = proxy.userRegister(username, password);
-		createLocalPlayer(username, -1);
 		return response.contains("Success");
 	}
 
@@ -123,6 +130,7 @@ public class ClientFacade {
 	 */
 	public boolean gamesJoin(int ID, String color) {
 		// do we need a canJoinGame?
+		
 		String response = proxy.gamesJoin(ID, color);
 		return response.contains("Success");
 	}	
@@ -138,6 +146,7 @@ public class ClientFacade {
 	 */
 	public boolean gamesSave(int ID, String name) {
 		String response = proxy.gamesSave(ID, name);
+		
 		return response.contains("Success");
 		}
 
@@ -430,6 +439,7 @@ public class ClientFacade {
 			String model = proxy.soldier(playerIndex, victimIndex, location);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
+		
 		return canDo;
 	}
 
@@ -448,6 +458,7 @@ public class ClientFacade {
 			String model = proxy.yearOfPlenty(playerIndex, resource1, resource2);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
+		
 		return canDo;
 	}
 
@@ -466,6 +477,7 @@ public class ClientFacade {
 			String model = proxy.roadBuilding(playerIndex, spot1, spot2);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
+		
 		return canDo;
 	}
 
@@ -483,6 +495,7 @@ public class ClientFacade {
 			String model = proxy.monopoly(resource, playerIndex);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
+		
 		return canDo;
 	}
 
@@ -499,6 +512,7 @@ public class ClientFacade {
 			String model = proxy.monument(playerIndex);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
+		
 		return canDo;
 	}
 	

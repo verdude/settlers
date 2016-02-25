@@ -6,6 +6,8 @@ package model;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import client.map.MapController;
+
 /**
  * @author S Jacob Powell
  *	The needUpdate method of this class should be called periodically
@@ -30,9 +32,11 @@ public class ServerPoller {
 	
 	private static ServerPoller SINGLETON;
 	
-	public static ServerPoller getSingleton(IProxy proxy) {
+	private MapController controller;
+	
+	public static ServerPoller getSingleton(IProxy proxy, MapController controller) {
 		if(SINGLETON == null) {
-			SINGLETON = new ServerPoller(proxy);
+			SINGLETON = new ServerPoller(proxy, controller);
 		}
 		return SINGLETON;
 	}
@@ -45,8 +49,9 @@ public class ServerPoller {
 	 * @pre proxy is not null
 	 * @post The proxy will be loaded and the other methods in ServerPoller will be callable after creation of a ServerPoller instance.
 	 */
-	private ServerPoller(IProxy proxy) {
+	private ServerPoller(IProxy proxy, MapController controller) {
 		this.proxy = proxy;
+		this.controller = controller;
 		timer = new Timer();
 		// start the poller
         timer.schedule(new TimerTask() {
@@ -72,7 +77,8 @@ public class ServerPoller {
 	private void needUpdate() throws ServerException {
 		int version = ClientFacade.getSingleton(proxy).getVersion();
 		String response = proxy.gamesModel(Integer.toString(version));
-		if (!response.equals("true") && !response.equals("Error")) {
+		System.out.println(response);
+		if (!response.equals("\"true\"") && !response.equals("Error")) {
 			update(response);
 		}
 	}
@@ -89,8 +95,8 @@ public class ServerPoller {
 		ClientModel newModel = (ClientModel) Converter.deserializeClientModel(jsonModel);
 		ClientFacade facade = ClientFacade.getSingleton(proxy);
 		if (newModel.getVersion() > facade.getVersion()) {
-			// means the version one the client is old
-			facade.updateModel(newModel);
+			// means the version one the client is oldChar
+			controller.updateFromModel(newModel);
 		}
 	}
 }
