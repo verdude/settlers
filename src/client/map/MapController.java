@@ -55,18 +55,6 @@ public class MapController extends Controller implements IMapController {
 		this.robView = robView;
 	}
 	
-	public void updateFromModel(ClientModel model) {
-		if (model.getPlayers().length == 4) {
-			try {
-				ClientFacade.getSingleton().updateModel(model);
-			} catch (ClientException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-	}
-	
 	protected void initFromModel() {
 		
 		//random placeholder
@@ -195,6 +183,22 @@ public class MapController extends Controller implements IMapController {
 	
 	public void robPlayer(RobPlayerInfo victim) {	
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		if (model.getPlayers().length == 4) {
+			try {
+				ClientFacade.getSingleton().updateModel(model);
+			} catch (ClientException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 }

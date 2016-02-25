@@ -3,6 +3,7 @@ package client.domestic;
 import shared.definitions.*;
 import client.base.*;
 import client.misc.*;
+import model.ClientModel;
 
 
 /**
@@ -114,6 +115,15 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void acceptTrade(boolean willAccept) {
 
 		getAcceptOverlay().closeModal();
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

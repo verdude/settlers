@@ -3,7 +3,7 @@ package client.base;
 /**
  * Base controller interface
  */
-public interface IController
+public interface IController extends IObserver
 {
 	
 	/**

@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import client.base.*;
 import client.data.*;
+import model.ClientModel;
 import shared.definitions.*;
 import shared.locations.*;
 
@@ -199,6 +200,12 @@ public class MapView extends PanelView implements IMapView
 		{
 			overlay.cancelDrop();
 			overlay.closeModal();
+		}
+
+		@Override
+		public void notify(ClientModel model) {
+			// TODO Auto-generated method stub
+			
 		}
 	};
 	

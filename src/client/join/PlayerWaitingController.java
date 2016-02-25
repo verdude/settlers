@@ -4,6 +4,7 @@ import client.base.Controller;
 import client.data.GameInfo;
 import model.ClientException;
 import model.ClientFacade;
+import model.ClientModel;
 import model.Converter;
 import model.ServerProxy;
 
@@ -58,6 +59,15 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 		// TEMPORARY
 //		getView().closeModal();
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

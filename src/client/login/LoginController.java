@@ -6,6 +6,7 @@ import client.misc.IMessageView;
 import client.misc.MessageView;
 import model.ClientException;
 import model.ClientFacade;
+import model.ClientModel;
 
 //import java.net.*;
 //import java.io.*;
@@ -126,6 +127,15 @@ public class LoginController extends Controller implements ILoginController {
 			getLoginView().closeModal();
 			loginAction.execute();
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

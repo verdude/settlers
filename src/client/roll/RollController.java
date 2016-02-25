@@ -1,6 +1,7 @@
 package client.roll;
 
 import client.base.*;
+import model.ClientModel;
 
 
 /**
@@ -38,6 +39,15 @@ public class RollController extends Controller implements IRollController {
 	public void rollDice() {
 
 		getResultView().showModal();
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

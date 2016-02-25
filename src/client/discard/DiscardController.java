@@ -3,6 +3,7 @@ package client.discard;
 import shared.definitions.*;
 import client.base.*;
 import client.misc.*;
+import model.ClientModel;
 
 
 /**
@@ -47,6 +48,15 @@ public class DiscardController extends Controller implements IDiscardController 
 	public void discard() {
 		
 		getDiscardView().closeModal();
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

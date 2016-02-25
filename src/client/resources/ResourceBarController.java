@@ -3,6 +3,7 @@ package client.resources;
 import java.util.*;
 
 import client.base.*;
+import model.ClientModel;
 
 
 /**
@@ -67,6 +68,15 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			IAction action = elementActions.get(element);
 			action.execute();
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

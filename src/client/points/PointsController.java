@@ -1,6 +1,7 @@
 package client.points;
 
 import client.base.*;
+import model.ClientModel;
 
 
 /**
@@ -41,6 +42,15 @@ public class PointsController extends Controller implements IPointsController {
 		//<temp>		
 		getPointsView().setPoints(5);
 		//</temp>
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

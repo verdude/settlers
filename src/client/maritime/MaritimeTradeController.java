@@ -2,6 +2,7 @@ package client.maritime;
 
 import shared.definitions.*;
 import client.base.*;
+import model.ClientModel;
 
 
 /**
@@ -67,6 +68,15 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void unsetGiveValue() {
 
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

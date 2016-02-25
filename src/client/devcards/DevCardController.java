@@ -2,6 +2,7 @@ package client.devcards;
 
 import shared.definitions.ResourceType;
 import client.base.*;
+import model.ClientModel;
 
 
 /**
@@ -93,6 +94,15 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
 		
 	}
 

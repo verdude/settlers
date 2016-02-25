@@ -1,6 +1,7 @@
 package client.communication;
 
 import client.base.*;
+import model.ClientModel;
 
 
 /**
@@ -20,6 +21,15 @@ public class ChatController extends Controller implements IChatController {
 
 	@Override
 	public void sendMessage(String message) {
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
 		
 	}
 

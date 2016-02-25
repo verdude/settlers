@@ -6,6 +6,7 @@ import client.data.GameInfo;
 import client.misc.IMessageView;
 import model.ClientException;
 import model.ClientFacade;
+import model.ClientModel;
 import model.Converter;
 import shared.definitions.CatanColor;
 
@@ -163,6 +164,15 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			System.out.println("failed to join the game");
 			e.printStackTrace();
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

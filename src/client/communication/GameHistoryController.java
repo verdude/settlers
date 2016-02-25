@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.List;
 
 import client.base.*;
+import model.ClientModel;
 import shared.definitions.*;
 
 
@@ -42,6 +43,15 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		getView().setEntries(entries);
 	
 		//</temp>
+	}
+
+	/* (non-Javadoc)
+	 * @see client.base.IObserver#notify(model.ClientModel)
+	 */
+	@Override
+	public void notify(ClientModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
