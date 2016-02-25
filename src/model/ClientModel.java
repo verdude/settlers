@@ -391,21 +391,33 @@ public class ClientModel {
 	 * @post True if client can perform buildRoad
 	 * @return Whether the action is possible
 	 */
-	public boolean canBuildRoad(int playerIndex, EdgeValue edgeValue) {
+	public boolean canBuildRoad(int playerIndex, EdgeLocation newLocation) {
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();		
 
-		EdgeLocation newLocation = edgeValue.getLocation();
+		//EdgeLocation newLocation = edgeValue.getLocation();
 
 		int roads = player.getRoads();
-		if(edgeValue.getOwner() >= 0){//If there is already an owner
-			return false;
+//		if(edgeValue.getOwner() >= 0){//If there is already an owner
+//			return false;
+//		}
+		List<Road> roadList = map.getRoadList();
+
+		for(Road road : roadList){
+			HexLocation roadhex = road.getLocation().getLocation().getHexLoc();
+			int x = roadhex.getX();
+			int y = roadhex.getY();
+			if(x == newLocation.getHexLoc().getX() && y == newLocation.getHexLoc().getY()){
+				if(newLocation.getDir().equals(road.getLocation().getLocation().getDir())){
+					return false;
+				}
+			}
 		}
 
 
 		if(resources.getBrick() >= 1 && resources.getWood() >= 1
 				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled()){
-			List<Road> roadList = map.getRoadList();
+			roadList = map.getRoadList();
 			for(Road r : roadList){
 				EdgeValue tempEdgeValue = r.getLocation();
 				EdgeLocation tempEdgeLocation = tempEdgeValue.getLocation();

@@ -8,6 +8,7 @@ import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.*;
+import state.Context;
 
 import java.util.List;
 import java.util.Random;
@@ -19,6 +20,10 @@ import java.util.Random;
 public class MapController extends Controller implements IMapController {
 	
 	private IRobView robView;
+
+
+
+	private Context context;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -115,8 +120,44 @@ public class MapController extends Controller implements IMapController {
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		
-		return true;
+		try {
+			int numberOfPlayers = 0;
+			Player[] players = ClientFacade.getSingleton().getClientModel().getPlayers();
+			for(Player p : players){
+				if(p != null){
+					numberOfPlayers++;
+				}
+			}
+			if(numberOfPlayers == 4) {
+
+				int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+				//int playerIndex = 0;
+				EdgeValue edgeValue = new EdgeValue();
+				edgeValue.setLocation(edgeLoc.getNormalizedLocation());
+
+
+
+
+//			model.Player player = new Player("Sam",null,0);
+//			player.getResources().setBrick(1);
+//			player.getResources().setWood(1);
+//			player.setHasRolled(true);
+//			TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
+//			turnTracker.setCurrentTurn(0);
+//			ClientFacade.getSingleton().getClientModel().setTurnTracker(turnTracker);
+//			ClientFacade.getSingleton().getClientModel().getPlayers()[0] = player;
+
+				return ClientFacade.getSingleton().getClientModel().canBuildRoad(playerIndex, edgeLoc);
+			}
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+
+
+
+
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
@@ -217,8 +258,17 @@ public class MapController extends Controller implements IMapController {
 			} catch (ClientException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
+	}
+
+
+	public Context getContext() {
+		return context;
+	}
+
+	public void setContext(Context context) {
+		this.context = context;
 	}
 	
 }

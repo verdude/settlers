@@ -1,24 +1,16 @@
 package client.main;
 
-import java.net.MalformedURLException;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import client.base.IAction;
 import client.catan.CatanPanel;
-import client.join.JoinGameController;
-import client.join.JoinGameView;
-import client.join.NewGameView;
-import client.join.PlayerWaitingController;
-import client.join.PlayerWaitingView;
-import client.join.SelectColorView;
+import client.join.*;
 import client.login.LoginController;
 import client.login.LoginView;
 import client.misc.MessageView;
 import model.ClientFacade;
 import model.ServerProxy;
+
+import javax.swing.*;
+import java.net.MalformedURLException;
 
 /**
  * Main entry point for the Catan program
@@ -56,7 +48,7 @@ public class Catan extends JFrame
 	public static void main(final String[] args)
 	{
 		try {
-			ClientFacade.getSingleton(ServerProxy.getSingleton("sjacobpowell.com", "8081"));
+			ClientFacade.getSingleton(ServerProxy.getSingleton("localhost", "8081"));
 		} catch (MalformedURLException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("cant make server");

@@ -52,6 +52,26 @@ public class Player {
 		victoryPoints = 0;
 		hasRolled = false;
 	}
+
+	public Player(String name){
+
+		cities = 4;
+		settlements = 5;
+		newDevCards = new DevCardList(0);
+		oldDevCards = new DevCardList(0);
+		this.color = null;
+		discarded = false;
+		monuments = 0;
+		this.name = name;
+		this.playerIndex = -1;
+		playedDevCard = false;
+		playerID = 0;
+		resources = new ResourceList(ResourceList.min);
+		roads = 15;
+		soldiers = 0;
+		victoryPoints = 0;
+		hasRolled = false;
+	}
 	
 	
 	
@@ -99,7 +119,7 @@ public class Player {
 			cities--;
 			resources.setOre(resources.getOre() - 3);
 			resources.setWheat(resources.getWheat() - 2);
-			
+
 	}
 	
 	
@@ -400,7 +420,9 @@ public class Player {
 	 */
 	public int getVictoryPoints() {
 
-		victoryPoints = 2*(4 - cities) + (5 - settlements) + monuments;
+
+		victoryPoints = (2 * (4 - cities)) + (5 - settlements) + monuments;
+
 		return victoryPoints;
 	}
 	

@@ -1,35 +1,18 @@
 package clientTests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import model.*;
+import org.junit.Before;
+import org.junit.Test;
+import shared.definitions.CatanColor;
+import shared.definitions.PortType;
+import shared.definitions.ResourceType;
+import shared.locations.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import model.City;
-import model.ClientModel;
-import model.DevCardList;
-import model.EdgeValue;
-import model.GameMap;
-import model.Player;
-import model.Port;
-import model.ResourceList;
-import model.Road;
-import model.Settlement;
-import model.TradeOffer;
-import model.TurnTracker;
-import model.VertexObject;
-import shared.definitions.CatanColor;
-import shared.definitions.PortType;
-import shared.definitions.ResourceType;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class ClientCanDoTests {
@@ -103,17 +86,17 @@ public class ClientCanDoTests {
 		
 		road2.setPlayerId(0);
 		road2.setLocation(road2Val);
-		
-		assertTrue(model.canBuildRoad(0, road2Val));
+
+		assertTrue(model.canBuildRoad(0, road2.getLocation().getLocation()));
 		road2.getLocation().setOwner(0);
 		map.getRoadList().add(road2);
-		assertFalse(model.canBuildRoad(0, road2Val));
+		assertFalse(model.canBuildRoad(0, road2.getLocation().getLocation()));
 
 
 	}
 	
 	@Test
-	public void canRoadSettementTest() {
+	public void canBuildSettlementTest() {
 		Settlement sett2 = new Settlement();
 		VertexLocation sett1Loc = new VertexLocation(new HexLocation(1,-1), VertexDirection.NorthEast);
 		
@@ -132,7 +115,7 @@ public class ClientCanDoTests {
 		road2.setPlayerId(0);
 		road2.setLocation(road2Val);
 		
-		assertTrue(model.canBuildRoad(0, road2Val));
+		assertTrue(model.canBuildRoad(0, road2Val.getLocation()));
 		road2.getLocation().setOwner(0);
 		road2Val.setOwner(0);
 		road2.setLocation(road2Val);
