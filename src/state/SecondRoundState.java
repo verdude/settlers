@@ -3,7 +3,7 @@ package state;
 /**
  * Created by Sean_George on 2/25/16.
  */
-public class SecondRoundState implements State {
+public class SecondRoundState implements IState {
     @Override
     public void sendChat() {
 

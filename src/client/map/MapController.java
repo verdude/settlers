@@ -1,6 +1,7 @@
 package client.map;
 
 import client.base.Controller;
+import client.base.IObserver;
 import client.data.RobPlayerInfo;
 import model.*;
 import shared.definitions.CatanColor;
@@ -8,7 +9,7 @@ import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.*;
-import state.Context;
+import state.*;
 
 import java.util.List;
 import java.util.Random;
@@ -17,21 +18,38 @@ import java.util.Random;
 /**
  * Implementation for the map controller
  */
-public class MapController extends Controller implements IMapController {
+public class MapController extends Controller implements IMapController,IObserver {
 	
 	private IRobView robView;
 
 
 
-	private Context context;
+	private Context context = new Context();
+	private DiscardingState discardingState = new DiscardingState();
+	private FirstRoundState firstRoundState = new FirstRoundState();
+	private PlayingState playingState = new PlayingState();
+    private RobbingState robbingState = new RobbingState();
+	private RollingState rollingState = new RollingState();
+	private SecondRoundState secondRoundState = new SecondRoundState();
+	//private WaitingState waitingState = new WaitingState();
 	
 	public MapController(IMapView view, IRobView robView) {
-		
+
 		super(view);
+
+//		 Context context = new Context();
+//		 DiscardingState discardingState = new DiscardingState();
+//		 FirstRoundState firstRoundState = new FirstRoundState();
+//		 PlayingState playingState = new PlayingState();
+//		 RobbingState robbingState = new RobbingState();
+//		 RollingState rollingState = new RollingState();
+//		 SecondRoundState secondRoundState = new SecondRoundState();
+
+
 		
 		setRobView(robView);
 		
-//		initFromModel();
+		initFromModel();
 		try {
 			ClientFacade.getSingleton().addObserver(this);
 		} catch (ClientException e) {
@@ -53,9 +71,6 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	protected void initFromModel() {
-		
-		// This function should load the Map from the our model
-		// aka... this random stuff needs to be replaced!
 		
 		//random placeholder
 		
@@ -123,22 +138,24 @@ public class MapController extends Controller implements IMapController {
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+		Player[] players = null;
+
+
+
 		try {
 			int numberOfPlayers = 0;
-			Player[] players = ClientFacade.getSingleton().getClientModel().getPlayers();
-			for(Player p : players){
-				if(p != null){
+			 players = ClientFacade.getSingleton().getClientModel().getPlayers();
+			for (Player p : players) {
+				if (p != null) {
 					numberOfPlayers++;
 				}
 			}
-			if(numberOfPlayers == 4) {
+			if (numberOfPlayers == 4) {
 
 				int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 				//int playerIndex = 0;
 				EdgeValue edgeValue = new EdgeValue();
 				edgeValue.setLocation(edgeLoc.getNormalizedLocation());
-
-
 
 
 //			model.Player player = new Player("Sam",null,0);
@@ -155,6 +172,8 @@ public class MapController extends Controller implements IMapController {
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
+
+
 		return false;
 
 
@@ -216,7 +235,8 @@ public class MapController extends Controller implements IMapController {
 	public void playRoadBuildingCard() {	
 		
 	}
-	
+
+	@Override
 	public void robPlayer(RobPlayerInfo victim) {	
 		
 	}
@@ -226,36 +246,72 @@ public class MapController extends Controller implements IMapController {
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		if (model.getPlayers().length == 4) {
 
-			List<City> cities = model.getMap().getCityList();
-			List<Settlement> settlements =  model.getMap().getSettlementList();
-			List<Road> roads = model.getMap().getRoadList();
 
-			//Place all of the cities front the model on the map
-			for(City city : cities) {
+		List<City> cities = model.getMap().getCityList();
+		List<Settlement> settlements =  model.getMap().getSettlementList();
+		List<Road> roads = model.getMap().getRoadList();
 
-				int playerIndex = city.getLocation().getOwner();
-				CatanColor color = model.getPlayers()[playerIndex].getColor();
-				getView().placeCity(city.getLocation().getLocation(), color);
-			}
+		//Place all of the cities front the model on the map
+		for(City city : cities) {
 
-			//Place all of the settlements front the model on the map
-			for(Settlement settlement : settlements) {
-
-				int playerIndex = settlement.getLocation().getOwner();
-				CatanColor color = model.getPlayers()[playerIndex].getColor();
-				getView().placeSettlement(settlement.getLocation().getLocation(), color);
-			}
-
-			//Place all of the roads front the model on the map
-			for(Road road : roads) {
-
-				int playerIndex = road.getLocation().getOwner();
-				CatanColor color = model.getPlayers()[playerIndex].getColor();
-				getView().placeRoad(road.getLocation().getLocation(), color);
-			}
+			int playerIndex = city.getLocation().getOwner();
+			CatanColor color = model.getPlayers()[playerIndex].getColor();
+			getView().placeCity(city.getLocation().getLocation(), color);
 		}
+
+		//Place all of the settlements front the model on the map
+		for(Settlement settlement : settlements) {
+
+			int playerIndex = settlement.getLocation().getOwner();
+			CatanColor color = model.getPlayers()[playerIndex].getColor();
+			getView().placeSettlement(settlement.getLocation().getLocation(), color);
+		}
+
+		//Place all of the roads front the model on the map
+		for(Road road : roads) {
+
+			int playerIndex = road.getLocation().getOwner();
+			CatanColor color = model.getPlayers()[playerIndex].getColor();
+			getView().placeRoad(road.getLocation().getLocation(), color);
+		}
+
+
+
+		String gameState = model.getTurnTracker().getStatus();
+		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+
+		switch (gameState){
+			case "Rolling":
+				if(model.getRoll() == 7){
+					context.setState(robbingState);
+				}else {
+					context.setState(playingState);
+				}
+				break;
+			case "Discarding":
+				context.setState(robbingState);
+				break;
+			case "Playing":
+				context.setState(rollingState);
+				break;
+			case "Robbing":
+				context.setState(playingState);
+				break;
+			case "FirstRound":
+				context.setState(secondRoundState);
+				break;
+			case "SecondRound":
+				context.setState(rollingState);
+				break;
+			default:
+				break;
+
+
+
+		}
+
+
 	}
 
 
@@ -266,6 +322,6 @@ public class MapController extends Controller implements IMapController {
 	public void setContext(Context context) {
 		this.context = context;
 	}
-	
+
 }
 

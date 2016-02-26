@@ -3,7 +3,7 @@ package state;
 /**
  * Created by Sean_George on 2/24/16.
  */
-public interface  State {
+public interface IState {
 
     public abstract void sendChat();
 

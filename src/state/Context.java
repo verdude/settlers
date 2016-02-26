@@ -1,110 +1,108 @@
 package state;
 
-import state.State;
-
 /**
  * Created by Sean_George on 2/25/16.
  */
-public class Context implements State {
+public class Context implements IState {
 
-    private State state;
+    private IState IState;
 
 
     public Context(){
-        this.state = null;
+        this.IState = null;
     }
 
-    public State getState() {
-        return state;
+    public IState getState() {
+        return IState;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setState(IState IState) {
+        this.IState = IState;
     }
 
 
     @Override
     public void sendChat() {
-        this.state.sendChat();
+        this.IState.sendChat();
     }
 
     @Override
     public int rollNumber() {
-        return this.state.rollNumber();
+        return this.IState.rollNumber();
     }
 
     @Override
     public void robPlayer() {
-        this.state.robPlayer();
+        this.IState.robPlayer();
     }
 
     @Override
     public void finishTurn() {
-        this.state.finishTurn();
+        this.IState.finishTurn();
     }
 
     @Override
     public void buyDevCard() {
-        this.state.buyDevCard();
+        this.IState.buyDevCard();
     }
 
     @Override
     public void Year_of_Plenty() {
-        this.state.Year_of_Plenty();
+        this.IState.Year_of_Plenty();
     }
 
     @Override
     public void Road_Building() {
-        this.state.Road_Building();
+        this.IState.Road_Building();
     }
 
     @Override
     public void Soldier() {
-        this.state.Soldier();
+        this.IState.Soldier();
     }
 
     @Override
     public void Monopoly() {
-        this.state.Monopoly();
+        this.IState.Monopoly();
     }
 
     @Override
     public void Monument() {
-        this.state.Monument();
+        this.IState.Monument();
     }
 
     @Override
     public void buildRoad() {
-        this.state.buildRoad();
+        this.IState.buildRoad();
     }
 
     @Override
     public void buildSettlement() {
-        this.state.buildSettlement();
+        this.IState.buildSettlement();
     }
 
     @Override
     public void buildCity() {
-        this.state.buildCity();
+        this.IState.buildCity();
     }
 
     @Override
     public void acceptTrade() {
-        this.state.acceptTrade();
+        this.IState.acceptTrade();
     }
 
     @Override
     public void offerTrade() {
-        this.state.offerTrade();
+        this.IState.offerTrade();
     }
 
     @Override
     public void maritimeTrade() {
-        this.state.maritimeTrade();
+        this.IState.maritimeTrade();
     }
 
     @Override
     public void discardCards() {
-        this.state.discardCards();
+        this.IState.discardCards();
     }
 }

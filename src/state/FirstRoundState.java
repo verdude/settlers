@@ -1,11 +1,9 @@
 package state;
 
-import state.State;
-
 /**
  * Created by Sean_George on 2/25/16.
  */
-public class FirstRoundState implements State {
+public class FirstRoundState implements IState {
     @Override
     public void sendChat() {
 

@@ -2,6 +2,7 @@ package client.resources;
 
 import client.base.Controller;
 import client.base.IAction;
+import client.base.IObserver;
 import client.data.PlayerInfo;
 import model.*;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 /**
  * Implementation for the resource bar controller
  */
-public class ResourceBarController extends Controller implements IResourceBarController {
+public class ResourceBarController extends Controller implements IResourceBarController, IObserver {
 
 	private Map<ResourceBarElement, IAction> elementActions;
 	
@@ -84,7 +85,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		PlayerInfo currentPlayer =null;
+		PlayerInfo currentPlayer = null;
 
 		try {
 			currentPlayer = ClientFacade.getSingleton().getLocalPlayer();

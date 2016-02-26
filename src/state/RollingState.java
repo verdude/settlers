@@ -1,11 +1,14 @@
 package state;
 
-import state.State;
+
+import model.ClientException;
+import model.ClientFacade;
+import model.Player;
 
 /**
  * Created by Sean_George on 2/25/16.
  */
-public class RollingState implements State {
+public class RollingState implements IState {
     @Override
     public void sendChat() {
 
@@ -13,6 +16,22 @@ public class RollingState implements State {
 
     @Override
     public int rollNumber() {
+        try {
+            int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+            Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
+
+
+
+
+
+            return player.rollNumber();
+
+
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
+
+
         return 0;
     }
 

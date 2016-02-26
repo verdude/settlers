@@ -3,7 +3,7 @@ package state;
 /**
  * Created by Sean_George on 2/25/16.
  */
-public class DiscardingState implements IState {
+public class WaitingState implements IState {
     @Override
     public void sendChat() {
 
