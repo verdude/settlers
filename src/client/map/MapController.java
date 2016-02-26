@@ -312,7 +312,63 @@ public class MapController extends Controller implements IMapController,IObserve
 		}
 
 
-	}
+//=======
+//
+//		//Place all of the settlements front the model on the map
+//		for(Settlement settlement : settlements) {
+//
+//			int playerIndex = settlement.getLocation().getOwner();
+//			CatanColor color = model.getPlayers()[playerIndex].getColor();
+//			getView().placeSettlement(settlement.getLocation().getLocation(), color);
+//		}
+//
+//		//Place all of the roads front the model on the map
+//		for(Road road : roads) {
+//
+//			int playerIndex = road.getLocation().getOwner();
+//			CatanColor color = model.getPlayers()[playerIndex].getColor();
+//			getView().placeRoad(road.getLocation().getLocation(), color);
+//		}
+//
+//
+//
+//		String gameState = model.getTurnTracker().getStatus();
+//		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+//
+//		switch (gameState){
+//			case "Rolling":
+//				if(model.getRoll() == 7){
+//					context.setState(robbingState);
+//				}else {
+//					context.setState(playingState);
+//				}
+//				break;
+//			case "Discarding":
+//				context.setState(robbingState);
+//				break;
+//			case "Playing":
+//				context.setState(rollingState);
+//				break;
+//			case "Robbing":
+//				context.setState(playingState);
+//				break;
+//			case "FirstRound":
+//				context.setState(secondRoundState);
+//				break;
+//			case "SecondRound":
+//				context.setState(rollingState);
+//				break;
+//			default:
+//				break;
+//
+//
+//			}
+//
+//		}
+//
+//
+//>>>>>>> Bunch of changes
+//	}
 
 
 	public Context getContext() {
