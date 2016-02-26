@@ -168,7 +168,7 @@ public class ClientFacade {
 
 	/**
 	 * Joins a game of the given id on the server
-	 * @param id ID of the game to join
+	 * @param ID ID of the game to join
 	 * @param color The color for the player. Must be all lower case.
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The user is added to the game queue and all other game components as a player.
@@ -268,12 +268,13 @@ public class ClientFacade {
 
 	/**
 	 * Tells the server which number the player rolled
-	 * @param number Tells the server that you rolled this number
+	 * @param playerIndex The current player's index
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The result of rolling the current number is performed.
 	 * @return Whether it was attempted
 	 */
 	public int rollNumber(int playerIndex) {
+		// maybe the player index shouldn't even be passed in. We could just get it here.
 		boolean canDo = clientModel.canRollNumber(playerIndex);
 		int number = -1;
 
@@ -369,7 +370,6 @@ public class ClientFacade {
 	/**
 	 * Offers a trade from one player to the other for resources
 	 * @param offer The cards to be offered in a trade
-	 * @param receiver The player with which this player wants to trade
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A trade aggreement is presented to the player corresponding to receiver. The trade is made if receiver accepts the trade. The receiver receives offer and the offering player receives the counter part of the trade.
 	 * @return Whether it was attempted
