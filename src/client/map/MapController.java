@@ -9,7 +9,7 @@ import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.*;
-import state.*;
+import state.Context;
 
 import java.util.List;
 import java.util.Random;
@@ -24,20 +24,14 @@ public class MapController extends Controller implements IMapController,IObserve
 
 
 
-	private Context context = new Context();
-	private DiscardingState discardingState = new DiscardingState();
-	private FirstRoundState firstRoundState = new FirstRoundState();
-	private PlayingState playingState = new PlayingState();
-    private RobbingState robbingState = new RobbingState();
-	private RollingState rollingState = new RollingState();
-	private SecondRoundState secondRoundState = new SecondRoundState();
-	//private WaitingState waitingState = new WaitingState();
+//	private Context context = ClientFacade.getSingleton().getContext();
+
 	
 	public MapController(IMapView view, IRobView robView) {
 
 		super(view);
 
-//		 Context context = new Context();
+		// Context context = ClientFacade.getSingleton().getContext();
 //		 DiscardingState discardingState = new DiscardingState();
 //		 FirstRoundState firstRoundState = new FirstRoundState();
 //		 PlayingState playingState = new PlayingState();
@@ -150,7 +144,6 @@ public class MapController extends Controller implements IMapController,IObserve
 					numberOfPlayers++;
 				}
 			}
-			if (numberOfPlayers == 4) {
 
 				int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 				//int playerIndex = 0;
@@ -168,7 +161,7 @@ public class MapController extends Controller implements IMapController,IObserve
 //			ClientFacade.getSingleton().getClientModel().getPlayers()[0] = player;
 
 				return ClientFacade.getSingleton().getClientModel().canBuildRoad(playerIndex, edgeLoc);
-			}
+
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -277,39 +270,71 @@ public class MapController extends Controller implements IMapController,IObserve
 		}
 
 
+//
+//		String gameState = model.getTurnTracker().getStatus();
+//		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+//
+//		switch (gameState){
+//			case "Rolling":
+//				if(model.getRoll() == 7){
+//					context.setState(robbingState);
+//				}else {
+//					context.setState(playingState);
+//				}
+//				break;
+//			case "Discarding":
+//				context.setState(robbingState);
+//				break;
+//			case "Playing":
+//				context.setState(rollingState);
+//				break;
+//			case "Robbing":
+//				context.setState(playingState);
+//				break;
+//			case "FirstRound":
+//				context.setState(secondRoundState);
+//				break;
+//			case "SecondRound":
+//				context.setState(rollingState);
+//				break;
+//			default:
+//				break;
+//
+//
+//			}
+//
+//		String gameState = model.getTurnTracker().getStatus();
+//		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+//
+//		switch (gameState){
+//			case "Rolling":
+//				if(model.getRoll() == 7){
+//					context.setState(robbingState);
+//				}else {
+//					context.setState(playingState);
+//				}
+//				break;
+//			case "Discarding":
+//				context.setState(robbingState);
+//				break;
+//			case "Playing":
+//				context.setState(rollingState);
+//				break;
+//			case "Robbing":
+//				context.setState(playingState);
+//				break;
+//			case "FirstRound":
+//				context.setState(secondRoundState);
+//				break;
+//			case "SecondRound":
+//				context.setState(rollingState);
+//				break;
+//			default:
+//				break;
+//
+//
+//
 
-		String gameState = model.getTurnTracker().getStatus();
-		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
-
-		switch (gameState){
-			case "Rolling":
-				if(model.getRoll() == 7){
-					context.setState(robbingState);
-				}else {
-					context.setState(playingState);
-				}
-				break;
-			case "Discarding":
-				context.setState(robbingState);
-				break;
-			case "Playing":
-				context.setState(rollingState);
-				break;
-			case "Robbing":
-				context.setState(playingState);
-				break;
-			case "FirstRound":
-				context.setState(secondRoundState);
-				break;
-			case "SecondRound":
-				context.setState(rollingState);
-				break;
-			default:
-				break;
-
-
-
-		}
 
 
 //=======
@@ -371,13 +396,13 @@ public class MapController extends Controller implements IMapController,IObserve
 //	}
 
 
-	public Context getContext() {
-		return context;
-	}
-
-	public void setContext(Context context) {
-		this.context = context;
-	}
+//	public Context getContext() {
+//		return context;
+//	}
+//
+//	public void setContext(Context context) {
+//		this.context = context;
+//	}
 
 }
 

@@ -1,13 +1,14 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import client.base.IObserver;
+import client.data.PlayerInfo;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
-import client.base.IObserver;
-import client.data.PlayerInfo;
+import state.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientFacade {
 	
@@ -16,6 +17,15 @@ public class ClientFacade {
 	private IProxy proxy;
 	private PlayerInfo localPlayer;
 	private List<IObserver> observers;
+
+	public Context getContext() {
+		if(context == null){
+			context = new Context();
+		}
+		return context;
+	}
+
+	private Context context;
 	
 	/**
 	 * Default Constructor
@@ -52,9 +62,31 @@ public class ClientFacade {
 	
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
-		Player[] players = newModel.getPlayers();
-		for (Player p : players){
-			System.out.println(p.getName());
+
+		String gameState = clientModel.getTurnTracker().getStatus();
+		switch (gameState){
+			case "Rolling":
+				context.setState(new RobbingState());
+				break;
+			case "Discarding":
+				context.setState(new DiscardingState());
+				break;
+			case "Playing":
+				context.setState(new PlayingState());
+				break;
+			case "Robbing":
+				context.setState(new RobbingState());
+				break;
+			case "FirstRound":
+				context.setState(new FirstRoundState());
+				break;
+			case "SecondRound":
+				context.setState(new SecondRoundState());
+				break;
+			default:
+				break;
+
+
 		}
 		for(IObserver observer : observers) {
 			observer.notify(clientModel);
@@ -241,21 +273,22 @@ public class ClientFacade {
 	 * @post The result of rolling the current number is performed.
 	 * @return Whether it was attempted
 	 */
-	public boolean rollNumber(int playerIndex) {
+	public int rollNumber(int playerIndex) {
 		boolean canDo = clientModel.canRollNumber(playerIndex);
+		int number = -1;
+
 		if(canDo)
 		{
-			int number;
 			try {
 				number = clientModel.getPlayers()[playerIndex].rollNumber();
 			} catch (ClientException e) {
 				e.printStackTrace();
-				return false;
+				return -1;
 			}
 			String model = proxy.rollNumber(playerIndex, number);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
-		return canDo;
+		return number;
 	}
 
 	/**

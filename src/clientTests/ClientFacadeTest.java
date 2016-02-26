@@ -1,30 +1,16 @@
 package clientTests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import model.*;
+import org.junit.Before;
+import org.junit.Test;
+import shared.definitions.ResourceType;
+import shared.locations.*;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ClientFacade;
-import model.ClientModel;
-import model.EdgeValue;
-import model.MockServerProxy;
-import model.ServerProxy;
-import model.TradeOffer;
-import model.VertexObject;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import shared.definitions.ResourceType;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import static org.junit.Assert.*;
 
 public class ClientFacadeTest {
 
@@ -195,7 +181,7 @@ public class ClientFacadeTest {
 
 	@Test
 	public void rollNumberTest() {
-		assertTrue(facade.rollNumber(0));
+		assertTrue(facade.rollNumber(0) < 13 && facade.rollNumber(0) > 1);
 	}
 
 	@Test

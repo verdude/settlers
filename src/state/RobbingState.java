@@ -11,7 +11,9 @@ public class RobbingState implements IState {
 
     @Override
     public int rollNumber() {
-        return 0;
+
+
+       return 0;
     }
 
     @Override
