@@ -38,6 +38,10 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		//<temp>
 		
 		List<LogEntry> entries = new ArrayList<LogEntry>();
+		
+//		This is an example logEntry
+//		entries.add(new LogEntry(CatanColor.BROWN, "This is a brown message"));
+		
 		getView().setEntries(entries);
 	
 		//</temp>

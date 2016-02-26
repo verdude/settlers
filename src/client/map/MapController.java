@@ -31,7 +31,7 @@ public class MapController extends Controller implements IMapController {
 		
 		setRobView(robView);
 		
-		initFromModel();
+//		initFromModel();
 		try {
 			ClientFacade.getSingleton().addObserver(this);
 		} catch (ClientException e) {
@@ -53,6 +53,9 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	protected void initFromModel() {
+		
+		// This function should load the Map from the our model
+		// aka... this random stuff needs to be replaced!
 		
 		//random placeholder
 		
