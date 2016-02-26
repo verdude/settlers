@@ -56,26 +56,28 @@ public class PointsController extends Controller implements IPointsController {
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		PlayerInfo currentPlayer =null;
+		PlayerInfo currentPlayer = null;
 
 		try {
 			currentPlayer = ClientFacade.getSingleton().getLocalPlayer();
+			System.out.println(currentPlayer.getPlayerIndex());
+			Player player = model.getPlayers()[currentPlayer.getPlayerIndex()];
+			TurnTracker turnTracker = model.getTurnTracker();
+			int  victoryPoints = player.getVictoryPoints();
+			
+			if(turnTracker.getLargestArmy() != -1 && turnTracker.getLargestArmy() == player.getPlayerIndex()){
+				victoryPoints += 2;
+			}
+			if(turnTracker.getLongestRoad() != -1 && turnTracker.getLongestRoad() == player.getPlayerIndex()){
+				victoryPoints += 2;
+			}
+			
+			getPointsView().setPoints(victoryPoints);
 		} catch (ClientException e) {
+			System.out.println("Could not set the points. PointsController.");
 			e.printStackTrace();
 		}
 
-		Player player = model.getPlayers()[currentPlayer.getPlayerIndex()];
-		TurnTracker turnTracker = model.getTurnTracker();
-		int  victoryPoints = player.getVictoryPoints();
-
-		if(turnTracker.getLargestArmy() != -1 && turnTracker.getLargestArmy() == player.getPlayerIndex()){
-			victoryPoints += 2;
-		}
-		if(turnTracker.getLongestRoad() != -1 && turnTracker.getLongestRoad() == player.getPlayerIndex()){
-			victoryPoints += 2;
-		}
-
-		getPointsView().setPoints(victoryPoints);
 	}
 	
 }

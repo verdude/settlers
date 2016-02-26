@@ -255,13 +255,6 @@ public class MapController extends Controller implements IMapController {
 				CatanColor color = model.getPlayers()[playerIndex].getColor();
 				getView().placeRoad(road.getLocation().getLocation(), color);
 			}
-
-			try {
-				ClientFacade.getSingleton().updateModel(model);
-			} catch (ClientException e) {
-				e.printStackTrace();
-			}
-
 		}
 	}
 

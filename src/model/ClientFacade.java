@@ -25,7 +25,7 @@ public class ClientFacade {
 		clientModel	= new ClientModel();
 		this.proxy = proxy;
 		observers = new ArrayList<IObserver>();
-//		ServerPoller.getSingleton(proxy);
+		ServerPoller.getSingleton(proxy);
 	}
 
 	/**
@@ -65,7 +65,6 @@ public class ClientFacade {
 		localPlayer = new PlayerInfo();
 		localPlayer.setName(name);
 		try {
-			System.out.println(ServerProxy.getSingleton().getPlayerID());
 			localPlayer.setId(new Integer(ServerProxy.getSingleton().getPlayerID()));
 		} catch (NumberFormatException e) {
 			System.out.println("Could not set local player Id");
@@ -74,6 +73,10 @@ public class ClientFacade {
 			System.out.println("User Id Error in cookie. ClientFacade createLocalPlayer.");
 			e.printStackTrace();
 		}
+	}
+	
+	public void setLocalPlayer(PlayerInfo newPlayer) {
+		localPlayer = newPlayer;
 	}
 	
 	public PlayerInfo getLocalPlayer() {
