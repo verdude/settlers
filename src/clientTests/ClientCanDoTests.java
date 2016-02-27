@@ -52,8 +52,8 @@ public class ClientCanDoTests {
 
 		map = new GameMap();
 
-		map.getSettlementList().add(sett1);
-		map.getRoadList().add(road1);
+		map.getSettlements().add(sett1);
+		map.getRoads().add(road1);
 
 		model.setMap(map);
 
@@ -89,7 +89,7 @@ public class ClientCanDoTests {
 
 		assertTrue(model.canBuildRoad(0, road2.getLocation().getLocation(),false));
 		road2.getLocation().setOwner(0);
-		map.getRoadList().add(road2);
+		map.getRoads().add(road2);
 		assertFalse(model.canBuildRoad(0, road2.getLocation().getLocation(),false));
 
 
@@ -122,7 +122,7 @@ public class ClientCanDoTests {
 		road2.getLocation().setOwner(0);
 		road2Val.setOwner(0);
 		road2.setLocation(road2Val);
-		map.getRoadList().add(road2);
+		map.getRoads().add(road2);
 		road2Val.setOwner(0);
 
 
@@ -165,7 +165,7 @@ public class ClientCanDoTests {
 		port.setResource(PortType.BRICK);
 		port.setDirection(EdgeDirection.North);
 		port.setLocation(new HexLocation(0,0));
-		model.getMap().getPortList().add(port);
+		model.getMap().getPorts().add(port);
 
 		assertTrue(model.canMaritimeTrade(0, ResourceType.BRICK));
 		assertFalse(model.canMaritimeTrade(0, ResourceType.WOOD));
