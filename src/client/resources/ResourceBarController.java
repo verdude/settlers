@@ -42,35 +42,161 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	 * @param action The action to be executed
 	 */
 	public void setElementAction(ResourceBarElement element, IAction action) {
-
 		elementActions.put(element, action);
 	}
 
 	@Override
 	public void buildRoad() {
 
+		try {
+			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 
-		executeElementAction(ResourceBarElement.ROAD);
+			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
+			ResourceList resources = player.getResources();
+			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
+
+			if(resources.getBrick() < 1 || resources.getWood() <1
+					|| player.getRoads() < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.ROAD,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.ROAD,true);
+				executeElementAction(ResourceBarElement.ROAD);
+
+
+			}
+
+
+
+
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		//executeElementAction(ResourceBarElement.ROAD);
 	}
 
 	@Override
 	public void buildSettlement() {
-		executeElementAction(ResourceBarElement.SETTLEMENT);
+		try {
+			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+
+			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
+			ResourceList resources = player.getResources();
+			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
+
+			if(resources.getBrick() < 1 || resources.getSheep() < 1 ||
+					resources.getWheat() < 1 || resources.getWood() <1 || player.getSettlements() < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.SETTLEMENT,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.SETTLEMENT,true);
+				executeElementAction(ResourceBarElement.SETTLEMENT);
+
+			}
+
+
+
+
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+
+	//	executeElementAction(ResourceBarElement.SETTLEMENT);
 	}
 
 	@Override
 	public void buildCity() {
-		executeElementAction(ResourceBarElement.CITY);
+
+		try {
+
+			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+
+			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
+			ResourceList resources = player.getResources();
+			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
+
+			if(resources.getOre() < 3|| resources.getWheat() < 2 ||
+					player.getCities() < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.CITY,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.CITY,true);
+				executeElementAction(ResourceBarElement.CITY);
+
+
+			}
+
+
+
+
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+
+//		executeElementAction(ResourceBarElement.CITY);
 	}
 
 	@Override
 	public void buyCard() {
-		executeElementAction(ResourceBarElement.BUY_CARD);
+		try {
+
+			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+
+			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
+			ResourceList resources = player.getResources();
+			int bankDevCards = ClientFacade.getSingleton().getClientModel().getDevCardList().getTotal();
+			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
+
+			if(resources.getOre() < 1|| resources.getWheat() < 1 || resources.getSheep() < 1 ||
+					bankDevCards < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.BUY_CARD,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.BUY_CARD,true);
+				executeElementAction(ResourceBarElement.BUY_CARD);
+
+			}
+
+
+
+
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+
+
 	}
 
 	@Override
 	public void playCard() {
-		executeElementAction(ResourceBarElement.PLAY_CARD);
+
+
+		try {
+
+			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+
+			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
+			ResourceList resources = player.getResources();
+			int devsAvailable = player.getOldDevCards().getTotal();
+			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
+
+			if(devsAvailable < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.PLAY_CARD,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.PLAY_CARD,true);
+				executeElementAction(ResourceBarElement.PLAY_CARD);
+
+			}
+
+
+
+
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+
+
+
 	}
 	
 	private void executeElementAction(ResourceBarElement element) {
@@ -114,6 +240,62 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		getView().setElementAmount(ResourceBarElement.SOLDIERS,player.getSoldiers());
 
 
+
+		try {
+			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+
+			 player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
+			 resources = player.getResources();
+			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
+
+			if(resources.getBrick() < 1 || resources.getWood() <1
+					|| player.getRoads() < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.ROAD,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.ROAD,true);
+
+
+			}
+
+			if(resources.getBrick() < 1 || resources.getSheep() < 1 ||
+					resources.getWheat() < 1 || resources.getWood() <1 ||
+					player.getSettlements() < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.SETTLEMENT,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.SETTLEMENT,true);
+
+			}
+			if(resources.getOre() < 3|| resources.getWheat() < 2 ||
+					player.getCities() < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.CITY,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.CITY,true);
+
+			}
+
+			int bankDevCards = ClientFacade.getSingleton().getClientModel().getDevCardList().getTotal();
+			if(resources.getOre() < 1|| resources.getWheat() < 1 || resources.getSheep() < 1 ||
+					bankDevCards < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.BUY_CARD,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.BUY_CARD,true);
+
+			}
+
+			int devsAvailable = player.getOldDevCards().getTotal();
+
+			if(devsAvailable < 1 || playerIndex != currentTurn){
+				getView().setElementEnabled(ResourceBarElement.PLAY_CARD,false);
+			}else{
+				getView().setElementEnabled(ResourceBarElement.PLAY_CARD,true);
+
+			}
+
+
+
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 
 
 
