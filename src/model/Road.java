@@ -1,8 +1,8 @@
 package model;
 
 public class Road {
-	int playerId;
-	EdgeValue location;
+	int 		playerId;
+	EdgeValue 	location;
 	
 	public Road(){
 		location = null;

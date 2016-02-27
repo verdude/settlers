@@ -914,7 +914,7 @@ public class ClientModel {
 		
 		for(Port p : map.getPortList()){
 			HexLocation portHex = p.getLocation();
-			PortType portType = p.getResourceType();
+			PortType portType = p.getResource();
 			EdgeDirection portDir = p.getDirection();
 			
 		

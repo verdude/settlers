@@ -5,23 +5,23 @@ import java.util.*;
 import shared.locations.HexLocation;
 
 public class GameMap {
-	int 				RADIUS;			// It appears that the map will have a radius of 2;					
+	int 				radius;			// It appears that the map will have a radius of 2;					
 	Robber 				robber;
-	List<Hex> 			hexList;
-	List<Port> 			portList;
-	List<Road> 			roadList;
-	List<Settlement> 	settlementList;
-	List<City> 			cityList;
+	List<Hex> 			hexes;
+	List<Port> 			ports;
+	List<Road> 			roads;
+	List<Settlement> 	settlements;
+	List<City> 			cities;
 	
 	
 	
 	// Methods
 	public GameMap(){
-		hexList 		= new ArrayList<Hex>();
-		portList 		= new ArrayList<Port>();
-		roadList 		= new ArrayList<Road>();
-		settlementList 	= new ArrayList<Settlement>();
-		cityList 		= new ArrayList<City>();
+		hexes 			= new ArrayList<Hex>();
+		ports 			= new ArrayList<Port>();
+		roads 			= new ArrayList<Road>();
+		settlements 	= new ArrayList<Settlement>();
+		cities 			= new ArrayList<City>();
 		robber			= new Robber();
 	}
 	
@@ -43,7 +43,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeSettlement(VertexObject position) throws GameMapException {
-		settlementList.add(new Settlement(position));
+		settlements.add(new Settlement(position));
 	}
 	
 	/** Places a city for the player on a given vertex
@@ -54,7 +54,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeCity(VertexObject position) throws GameMapException {
-		cityList.add(new City(position));
+		cities.add(new City(position));
 	}
 	
 	/** Places a road for the player on a given edge
@@ -65,26 +65,26 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeRoad(EdgeValue position) throws GameMapException {
-		roadList.add(new Road(position));
+		roads.add(new Road(position));
 	}
 	
 	
 	
 	//Getters
-	public List<Hex>  		getHexList() 							{ return hexList; 			}
-	public List<Port> 		getPortList() 							{ return portList; 			}
-	public List<Road> 		getRoadList() 							{ return roadList; 			}
-	public List<Settlement> getSettlementList() 					{ return settlementList; 	}
-	public List<City> 		getCityList() 							{ return cityList; 			}
-	public int 				getRADIUS() 							{ return RADIUS; 			}
+	public List<Hex>  		getHexList() 							{ return hexes; 			}
+	public List<Port> 		getPortList() 							{ return ports; 			}
+	public List<Road> 		getRoadList() 							{ return roads; 			}
+	public List<Settlement> getSettlementList() 					{ return settlements; 	}
+	public List<City> 		getCityList() 							{ return cities; 			}
+	public int 				getRADIUS() 							{ return radius; 			}
 	public Robber 			getRobber() 							{ return robber; 			}
 	
 	// Setters
-	public void setHexList(List<Hex> hexList) 						{ this.hexList = hexList; 	}
-	public void setPortList(List<Port> portList) 					{ this.portList = portList; }
-	public void setRoadList(List<Road> roadList) 					{ this.roadList = roadList; }
-	public void setSettlementList(List<Settlement> settlementList) 	{ this.settlementList = settlementList; }
-	public void setCityList(List<City> cityList) 					{ this.cityList = cityList; }
-	public void setRADIUS(int _RADIUS) 								{ RADIUS = _RADIUS; 		}
+	public void setHexList(List<Hex> hexList) 						{ this.hexes = hexList; 	}
+	public void setPortList(List<Port> portList) 					{ this.ports = portList; }
+	public void setRoadList(List<Road> roadList) 					{ this.roads = roadList; }
+	public void setSettlementList(List<Settlement> settlementList) 	{ this.settlements = settlementList; }
+	public void setCityList(List<City> cityList) 					{ this.cities = cityList; }
+	public void setRADIUS(int _RADIUS) 								{ radius = _RADIUS; 		}
 	public void setRobber(Robber robber) 							{ this.robber = robber; 	}
 }

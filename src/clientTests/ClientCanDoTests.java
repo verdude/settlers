@@ -162,7 +162,7 @@ public class ClientCanDoTests {
 	@Test
 	public void canMaritimeTrade() {
 		Port port = new Port();
-		port.setResourceType(PortType.BRICK);
+		port.setResource(PortType.BRICK);
 		port.setDirection(EdgeDirection.North);
 		port.setLocation(new HexLocation(0,0));
 		model.getMap().getPortList().add(port);
