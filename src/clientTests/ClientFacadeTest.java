@@ -3,6 +3,7 @@ package clientTests;
 import model.*;
 import org.junit.Before;
 import org.junit.Test;
+import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.locations.*;
 
@@ -16,11 +17,28 @@ public class ClientFacadeTest {
 
 	private ClientFacade facade;
 	private ClientFacade mockFacade;
+	private Player player;
 	
 	@Before
 	public void setUp() throws MalformedURLException {
 		mockFacade = ClientFacade.getSingleton(MockServerProxy.getSingleton("localhost", "8081"));
 		facade = ClientFacade.getSingleton(ServerProxy.getSingleton("localhost", "8081"));
+		player = new Player("test1", CatanColor.BLUE, 0);
+		player.setHasRolled(true);
+		player.setResources(new ResourceList(5));
+		DevCardList devCardList = new DevCardList();
+		devCardList.setMonopoly(1);
+		devCardList.setMonument(1);
+		devCardList.setRoadBuilding(1);
+		devCardList.setSoldier(1);
+		devCardList.setYearOfPlenty(1);
+		player.setOldDevCards(devCardList);
+		try {
+			ClientFacade.getSingleton().getClientModel().getPlayers()[0] = player;
+			ClientFacade.getSingleton().getClientModel().getTurnTracker().setCurrentTurn(0);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -31,7 +49,11 @@ public class ClientFacadeTest {
 	//Throws exception if something fails
 	@Test
 	public void updateModelTest() {
-		facade.updateModel(new ClientModel());
+		try {
+			facade.updateModel(ClientFacade.getSingleton().getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -160,6 +182,15 @@ public class ClientFacadeTest {
 
 	@Test
 	public void tradeTest() {
+		Player player2 = new Player("test2", CatanColor.WHITE, 1);
+		player.setHasRolled(true);
+		player.setResources(new ResourceList(5));
+		try {
+			ClientFacade.getSingleton().getClientModel().getPlayers()[1] = player2;
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
 		List<Integer> resources = new ArrayList<Integer>();
 		resources.add(2);
 		resources.add(5);
@@ -182,6 +213,7 @@ public class ClientFacadeTest {
 	@Test
 	public void rollNumberTest() {
 		assertTrue(facade.rollNumber() < 13 && facade.rollNumber() > 1);
+
 	}
 
 	@Test
@@ -197,6 +229,7 @@ public class ClientFacadeTest {
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
 		vertexObject.setOwner(0);
+
 		assertTrue(facade.buildSettlement(0, vertexObject, "true"));
 	}
 
@@ -205,6 +238,15 @@ public class ClientFacadeTest {
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
 		vertexObject.setOwner(0);
+		Settlement settlement = new Settlement();
+		settlement.setPlayerId(player.getPlayerID());
+		settlement.setLocation(vertexObject);
+		try {
+			ClientFacade.getSingleton().getClientModel().getMap().getSettlementList().add(settlement);
+			ClientFacade.getSingleton().getContext();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 		assertTrue(facade.buildCity(0, vertexObject));
 	}
 

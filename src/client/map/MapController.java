@@ -9,6 +9,7 @@ import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.*;
+import state.Context;
 
 import java.util.List;
 import java.util.Random;
@@ -135,7 +136,23 @@ public class MapController extends Controller implements IMapController,IObserve
 
 		boolean canDo = false;
 		try {
+<<<<<<< Updated upstream
 			canDo = ClientFacade.getSingleton().getContext().canPlaceRoad(edgeLoc);
+=======
+//
+
+			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+			//int playerIndex = 0;
+			EdgeValue edgeValue = new EdgeValue();
+			edgeValue.setLocation(edgeLoc.getNormalizedLocation());
+		boolean isSetup = false;
+			Context context = ClientFacade.getSingleton().getContext();
+			if(context.equals("FirstRound") || context.equals("SecondRound")){
+				isSetup = true;
+			}
+			return ClientFacade.getSingleton().getClientModel().canBuildRoad(playerIndex, edgeLoc,isSetup);
+
+>>>>>>> Stashed changes
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -279,6 +296,10 @@ public class MapController extends Controller implements IMapController,IObserve
 		}
 
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 //
 //		String gameState = model.getTurnTracker().getStatus();
 //		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
@@ -310,6 +331,7 @@ public class MapController extends Controller implements IMapController,IObserve
 //				break;
 //
 //
+<<<<<<< Updated upstream
 //			}
 //
 //		String gameState = model.getTurnTracker().getStatus();
@@ -342,6 +364,13 @@ public class MapController extends Controller implements IMapController,IObserve
 //				break;
 //
 //
+=======
+//
+
+
+
+
+>>>>>>> Stashed changes
 	}
 }
 
