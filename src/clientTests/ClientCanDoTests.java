@@ -107,6 +107,7 @@ public class ClientCanDoTests {
 		sett2.setPlayerId(0);
 				assertFalse(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation()));
 
+
 		Road road2 = new Road();
 		
 		EdgeValue road2Val = new EdgeValue();
@@ -123,6 +124,7 @@ public class ClientCanDoTests {
 		road2Val.setOwner(0);
 		
 		assertTrue(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation()));
+
 
 		
 
@@ -151,6 +153,7 @@ public class ClientCanDoTests {
 		city.setLocation(cityVert);
 		city.setPlayerId(0);
 		assertTrue(model.canBuildCity(0, cityVert.getLocation()));
+
 
 	}
 	

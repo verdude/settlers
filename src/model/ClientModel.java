@@ -593,6 +593,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildSettlement(int playerIndex, VertexLocation vertex) {
+
 		
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();		
@@ -617,6 +618,7 @@ public class ClientModel {
 					return false;
 				}
 			}
+
 		}
 		
 		boolean hasRoadAttached = false;
@@ -803,6 +805,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildCity(int playerIndex, VertexLocation cityLoc) {
+
 		Player player = players[playerIndex];
 		System.out.println(""+(player==null));
 		ResourceList resources = player.getResources();
@@ -810,6 +813,7 @@ public class ClientModel {
 
 
 		if(turnTracker.getCurrentTurn() != playerIndex || !player.getHasRolled()){
+
 			return false;
 
 		}
