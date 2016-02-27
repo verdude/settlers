@@ -40,7 +40,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 		setRobView(robView);
 
-		initFromModel();
+		//initFromModel();
 		try {
 			ClientFacade.getSingleton().addObserver(this);
 		} catch (ClientException e) {
@@ -65,7 +65,8 @@ public class MapController extends Controller implements IMapController,IObserve
 	protected void initFromModel() {
 
 		//random placeholder
-
+		// We need to load the map from the model
+		// the random stuff needs to be replaced
 		Random rand = new Random();
 
 		for (int x = 0; x <= 3; ++x) {
