@@ -45,12 +45,13 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void notify(ClientModel model) {
 		try {
+			//getView().setLocalPlayerColor(ClientFacade.getSingleton().getLocalPlayer().getColor());
 			getView().setLocalPlayerColor(ClientFacade.getSingleton().getLocalPlayer().getColor());
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
