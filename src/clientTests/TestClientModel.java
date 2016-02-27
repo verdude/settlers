@@ -21,7 +21,7 @@ public class TestClientModel {
 		assertNotNull(model.getMap());
 		assertTrue(model.getPlayers().length == 4);
 		assertNotNull(model.getTurnTracker());
-		assertTrue(model.getVersion() == 0);
+		assertTrue(model.getVersion() == -1);
 		assertTrue(model.getWinner() == -1);
 	}
 	

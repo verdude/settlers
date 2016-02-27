@@ -277,7 +277,8 @@ public class ClientFacade {
 	 * @post The result of rolling the current number is performed.
 	 * @return Whether it was attempted
 	 */
-	public int rollNumber(int playerIndex) {
+	public int rollNumber() {
+		int playerIndex = localPlayer.getPlayerIndex();
 		// maybe the player index shouldn't even be passed in. We could just get it here.
 		boolean canDo = clientModel.canRollNumber(playerIndex);
 		int number = -1;

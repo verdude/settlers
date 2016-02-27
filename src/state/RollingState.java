@@ -16,15 +16,6 @@ public class RollingState implements IState {
 
     @Override
     public int rollNumber() {
-        try {
-            int roll = ClientFacade.getSingleton().rollNumber(ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex());
-            return ClientFacade.getSingleton().rollNumber(ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex());
-
-
-        } catch (ClientException e) {
-            e.printStackTrace();
-        }
-
 
         return 0;
     }
