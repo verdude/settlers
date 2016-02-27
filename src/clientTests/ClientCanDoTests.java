@@ -87,10 +87,10 @@ public class ClientCanDoTests {
 		road2.setPlayerId(0);
 		road2.setLocation(road2Val);
 
-		assertTrue(model.canBuildRoad(0, road2.getLocation().getLocation()));
+		assertTrue(model.canBuildRoad(0, road2.getLocation().getLocation(),false));
 		road2.getLocation().setOwner(0);
 		map.getRoadList().add(road2);
-		assertFalse(model.canBuildRoad(0, road2.getLocation().getLocation()));
+		assertFalse(model.canBuildRoad(0, road2.getLocation().getLocation(),false));
 
 
 	}
@@ -105,7 +105,9 @@ public class ClientCanDoTests {
 		sett2Vert.setLocation(sett1Loc);
 		sett2.setLocation(sett2Vert);
 		sett2.setPlayerId(0);
-		assertFalse(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation()));
+
+				assertFalse(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation(),false));
+
 
 		Road road2 = new Road();
 
@@ -115,14 +117,17 @@ public class ClientCanDoTests {
 		road2.setPlayerId(0);
 		road2.setLocation(road2Val);
 
-		assertTrue(model.canBuildRoad(0, road2Val.getLocation()));
+		
+		assertTrue(model.canBuildRoad(0, road2Val.getLocation(),false));
 		road2.getLocation().setOwner(0);
 		road2Val.setOwner(0);
 		road2.setLocation(road2Val);
 		map.getRoadList().add(road2);
 		road2Val.setOwner(0);
 
-		assertTrue(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation()));
+
+		
+		assertTrue(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation(),false));
 
 
 

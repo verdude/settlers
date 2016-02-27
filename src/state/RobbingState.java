@@ -1,6 +1,7 @@
 package state;
 
 import client.data.RobPlayerInfo;
+import client.map.IMapView;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -10,6 +11,11 @@ import shared.locations.VertexLocation;
  * Created by Sean_George on 2/25/16.
  */
 public class RobbingState implements IState {
+
+    @Override
+    public void initFromModel(IMapView view) {
+
+    }
 
     @Override
     public boolean canPlaceRoad(EdgeLocation edgeLoc) {
@@ -32,27 +38,27 @@ public class RobbingState implements IState {
     }
 
     @Override
-    public void placeRoad(EdgeLocation edgeLoc) {
+    public void placeRoad(EdgeLocation edgeLoc, IMapView view) {
 
     }
 
     @Override
-    public void placeSettlement(VertexLocation vertLoc) {
+    public void placeSettlement(VertexLocation vertLoc, IMapView view) {
 
     }
 
     @Override
-    public void placeCity(VertexLocation vertLoc) {
+    public void placeCity(VertexLocation vertLoc, IMapView view) {
 
     }
 
     @Override
-    public void placeRobber(HexLocation hexLoc) {
+    public void placeRobber(HexLocation hexLoc, IMapView view) {
 
     }
 
     @Override
-    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
+    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView view) {
 
     }
 

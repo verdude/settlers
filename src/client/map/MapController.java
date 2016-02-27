@@ -9,6 +9,7 @@ import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.*;
+import state.Context;
 
 import java.util.List;
 import java.util.Random;
@@ -170,41 +171,45 @@ public class MapController extends Controller implements IMapController,IObserve
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
+		boolean canDo = false;
+		try {
+			canDo =  ClientFacade.getSingleton().getContext().canPlaceRobber(hexLoc);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return canDo;
 
-
-
-		return true;
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
 
-		CatanColor color = null;
+		Context context = null;
 		try {
-			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
-		} catch (ClientException e) {
-			e.printStackTrace();
+			context = ClientFacade.getSingleton().getContext();
+			context.placeRoad(edgeLoc,getView());
+		}catch (ClientException e){
+			e.getStackTrace();
 		}
-		getView().placeRoad(edgeLoc, color);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		CatanColor color = null;
+		Context context = null;
 		try {
-			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
-		} catch (ClientException e) {
-			e.printStackTrace();
+			context = ClientFacade.getSingleton().getContext();
+			context.placeSettlement(vertLoc,getView());
+		}catch (ClientException e){
+			e.getStackTrace();
 		}
-		getView().placeSettlement(vertLoc, color);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		CatanColor color = null;
+		Context context = null;
 		try {
-			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
-		} catch (ClientException e) {
-			e.printStackTrace();
+			context = ClientFacade.getSingleton().getContext();
+			context.placeCity(vertLoc,getView());
+		}catch (ClientException e){
+			e.getStackTrace();
 		}
-		getView().placeCity(vertLoc, color);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
@@ -216,14 +221,11 @@ public class MapController extends Controller implements IMapController,IObserve
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 
-		CatanColor color = null;
 		try {
-			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
+			ClientFacade.getSingleton().getContext().startMove(pieceType,isFree,allowDisconnected,getView());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		//If it's the startup phase then the third param should be false
-		getView().startDrop(pieceType, color, true);
 	}
 
 	public void cancelMove() {
@@ -278,70 +280,15 @@ public class MapController extends Controller implements IMapController,IObserve
 			getView().placeRoad(road.getLocation().getLocation(), color);
 		}
 
+		List<Hex> hexList = null;
+		try {
+			hexList = ClientFacade.getSingleton().getClientModel().getMap().getHexList();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 
-//
-//		String gameState = model.getTurnTracker().getStatus();
-//		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
-//
-//		switch (gameState){
-//			case "Rolling":
-//				if(model.getRoll() == 7){
-//					context.setState(robbingState);
-//				}else {
-//					context.setState(playingState);
-//				}
-//				break;
-//			case "Discarding":
-//				context.setState(robbingState);
-//				break;
-//			case "Playing":
-//				context.setState(rollingState);
-//				break;
-//			case "Robbing":
-//				context.setState(playingState);
-//				break;
-//			case "FirstRound":
-//				context.setState(secondRoundState);
-//				break;
-//			case "SecondRound":
-//				context.setState(rollingState);
-//				break;
-//			default:
-//				break;
-//
-//
-//			}
-//
-//		String gameState = model.getTurnTracker().getStatus();
-//		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
-//
-//		switch (gameState){
-//			case "Rolling":
-//				if(model.getRoll() == 7){
-//					context.setState(robbingState);
-//				}else {
-//					context.setState(playingState);
-//				}
-//				break;
-//			case "Discarding":
-//				context.setState(robbingState);
-//				break;
-//			case "Playing":
-//				context.setState(rollingState);
-//				break;
-//			case "Robbing":
-//				context.setState(playingState);
-//				break;
-//			case "FirstRound":
-//				context.setState(secondRoundState);
-//				break;
-//			case "SecondRound":
-//				context.setState(rollingState);
-//				break;
-//			default:
-//				break;
-//
-//
+
+
 	}
 }
 

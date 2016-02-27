@@ -1,6 +1,7 @@
 package state;
 
 import client.data.RobPlayerInfo;
+import client.map.IMapView;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -28,6 +29,11 @@ public class Context implements IState {
 
 
     @Override
+    public void initFromModel(IMapView view) {
+        this.state.initFromModel(view);
+    }
+
+    @Override
     public boolean canPlaceRoad(EdgeLocation edgeLoc) {
         return this.state.canPlaceRoad(edgeLoc);
     }
@@ -49,28 +55,28 @@ public class Context implements IState {
     }
 
     @Override
-    public void placeRoad(EdgeLocation edgeLoc) {
-        this.state.placeRoad(edgeLoc);
+    public void placeRoad(EdgeLocation edgeLoc, IMapView view) {
+        this.state.placeRoad(edgeLoc,view);
     }
 
     @Override
-    public void placeSettlement(VertexLocation vertLoc) {
-            this.state.placeSettlement(vertLoc);
+    public void placeSettlement(VertexLocation vertLoc, IMapView view) {
+            this.state.placeSettlement(vertLoc,view);
     }
 
     @Override
-    public void placeCity(VertexLocation vertLoc) {
-            this.state.placeCity(vertLoc);
+    public void placeCity(VertexLocation vertLoc, IMapView view) {
+            this.state.placeCity(vertLoc,view);
     }
 
     @Override
-    public void placeRobber(HexLocation hexLoc) {
-            this.placeRobber(hexLoc);
+    public void placeRobber(HexLocation hexLoc, IMapView view) {
+            this.placeRobber(hexLoc,view);
     }
 
     @Override
-    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
-            this.state.startMove(pieceType,isFree,allowDisconnected);
+    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected,IMapView view) {
+            this.state.startMove(pieceType,isFree,allowDisconnected,view);
     }
 
     @Override
@@ -91,5 +97,33 @@ public class Context implements IState {
     @Override
     public void robPlayer(RobPlayerInfo victim) {
         this.state.robPlayer(victim);
+    }
+
+
+    public void fromString(String status){
+
+        switch (status) {
+            case "Rolling":
+                this.setState(new RollingState());
+                break;
+            case "Discarding":
+                this.setState(new DiscardingState());
+                break;
+            case "Playing":
+                this.setState(new PlayingState());
+                break;
+            case "Robbing":
+                this.setState(new RobbingState());
+                break;
+            case "FirstRound":
+                this.setState(new FirstRoundState());
+                break;
+            case "SecondRound":
+                this.setState(new SecondRoundState());
+                break;
+            default:
+                break;
+        }
+
     }
 }

@@ -1,16 +1,11 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import shared.locations.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientModel {
 
@@ -386,13 +381,13 @@ public class ClientModel {
 	}
 	/**
 	 * Checks the model to see if the client can build a road 
-	 * @param location of type EdgeValue it is assumed that the location is normalized.
+	 * @param newLocation of type EdgeValue it is assumed that the location is normalized.
 	 * @param playerIndex the index of the player playing the road
 	 * @pre None
 	 * @post True if client can perform buildRoad
 	 * @return Whether the action is possible
 	 */
-	public boolean canBuildRoad(int playerIndex, EdgeLocation newLocation) {
+	public boolean canBuildRoad(int playerIndex, EdgeLocation newLocation, boolean isFree) {
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
@@ -416,7 +411,7 @@ public class ClientModel {
 		}
 
 
-		if(resources.getBrick() >= 1 && resources.getWood() >= 1
+		if(((resources.getBrick() >= 1 && resources.getWood() >= 1 ) || isFree)
 				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled()){
 			roadList = map.getRoadList();
 			for(Road r : roadList){
@@ -428,7 +423,7 @@ public class ClientModel {
 				}
 
 			}
-			//			
+			//
 			for(Settlement s : map.getSettlementList()){
 				EdgeDirection roadDirection = newLocation.getDir();
 				VertexDirection settlementDirection = s.getLocation().getLocation().getDir();
@@ -465,9 +460,9 @@ public class ClientModel {
 				}
 
 
-				//				
-				//				
-				//				
+				//
+				//
+				//
 			}
 
 			for(City c : map.getCityList()){
@@ -531,7 +526,7 @@ public class ClientModel {
 						if(tempHexLoc.equals(roadHexLoc) &&  tempDirection.equals(EdgeDirection.North)){
 							return true;
 						}else if(tempHexLoc.equals(swNeighbor) &&
-								(tempDirection.equals(EdgeDirection.North) || 
+								(tempDirection.equals(EdgeDirection.North) ||
 										tempDirection.equals(EdgeDirection.NorthEast)) ){
 							return true;
 						}else if(tempHexLoc.equals(nwNeighbor) && tempDirection.equals(EdgeDirection.NorthEast) ){
@@ -543,8 +538,8 @@ public class ClientModel {
 					break;
 				case North:
 					if(r.getPlayerId() == player.getPlayerID()){
-						if(tempHexLoc.equals(roadHexLoc) 
-								&&  (tempDirection.equals(EdgeDirection.NorthEast) 
+						if(tempHexLoc.equals(roadHexLoc)
+								&&  (tempDirection.equals(EdgeDirection.NorthEast)
 										|| tempDirection.equals(EdgeDirection.NorthWest))){
 							return true;
 						}else if(tempHexLoc.equals(nwNeighbor) &&
@@ -561,7 +556,7 @@ public class ClientModel {
 						if(tempHexLoc.equals(roadHexLoc) &&  tempDirection.equals(EdgeDirection.North)){
 							return true;
 						}else if(tempHexLoc.equals(seNeighbor) &&
-								(tempDirection.equals(EdgeDirection.North) || 
+								(tempDirection.equals(EdgeDirection.North) ||
 										tempDirection.equals(EdgeDirection.NorthWest)) ){
 							return true;
 						}else if(tempHexLoc.equals(neNeighbor) && tempDirection.equals(EdgeDirection.NorthWest) ){
@@ -592,7 +587,7 @@ public class ClientModel {
 	 * @post True if client can perform buildSettlement
 	 * @return Whether the action is possible
 	 */
-	public boolean canBuildSettlement(int playerIndex, VertexLocation vertex) {
+	public boolean canBuildSettlement(int playerIndex, VertexLocation vertex, boolean isFree) {
 
 
 		
@@ -633,8 +628,9 @@ public class ClientModel {
 		HexLocation seNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.SouthEast);
 		HexLocation swNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.SouthWest);
 
-		if(player.getSettlements() > 0 	&& resources.getWheat() >= 1 && resources.getSheep() >= 1
-				&& resources.getBrick() >= 1 && resources.getWood() >= 1){
+
+		if(player.getSettlements() > 0 	&& ((resources.getWheat() >= 1 && resources.getSheep() >= 1
+				&& resources.getBrick() >= 1 && resources.getWood() >= 1) || isFree )){
 
 			for(Road r : map.getRoadList()){
 
@@ -807,7 +803,6 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildCity(int playerIndex, VertexLocation cityLoc) {
-
 		Player player = players[playerIndex];
 		System.out.println(""+(player==null));
 		ResourceList resources = player.getResources();
