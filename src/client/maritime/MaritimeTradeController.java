@@ -42,40 +42,40 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void startTrade() {
-		
+		System.out.println("Maritime Start Trade");
 		getTradeOverlay().showModal();
 	}
 
 	@Override
 	public void makeTrade() {
-
+		System.out.println("Maritime Make Trade");
 		getTradeOverlay().closeModal();
 	}
 
 	@Override
 	public void cancelTrade() {
-
+		System.out.println("Maritime cancel Trade");
 		getTradeOverlay().closeModal();
 	}
 
 	@Override
 	public void setGetResource(ResourceType resource) {
-
+		System.out.println("Maritime set get resource");
 	}
 
 	@Override
 	public void setGiveResource(ResourceType resource) {
-
+		System.out.println("Maritime set give resource");
 	}
 
 	@Override
 	public void unsetGetValue() {
-
+		System.out.println("Maritime unsert get value");
 	}
 
 	@Override
 	public void unsetGiveValue() {
-
+		System.out.println("Maritime unset give value");
 	}
 
 	/* (non-Javadoc)
@@ -84,7 +84,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void notify(ClientModel model) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Maritime notify");
 	}
 
 }
