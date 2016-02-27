@@ -146,6 +146,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void startJoinGame(GameInfo game) {
+		// needs some serious refactoring
 		joinedGame = game.getId();
 		int index = 0;
 		List<String> colors = new ArrayList<>();
@@ -164,14 +165,19 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			System.out.println("Could not set the local Player. startJoinGame in JoinGameController.");
 			e1.printStackTrace();
 		}
+		index = 0;
 		//Get all of the players' colors
 		for (PlayerInfo player : game.getPlayers()) {
-			if (player == null) {
-				System.out.println("Player are nulls");
-				continue;
+			// Disable all of the chosen colors except for the localPlayer's
+			// This allows him to chose a color before he can join the game
+			try {
+				if (ClientFacade.getSingleton().getLocalPlayer().getId() != player.getId()) {
+                    getSelectColorView().setColorEnabled(player.getColor(), false);
+                }
+			} catch (ClientException e) {
+				e.printStackTrace();
 			}
-			System.out.println("In the player loop");
-			getSelectColorView().setColorEnabled(player.getColor(), false);
+			index++;
 		}
 		getSelectColorView().showModal();
 	}
