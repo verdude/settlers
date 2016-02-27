@@ -1,10 +1,12 @@
 package client.devcards;
 
-import shared.definitions.ResourceType;
-import client.base.*;
+import client.base.Controller;
+import client.base.IAction;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import model.Player;
+import shared.definitions.ResourceType;
 
 
 /**
@@ -85,7 +87,14 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playMonumentCard() {
-		
+		try {
+			int currentPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[currentPlayerIndex];
+			player.setMonuments(player.getMonuments() + 1);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override

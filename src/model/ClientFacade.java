@@ -17,16 +17,18 @@ public class ClientFacade {
 	private IProxy proxy;
 	private PlayerInfo localPlayer;
 	private List<IObserver> observers;
+	private Context context;
 
 	public Context getContext() {
 		if(context == null){
 			context = new Context();
-			//context.setState(new RollingState());
 		}
+		String status = clientModel.getTurnTracker().getStatus();
+		context.fromString(status);
 		return context;
 	}
 
-	private Context context;
+
 	
 	/**
 	 * Default Constructor
@@ -274,7 +276,6 @@ public class ClientFacade {
 
 	/**
 	 * Tells the server which number the player rolled
-	 * @param playerIndex The current player's index
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The result of rolling the current number is performed.
 	 * @return Whether it was attempted
@@ -303,10 +304,8 @@ public class ClientFacade {
 	 * Places a road on the map
 	 * @param free Whether the piece was free of cost
 	 * @param roadLocation The new location for the road
-	 * @param isSetup boolean that indicates if this is a setup phase (true if it is a setup phase)
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
-<<<<<<< 989617169ef6f996586bb4e71dffee754633c0bf
 	 * @return Whether it was attempted
 	 */
 	public boolean buildRoad(EdgeValue roadLocation, String free) {
@@ -314,14 +313,7 @@ public class ClientFacade {
 		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation());
 
 
-=======
-	 * @return Whether it was attempted
-	 */
-	public boolean buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
-		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation().getNormalizedLocation());
 
-
->>>>>>> MapController core features Should work
 		if(canDo)
 		{
 			try {
@@ -342,7 +334,6 @@ public class ClientFacade {
 	 * Builds a new settlement on the map
 	 * @param free Whether the settlement was free of cost
 	 * @param vertexObject The new location of the settlement
-	 * @param isSetup boolean that indicates if this is a setup phase (true if it is a setup phase)
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
@@ -350,6 +341,7 @@ public class ClientFacade {
 	public boolean buildSettlement(VertexObject vertexObject, String free) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject);
+
 
 
 		if(canDo)
@@ -370,7 +362,6 @@ public class ClientFacade {
 	/**
 	 * Builds a new city on the map
 	 * @param vertexObject The location of the city to be built
-	 * @param isSetup boolean that indicates if this is a setup phase (true if it is a setup phase)
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
@@ -378,6 +369,7 @@ public class ClientFacade {
 	public boolean buildCity(VertexObject vertexObject) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject);
+
 
 
 		if(canDo)

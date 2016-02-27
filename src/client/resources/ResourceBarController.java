@@ -84,7 +84,8 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
 
 			if(resources.getBrick() < 1 || resources.getSheep() < 1 ||
-					resources.getWheat() < 1 || resources.getWood() <1 || player.getSettlements() < 1 || playerIndex != currentTurn){
+					resources.getWheat() < 1 || resources.getWood() <1 || player.getSettlements() < 1
+					|| playerIndex != currentTurn){
 				getView().setElementEnabled(ResourceBarElement.SETTLEMENT,false);
 			}else{
 				getView().setElementEnabled(ResourceBarElement.SETTLEMENT,true);
@@ -242,6 +243,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 
 		try {
+
 			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 
 			 player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
