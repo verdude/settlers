@@ -11,6 +11,9 @@ import model.ClientModel;
 import model.Converter;
 import shared.definitions.CatanColor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Implementation for the join game controller
@@ -145,6 +148,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	public void startJoinGame(GameInfo game) {
 		joinedGame = game.getId();
 		int index = 0;
+		List<String> colors = new ArrayList<>();
 		PlayerInfo localPlayer;
 		try {
 			localPlayer = ClientFacade.getSingleton().getLocalPlayer();
@@ -159,6 +163,15 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		} catch (ClientException e1) {
 			System.out.println("Could not set the local Player. startJoinGame in JoinGameController.");
 			e1.printStackTrace();
+		}
+		//Get all of the players' colors
+		for (PlayerInfo player : game.getPlayers()) {
+			if (player == null) {
+				System.out.println("Player are nulls");
+				continue;
+			}
+			System.out.println("In the player loop");
+			getSelectColorView().setColorEnabled(player.getColor(), false);
 		}
 		getSelectColorView().showModal();
 	}
