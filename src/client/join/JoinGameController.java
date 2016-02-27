@@ -160,6 +160,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			System.out.println("Could not set the local Player. startJoinGame in JoinGameController.");
 			e1.printStackTrace();
 		}
+		getSelectColorView().showModal();
 	}
 
 	@Override
@@ -176,11 +177,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			getSelectColorView().closeModal();
 			getJoinGameView().closeModal();
 			joinAction.execute();
+			System.out.println("Joined da game");
 		} catch (ClientException e) {
 			System.out.println("failed to join the game");
 			e.printStackTrace();
 		}
-		getJoinGameView().showModal();
 	}
 
 	/* (non-Javadoc)
