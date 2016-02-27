@@ -2,6 +2,7 @@ package client.join;
 
 import client.base.Controller;
 import client.data.GameInfo;
+import client.data.PlayerInfo;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
@@ -37,7 +38,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void start() {
 		getView().showModal();
-		System.out.println("in the waiting controller");
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
             @Override
@@ -45,15 +45,20 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
         		GameInfo[] games;
         		try {
         			games = Converter.deserializeGamesArray(ClientFacade.getSingleton().gamesList());
-
 	                for (GameInfo game : games) {
-	                        if (game.getId() == Integer.parseInt(ServerProxy.getSingleton().getGameID())) {
-	                            if (game.getPlayers().size() == 4) {
-	                                getView().closeModal();
-	                                this.cancel();
-	                            }
-	                            break;
-	                        }
+                        if (game.getId() == Integer.parseInt(ServerProxy.getSingleton().getGameID())) {
+                            if (game.getPlayers().size() == 4) {
+                                getView().closeModal();
+                                this.cancel();
+                            } else {
+								PlayerInfo[] players = new PlayerInfo[4];
+								for (int i = 0; i < game.getPlayers().size(); ++i) {
+									players[i] = game.getPlayers().get(i);
+								}
+								getView().setPlayers(players);
+							}
+                            break;
+                        }
 	                }
         		} catch (ClientException e) {
         			System.out.println("Error getting game list");
@@ -61,7 +66,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
         			return;
                 }
             }
-        }, 0, 3000);
+        }, 0, 1000);
 	}
 
 	@Override
