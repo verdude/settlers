@@ -15,11 +15,11 @@ public class GameMapTest {
 	public void testInit() {
 		testMap = new GameMap();
 		
-		assertTrue(testMap.getHexList() 		!= null);
-		assertTrue(testMap.getPortList() 		!= null);
-		assertTrue(testMap.getRoadList() 		!= null);
-		assertTrue(testMap.getSettlementList() 	!= null);
-		assertTrue(testMap.getCityList() 		!= null);
+		assertTrue(testMap.getHexes() 		!= null);
+		assertTrue(testMap.getPorts() 		!= null);
+		assertTrue(testMap.getRoads() 		!= null);
+		assertTrue(testMap.getSettlements() 	!= null);
+		assertTrue(testMap.getCities() 		!= null);
 	}
 	
 	@Test
@@ -35,7 +35,7 @@ public class GameMapTest {
 		
 		try {
 			testMap.placeSettlement(new VertexObject());
-			assertTrue(testMap.getSettlementList().size() > 0);
+			assertTrue(testMap.getSettlements().size() > 0);
 		} catch (GameMapException e) {
 			assertTrue(false);
 		}
@@ -47,7 +47,7 @@ public class GameMapTest {
 		
 		try {
 			testMap.placeCity(new VertexObject());
-			assertTrue(testMap.getCityList().size() > 0);
+			assertTrue(testMap.getCities().size() > 0);
 		} catch (GameMapException e) {
 			assertTrue(false);
 		}
@@ -59,7 +59,7 @@ public class GameMapTest {
 		
 		try {
 			testMap.placeRoad(new EdgeValue());
-			assertTrue(testMap.getRoadList().size() > 0);
+			assertTrue(testMap.getRoads().size() > 0);
 		} catch (GameMapException e) {
 			assertTrue(false);
 		}

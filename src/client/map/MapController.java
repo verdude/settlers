@@ -194,9 +194,9 @@ public class MapController extends Controller implements IMapController,IObserve
 	public void notify(ClientModel model) {
 		initFromModel();
 
-		List<City> cities = model.getMap().getCityList();
-		List<Settlement> settlements = model.getMap().getSettlementList();
-		List<Road> roads = model.getMap().getRoadList();
+		List<City> cities = model.getMap().getCities();
+		List<Settlement> settlements = model.getMap().getSettlements();
+		List<Road> roads = model.getMap().getRoads();
 
 		//Place all of the cities front the model on the map
 		for (City city : cities) {
@@ -224,7 +224,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 		List<Hex> hexList = null;
 		try {
-			hexList = ClientFacade.getSingleton().getClientModel().getMap().getHexList();
+			hexList = ClientFacade.getSingleton().getClientModel().getMap().getHexes();
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}

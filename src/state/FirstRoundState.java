@@ -29,7 +29,7 @@ public class FirstRoundState implements IState {
     	List<Hex> hexList;
 		try {
 			map = ClientFacade.getSingleton().getClientModel().getMap();
-			hexList = map.getHexList();
+			hexList = map.getHexes();
 			
 			if(hexList.size() < 1){
 				return;

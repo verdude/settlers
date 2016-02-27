@@ -71,20 +71,20 @@ public class GameMap {
 	
 	
 	//Getters
-	public List<Hex>  		getHexList() 							{ return hexes; 			}
-	public List<Port> 		getPortList() 							{ return ports; 			}
-	public List<Road> 		getRoadList() 							{ return roads; 			}
-	public List<Settlement> getSettlementList() 					{ return settlements; 	}
-	public List<City> 		getCityList() 							{ return cities; 			}
-	public int 				getRADIUS() 							{ return radius; 			}
+	public List<Hex>  		getHexes() 								{ return hexes; 			}
+	public List<Port> 		getPorts() 								{ return ports; 			}
+	public List<Road> 		getRoads() 								{ return roads; 			}
+	public List<Settlement> getSettlements() 						{ return settlements; 		}
+	public List<City> 		getCities() 							{ return cities; 			}
+	public int 				getRadius() 							{ return radius; 			}
 	public Robber 			getRobber() 							{ return robber; 			}
 	
 	// Setters
-	public void setHexList(List<Hex> hexList) 						{ this.hexes = hexList; 	}
-	public void setPortList(List<Port> portList) 					{ this.ports = portList; }
-	public void setRoadList(List<Road> roadList) 					{ this.roads = roadList; }
-	public void setSettlementList(List<Settlement> settlementList) 	{ this.settlements = settlementList; }
-	public void setCityList(List<City> cityList) 					{ this.cities = cityList; }
-	public void setRADIUS(int _RADIUS) 								{ radius = _RADIUS; 		}
+	public void setHexes(List<Hex> hexes) 							{ this.hexes = hexes; 		}
+	public void setPorts(List<Port> ports) 							{ this.ports = ports; 		}
+	public void setRoads(List<Road> roads) 							{ this.roads = roads; 		}
+	public void setSettlements(List<Settlement> settlements) 		{ this.settlements = settlements; 	}
+	public void setCities(List<City> cities) 						{ this.cities = cities; 	}
+	public void setRadius(int _RADIUS) 								{ radius = _RADIUS; 		}
 	public void setRobber(Robber robber) 							{ this.robber = robber; 	}
 }

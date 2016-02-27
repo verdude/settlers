@@ -397,7 +397,7 @@ public class ClientModel {
 //		if(edgeValue.getOwner() >= 0){//If there is already an owner
 //			return false;
 //		}
-		List<Road> roadList = map.getRoadList();
+		List<Road> roadList = map.getRoads();
 
 		for(Road road : roadList){
 			HexLocation roadhex = road.getLocation().getLocation().getHexLoc();
@@ -413,7 +413,7 @@ public class ClientModel {
 
 		if(((resources.getBrick() >= 1 && resources.getWood() >= 1 ) || isFree)
 				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled()){
-			roadList = map.getRoadList();
+			roadList = map.getRoads();
 			for(Road r : roadList){
 				EdgeValue tempEdgeValue = r.getLocation();
 				EdgeLocation tempEdgeLocation = tempEdgeValue.getLocation();
@@ -424,7 +424,7 @@ public class ClientModel {
 
 			}
 			//
-			for(Settlement s : map.getSettlementList()){
+			for(Settlement s : map.getSettlements()){
 				EdgeDirection roadDirection = newLocation.getDir();
 				VertexDirection settlementDirection = s.getLocation().getLocation().getDir();
 
@@ -465,7 +465,7 @@ public class ClientModel {
 				//
 			}
 
-			for(City c : map.getCityList()){
+			for(City c : map.getCities()){
 				EdgeDirection roadDirection = newLocation.getDir();
 				VertexDirection cityDirection = c.getLocation().getLocation().getDir();
 				if(c.getLocation().getLocation().getHexLoc().equals( newLocation.getHexLoc())){
@@ -603,7 +603,7 @@ public class ClientModel {
 
 		}
 
-		List<Settlement> settlementList  = map.getSettlementList();
+		List<Settlement> settlementList  = map.getSettlements();
 
 		for(Settlement settlement : settlementList){
 			HexLocation settHex = settlement.getLocation().getLocation().getHexLoc();
@@ -632,7 +632,7 @@ public class ClientModel {
 		if(player.getSettlements() > 0 	&& ((resources.getWheat() >= 1 && resources.getSheep() >= 1
 				&& resources.getBrick() >= 1 && resources.getWood() >= 1) || isFree )){
 
-			for(Road r : map.getRoadList()){
+			for(Road r : map.getRoads()){
 
 				if(r.getPlayerId() == player.getPlayerID()){
 					HexLocation tempHexLoc = r.getLocation().getLocation().getHexLoc();
@@ -683,7 +683,7 @@ public class ClientModel {
 
 			}
 			
-			for(Settlement s : map.getSettlementList()){
+			for(Settlement s : map.getSettlements()){
 
 					HexLocation tempHexLoc = s.getLocation().getLocation().getHexLoc();
 					VertexDirection tempDir = s.getLocation().getLocation().getDir();
@@ -736,7 +736,7 @@ public class ClientModel {
 					}
 				}
 			
-			for(City c : map.getCityList()){
+			for(City c : map.getCities()){
 
 				HexLocation tempHexLoc = c.getLocation().getLocation().getHexLoc();
 				VertexDirection tempDir = c.getLocation().getLocation().getDir();
@@ -818,7 +818,7 @@ public class ClientModel {
 
 		if(player.getCities() > 0 && resources.getOre() >= 3 && resources.getWheat() >= 2){
 		
-			for(Settlement s : map.getSettlementList()){
+			for(Settlement s : map.getSettlements()){
 
 				//If there is a settlement at the vertexLocation and the player is the owner of the settlement
 				if(s.getLocation().getLocation().getNormalizedLocation().equals(cityLoc) && s.getPlayerId() == player.getPlayerID()){
@@ -912,7 +912,7 @@ public class ClientModel {
 			return false;
 		}
 		
-		for(Port p : map.getPortList()){
+		for(Port p : map.getPorts()){
 			HexLocation portHex = p.getLocation();
 			PortType portType = p.getResource();
 			EdgeDirection portDir = p.getDirection();
@@ -920,7 +920,7 @@ public class ClientModel {
 		
 			HexLocation seNeighbor = portHex.getNeighborLoc(EdgeDirection.SouthEast);
 			
-			for(Settlement s : map.getSettlementList()){
+			for(Settlement s : map.getSettlements()){
 				
 				VertexLocation settLoc = s.getLocation().getLocation();
 				HexLocation settHex = settLoc.getHexLoc();
@@ -962,7 +962,7 @@ public class ClientModel {
 					
 				}
 			}
-			for(City c : map.getCityList()){
+			for(City c : map.getCities()){
 				
 				VertexLocation cityLoc = c.getLocation().getLocation();
 				HexLocation citHyex = cityLoc.getHexLoc();
@@ -1056,7 +1056,7 @@ public class ClientModel {
 		HexLocation seNeighbor = robberLocation.getNeighborLoc(EdgeDirection.SouthEast);
 		HexLocation swNeighbor = robberLocation.getNeighborLoc(EdgeDirection.SouthWest);
 
-		for(Settlement s : map.getSettlementList()){
+		for(Settlement s : map.getSettlements()){
 			
 			VertexLocation settLoc = s.getLocation().getLocation();
 			HexLocation settHex = settLoc.getHexLoc();
@@ -1081,7 +1081,7 @@ public class ClientModel {
 			
 		}
 		
-	for(City c : map.getCityList()){
+	for(City c : map.getCities()){
 				
 				VertexLocation cityLoc = c.getLocation().getLocation();
 				HexLocation cityHex = cityLoc.getHexLoc();

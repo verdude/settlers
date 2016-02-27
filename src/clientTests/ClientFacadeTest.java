@@ -246,7 +246,7 @@ public class ClientFacadeTest {
 		settlement.setPlayerId(player.getPlayerID());
 		settlement.setLocation(vertexObject);
 		try {
-			ClientFacade.getSingleton().getClientModel().getMap().getSettlementList().add(settlement);
+			ClientFacade.getSingleton().getClientModel().getMap().getSettlements().add(settlement);
 			ClientFacade.getSingleton().getContext();
 		} catch (ClientException e) {
 			e.printStackTrace();
