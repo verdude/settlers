@@ -39,7 +39,7 @@ public class Context implements IState {
 
     @Override
     public boolean canPlaceCity(VertexLocation vertLoc) {
-        return this.canPlaceCity(vertLoc);
+        return this.state.canPlaceCity(vertLoc);
     }
 
     @Override
