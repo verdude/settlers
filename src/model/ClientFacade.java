@@ -306,7 +306,7 @@ public class ClientFacade {
 	 * @return Whether it was attempted
 	 */
 	public boolean buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
-		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation());
+		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation().getNormalizedLocation());
 		if(canDo)
 		{
 			try {
@@ -332,7 +332,7 @@ public class ClientFacade {
 	 * @return Whether it was attempted
 	 */
 	public boolean buildSettlement(int playerIndex, VertexObject vertexObject, String free) {
-		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject);
+		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject.getLocation().getNormalizedLocation());
 		if(canDo)
 		{
 			try {
@@ -356,7 +356,7 @@ public class ClientFacade {
 	 * @return Whether it was attempted
 	 */
 	public boolean buildCity(int playerIndex, VertexObject vertexObject) {
-		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject);
+		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject.getLocation().getNormalizedLocation());
 		if(canDo)
 		{
 			try {

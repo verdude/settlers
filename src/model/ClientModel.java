@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
@@ -393,7 +394,7 @@ public class ClientModel {
 	 */
 	public boolean canBuildRoad(int playerIndex, EdgeLocation newLocation) {
 		Player player = players[playerIndex];
-		ResourceList resources = player.getResources();		
+		ResourceList resources = player.getResources();
 
 		//EdgeLocation newLocation = edgeValue.getLocation();
 
@@ -408,7 +409,7 @@ public class ClientModel {
 			int x = roadhex.getX();
 			int y = roadhex.getY();
 			if(x == newLocation.getHexLoc().getX() && y == newLocation.getHexLoc().getY()){
-				if(newLocation.getDir().equals(road.getLocation().getLocation().getDir())){
+				if(newLocation.getNormalizedLocation().equals(road.getLocation().getLocation().getNormalizedLocation())){
 					return false;
 				}
 			}
@@ -591,18 +592,31 @@ public class ClientModel {
 	 * @post True if client can perform buildSettlement
 	 * @return Whether the action is possible
 	 */
-	public boolean canBuildSettlement(int playerIndex, VertexObject vertex) {
+	public boolean canBuildSettlement(int playerIndex, VertexLocation vertex) {
 		
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();		
 
 
-		VertexLocation settLoc = vertex.getLocation();
+		VertexLocation settLoc = vertex.getNormalizedLocation();
 		VertexDirection settDir = settLoc.getDir();
 
-		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() >= 0 || !player.getHasRolled()){
+		if(turnTracker.getCurrentTurn() != playerIndex  || !player.getHasRolled()){
 			return false;
 
+		}
+
+		List<Settlement> settlementList  = map.getSettlementList();
+
+		for(Settlement settlement : settlementList){
+			HexLocation settHex = settlement.getLocation().getLocation().getHexLoc();
+			int x = settHex.getX();
+			int y = settHex.getY();
+			if(x == settLoc.getHexLoc().getX() && y == settLoc.getHexLoc().getY()){
+				if(settLoc.getDir().equals(settlement.getLocation().getLocation().getDir())){
+					return false;
+				}
+			}
 		}
 		
 		boolean hasRoadAttached = false;
@@ -788,15 +802,14 @@ public class ClientModel {
 	 * @post True if client can perform buildCity
 	 * @return Whether the action is possible
 	 */
-	public boolean canBuildCity(int playerIndex, VertexObject vertex) {
+	public boolean canBuildCity(int playerIndex, VertexLocation cityLoc) {
 		Player player = players[playerIndex];
 		System.out.println(""+(player==null));
 		ResourceList resources = player.getResources();
 
 
-		//VertexLocation cityLoc = vertex.getLocation();
 
-		if(turnTracker.getCurrentTurn() != playerIndex || vertex.getOwner() == player.getPlayerIndex() || !player.getHasRolled()){
+		if(turnTracker.getCurrentTurn() != playerIndex || !player.getHasRolled()){
 			return false;
 
 		}
@@ -807,7 +820,7 @@ public class ClientModel {
 			for(Settlement s : map.getSettlementList()){
 
 				//If there is a settlement at the vertexLocation and the player is the owner of the settlement
-				if(s.getLocation().getLocation().equals(vertex.getLocation()) && s.getPlayerId() == player.getPlayerID()){
+				if(s.getLocation().getLocation().getNormalizedLocation().equals(cityLoc) && s.getPlayerId() == player.getPlayerID()){
 					return true;
 				}
 			}			

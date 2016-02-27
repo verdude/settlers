@@ -105,7 +105,7 @@ public class ClientCanDoTests {
 		sett2Vert.setLocation(sett1Loc);
 		sett2.setLocation(sett2Vert);
 		sett2.setPlayerId(0);
-				assertFalse(model.canBuildSettlement(0, sett2Vert));
+				assertFalse(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation()));
 
 		Road road2 = new Road();
 		
@@ -122,7 +122,7 @@ public class ClientCanDoTests {
 		map.getRoadList().add(road2);
 		road2Val.setOwner(0);
 		
-		assertTrue(model.canBuildSettlement(0, sett2Vert));
+		assertTrue(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation()));
 
 		
 
@@ -141,7 +141,7 @@ public class ClientCanDoTests {
 		city.setPlayerId(0);
 		
 		//no settlement
-		assertFalse(model.canBuildCity(0, cityVert));
+		assertFalse(model.canBuildCity(0, cityVert.getLocation()));
 
 		cityLoc = new VertexLocation(new HexLocation(0,0), VertexDirection.NorthEast);
 
@@ -150,7 +150,7 @@ public class ClientCanDoTests {
 		cityVert.setLocation(cityLoc);
 		city.setLocation(cityVert);
 		city.setPlayerId(0);
-		assertTrue(model.canBuildCity(0, cityVert));
+		assertTrue(model.canBuildCity(0, cityVert.getLocation()));
 
 	}
 	
