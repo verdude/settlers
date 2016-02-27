@@ -221,7 +221,7 @@ public class ClientFacadeTest {
 		EdgeValue edgeValue =  new EdgeValue();
 		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
-		assertTrue(facade.buildRoad(0, edgeValue, "true"));
+		assertTrue(facade.buildRoad(0, edgeValue, "true", false));
 	}
 
 	@Test
@@ -231,6 +231,7 @@ public class ClientFacadeTest {
 		vertexObject.setOwner(0);
 
 		assertTrue(facade.buildSettlement(0, vertexObject, "true"));
+
 	}
 
 	@Test
@@ -248,6 +249,7 @@ public class ClientFacadeTest {
 			e.printStackTrace();
 		}
 		assertTrue(facade.buildCity(0, vertexObject));
+
 	}
 
 	@Test

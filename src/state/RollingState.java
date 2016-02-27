@@ -19,15 +19,18 @@ public class RollingState implements IState {
 
     @Override
     public boolean canPlaceSettlement(VertexLocation vertLoc) {
+
         return false;
     }
 
     @Override
     public boolean canPlaceCity(VertexLocation vertLoc) {
+
         return false;
     }
 
     @Override
+
     public boolean canPlaceRobber(HexLocation hexLoc) {
         return false;
     }

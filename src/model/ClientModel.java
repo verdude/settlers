@@ -594,6 +594,7 @@ public class ClientModel {
 	 */
 	public boolean canBuildSettlement(int playerIndex, VertexLocation vertex) {
 
+
 		
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();		
@@ -619,6 +620,7 @@ public class ClientModel {
 				}
 			}
 
+
 		}
 		
 		boolean hasRoadAttached = false;
@@ -632,7 +634,7 @@ public class ClientModel {
 		HexLocation swNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.SouthWest);
 
 		if(player.getSettlements() > 0 	&& resources.getWheat() >= 1 && resources.getSheep() >= 1
-				&& resources.getBrick() >= 1 && resources.getWood() >= 1 ){
+				&& resources.getBrick() >= 1 && resources.getWood() >= 1){
 
 			for(Road r : map.getRoadList()){
 

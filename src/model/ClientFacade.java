@@ -309,6 +309,7 @@ public class ClientFacade {
 	public boolean buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
 		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation().getNormalizedLocation());
 
+
 		if(canDo)
 		{
 			try {
