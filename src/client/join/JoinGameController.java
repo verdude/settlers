@@ -172,6 +172,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void joinGame(CatanColor color) {
 		try {
+			PlayerInfo newPlayer = ClientFacade.getSingleton().getLocalPlayer();
+			newPlayer.setColor(color);
+			ClientFacade.getSingleton().setLocalPlayer(newPlayer);
 			ClientFacade.getSingleton().gamesJoin(joinedGame, color.toString().toLowerCase());
 			// If join succeeded
 			getSelectColorView().closeModal();

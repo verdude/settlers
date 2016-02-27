@@ -1,10 +1,10 @@
 package client.turntracker;
 
-import shared.definitions.CatanColor;
-import client.base.*;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import client.base.Controller;
+import client.data.PlayerInfo;
 
 
 /**
@@ -37,9 +37,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	}
 	
 	private void initFromModel() {
-		//<temp>
-		getView().setLocalPlayerColor(CatanColor.RED);
-		//</temp>
 	}
 
 	/* (non-Javadoc)
@@ -47,7 +44,12 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		// TODO Auto-generated method stub
+		try {
+			getView().setLocalPlayerColor(ClientFacade.getSingleton().getLocalPlayer().getColor());
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
