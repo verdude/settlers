@@ -223,6 +223,7 @@ public class ClientFacadeTest {
 		edgeValue.setOwner(0);
 		assertTrue(facade.buildRoad(edgeValue, "true"));
 
+
 	}
 
 	@Test
