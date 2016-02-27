@@ -16,7 +16,7 @@ public class Context implements IState {
 
 
     public Context(){
-        this.state = null;
+        this.state = new FirstRoundState();
     }
 
     public IState getState() {

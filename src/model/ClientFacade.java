@@ -24,7 +24,9 @@ public class ClientFacade {
 			context = new Context();
 		}
 		String status = clientModel.getTurnTracker().getStatus();
-		context.fromString(status);
+		if(status != null){
+			context.fromString(status);
+		}
 		return context;
 	}
 
