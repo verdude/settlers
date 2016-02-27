@@ -25,7 +25,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	private IMessageView messageView;
 	private IAction joinAction;
 	private int joinedGame;
-	
+
 	/**
 	 * JoinGameController constructor
 	 * 
@@ -184,7 +184,10 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void cancelJoinGame() {
-
+		// reset all of the color buttons
+		for (CatanColor color : CatanColor.values()) {
+			getSelectColorView().setColorEnabled(color, true);
+		}
 		getJoinGameView().closeModal();
 	}
 
