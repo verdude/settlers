@@ -26,20 +26,26 @@ public class FirstRoundState implements IState {
     	// map init logic goes here!
     	
     	GameMap map;
-    	List<Hex> hexList;
+    	List<Hex> hexes;
 		try {
 			map = ClientFacade.getSingleton().getClientModel().getMap();
-			hexList = map.getHexes();
+			hexes = map.getHexes();
 			
-			if(hexList.size() < 1){
+			if(hexes.size() < 1){
 				return;
 			}
 			
 			
-			for(Hex i : hexList){
-//				HexType hexType = hexList[i];
-//				HexLocation hexLoc = new HexLocation(x, y);
-//				view.addHex(hexLoc, hexType);
+			for(int i = 0; i < hexes.size(); i++){
+				String resourceType = hexes.get(i).getResource();
+				
+				if(resourceType == null){
+					resourceType = "DESERT";
+				}
+				
+				HexType hexType = HexType.valueOf(resourceType.trim().toUpperCase());
+				HexLocation hexLoc = new HexLocation(hexes.get(i).getLocation().getX(), hexes.get(i).getLocation().getY());
+				view.addHex(hexLoc, hexType);
 			}
 			
 			

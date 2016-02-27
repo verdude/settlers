@@ -5,7 +5,7 @@ import java.util.*;
 import shared.locations.HexLocation;
 
 public class GameMap {
-	int 				radius;			// It appears that the map will have a radius of 2;					
+	int 				radius;				
 	Robber 				robber;
 	List<Hex> 			hexes;
 	List<Port> 			ports;
