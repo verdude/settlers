@@ -14,11 +14,11 @@ public class Hex {
 	
 	// Getters
 	public HexLocation	getLocation() 					{ return location; 					}
-	public String 		getResourceType() 				{ return resource;				}
+	public String 		getResource() 					{ return resource;					}
 	public int 			getNumber() 					{ return number; 					}
 	
 	// Setters
 	public void setLocation(HexLocation location) 		{ this.location = location; 		}
-	public void setResourceType(String resourceType) 	{ this.resource = resourceType; }
+	public void setResource(String resource) 			{ this.resource = resource; 		}
 	public void setNumber(int number) 					{ this.number = number; 			}
 }
