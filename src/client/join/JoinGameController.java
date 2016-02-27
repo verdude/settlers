@@ -3,6 +3,7 @@ package client.join;
 import client.base.Controller;
 import client.base.IAction;
 import client.data.GameInfo;
+import client.data.PlayerInfo;
 import client.misc.IMessageView;
 import model.ClientException;
 import model.ClientFacade;
@@ -143,7 +144,22 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void startJoinGame(GameInfo game) {
 		joinedGame = game.getId();
-		getSelectColorView().showModal();
+		int index = 0;
+		PlayerInfo localPlayer;
+		try {
+			localPlayer = ClientFacade.getSingleton().getLocalPlayer();
+			for (PlayerInfo player : game.getPlayers()) {
+				if (player.getId() == localPlayer.getId()) {
+					localPlayer.setPlayerIndex(index);
+					ClientFacade.getSingleton().setLocalPlayer(localPlayer);
+					break;
+				}
+				index++;
+			}
+		} catch (ClientException e1) {
+			System.out.println("Could not set the local Player. startJoinGame in JoinGameController.");
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
@@ -164,6 +180,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			System.out.println("failed to join the game");
 			e.printStackTrace();
 		}
+		getJoinGameView().showModal();
 	}
 
 	/* (non-Javadoc)

@@ -66,22 +66,22 @@ public class ClientFacade {
 		String gameState = clientModel.getTurnTracker().getStatus();
 		switch (gameState){
 			case "Rolling":
-				context.setState(new RobbingState());
+				getContext().setState(new RollingState());
 				break;
 			case "Discarding":
-				context.setState(new DiscardingState());
+				getContext().setState(new DiscardingState());
 				break;
 			case "Playing":
-				context.setState(new PlayingState());
+				getContext().setState(new PlayingState());
 				break;
 			case "Robbing":
-				context.setState(new RobbingState());
+				getContext().setState(new RobbingState());
 				break;
 			case "FirstRound":
-				context.setState(new FirstRoundState());
+				getContext().setState(new FirstRoundState());
 				break;
 			case "SecondRound":
-				context.setState(new SecondRoundState());
+				getContext().setState(new SecondRoundState());
 				break;
 			default:
 				break;
@@ -111,7 +111,11 @@ public class ClientFacade {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void setLocalPlayer(PlayerInfo localPlayer) {
+		this.localPlayer = localPlayer;
+	}
+
 	public PlayerInfo getLocalPlayer() {
 		return localPlayer;
 	}
@@ -566,5 +570,5 @@ public class ClientFacade {
 	public ClientModel getClientModel(){
 		return clientModel;
 	}
-	
+
 }
