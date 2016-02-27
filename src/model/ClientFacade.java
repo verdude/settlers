@@ -306,6 +306,7 @@ public class ClientFacade {
 	 * @param isSetup boolean that indicates if this is a setup phase (true if it is a setup phase)
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
+<<<<<<< 989617169ef6f996586bb4e71dffee754633c0bf
 	 * @return Whether it was attempted
 	 */
 	public boolean buildRoad(EdgeValue roadLocation, String free) {
@@ -313,6 +314,14 @@ public class ClientFacade {
 		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation());
 
 
+=======
+	 * @return Whether it was attempted
+	 */
+	public boolean buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
+		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation().getNormalizedLocation());
+
+
+>>>>>>> MapController core features Should work
 		if(canDo)
 		{
 			try {
