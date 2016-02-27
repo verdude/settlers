@@ -3,11 +3,7 @@ package client.join;
 import client.base.Controller;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
-import model.ClientException;
-import model.ClientFacade;
-import model.ClientModel;
-import model.Converter;
-import model.ServerProxy;
+import model.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,10 +31,36 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		return (IPlayerWaitingView)super.getView();
 	}
 
+	/**
+	 * Gets all of the players in the game and adds them to the player waiting view list
+	 * @param jsonGames String result that you get from the client facade gamesList method
+	 * @throws ClientException
+     */
+	private void setPlayersList(String jsonGames) throws ClientException {
+		GameInfo[] games = Converter.deserializeGamesArray(jsonGames);
+		int gameId = Integer.parseInt(ServerProxy.getSingleton().getGameID());
+		for (GameInfo game : games) {
+			if (game.getId() == gameId) {
+				PlayerInfo[] players = new PlayerInfo[game.getPlayers().size()];
+				for (int i = 0; i < game.getPlayers().size(); ++i) {
+					players[i] = game.getPlayers().get(i);
+				}
+				getView().setPlayers(players);
+				break;
+			}
+		}
+	}
+
 	@Override
 	public void start() {
 		getView().showModal();
 		Timer timer = new Timer();
+		try {
+			setPlayersList(ClientFacade.getSingleton().gamesList());
+		} catch (ClientException e) {
+			System.out.println("PlayerWaitingController set player list failed.");
+			e.printStackTrace();
+		}
 		timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -50,13 +72,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
                             if (game.getPlayers().size() == 4) {
                                 getView().closeModal();
                                 this.cancel();
-                            } else {
-								PlayerInfo[] players = new PlayerInfo[4];
-								for (int i = 0; i < game.getPlayers().size(); ++i) {
-									players[i] = game.getPlayers().get(i);
-								}
-								getView().setPlayers(players);
-							}
+                            }
                             break;
                         }
 	                }
