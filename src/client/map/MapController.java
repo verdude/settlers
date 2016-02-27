@@ -27,6 +27,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 	public MapController(IMapView view, IRobView robView) {
 
+
 		super(view);
 
 		// Context context = ClientFacade.getSingleton().getContext();
@@ -131,73 +132,79 @@ public class MapController extends Controller implements IMapController,IObserve
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		Player[] players = null;
 
-
+		boolean canDo = false;
 		try {
-			int numberOfPlayers = 0;
-			players = ClientFacade.getSingleton().getClientModel().getPlayers();
-			for (Player p : players) {
-				if (p != null) {
-					numberOfPlayers++;
-				}
-			}
-
-			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
-			//int playerIndex = 0;
-			EdgeValue edgeValue = new EdgeValue();
-			edgeValue.setLocation(edgeLoc.getNormalizedLocation());
-
-
-//			model.Player player = new Player("Sam",null,0);
-//			player.getResources().setBrick(1);
-//			player.getResources().setWood(1);
-//			player.setHasRolled(true);
-//			TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
-//			turnTracker.setCurrentTurn(0);
-//			ClientFacade.getSingleton().getClientModel().setTurnTracker(turnTracker);
-//			ClientFacade.getSingleton().getClientModel().getPlayers()[0] = player;
-
-			return ClientFacade.getSingleton().getClientModel().canBuildRoad(playerIndex, edgeLoc);
-
+			canDo = ClientFacade.getSingleton().getContext().canPlaceRoad(edgeLoc);
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
 
-
-		return false;
+		return canDo;
 
 
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
 
-		return true;
+		boolean canDo = false;
+		try {
+			ClientFacade.getSingleton().getContext().canPlaceSettlement(vertLoc);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return canDo;
+
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
 
-		return true;
+		boolean canDo = false;
+		try {
+			canDo = ClientFacade.getSingleton().getContext().canPlaceCity(vertLoc);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return canDo;
+
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
+
+
 
 		return true;
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
 
-		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+		CatanColor color = null;
+		try {
+			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		getView().placeRoad(edgeLoc, color);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-
-		getView().placeSettlement(vertLoc, CatanColor.ORANGE);
+		CatanColor color = null;
+		try {
+			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		getView().placeSettlement(vertLoc, color);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-
-		getView().placeCity(vertLoc, CatanColor.ORANGE);
+		CatanColor color = null;
+		try {
+			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		getView().placeCity(vertLoc, color);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
@@ -209,7 +216,14 @@ public class MapController extends Controller implements IMapController,IObserve
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 
-		getView().startDrop(pieceType, CatanColor.ORANGE, true);
+		CatanColor color = null;
+		try {
+			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		//If it's the startup phase then the third param should be false
+		getView().startDrop(pieceType, color, true);
 	}
 
 	public void cancelMove() {
@@ -328,76 +342,6 @@ public class MapController extends Controller implements IMapController,IObserve
 //				break;
 //
 //
-//
-
-
-//=======
-//
-//		//Place all of the settlements front the model on the map
-//		for(Settlement settlement : settlements) {
-//
-//			int playerIndex = settlement.getLocation().getOwner();
-//			CatanColor color = model.getPlayers()[playerIndex].getColor();
-//			getView().placeSettlement(settlement.getLocation().getLocation(), color);
-//		}
-//
-//		//Place all of the roads front the model on the map
-//		for(Road road : roads) {
-//
-//			int playerIndex = road.getLocation().getOwner();
-//			CatanColor color = model.getPlayers()[playerIndex].getColor();
-//			getView().placeRoad(road.getLocation().getLocation(), color);
-//		}
-//
-//
-//
-//		String gameState = model.getTurnTracker().getStatus();
-//		//int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
-//
-//		switch (gameState){
-//			case "Rolling":
-//				if(model.getRoll() == 7){
-//					context.setState(robbingState);
-//				}else {
-//					context.setState(playingState);
-//				}
-//				break;
-//			case "Discarding":
-//				context.setState(robbingState);
-//				break;
-//			case "Playing":
-//				context.setState(rollingState);
-//				break;
-//			case "Robbing":
-//				context.setState(playingState);
-//				break;
-//			case "FirstRound":
-//				context.setState(secondRoundState);
-//				break;
-//			case "SecondRound":
-//				context.setState(rollingState);
-//				break;
-//			default:
-//				break;
-//
-//
-//			}
-//
-//		}
-//
-//
-//>>>>>>> Bunch of changes
-//	}
-
-
-//	public Context getContext() {
-//		return context;
-//	}
-//
-//	public void setContext(Context context) {
-//		this.context = context;
-//	}
-
 	}
 }
 

@@ -1,43 +1,81 @@
 package state;
 
+import client.data.RobPlayerInfo;
+import shared.definitions.PieceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
+
 /**
  * Created by Sean_George on 2/24/16.
  */
 public interface IState {
 
-    public abstract void sendChat();
 
-    public abstract int rollNumber();
+    public boolean canPlaceRoad(EdgeLocation edgeLoc);
 
-    public abstract void robPlayer();
+    public boolean canPlaceSettlement(VertexLocation vertLoc);
 
-    public abstract void finishTurn();
+    public boolean canPlaceCity(VertexLocation vertLoc);
 
-    public abstract void buyDevCard();
+    public boolean canPlaceRobber(HexLocation hexLoc);
 
-    public abstract void Year_of_Plenty();
+    public void placeRoad(EdgeLocation edgeLoc);
 
-    public abstract void Road_Building();
+    public void placeSettlement(VertexLocation vertLoc);
 
-    public abstract void Soldier();
+    public void placeCity(VertexLocation vertLoc);
 
-    public abstract void   Monopoly();
+    public void placeRobber(HexLocation hexLoc);
 
-    public abstract void  Monument();
+    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected);
 
-    public abstract void buildRoad();
+    public void cancelMove();
 
-    public abstract void buildSettlement();
+    public void playSoldierCard();
 
-    public abstract void buildCity();
+    public void playRoadBuildingCard();
 
-    public abstract void acceptTrade();
+    public void robPlayer(RobPlayerInfo victim);
 
-    public abstract void offerTrade();
 
-    public abstract void maritimeTrade();
 
-    public abstract void discardCards();
+
+
+
+//    public abstract void sendChat();
+//
+//    public abstract int rollNumber();
+//
+//    public abstract void robPlayer();
+//
+//    public abstract void finishTurn();
+//
+//    public abstract void buyDevCard();
+//
+//    public abstract void Year_of_Plenty();
+//
+//    public abstract void Road_Building();
+//
+//    public abstract void Soldier();
+//
+//    public abstract void   Monopoly();
+//
+//    public abstract void  Monument();
+//
+//    public abstract void buildRoad();
+//
+//    public abstract void buildSettlement();
+//
+//    public abstract void buildCity();
+//
+//    public abstract void acceptTrade();
+//
+//    public abstract void offerTrade();
+//
+//    public abstract void maritimeTrade();
+//
+//    public abstract void discardCards();
 
 
 }

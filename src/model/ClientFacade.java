@@ -310,6 +310,7 @@ public class ClientFacade {
 	public boolean buildRoad(EdgeValue roadLocation, String free) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation());
+
 		if(canDo)
 		{
 			try {
@@ -337,6 +338,7 @@ public class ClientFacade {
 	public boolean buildSettlement(VertexObject vertexObject, String free) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject);
+
 		if(canDo)
 		{
 			try {
@@ -362,6 +364,7 @@ public class ClientFacade {
 	public boolean buildCity(VertexObject vertexObject) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject);
+
 		if(canDo)
 		{
 			try {

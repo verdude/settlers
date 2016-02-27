@@ -1,108 +1,94 @@
 package state;
 
+import client.data.RobPlayerInfo;
+import shared.definitions.PieceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
+
 /**
  * Created by Sean_George on 2/25/16.
  */
 public class Context implements IState {
 
-    private IState IState;
+    private IState state;
 
 
     public Context(){
-        this.IState = null;
+        this.state = null;
     }
 
     public IState getState() {
-        return IState;
+        return state;
     }
 
     public void setState(IState IState) {
-        this.IState = IState;
+        this.state = IState;
     }
 
 
     @Override
-    public void sendChat() {
-        this.IState.sendChat();
+    public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+        return this.state.canPlaceRoad(edgeLoc);
     }
 
     @Override
-    public int rollNumber() {
-        return this.IState.rollNumber();
+    public boolean canPlaceSettlement(VertexLocation vertLoc) {
+        return this.state.canPlaceSettlement(vertLoc);
     }
 
     @Override
-    public void robPlayer() {
-        this.IState.robPlayer();
+    public boolean canPlaceCity(VertexLocation vertLoc) {
+        return this.canPlaceCity(vertLoc);
     }
 
     @Override
-    public void finishTurn() {
-        this.IState.finishTurn();
+    public boolean canPlaceRobber(HexLocation hexLoc) {
+        return this.state.canPlaceRobber(hexLoc);
     }
 
     @Override
-    public void buyDevCard() {
-        this.IState.buyDevCard();
+    public void placeRoad(EdgeLocation edgeLoc) {
+        this.state.placeRoad(edgeLoc);
     }
 
     @Override
-    public void Year_of_Plenty() {
-        this.IState.Year_of_Plenty();
+    public void placeSettlement(VertexLocation vertLoc) {
+            this.state.placeSettlement(vertLoc);
     }
 
     @Override
-    public void Road_Building() {
-        this.IState.Road_Building();
+    public void placeCity(VertexLocation vertLoc) {
+            this.state.placeCity(vertLoc);
     }
 
     @Override
-    public void Soldier() {
-        this.IState.Soldier();
+    public void placeRobber(HexLocation hexLoc) {
+            this.placeRobber(hexLoc);
     }
 
     @Override
-    public void Monopoly() {
-        this.IState.Monopoly();
+    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
+            this.state.startMove(pieceType,isFree,allowDisconnected);
     }
 
     @Override
-    public void Monument() {
-        this.IState.Monument();
+    public void cancelMove() {
+        this.state.cancelMove();
     }
 
     @Override
-    public void buildRoad() {
-        this.IState.buildRoad();
+    public void playSoldierCard() {
+        this.state.playSoldierCard();
     }
 
     @Override
-    public void buildSettlement() {
-        this.IState.buildSettlement();
+    public void playRoadBuildingCard() {
+        this.state.playRoadBuildingCard();
     }
 
     @Override
-    public void buildCity() {
-        this.IState.buildCity();
-    }
-
-    @Override
-    public void acceptTrade() {
-        this.IState.acceptTrade();
-    }
-
-    @Override
-    public void offerTrade() {
-        this.IState.offerTrade();
-    }
-
-    @Override
-    public void maritimeTrade() {
-        this.IState.maritimeTrade();
-    }
-
-    @Override
-    public void discardCards() {
-        this.IState.discardCards();
+    public void robPlayer(RobPlayerInfo victim) {
+        this.state.robPlayer(victim);
     }
 }
