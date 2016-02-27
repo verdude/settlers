@@ -92,7 +92,9 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-
+		if (currentPlayer == null || currentPlayer.getPlayerIndex() == -1) {
+			return;
+		}
 		Player player = model.getPlayers()[currentPlayer.getPlayerIndex()];
 		ResourceList resources = player.getResources();
 

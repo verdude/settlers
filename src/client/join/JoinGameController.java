@@ -165,7 +165,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void cancelJoinGame() {
-	
+
 		getJoinGameView().closeModal();
 	}
 
@@ -177,7 +177,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			getSelectColorView().closeModal();
 			getJoinGameView().closeModal();
 			joinAction.execute();
-			System.out.println("Joined da game");
 		} catch (ClientException e) {
 			System.out.println("failed to join the game");
 			e.printStackTrace();

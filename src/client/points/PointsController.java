@@ -60,7 +60,9 @@ public class PointsController extends Controller implements IPointsController {
 
 		try {
 			currentPlayer = ClientFacade.getSingleton().getLocalPlayer();
-			System.out.println(currentPlayer.getPlayerIndex());
+			if (currentPlayer.getPlayerIndex() == -1) {
+				return;
+			}
 			Player player = model.getPlayers()[currentPlayer.getPlayerIndex()];
 			TurnTracker turnTracker = model.getTurnTracker();
 			int victoryPoints = player.getVictoryPoints();
