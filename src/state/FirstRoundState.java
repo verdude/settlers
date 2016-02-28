@@ -40,7 +40,7 @@ public class FirstRoundState implements IState {
                         return;
                     }
 
-
+                    // Print Hexes
                     for(int i = 0; i < hexes.size(); i++){
                         String type = hexes.get(i).getResource();
 
@@ -52,8 +52,59 @@ public class FirstRoundState implements IState {
                         HexLocation hexLoc = new HexLocation(hexes.get(i).getLocation().getX(), hexes.get(i).getLocation().getY());
                         view.addHex(hexLoc, hexType);
                     }
-
-
+                    
+                    // Print WaterHexes
+                    for(int x = -3; x < 4; x++){
+                    	
+                    	HexType hexType = HexType.WATER;
+                    	
+                    	// left side
+                    	if(x == -3){
+                    		for(int y = 0; y < 4; y++){
+                    			view.addHex(new HexLocation(x, y), HexType.WATER);
+                    		}
+                    	}
+                    	
+                    	// right side
+                    	else if(x == 3){
+                    		for(int y = 0; y > -4; y--){
+                    			view.addHex(new HexLocation(x, y), HexType.WATER);
+                    		}
+                    	}
+                    	
+                    	else if(x == -2){
+                    		// y: -1, 3
+                    		view.addHex(new HexLocation(x, -1), HexType.WATER);
+                    		view.addHex(new HexLocation(x, 3), HexType.WATER);
+                    	}
+                    	
+                    	else if(x == -1 ){
+                    		// y: -2, 3
+                    		view.addHex(new HexLocation(x, -2), HexType.WATER);
+                    		view.addHex(new HexLocation(x, 3), HexType.WATER);
+                    	}
+                    	
+                    	else if(x == 0){
+                    		// y: -3, 3
+                    		view.addHex(new HexLocation(x, -3), HexType.WATER);
+                    		view.addHex(new HexLocation(x, 3), HexType.WATER);
+                    	}  
+                    	
+                    	else if(x == 1){
+                    		// y: -3, 2
+                    		view.addHex(new HexLocation(x, -3), HexType.WATER);
+                    		view.addHex(new HexLocation(x, 2), HexType.WATER);
+                    	} 
+                    	
+                    	else if(x == 2){
+                    		// y: -3, 1
+                    		view.addHex(new HexLocation(x, -3), HexType.WATER);
+                    		view.addHex(new HexLocation(x, 1), HexType.WATER);
+                    	} 
+                    	
+                    }
+                    
+                    // Print Portss
                     for(int i = 0; i < ports.size(); i++){
                         PortType type = ports.get(i).getResource();
                         
