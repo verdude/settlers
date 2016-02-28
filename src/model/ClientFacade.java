@@ -308,14 +308,10 @@ public class ClientFacade {
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
 	 * @return Whether it was attempted
 	 */
-	public boolean buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
-		boolean isFree = false;
-		if(free.equals("true")){
-			isFree = true;
-		}
-		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation().getNormalizedLocation(),isFree);
-
-
+	public boolean buildRoad(EdgeValue roadLocation, String free) {
+		boolean isFree = free.equals("true");
+		int playerIndex = localPlayer.getPlayerIndex();
+		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation(), isFree);
 		if(canDo)
 		{
 			try {
@@ -340,12 +336,10 @@ public class ClientFacade {
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public boolean buildSettlement(int playerIndex, VertexObject vertexObject, String free) {
-		boolean isFree = false;
-		if(free.equals("true")){
-			isFree = true;
-		}
-		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject.getLocation().getNormalizedLocation(),isFree);
+	public boolean buildSettlement(VertexObject vertexObject, String free) {
+		boolean isFree = free.equals("true");
+		int playerIndex = localPlayer.getPlayerIndex();
+		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject, isFree);
 
 		if(canDo)
 		{

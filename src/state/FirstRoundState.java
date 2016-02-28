@@ -129,7 +129,7 @@ public class FirstRoundState implements IState {
 						view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
 						view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
 
-						ClientFacade.getSingleton().finishTurn(localPlayerIndex);
+						ClientFacade.getSingleton().finishTurn();
 					}
 
 
@@ -249,7 +249,7 @@ public class FirstRoundState implements IState {
 			edgeValue.setOwner(playerIndex);
 			edgeValue.setLocation(edgeLoc);
 
-			ClientFacade.getSingleton().buildRoad(playerIndex, edgeValue, "true");
+			ClientFacade.getSingleton().buildRoad(edgeValue, "true");
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
