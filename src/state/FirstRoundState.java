@@ -1,7 +1,7 @@
 package state;
 
+import java.awt.*;
 import java.util.List;
-import java.util.Random;
 
 import model.ClientException;
 import model.ClientFacade;
@@ -24,40 +24,49 @@ public class FirstRoundState implements IState {
     @Override
     public void initFromModel(IMapView view) {
     	// map init logic goes here!
-    	
-    	GameMap map;
-    	List<Hex> hexes;
-    	List<Port> ports;
-		try {
-			map = ClientFacade.getSingleton().getClientModel().getMap();
-			hexes = map.getHexes();
-			ports = map.getPorts();
-			
-			if(hexes.size() < 1){
-				return;
-			}
-			
-			
-			for(int i = 0; i < hexes.size(); i++){
-				String type = hexes.get(i).getResource();
-				
-				if(type == null){
-					type = "DESERT";
-				}
-				
-				HexType hexType = HexType.valueOf(type.trim().toUpperCase());
-				HexLocation hexLoc = new HexLocation(hexes.get(i).getLocation().getX(), hexes.get(i).getLocation().getY());
-				view.addHex(hexLoc, hexType);
-			}
-			
-			
-			for(int i = 0; i < ports.size(); i++){
-				PortType portType = ports.get(i).getResource();
-				if(portType == null){
-					portType = PortType.THREE;
-				}
-				view.addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), portType);
-			}
+    	EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                GameMap map;
+                List<Hex> hexes;
+                List<Port> ports;
+                try {
+                    map = ClientFacade.getSingleton().getClientModel().getMap();
+                    hexes = map.getHexes();
+                    ports = map.getPorts();
+
+                    if(hexes.size() < 1){
+                        return;
+                    }
+
+
+                    for(int i = 0; i < hexes.size(); i++){
+                        String type = hexes.get(i).getResource();
+
+                        if(type == null){
+                            type = "DESERT";
+                        }
+
+                        HexType hexType = HexType.valueOf(type.trim().toUpperCase());
+                        HexLocation hexLoc = new HexLocation(hexes.get(i).getLocation().getX(), hexes.get(i).getLocation().getY());
+                        view.addHex(hexLoc, hexType);
+                    }
+
+
+                    for(int i = 0; i < ports.size(); i++){
+                        PortType portType = ports.get(i).getResource();
+                        if(portType == null){
+                            portType = PortType.THREE;
+                        }
+                        view.addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), portType);
+                    }
+                } catch (ClientException e) {
+                        e.printStackTrace();
+                    }
+            }
+        });
+
 			
 			
 			/*
@@ -135,18 +144,6 @@ public class FirstRoundState implements IState {
 //			getView().addNumber(new HexLocation(2, 0), 12);
 			
 			*/
-
-			//</temp>
-			
-			
-			
-			
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	
     }
 
     @Override
