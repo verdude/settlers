@@ -2,6 +2,7 @@ package client.map;
 
 import client.base.Controller;
 import client.base.IObserver;
+import client.data.GameInfo;
 import client.data.RobPlayerInfo;
 import model.*;
 import shared.definitions.CatanColor;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.sun.nio.sctp.SctpStandardSocketOptions.InitMaxStreams;
+import com.sun.security.ntlm.Client;
 
 
 /**
@@ -192,6 +194,23 @@ public class MapController extends Controller implements IMapController,IObserve
 	 */
 	@Override
 	public void notify(ClientModel model) {
+		GameInfo[] games;
+		try {
+			games = Converter.deserializeGamesArray(ClientFacade.getSingleton().gamesList());
+            for (GameInfo game : games) {
+                if (game.getId() == Integer.parseInt(ServerProxy.getSingleton().getGameID())) {
+                    if (game.getPlayers().size() == 4) {
+                    	return;
+                    }
+                    break;
+                }
+            }
+		} catch (ClientException e) {
+			System.out.println("Error getting game list");
+			e.printStackTrace();
+			return;
+        }
+
 		initFromModel();
 
 		List<City> cities = model.getMap().getCities();

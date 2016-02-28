@@ -1,11 +1,22 @@
 package state;
 
+import java.awt.EventQueue;
+import java.util.List;
+
+import client.data.PlayerInfo;
 import client.data.RobPlayerInfo;
 import client.map.IMapView;
 import model.ClientException;
 import model.ClientFacade;
+import model.GameMap;
+import model.Hex;
+import model.Port;
+import model.TurnTracker;
 import shared.definitions.CatanColor;
+import shared.definitions.HexType;
 import shared.definitions.PieceType;
+import shared.definitions.PortType;
+import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -15,80 +26,107 @@ import shared.locations.VertexLocation;
  */
 public class SecondRoundState implements IState {
 
-    @Override
-    public void initFromModel(IMapView view) {
+	@Override
+	public void initFromModel(IMapView view) {
 
-    }
+		EventQueue.invokeLater(new Runnable() {
 
-    @Override
-    public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-        return false;
-    }
+			@Override
+			public void run() {
+				GameMap map;
 
-    @Override
-    public boolean canPlaceSettlement(VertexLocation vertLoc) {
-        return false;
-    }
+				// Rounds
+				TurnTracker turnTracker;
+				try {
+					turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
 
-    @Override
-    public boolean canPlaceCity(VertexLocation vertLoc) {
-        return false;
-    }
+					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
+					int localPlayerIndex = localPlayer.getPlayerIndex();
 
-    @Override
-    public boolean canPlaceRobber(HexLocation hexLoc) {
-        return false;
-    }
+					if(turnTracker.getCurrentTurn() == localPlayerIndex){
+						view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
+						view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
 
-    @Override
-    public void placeRoad(EdgeLocation edgeLoc, IMapView view) {
+						ClientFacade.getSingleton().finishTurn(localPlayerIndex);
+					}
+				} catch (ClientException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 
-    }
+	}
 
-    @Override
-    public void placeSettlement(VertexLocation vertLoc, IMapView view) {
+	@Override
+	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+		return false;
+	}
 
-    }
+	@Override
+	public boolean canPlaceSettlement(VertexLocation vertLoc) {
+		return false;
+	}
 
-    @Override
-    public void placeCity(VertexLocation vertLoc, IMapView view) {
+	@Override
+	public boolean canPlaceCity(VertexLocation vertLoc) {
+		return false;
+	}
 
-    }
+	@Override
+	public boolean canPlaceRobber(HexLocation hexLoc) {
+		return false;
+	}
 
-    @Override
-    public void placeRobber(HexLocation hexLoc, IMapView view) {
+	@Override
+	public void placeRoad(EdgeLocation edgeLoc, IMapView view) {
 
-    }
+	}
 
-    @Override
-    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView view) {
-        CatanColor color = null;
-        try {
-            color = ClientFacade.getSingleton().getLocalPlayer().getColor();
-        } catch (ClientException e) {
-            e.printStackTrace();
-        }
-        //If it's the startup phase then the third param should be false
-        view.startDrop(pieceType, color, false);
-    }
+	@Override
+	public void placeSettlement(VertexLocation vertLoc, IMapView view) {
 
-    @Override
-    public void cancelMove() {
+	}
 
-    }
+	@Override
+	public void placeCity(VertexLocation vertLoc, IMapView view) {
 
-    @Override
-    public void playSoldierCard() {
+	}
 
-    }
+	@Override
+	public void placeRobber(HexLocation hexLoc, IMapView view) {
 
-    @Override
-    public void playRoadBuildingCard() {
+	}
 
-    }
+	@Override
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView view) {
+		CatanColor color = null;
+		try {
+			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		//If it's the startup phase then the third param should be false
+		view.startDrop(pieceType, color, false);
+	}
 
-    @Override
-    public void robPlayer(RobPlayerInfo victim) {
+	@Override
+	public void cancelMove() {
 
-    }
+	}
+
+	@Override
+	public void playSoldierCard() {
+
+	}
+
+	@Override
+	public void playRoadBuildingCard() {
+
+	}
+
+	@Override
+	public void robPlayer(RobPlayerInfo victim) {
+
+	}
 }
