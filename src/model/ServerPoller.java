@@ -73,8 +73,8 @@ public class ServerPoller {
 	private void needUpdate() throws ServerException {
 		int version = ClientFacade.getSingleton(proxy).getVersion();
 		String response = proxy.gamesModel(Integer.toString(version));
-		System.out.println(response);
 		if (!response.equals("\"true\"") && !response.equals("Error")) {
+			System.out.println(response);
 			update(response);
 		}
 	}
