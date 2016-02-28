@@ -71,6 +71,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
                         if (game.getId() == Integer.parseInt(ServerProxy.getSingleton().getGameID())) {
                             if (game.getPlayers().size() == 4) {
                                 getView().closeModal();
+								ClientFacade.getSingleton().setGameStarted(true);
                                 this.cancel();
                             }
                             break;

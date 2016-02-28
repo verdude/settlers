@@ -194,22 +194,14 @@ public class MapController extends Controller implements IMapController,IObserve
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		GameInfo[] games;
 		try {
-			games = Converter.deserializeGamesArray(ClientFacade.getSingleton().gamesList());
-            for (GameInfo game : games) {
-                if (game.getId() == Integer.parseInt(ServerProxy.getSingleton().getGameID())) {
-                    if (game.getPlayers().size() == 4) {
-                    	return;
-                    }
-                    break;
-                }
+			if (ClientFacade.getSingleton().getGameStarted() == false) {
+                System.out.println("Returned in turn tracker. Game not started");
+                return;
             }
 		} catch (ClientException e) {
-			System.out.println("Error getting game list");
 			e.printStackTrace();
-			return;
-        }
+		}
 
 		initFromModel();
 

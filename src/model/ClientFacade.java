@@ -18,6 +18,7 @@ public class ClientFacade {
 	private PlayerInfo localPlayer;
 	private List<IObserver> observers;
 	private Context context;
+	private boolean gameStarted;
 
 	public Context getContext() {
 		if(context == null){
@@ -39,6 +40,7 @@ public class ClientFacade {
 	private ClientFacade(IProxy proxy) {
 		clientModel	= new ClientModel();
 		this.proxy = proxy;
+		gameStarted = false;
 		observers = new ArrayList<IObserver>();
 		ServerPoller.getSingleton(proxy);
 	}
@@ -60,7 +62,15 @@ public class ClientFacade {
 		}
 		return singleton;
 	}
-	
+
+	public boolean getGameStarted() {
+		return gameStarted;
+	}
+
+	public void setGameStarted(boolean gameStarted) {
+		this.gameStarted = gameStarted;
+	}
+
 	public int getVersion() {
 		return clientModel.getVersion();
 	}

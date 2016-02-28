@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -89,11 +90,16 @@ public class ServerPoller {
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
 	private void update(String jsonModel) throws ServerException{
-		ClientModel newModel = (ClientModel) Converter.deserializeClientModel(jsonModel);
-		ClientFacade facade = ClientFacade.getSingleton(proxy);
-		if (newModel.getVersion() > facade.getVersion()) {
-			// means the version on the client is old
-			facade.updateModel(newModel);
-		}
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				ClientModel newModel = (ClientModel) Converter.deserializeClientModel(jsonModel);
+                ClientFacade facade = ClientFacade.getSingleton(proxy);
+                if (newModel.getVersion() > facade.getVersion()) {
+                    // means the version on the client is old
+                    facade.updateModel(newModel);
+                }
+			}
+		});
 	}
 }

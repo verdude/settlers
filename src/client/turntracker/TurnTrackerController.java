@@ -53,6 +53,10 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void notify(ClientModel model) {
 		try {
+			if (ClientFacade.getSingleton().getGameStarted() == false) {
+				System.out.println("Returned in turn tracker. Game not started");
+				return;
+			}
 			PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
 			getView().setLocalPlayerColor(localPlayer.getColor());
 			Player[] players = ClientFacade.getSingleton().getClientModel().getPlayers();
