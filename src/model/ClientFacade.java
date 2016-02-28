@@ -339,7 +339,7 @@ public class ClientFacade {
 	public boolean buildSettlement(VertexObject vertexObject, String free) {
 		boolean isFree = free.equals("true");
 		int playerIndex = localPlayer.getPlayerIndex();
-		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject, isFree);
+		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject.getLocation(), isFree);
 
 		if(canDo)
 		{

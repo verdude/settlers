@@ -116,7 +116,7 @@ public class PlayingState implements IState {
             VertexObject vertexObject = new VertexObject();
             vertexObject.setOwner(playerIndex);
             vertexObject.setLocation(vertLoc);
-            ClientFacade.getSingleton().buildCity(vertexObject);
+            ClientFacade.getSingleton().buildCity(playerIndex, vertexObject);
 
         } catch (ClientException e) {
             e.printStackTrace();

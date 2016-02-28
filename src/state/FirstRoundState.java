@@ -129,7 +129,7 @@ public class FirstRoundState implements IState {
 						view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
 						view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
 
-						ClientFacade.getSingleton().finishTurn();
+						ClientFacade.getSingleton().finishTurn(localPlayerIndex);
 					}
 
 

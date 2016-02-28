@@ -47,7 +47,7 @@ public class SecondRoundState implements IState {
 						view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
 						view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
 
-						ClientFacade.getSingleton().finishTurn();
+						ClientFacade.getSingleton().finishTurn(localPlayerIndex);
 					}
 				} catch (ClientException e) {
 					// TODO Auto-generated catch block
