@@ -3,6 +3,8 @@ package model;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.locations.*;
+import state.FirstRoundState;
+import state.SecondRoundState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -388,6 +390,8 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildRoad(int playerIndex, EdgeLocation newLocation, boolean isFree) {
+		System.out.println("Called Big Cando for ROAD");
+		
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
@@ -405,20 +409,34 @@ public class ClientModel {
 			int y = roadhex.getY();
 			if(x == newLocation.getHexLoc().getX() && y == newLocation.getHexLoc().getY()){
 				if(newLocation.getNormalizedLocation().equals(road.getLocation().getLocation().getNormalizedLocation())){
+					
+					System.out.println("Invalid road location!");
 					return false;
 				}
 			}
 		}
 
+		
+		// TODO: remember to do this for all candos
+		boolean firstRounds = false;
+		
+		try {
+			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState || 
+						  ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		if(((resources.getBrick() >= 1 && resources.getWood() >= 1 ) || isFree)
-				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled()){
+				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex && (player.getHasRolled() || firstRounds) ){
 			roadList = map.getRoads();
 			for(Road r : roadList){
 				EdgeValue tempEdgeValue = r.getLocation();
 				EdgeLocation tempEdgeLocation = tempEdgeValue.getLocation();
 
 				if(tempEdgeLocation.equals(newLocation)){// If a road already has this edgeLocation
+					System.out.println("There is a road at this location!");
 					return false;
 				}
 
@@ -453,8 +471,9 @@ public class ClientModel {
 					}
 					break;
 
-
+				
 				default:
+					System.out.println("Direction Was Wrong!");
 					return false;
 
 				}
@@ -498,6 +517,7 @@ public class ClientModel {
 
 
 				default:
+					System.out.println("Wrong: in relation to City");
 					return false;
 
 				}
@@ -568,6 +588,7 @@ public class ClientModel {
 
 
 				default:
+					System.out.println("Wrong: in relation to ROAD");
 					return false;
 
 				}
@@ -576,6 +597,7 @@ public class ClientModel {
 
 			return true;
 		}else{
+			System.out.println("Big ELSE returned False!");
 			return false;
 		}
 
