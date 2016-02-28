@@ -133,14 +133,7 @@ public class PlayingState implements IState {
 
     @Override
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView view) {
-        CatanColor color = null;
-        try {
-            color = ClientFacade.getSingleton().getLocalPlayer().getColor();
-        } catch (ClientException e) {
-            e.printStackTrace();
-        }
-        //If it's the startup phase then the third param should be false
-        view.startDrop(pieceType, color, true);
+
     }
 
     @Override

@@ -20,7 +20,8 @@ public enum VertexDirection
 	{
 		return opposite;
 	}
-	
+
+
 
 	@Override
 	public String toString() {

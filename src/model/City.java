@@ -1,7 +1,7 @@
 package model;
 
 public class City {
-	int playerId;
+	int playerIndex;
 	VertexObject location;
 	
 	public City(){}
@@ -11,9 +11,9 @@ public class City {
 		
 	}
 	
-	public int 			getPlayerId()				{ return playerId; 			}
+	public int getPlayerIndex()				{ return playerIndex; 			}
 	public VertexObject getLocation() 				{ return location; 			}
 	
-	public void setPlayerId(int id) 				{ this.playerId = id; 		}
+	public void setPlayerIndex(int id) 				{ this.playerIndex = id; 		}
 	public void setLocation(VertexObject location)	{ this.location = location; }
 }

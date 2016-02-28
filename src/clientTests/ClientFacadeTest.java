@@ -237,7 +237,18 @@ public class ClientFacadeTest {
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
 		vertexObject.setOwner(0);
+
+		Settlement settlement = new Settlement();
+		settlement.setPlayerIndex(player.getPlayerID());
+		settlement.setLocation(vertexObject);
+		try {
+			ClientFacade.getSingleton().getClientModel().getMap().getSettlements().add(settlement.getLocation());
+			ClientFacade.getSingleton().getContext();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 		assertTrue(facade.buildCity(vertexObject));
+
 	}
 
 	@Test

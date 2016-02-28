@@ -20,12 +20,14 @@ public class ClientCanDoTests {
 	private static  ClientModel model;
 	private static GameMap map;
 
+
 	private TurnTracker turnTracker;
 
 	@Before
 	public  void setUpBefore() throws Exception {
 		model = new ClientModel();
 
+		ClientFacade.getSingleton(ServerProxy.getSingleton("localhost","8080"));
 
 		model.setDevCardList(new DevCardList());
 
@@ -36,7 +38,7 @@ public class ClientCanDoTests {
 		sett1Vert.setOwner(0);
 		sett1Vert.setLocation(sett1Loc);
 		sett1.setLocation(sett1Vert);
-		sett1.setPlayerId(0);
+		sett1.setPlayerIndex(0);
 
 
 		Road road1 = new Road();
@@ -46,13 +48,13 @@ public class ClientCanDoTests {
 		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.NorthWest);
 		road1Val.setLocation(road1Loc);
 
-		road1.setPlayerId(0);
+		road1.setPlayerIndex(0);
 		road1.setLocation(road1Val);
 
 
 		map = new GameMap();
 
-		map.getSettlements().add(sett1);
+		map.getSettlements().add(sett1.getLocation());
 		map.getRoads().add(road1);
 
 		model.setMap(map);
@@ -84,7 +86,7 @@ public class ClientCanDoTests {
 		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.North);
 		road2Val.setLocation(road1Loc);
 
-		road2.setPlayerId(0);
+		road2.setPlayerIndex(0);
 		road2.setLocation(road2Val);
 
 		assertTrue(model.canBuildRoad(0, road2.getLocation().getLocation(),false));
@@ -104,7 +106,7 @@ public class ClientCanDoTests {
 		//sett2Vert.setOwner(0);
 		sett2Vert.setLocation(sett1Loc);
 		sett2.setLocation(sett2Vert);
-		sett2.setPlayerId(0);
+		sett2.setPlayerIndex(0);
 
 				assertFalse(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation(),false));
 
@@ -114,7 +116,7 @@ public class ClientCanDoTests {
 		EdgeValue road2Val = new EdgeValue();
 		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.North);
 		road2Val.setLocation(road1Loc);
-		road2.setPlayerId(0);
+		road2.setPlayerIndex(0);
 		road2.setLocation(road2Val);
 
 		
@@ -143,7 +145,7 @@ public class ClientCanDoTests {
 		//sett2Vert.setOwner(0);
 		cityVert.setLocation(cityLoc);
 		city.setLocation(cityVert);
-		city.setPlayerId(0);
+		city.setPlayerIndex(0);
 
 		//no settlement
 		assertFalse(model.canBuildCity(0, cityVert.getLocation()));
@@ -154,7 +156,7 @@ public class ClientCanDoTests {
 		//sett2Vert.setOwner(0);
 		cityVert.setLocation(cityLoc);
 		city.setLocation(cityVert);
-		city.setPlayerId(0);
+		city.setPlayerIndex(0);
 		assertTrue(model.canBuildCity(0, cityVert.getLocation()));
 
 	}

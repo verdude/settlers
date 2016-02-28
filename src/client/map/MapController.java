@@ -2,21 +2,21 @@ package client.map;
 
 import client.base.Controller;
 import client.base.IObserver;
-import client.data.GameInfo;
+import client.data.PlayerInfo;
 import client.data.RobPlayerInfo;
 import model.*;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
-import shared.locations.*;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import state.Context;
 
+import java.awt.*;
 import java.util.List;
-import java.util.Random;
-
-import com.sun.nio.sctp.SctpStandardSocketOptions.InitMaxStreams;
-import com.sun.security.ntlm.Client;
 
 
 /**
@@ -67,13 +67,131 @@ public class MapController extends Controller implements IMapController,IObserve
 	}
 
 	protected void initFromModel() {
-		try {
-			ClientFacade.getSingleton().getContext().initFromModel(getView());
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Something Broke in MapController!");
-			e.printStackTrace();
-		}
+
+
+
+		// map init logic goes here!
+		EventQueue.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				GameMap map;
+				List<Hex> hexes;
+				List<Port> ports;
+				try {
+					map = ClientFacade.getSingleton().getClientModel().getMap();
+					hexes = map.getHexes();
+					ports = map.getPorts();
+
+					if(hexes.size() < 1){
+						return;
+					}
+
+					// Print Hexes
+					for(int i = 0; i < hexes.size(); i++){
+						String type = hexes.get(i).getResource();
+
+						if(type == null){
+							type = "DESERT";
+						}
+
+						HexType hexType = HexType.valueOf(type.trim().toUpperCase());
+						HexLocation hexLoc = new HexLocation(hexes.get(i).getLocation().getX(), hexes.get(i).getLocation().getY());
+						getView().addHex(hexLoc, hexType);
+					}
+
+					// Print WaterHexes
+					for(int x = -3; x < 4; x++){
+
+						// left side
+						if(x == -3){
+							for(int y = 0; y < 4; y++){
+								getView().addHex(new HexLocation(x, y), HexType.WATER);
+							}
+						}
+
+						// right side
+						else if(x == 3){
+							for(int y = 0; y > -4; y--){
+								getView().addHex(new HexLocation(x, y), HexType.WATER);
+							}
+						}
+
+						else if(x == -2){
+							// y: -1, 3
+							getView().addHex(new HexLocation(x, -1), HexType.WATER);
+							getView().addHex(new HexLocation(x, 3), HexType.WATER);
+						}
+
+						else if(x == -1 ){
+							// y: -2, 3
+							getView().addHex(new HexLocation(x, -2), HexType.WATER);
+							getView().addHex(new HexLocation(x, 3), HexType.WATER);
+						}
+
+						else if(x == 0){
+							// y: -3, 3
+							getView().addHex(new HexLocation(x, -3), HexType.WATER);
+							getView().addHex(new HexLocation(x, 3), HexType.WATER);
+						}
+
+						else if(x == 1){
+							// y: -3, 2
+							getView().addHex(new HexLocation(x, -3), HexType.WATER);
+							getView().addHex(new HexLocation(x, 2), HexType.WATER);
+						}
+
+						else if(x == 2){
+							// y: -3, 1
+							getView().addHex(new HexLocation(x, -3), HexType.WATER);
+							getView().addHex(new HexLocation(x, 1), HexType.WATER);
+						}
+
+					}
+
+					// Print Ports
+					for(int i = 0; i < ports.size(); i++){
+						PortType type = ports.get(i).getResource();
+
+						System.out.println("PortType: " + type);
+
+						if(type == null){
+							type = PortType.THREE;
+						}
+						getView().addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), type);
+					}
+
+					// Rounds
+					TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
+					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
+					int localPlayerIndex = localPlayer.getPlayerIndex();
+
+//					if(turnTracker.getCurrentTurn() == localPlayerIndex){
+//						getView().startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
+//						getView().startDrop(PieceType.ROAD, localPlayer.getColor(), false);
+//
+//						ClientFacade.getSingleton().finishTurn(localPlayerIndex);
+//					}
+					startMove(PieceType.SETTLEMENT,true,true);
+					startMove(PieceType.ROAD,true,true);
+
+//					ClientFacade.getSingleton().getContext().startMove(PieceType.SETTLEMENT,true,true,getView());
+//					ClientFacade.getSingleton().getContext().startMove(PieceType.SETTLEMENT,true,true,getView());
+
+
+
+				} catch (ClientException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+//		try {
+//			ClientFacade.getSingleton().getContext().initFromModel(getView());
+//		} catch (ClientException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("Something Broke in MapController!");
+//			e.printStackTrace();
+//		}
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
@@ -203,32 +321,33 @@ public class MapController extends Controller implements IMapController,IObserve
 			e.printStackTrace();
 		}
 
+
 		initFromModel();
 
-		List<City> cities = model.getMap().getCities();
-		List<Settlement> settlements = model.getMap().getSettlements();
+		List<VertexObject> cities = model.getMap().getCities();
+		List<VertexObject> settlements = model.getMap().getSettlements();
 		List<Road> roads = model.getMap().getRoads();
 
 		//Place all of the cities front the model on the map
-		for (City city : cities) {
+		for (VertexObject city : cities) {
 
-			int playerIndex = city.getLocation().getOwner();
+			int playerIndex = city.getOwner();
 			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			getView().placeCity(city.getLocation().getLocation(), color);
+			getView().placeCity(city.getLocation(), color);
 		}
 
 		//Place all of the settlements front the model on the map
-		for (Settlement settlement : settlements) {
+		for (VertexObject settlement : settlements) {
 
-			int playerIndex = settlement.getLocation().getOwner();
+			int playerIndex = settlement.getOwner();
 			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			getView().placeSettlement(settlement.getLocation().getLocation(), color);
+			getView().placeSettlement(settlement.getLocation(), color);
 		}
 
 		//Place all of the roads front the model on the map
 		for (Road road : roads) {
 
-			int playerIndex = road.getLocation().getOwner();
+			int playerIndex = road.getPlayerIndex();
 			CatanColor color = model.getPlayers()[playerIndex].getColor();
 			getView().placeRoad(road.getLocation().getLocation(), color);
 		}

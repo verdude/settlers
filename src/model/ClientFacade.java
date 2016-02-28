@@ -5,6 +5,7 @@ import client.data.PlayerInfo;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import state.*;
 
 import java.util.ArrayList;
@@ -78,30 +79,31 @@ public class ClientFacade {
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
 		String gameState = clientModel.getTurnTracker().getStatus();
-		switch (gameState){
-			case "Rolling":
-				getContext().setState(new RollingState());
-				break;
-			case "Discarding":
-				getContext().setState(new DiscardingState());
-				break;
-			case "Playing":
-				getContext().setState(new PlayingState());
-				break;
-			case "Robbing":
-				getContext().setState(new RobbingState());
-				break;
-			case "FirstRound":
-				getContext().setState(new FirstRoundState());
-				break;
-			case "SecondRound":
-				getContext().setState(new SecondRoundState());
-				break;
-			default:
-				break;
-
-
-		}
+		getContext();
+//		switch (gameState){
+//			case "Rolling":
+//				getContext().setState(new RollingState());
+//				break;
+//			case "Discarding":
+//				getContext().setState(new DiscardingState());
+//				break;
+//			case "Playing":
+//				getContext().setState(new PlayingState());
+//				break;
+//			case "Robbing":
+//				getContext().setState(new RobbingState());
+//				break;
+//			case "FirstRound":
+//				getContext().setState(new FirstRoundState());
+//				break;
+//			case "SecondRound":
+//				getContext().setState(new SecondRoundState());
+//				break;
+//			default:
+//				break;
+//
+//
+//		}
 		for(IObserver observer : observers) {
 			observer.notify(clientModel);
 		}
@@ -599,6 +601,12 @@ public class ClientFacade {
 
 	public ClientModel getClientModel(){
 		return clientModel;
+	}
+
+	public EdgeLocation vertexLocToEdgeLoc(VertexLocation vertexLocation){
+
+//		EdgeLocation edgeLocation = new EdgeLocation(vertexLocation.getHexLoc(),vertexLocation.getDirection());
+		return null;
 	}
 
 }

@@ -349,7 +349,7 @@ public class ServerProxy implements IProxy {
 				+ "\"vertexLocation\": {"
 				+ "\"x\": " + vertexObject.getLocation().getHexLoc().getX() + ", "
 				+ "\"y\": " + vertexObject.getLocation().getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + vertexObject.getLocation().getDir().toString() + "\""
+				+ "\"direction\": \"" + vertexObject.getLocation().getDirection().toString() + "\""
 				+ "}, "
 				+ "\"free\": " + free + "}");
 	}
@@ -360,7 +360,7 @@ public class ServerProxy implements IProxy {
 				+ "\"vertexLocation\": {"
 				+ "\"x\": " + vertexObject.getLocation().getHexLoc().getX() + ", "
 				+ "\"y\": " + vertexObject.getLocation().getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + vertexObject.getLocation().getDir().toString() + "\""
+				+ "\"direction\": \"" + vertexObject.getLocation().getDirection().toString() + "\""
 				+ "}}");
 	}
 

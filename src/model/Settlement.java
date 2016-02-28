@@ -2,7 +2,7 @@ package model;
 
 
 public class Settlement {
-	int playerId;
+	int playerIndex;
 	VertexObject location;
 	
 	public Settlement(){}
@@ -12,9 +12,9 @@ public class Settlement {
 		
 	}
 	
-	public int 			getPlayerId()				{ return playerId; 			}
+	public int getPlayerIndex()				{ return playerIndex; 			}
 	public VertexObject getLocation() 				{ return location; 			}
 	
-	public void setPlayerId(int id) 				{ this.playerId = id; 		}
+	public void setPlayerIndex(int id) 				{ this.playerIndex = id; 		}
 	public void setLocation(VertexObject location)	{ this.location = location; }
 }

@@ -1,8 +1,9 @@
 package model;
 
-import java.util.*;
-
 import shared.locations.HexLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameMap {
 	int 				radius;				
@@ -10,8 +11,8 @@ public class GameMap {
 	List<Hex> 			hexes;
 	List<Port> 			ports;
 	List<Road> 			roads;
-	List<Settlement> 	settlements;
-	List<City> 			cities;
+	List<VertexObject> 	settlements;
+	List<VertexObject> 			cities;
 	
 	
 	
@@ -20,8 +21,9 @@ public class GameMap {
 		hexes 			= new ArrayList<Hex>();
 		ports 			= new ArrayList<Port>();
 		roads 			= new ArrayList<Road>();
-		settlements 	= new ArrayList<Settlement>();
-		cities 			= new ArrayList<City>();
+		settlements 	= new ArrayList<VertexObject>();
+		cities 			= new ArrayList<VertexObject>();
+
 		robber			= new Robber();
 	}
 	
@@ -43,7 +45,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeSettlement(VertexObject position) throws GameMapException {
-		settlements.add(new Settlement(position));
+		settlements.add(position);
 	}
 	
 	/** Places a city for the player on a given vertex
@@ -54,7 +56,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeCity(VertexObject position) throws GameMapException {
-		cities.add(new City(position));
+		cities.add(position);
 	}
 	
 	/** Places a road for the player on a given edge
@@ -74,8 +76,8 @@ public class GameMap {
 	public List<Hex>  		getHexes() 								{ return hexes; 			}
 	public List<Port> 		getPorts() 								{ return ports; 			}
 	public List<Road> 		getRoads() 								{ return roads; 			}
-	public List<Settlement> getSettlements() 						{ return settlements; 		}
-	public List<City> 		getCities() 							{ return cities; 			}
+	public List<VertexObject> getSettlements() 						{ return settlements; 		}
+	public List<VertexObject> 		getCities() 							{ return cities; 			}
 	public int 				getRadius() 							{ return radius; 			}
 	public Robber 			getRobber() 							{ return robber; 			}
 	
@@ -83,8 +85,8 @@ public class GameMap {
 	public void setHexes(List<Hex> hexes) 							{ this.hexes = hexes; 		}
 	public void setPorts(List<Port> ports) 							{ this.ports = ports; 		}
 	public void setRoads(List<Road> roads) 							{ this.roads = roads; 		}
-	public void setSettlements(List<Settlement> settlements) 		{ this.settlements = settlements; 	}
-	public void setCities(List<City> cities) 						{ this.cities = cities; 	}
+	public void setSettlements(List<VertexObject> settlements) 		{ this.settlements = settlements; 	}
+	public void setCities(List<VertexObject> cities) 						{ this.cities = cities; 	}
 	public void setRadius(int _RADIUS) 								{ radius = _RADIUS; 		}
 	public void setRobber(Robber robber) 							{ this.robber = robber; 	}
 }
