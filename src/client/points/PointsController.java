@@ -46,7 +46,9 @@ public class PointsController extends Controller implements IPointsController {
 	}
 
 	private void initFromModel() {
-
+		//<temp>
+		getPointsView().setPoints(0);
+		//</temp>
 	}
 
 	/* (non-Javadoc)
