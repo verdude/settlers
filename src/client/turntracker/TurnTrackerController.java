@@ -3,6 +3,8 @@ package client.turntracker;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import model.Player;
+import model.TurnTracker;
 import client.base.Controller;
 import client.data.PlayerInfo;
 
@@ -33,7 +35,13 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	@Override
 	public void endTurn() {
-
+		getView().updateGameState("Waiting for other players.", true);
+		try {
+			ClientFacade.getSingleton().finishTurn();
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void initFromModel() {
@@ -45,8 +53,20 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void notify(ClientModel model) {
 		try {
-			//getView().setLocalPlayerColor(ClientFacade.getSingleton().getLocalPlayer().getColor());
-			getView().setLocalPlayerColor(ClientFacade.getSingleton().getLocalPlayer().getColor());
+			PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
+			getView().setLocalPlayerColor(localPlayer.getColor());
+			Player[] players = ClientFacade.getSingleton().getClientModel().getPlayers();
+			TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
+			for(int i = 0; i < players.length; i++) {
+				getView().initializePlayer(players[i].getPlayerIndex(), 
+						players[i].getName(),
+						players[i].getColor());
+				getView().updatePlayer(players[i].getPlayerIndex(), 
+						players[i].getVictoryPoints(), 
+						players[i].getPlayerIndex() == turnTracker.getCurrentTurn(), 
+						players[i].getPlayerIndex() == turnTracker.getLargestArmy(), 
+						players[i].getPlayerIndex() == turnTracker.getLongestRoad());
+				}
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

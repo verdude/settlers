@@ -170,13 +170,13 @@ public class ClientFacadeTest {
 		trade.setOffer(resources);
 		trade.setReceiver(1);
 		trade.setSender(0);
-		assertTrue(facade.offerTrade(0, trade));
-		assertTrue(facade.acceptTrade(0, true));
+		assertTrue(facade.offerTrade(trade));
+		assertTrue(facade.acceptTrade(true));
 	}
 
 	@Test
 	public void discardCardsTest() {
-		assertTrue(facade.discardCards(0, new ArrayList<ResourceType>()));
+		assertTrue(facade.discardCards(new ArrayList<ResourceType>()));
 	}
 
 	@Test
@@ -189,7 +189,7 @@ public class ClientFacadeTest {
 		EdgeValue edgeValue =  new EdgeValue();
 		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
-		assertTrue(facade.buildRoad(0, edgeValue, "true"));
+		assertTrue(facade.buildRoad(edgeValue, "true"));
 	}
 
 	@Test
@@ -197,7 +197,7 @@ public class ClientFacadeTest {
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
 		vertexObject.setOwner(0);
-		assertTrue(facade.buildSettlement(0, vertexObject, "true"));
+		assertTrue(facade.buildSettlement(vertexObject, "true"));
 	}
 
 	@Test
@@ -205,37 +205,37 @@ public class ClientFacadeTest {
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
 		vertexObject.setOwner(0);
-		assertTrue(facade.buildCity(0, vertexObject));
+		assertTrue(facade.buildCity(vertexObject));
 	}
 
 	@Test
 	public void maritimeTradeTest() {
-		assertTrue(facade.maritimeTrade(0, 2, ResourceType.BRICK, ResourceType.ORE));
+		assertTrue(facade.maritimeTrade(2, ResourceType.BRICK, ResourceType.ORE));
 	}
 
 	@Test
 	public void robPlayerTest() {
-		assertTrue(facade.robPlayer(0, 3, new HexLocation(0, 0)));
+		assertTrue(facade.robPlayer(3, new HexLocation(0, 0)));
 	}
 
 	@Test
 	public void finishTurnTest() {
-		assertTrue(facade.finishTurn(0));
+		assertTrue(facade.finishTurn());
 	}
 
 	@Test
 	public void buyDevCardTest() {
-		assertTrue(facade.buyDevCard(0));
+		assertTrue(facade.buyDevCard());
 	}
 
 	@Test
 	public void soldierTest() {
-		assertTrue(facade.soldier(0, 1, new HexLocation(0, 0)));
+		assertTrue(facade.soldier(1, new HexLocation(0, 0)));
 	}
 
 	@Test
 	public void yearOfPlentyTest() {
-		assertTrue(facade.yearOfPlenty(0, ResourceType.BRICK, ResourceType.ORE));
+		assertTrue(facade.yearOfPlenty(ResourceType.BRICK, ResourceType.ORE));
 	}
 
 	@Test
@@ -243,7 +243,7 @@ public class ClientFacadeTest {
 		EdgeValue edgeValue =  new EdgeValue();
 		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
-		assertTrue(facade.roadBuilding(0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.North),
+		assertTrue(facade.roadBuilding(new EdgeLocation(new HexLocation(0,0), EdgeDirection.North),
 				new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North)));
 	}
 	
@@ -254,6 +254,6 @@ public class ClientFacadeTest {
 	
 	@Test
 	public void monumentTest() {
-		assertTrue(facade.monument(0));
+		assertTrue(facade.monument());
 	}
 }

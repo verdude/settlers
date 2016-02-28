@@ -243,7 +243,8 @@ public class ClientFacade {
 	 * @post The trade presented is executed if willAccept is true, not executed otherwise.
 	 * @return Whether it was attempted
 	 */
-	public boolean acceptTrade(int playerIndex, boolean willAccept) {
+	public boolean acceptTrade(boolean willAccept) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canAcceptTrade(playerIndex);
 		if(canDo)
 		{
@@ -260,7 +261,8 @@ public class ClientFacade {
 	 * @post discardedCards is 1 card bigger and contains the card that is no longer in the player's possession, as it was discarded.
 	 * @return Whether it was attempted
 	 */
-	public boolean discardCards(int playerIndex, List<ResourceType> discardedCards) {
+	public boolean discardCards(List<ResourceType> discardedCards) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canDiscardCards(playerIndex);
 		if(canDo)
 		{
@@ -305,7 +307,8 @@ public class ClientFacade {
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
 	 * @return Whether it was attempted
 	 */
-	public boolean buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
+	public boolean buildRoad(EdgeValue roadLocation, String free) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildRoad(playerIndex, roadLocation.getLocation());
 		if(canDo)
 		{
@@ -331,7 +334,8 @@ public class ClientFacade {
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public boolean buildSettlement(int playerIndex, VertexObject vertexObject, String free) {
+	public boolean buildSettlement(VertexObject vertexObject, String free) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject);
 		if(canDo)
 		{
@@ -355,7 +359,8 @@ public class ClientFacade {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public boolean buildCity(int playerIndex, VertexObject vertexObject) {
+	public boolean buildCity(VertexObject vertexObject) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject);
 		if(canDo)
 		{
@@ -379,7 +384,8 @@ public class ClientFacade {
 	 * @post A trade aggreement is presented to the player corresponding to receiver. The trade is made if receiver accepts the trade. The receiver receives offer and the offering player receives the counter part of the trade.
 	 * @return Whether it was attempted
 	 */
-	public boolean offerTrade(int playerIndex, TradeOffer offer) {
+	public boolean offerTrade(TradeOffer offer) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canOfferTrade(playerIndex);
 		if(canDo)
 		{
@@ -398,7 +404,8 @@ public class ClientFacade {
 	 * @post The player is less inputResource and more outputResource according to the ratio.
 	 * @return Whether it was attempted
 	 */
-	public boolean maritimeTrade(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource) {
+	public boolean maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canMaritimeTrade(playerIndex, inputResource);
 		if(canDo)
 		{
@@ -416,7 +423,8 @@ public class ClientFacade {
 	 * @post The robber's new location is location and the player at victimIndex is less one card, and that card is given to the robbing player.
 	 * @return Whether it was attempted
 	 */
-	public boolean robPlayer(int playerIndex, int victimIndex, HexLocation location) {
+	public boolean robPlayer(int victimIndex, HexLocation location) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canRobPlayer(playerIndex);
 		if(canDo)
 		{
@@ -438,7 +446,8 @@ public class ClientFacade {
 	 * @post The player can no longer perform and turn-related actions and the next player in the queue receives the currentTurn that the finishing player lost.
 	 * @return Whether it was attempted
 	 */
-	public boolean finishTurn(int playerIndex) {
+	public boolean finishTurn() {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canFinishTurn(playerIndex);
 		if(canDo)
 		{
@@ -460,7 +469,8 @@ public class ClientFacade {
 	 * @post The players resources are given to the bank in the amount required for a dev card. The player receives a dev card.
 	 * @return Whether it was attempted
 	 */
-	public boolean buyDevCard(int playerIndex) {
+	public boolean buyDevCard() {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuyDevCard(playerIndex);
 		if(canDo)
 		{
@@ -484,7 +494,8 @@ public class ClientFacade {
 	 * @post The robber is placed in location, receiving that as a new location, and the victimIndex-player is less one card which is added to the player's hand who played the soldier card.
 	 * @return Whether it was attempted
 	 */
-	public boolean soldier(int playerIndex, int victimIndex, HexLocation location) {
+	public boolean soldier(int victimIndex, HexLocation location) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canSoldier(playerIndex);
 		if(canDo)
 		{
@@ -503,7 +514,8 @@ public class ClientFacade {
 	 * @post You receive resource1 and resource2 of your choice. (Check rules)
 	 * @return Whether it was attempted
 	 */
-	public boolean yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
+	public boolean yearOfPlenty(ResourceType resource1, ResourceType resource2) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canYearOfPlenty(playerIndex);
 		if(canDo)
 		{
@@ -522,7 +534,8 @@ public class ClientFacade {
 	 * @post Two roads are placed that belong to the corresponding player. They are placed correctly.
 	 * @return Whether it was attempted
 	 */
-	public boolean roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
+	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canRoadBuilding(playerIndex);
 		if(canDo)
 		{
@@ -557,7 +570,8 @@ public class ClientFacade {
 	 * @post The monument card is played for the corresponding player.
 	 * @return Whether it was attempted
 	 */
-	public boolean monument(int playerIndex) {
+	public boolean monument() {
+		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canMonument(playerIndex);
 		if(canDo)
 		{
