@@ -55,11 +55,14 @@ public class FirstRoundState implements IState {
 
 
                     for(int i = 0; i < ports.size(); i++){
-                        PortType portType = ports.get(i).getResource();
-                        if(portType == null){
-                            portType = PortType.THREE;
+                        PortType type = ports.get(i).getResource();
+                        
+                        System.out.println("PortType: " + type);
+                        
+                        if(type == null){
+                            type = PortType.THREE;
                         }
-                        view.addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), portType);
+                        view.addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), type);
                     }
                 } catch (ClientException e) {
                         e.printStackTrace();
