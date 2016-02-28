@@ -7,12 +7,12 @@ import model.ClientException;
 import model.ClientFacade;
 import model.GameMap;
 import model.Hex;
+import model.Port;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexLocation;
+import shared.definitions.PortType;
+import shared.locations.*;
 import client.data.RobPlayerInfo;
 import client.map.IMapView;
 
@@ -27,9 +27,11 @@ public class FirstRoundState implements IState {
     	
     	GameMap map;
     	List<Hex> hexes;
+    	List<Port> ports;
 		try {
 			map = ClientFacade.getSingleton().getClientModel().getMap();
 			hexes = map.getHexes();
+			ports = map.getPorts();
 			
 			if(hexes.size() < 1){
 				return;
@@ -37,15 +39,24 @@ public class FirstRoundState implements IState {
 			
 			
 			for(int i = 0; i < hexes.size(); i++){
-				String resourceType = hexes.get(i).getResource();
+				String type = hexes.get(i).getResource();
 				
-				if(resourceType == null){
-					resourceType = "DESERT";
+				if(type == null){
+					type = "DESERT";
 				}
 				
-				HexType hexType = HexType.valueOf(resourceType.trim().toUpperCase());
+				HexType hexType = HexType.valueOf(type.trim().toUpperCase());
 				HexLocation hexLoc = new HexLocation(hexes.get(i).getLocation().getX(), hexes.get(i).getLocation().getY());
 				view.addHex(hexLoc, hexType);
+			}
+			
+			
+			for(int i = 0; i < ports.size(); i++){
+				PortType portType = ports.get(i).getResource();
+				if(portType == null){
+					portType = PortType.THREE;
+				}
+				view.addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), portType);
 			}
 			
 			
