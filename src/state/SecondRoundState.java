@@ -23,7 +23,7 @@ public class SecondRoundState implements IState {
 	private static boolean timerRunning = false;
 
 	@Override
-	public void initFromModel (IMapView view){
+	public void initFromModel (final IMapView view){
 		// map init logic goes here!
 		EventQueue.invokeLater(new Runnable() {
 
@@ -33,7 +33,7 @@ public class SecondRoundState implements IState {
 					// Rounds
 					TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
 					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
-					int localPlayerIndex = localPlayer.getPlayerIndex();
+					final int localPlayerIndex = localPlayer.getPlayerIndex();
 
 					if (localPlayerIndex == 3) {
 						ClientFacade.getSingleton().finishTurn();

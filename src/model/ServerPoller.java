@@ -89,7 +89,7 @@ public class ServerPoller {
 	 * @post The local model class is replaced with a clone of the model class on the server
 	 * @throws ServerException when this function fails when it shouldn't
 	 */
-	private void update(String jsonModel) throws ServerException{
+	private void update(final String jsonModel) throws ServerException{
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {

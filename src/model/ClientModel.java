@@ -1,15 +1,18 @@
 package model;
 
-import shared.definitions.PortType;
-import shared.definitions.ResourceType;
-import shared.locations.*;
-import state.FirstRoundState;
-import state.PlayingState;
-import state.RollingState;
-import state.SecondRoundState;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import shared.definitions.PortType;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
+import state.FirstRoundState;
+import state.PlayingState;
+import state.SecondRoundState;
 
 public class ClientModel {
 
@@ -1157,7 +1160,6 @@ public class ClientModel {
 			e.printStackTrace();
 		}
 
-		Player player = players[playerIndex];
 		try {
 			if(turnTracker.getCurrentTurn() == playerIndex && (firstRounds || ClientFacade.getSingleton().getContext().getState() instanceof PlayingState)){
                 return true;

@@ -1,14 +1,15 @@
 package state;
 
 import java.awt.EventQueue;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import model.*;
+import model.ClientException;
+import model.ClientFacade;
 import model.EdgeValue;
+import model.TurnTracker;
+import model.VertexObject;
 import shared.definitions.CatanColor;
-import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -27,7 +28,7 @@ public class FirstRoundState implements IState {
 	private static boolean secondTimerRunning = false;
 
 	@Override
-	public void initFromModel(IMapView view) {
+	public void initFromModel(final IMapView view) {
 		// map init logic goes here!
 		EventQueue.invokeLater(new Runnable() {
 
@@ -38,7 +39,7 @@ public class FirstRoundState implements IState {
 
 					TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
 					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
-					int localPlayerIndex = localPlayer.getPlayerIndex();
+					final int localPlayerIndex = localPlayer.getPlayerIndex();
 					System.out.println("Player Index: " + localPlayerIndex + ", turnTrackerTurn: " + turnTracker.getCurrentTurn());
 					if(turnTracker.getCurrentTurn() == localPlayerIndex) {
 						System.out.println("Ots' bug trn");

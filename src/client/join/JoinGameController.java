@@ -1,15 +1,16 @@
 package client.join;
 
+import model.ClientException;
+import model.ClientFacade;
+import model.ClientModel;
+import model.Converter;
+import model.Player;
+import shared.definitions.CatanColor;
 import client.base.Controller;
 import client.base.IAction;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import client.misc.IMessageView;
-import model.*;
-import shared.definitions.CatanColor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -152,7 +153,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		// needs some serious refactoring
 		joinedGame = game.getId();
 		int index = 0;
-		List<String> colors = new ArrayList<>();
 		PlayerInfo localPlayer;
 		try {
 			localPlayer = ClientFacade.getSingleton().getLocalPlayer();

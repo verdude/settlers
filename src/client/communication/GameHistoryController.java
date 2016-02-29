@@ -1,12 +1,12 @@
 package client.communication;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import client.base.*;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
-import shared.definitions.*;
+import client.base.Controller;
 
 
 /**

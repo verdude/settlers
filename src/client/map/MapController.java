@@ -1,22 +1,27 @@
 package client.map;
 
-import client.base.Controller;
-import client.base.IObserver;
-import client.data.PlayerInfo;
-import client.data.RobPlayerInfo;
-import model.*;
+import java.awt.EventQueue;
+import java.util.List;
+
+import model.ClientException;
+import model.ClientFacade;
+import model.ClientModel;
+import model.GameMap;
+import model.Hex;
+import model.Port;
+import model.Road;
+import model.VertexObject;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
-import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import state.Context;
-
-import java.awt.*;
-import java.util.List;
+import client.base.Controller;
+import client.base.IObserver;
+import client.data.RobPlayerInfo;
 
 
 /**
@@ -25,7 +30,6 @@ import java.util.List;
 public class MapController extends Controller implements IMapController,IObserver {
 
 	private IRobView robView;
-	private GameMap map;
 	private ClientModel model;
 
 
@@ -33,26 +37,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 
 		super(view);
-
-		// Context context = ClientFacade.getSingleton().getContext();
-//		 DiscardingState discardingState = new DiscardingState();
-//		 FirstRoundState firstRoundState = new FirstRoundState();
-//		 PlayingState playingState = new PlayingState();
-//		 RobbingState robbingState = new RobbingState();
-//		 RollingState rollingState = new RollingState();
-//		 SecondRoundState secondRoundState = new SecondRoundState();
-
-
 		setRobView(robView);
-		
-		
-		try {
-			ClientFacade.getSingleton().addObserver(this);
-			map = ClientFacade.getSingleton().getClientModel().getMap();
-		} catch (ClientException e) {
-			System.out.println("Error when adding to the observer list");
-			e.printStackTrace();
-		}
 	}
 
 	public IMapView getView() {
@@ -166,20 +151,6 @@ public class MapController extends Controller implements IMapController,IObserve
 					}
 
 					// Rounds
-					TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
-					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
-					int localPlayerIndex = localPlayer.getPlayerIndex();
-
-//					if(turnTracker.getCurrentTurn() == localPlayerIndex){
-//						getView().startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
-//						getView().startDrop(PieceType.ROAD, localPlayer.getColor(), false);
-//
-//						ClientFacade.getSingleton().finishTurn(localPlayerIndex);
-//					}
-
-//					ClientFacade.getSingleton().getContext().startMove(PieceType.SETTLEMENT,true,true,getView());
-//					ClientFacade.getSingleton().getContext().startMove(PieceType.SETTLEMENT,true,true,getView());
-
                     List<VertexObject> cities = model.getMap().getCities();
                     List<VertexObject> settlements = model.getMap().getSettlements();
                     List<Road> roads = model.getMap().getRoads();
@@ -214,13 +185,6 @@ public class MapController extends Controller implements IMapController,IObserve
 				}
 			}
 		});
-//		try {
-//			ClientFacade.getSingleton().getContext().initFromModel(getView());
-//		} catch (ClientException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("Something Broke in MapController!");
-//			e.printStackTrace();
-//		}
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {

@@ -176,7 +176,6 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 
 			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
-			ResourceList resources = player.getResources();
 			int devsAvailable = player.getOldDevCards().getTotal();
 			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
 

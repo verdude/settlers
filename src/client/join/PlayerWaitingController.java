@@ -1,15 +1,17 @@
 package client.join;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import model.ClientException;
+import model.ClientFacade;
+import model.ClientModel;
+import model.Converter;
+import model.ServerPoller;
+import model.ServerProxy;
 import client.base.Controller;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
-import client.turntracker.TurnTrackerController;
-import client.turntracker.TurnTrackerView;
-import com.sun.deploy.util.SessionState;
-import model.*;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 /**
