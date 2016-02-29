@@ -13,3 +13,5 @@ demo/*
 
 .idea
 *.iml
+
+*.class
