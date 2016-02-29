@@ -192,4 +192,9 @@ public class SecondRoundState implements IState {
 	public void robPlayer(RobPlayerInfo victim) {
 
 	}
+
+	@Override
+	public void maritimeTrade() {
+
+	}
 }

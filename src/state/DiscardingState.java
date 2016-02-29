@@ -81,4 +81,9 @@ public class DiscardingState implements IState {
     public void robPlayer(RobPlayerInfo victim) {
 
     }
+
+    @Override
+    public void maritimeTrade() {
+
+    }
 }

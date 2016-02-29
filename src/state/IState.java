@@ -41,10 +41,7 @@ public interface IState {
 
     public void robPlayer(RobPlayerInfo victim);
 
-
-
-
-
+    public void maritimeTrade();
 
 //    public abstract void sendChat();
 //

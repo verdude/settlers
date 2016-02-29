@@ -5,6 +5,10 @@ import client.base.*;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import state.FirstRoundState;
+import state.IState;
+import state.PlayingState;
+import state.SecondRoundState;
 
 
 /**
@@ -78,13 +82,40 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		System.out.println("Maritime unset give value");
 	}
 
+	private boolean canMaritimeAny() {
+		ResourceType[] res = ResourceType.values();
+		try {
+			for (int i = 0; i < res.length; ++i) {
+				// check if the player can do a maritime trade for each of the resoures
+				if (!ClientFacade.getSingleton().getClientModel().canMaritimeTrade(ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex(), res[i])) {
+					return false;
+				}
+			}
+		} catch (ClientException e) {
+			System.out.println("Error getting client model in the maritime controller");
+    	    e.printStackTrace();
+		}
+		// can maritime trade
+		return true;
+	}
+
 	/* (non-Javadoc)
 	 * @see client.base.IObserver#notify(model.ClientModel)
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		// TODO Auto-generated method stub
-		System.out.println("Maritime notify");
+		try {
+			IState currState = ClientFacade.getSingleton().getContext().getState();
+			boolean isLocalPlayersTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn() ==
+											ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+			if (isLocalPlayersTurn && currState instanceof PlayingState && canMaritimeAny()){
+				((MaritimeTradeView)getView()).enableMaritimeTrade(true);
+			} else {
+				((MaritimeTradeView)getView()).enableMaritimeTrade(false);
+			}
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

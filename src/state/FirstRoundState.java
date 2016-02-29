@@ -233,4 +233,9 @@ public class FirstRoundState implements IState {
 	public void robPlayer(RobPlayerInfo victim) {
 
 	}
+
+	@Override
+	public void maritimeTrade() {
+
+	}
 }

@@ -163,4 +163,9 @@ public class PlayingState implements IState {
     public void robPlayer(RobPlayerInfo victim) {
 
     }
+
+    @Override
+    public void maritimeTrade() {
+
+    }
 }

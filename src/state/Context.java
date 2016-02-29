@@ -99,6 +99,11 @@ public class Context implements IState {
         this.state.robPlayer(victim);
     }
 
+    @Override
+    public void maritimeTrade() {
+
+    }
+
 
     public void fromString(String status){
 
