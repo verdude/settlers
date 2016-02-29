@@ -2,6 +2,8 @@ package model;
 
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
+import state.FirstRoundState;
+import state.SecondRoundState;
 
 import java.util.Random;
 
@@ -100,10 +102,20 @@ public class Player {
 	 */
 	public void playSettlement() throws ClientException{
 			settlements--;
+		boolean firstRounds = false;
+		try {
+			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
+					ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!firstRounds) {
 			resources.setBrick(resources.getBrick() - 1);
 			resources.setWood(resources.getWood() - 1);
 			resources.setWheat(resources.getWheat() - 1);
 			resources.setSheep(resources.getSheep() - 1);
+		}
 
 		
 	}
@@ -117,6 +129,7 @@ public class Player {
 	public void playCity() throws ClientException {
 			settlements++;
 			cities--;
+
 			resources.setOre(resources.getOre() - 3);
 			resources.setWheat(resources.getWheat() - 2);
 
@@ -130,8 +143,18 @@ public class Player {
 	 */
 	public void playRoad() throws ClientException{
 			roads--;
+		boolean firstRounds = false;
+		try {
+			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
+					ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!firstRounds) {
 			resources.setBrick(resources.getBrick() - 1);
 			resources.setWood(resources.getWood() - 1);
+		}
 
 		
 	}
