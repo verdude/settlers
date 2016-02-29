@@ -84,7 +84,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 						longestRoad);
 			}
 			if (ClientFacade.getSingleton().getClientModel().canFinishTurn(localPlayer.getPlayerIndex())) {
-				getView().updateGameState("Finish turn.", true);
+				getView().updateGameState("Finish turn", true);
 			} else {
 				getView().updateGameState(ClientFacade.getSingleton().getContext().getState().toString(), false);
 			}

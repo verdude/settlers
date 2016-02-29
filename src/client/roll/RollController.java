@@ -1,5 +1,7 @@
 package client.roll;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -51,11 +53,14 @@ public class RollController extends Controller implements IRollController {
 	public void rollDice() {
 		try {
 			getResultView().setRollValue(ClientFacade.getSingleton().rollNumber());
+			if (!getResultView().isModalShowing() &&
+					ClientFacade.getSingleton().getClientModel().canRollNumber(ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex())) {
+				getResultView().showModal();
+			}
 		} catch (ClientException e) {
 			System.out.println("Problem when rolling dice");
 			e.printStackTrace();
 		}
-		getResultView().showModal();
 	}
 
 	/* (non-Javadoc)
@@ -64,18 +69,22 @@ public class RollController extends Controller implements IRollController {
 	@Override
 	public void notify(ClientModel model) {
 		if(model.getTurnTracker().getStatus().toLowerCase().contains("rolling")) {
-			if (!getRollView().isModalShowing()) {
-				getRollView().showModal();
+			try {
+				if (!getRollView().isModalShowing() &&
+						ClientFacade.getSingleton().getClientModel().canRollNumber(ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex())) {
+                    getRollView().showModal();
+                }
+			} catch (ClientException e) {
+				e.printStackTrace();
 			}
-			System.out.println("rolling timer thing");
-			ScheduledExecutorService s = Executors.newSingleThreadScheduledExecutor();
-			s.schedule(new Runnable() {
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
 			    public void run() {
-					System.out.println("auto rolling");
 					getRollView().closeModal();
 					rollDice();
+					this.cancel();
 			    }
-			}, 3, TimeUnit.SECONDS);
+			}, 3000, 3000);
 		}
 	}
 

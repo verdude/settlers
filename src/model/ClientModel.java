@@ -4,6 +4,8 @@ import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.locations.*;
 import state.FirstRoundState;
+import state.PlayingState;
+import state.RollingState;
 import state.SecondRoundState;
 
 import java.util.ArrayList;
@@ -1156,11 +1158,16 @@ public class ClientModel {
 		}
 
 		Player player = players[playerIndex];
-		if(turnTracker.getCurrentTurn() == playerIndex && (firstRounds || player.getHasRolled())){
-			return true;
-		}else{
-			return false;
+		try {
+			if(turnTracker.getCurrentTurn() == playerIndex && (firstRounds || ClientFacade.getSingleton().getContext().getState() instanceof PlayingState)){
+                return true;
+            } else {
+                return false;
+            }
+		} catch (ClientException e) {
+			e.printStackTrace();
 		}
+		return false;
 	}
 	/**
 	 * Checks the model to see if the client can play a soldier
