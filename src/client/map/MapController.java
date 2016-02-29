@@ -9,6 +9,7 @@ import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
+import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -378,14 +379,10 @@ public class MapController extends Controller implements IMapController,IObserve
 
 		//Place all of the roads front the model on the map
 		for (Road road : roads) {
-
-			int playerIndex = road.getOwner();
-			System.out.println("Road index: " + playerIndex);
-
+			
+			int playerIndex = road.getPlayerIndex();
 			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			System.out.println("1"+road.getLocation());
-			System.out.println("2"+road.getLocation());
-			getView().placeRoad(road.getLocation(), color);
+			getView().placeRoad(road.getLocation().getLocation(), color);
 		}
 
 

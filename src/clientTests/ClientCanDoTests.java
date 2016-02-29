@@ -52,7 +52,6 @@ public class ClientCanDoTests {
 		road1.setOwner(0);
 		road1.setLocation(road1Val.getLocation());
 
-
 		map = new GameMap();
 
 		map.getSettlements().add(sett1.getLocation());
@@ -119,7 +118,6 @@ public class ClientCanDoTests {
 		road2Val.setLocation(road1Loc);
 		road2.setOwner(0);
 		road2.setLocation(road2Val.getLocation());
-
 		
 		assertTrue(model.canBuildRoad(0, road2Val.getLocation(),false));
 		road2.setOwner(0);

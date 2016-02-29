@@ -542,7 +542,7 @@ public class ClientModel {
 
 				switch(roadDirection){
 				case NorthWest:
-					if(r.getOwner() == player.getPlayerID()){
+					if(r.getPlayerIndex() == player.getPlayerID()){
 						if(tempHexLoc.equals(roadHexLoc) &&  tempDirection.equals(EdgeDirection.North)){
 							return true;
 						}else if(tempHexLoc.equals(swNeighbor) &&
@@ -557,7 +557,7 @@ public class ClientModel {
 
 					break;
 				case North:
-					if(r.getOwner() == player.getPlayerID()){
+					if(r.getPlayerIndex() == player.getPlayerID()){
 						if(tempHexLoc.equals(roadHexLoc)
 								&&  (tempDirection.equals(EdgeDirection.NorthEast)
 										|| tempDirection.equals(EdgeDirection.NorthWest))){
@@ -572,7 +572,7 @@ public class ClientModel {
 					break;
 				case NorthEast:
 
-					if(r.getOwner() == player.getPlayerID()){
+					if(r.getPlayerIndex() == player.getPlayerID()){
 						if(tempHexLoc.equals(roadHexLoc) &&  tempDirection.equals(EdgeDirection.North)){
 							return true;
 						}else if(tempHexLoc.equals(seNeighbor) &&
