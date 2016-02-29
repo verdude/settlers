@@ -48,7 +48,7 @@ public class ClientCanDoTests {
 		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.NorthWest);
 		road1Val.setLocation(road1Loc);
 
-		road1.setPlayerIndex(0);
+		road1.setOwner(0);
 		road1.setLocation(road1Val);
 
 
@@ -86,7 +86,7 @@ public class ClientCanDoTests {
 		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.North);
 		road2Val.setLocation(road1Loc);
 
-		road2.setPlayerIndex(0);
+		road2.setOwner(0);
 		road2.setLocation(road2Val);
 
 		assertTrue(model.canBuildRoad(0, road2.getLocation().getLocation(),false));
@@ -116,7 +116,7 @@ public class ClientCanDoTests {
 		EdgeValue road2Val = new EdgeValue();
 		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.North);
 		road2Val.setLocation(road1Loc);
-		road2.setPlayerIndex(0);
+		road2.setOwner(0);
 		road2.setLocation(road2Val);
 
 		

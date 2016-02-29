@@ -232,7 +232,7 @@ public interface IProxy {
 	/**
 	 * Steals a card from a player
 	 * @param location The new vertexLocation of the robber
-	 * @param victimIndex The playerIndex of the person from which the card will be stolen
+	 * @param victimIndex The owner of the person from which the card will be stolen
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The robber's new vertexLocation is vertexLocation and the player at victimIndex is less one card, and that card is given to the robbing player.
 	 * @return The model

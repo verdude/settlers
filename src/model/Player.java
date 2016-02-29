@@ -326,7 +326,7 @@ public class Player {
 	}
 	
 	/**
-	 * @param playerIndex playerIndex to set (int from 0-3)
+	 * @param playerIndex owner to set (int from 0-3)
 	 */
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;

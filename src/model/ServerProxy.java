@@ -286,7 +286,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String sendChat(String playerName, String message) {
-		return post("moves/sendChat", "{\"type\": \"sendChat\", \"playerIndex\": " + playerName + ", \"content\": \"" + message + "\"}");
+		return post("moves/sendChat", "{\"type\": \"sendChat\", \"owner\": " + playerName + ", \"content\": \"" + message + "\"}");
 	}
 
 	@Override
@@ -317,7 +317,7 @@ public class ServerProxy implements IProxy {
 					break;
 			}
 		}
-		return post("moves/discardCards", "{\"type\": \"discardCards\", \"playerIndex\": " + playerIndex + ", "
+		return post("moves/discardCards", "{\"type\": \"discardCards\", \"owner\": " + playerIndex + ", "
 				+ "\"discardedCards\": {"
 				+ "\"brick\": " + brick + ", "
 				+ "\"ore\": " + ore + ", "
@@ -329,12 +329,12 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String rollNumber(int playerIndex, int number) {
-		return post("moves/rollNumber", "{\"type\": \"rollNumber\", \"playerIndex\": " + playerIndex + ", \"number\": " + number + "}");
+		return post("moves/rollNumber", "{\"type\": \"rollNumber\", \"owner\": " + playerIndex + ", \"number\": " + number + "}");
 	}
 
 	@Override
 	public String buildRoad(int playerIndex, EdgeValue roadLocation, String free) {
-		return post("moves/buildRoad", "{\"type\": \"buildRoad\", \"playerIndex\": " + playerIndex + ", "
+		return post("moves/buildRoad", "{\"type\": \"buildRoad\", \"owner\": " + playerIndex + ", "
 				+ "\"roadLocation\": {"
 				+ "\"x\": " + roadLocation.getLocation().getHexLoc().getX() + ", "
 				+ "\"y\": " + roadLocation.getLocation().getHexLoc().getY() + ", "
@@ -345,7 +345,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String buildSettlement(int playerIndex, VertexObject vertexObject, String free) {
-		return post("moves/buildSettlement", "{\"type\": \"buildSettlement\", \"playerIndex\": " + playerIndex + ", "
+		return post("moves/buildSettlement", "{\"type\": \"buildSettlement\", \"owner\": " + playerIndex + ", "
 				+ "\"vertexLocation\": {"
 				+ "\"x\": " + vertexObject.getVertexLocation().getHexLoc().getX() + ", "
 				+ "\"y\": " + vertexObject.getVertexLocation().getHexLoc().getY() + ", "
@@ -356,7 +356,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String buildCity(int playerIndex, VertexObject vertexObject) {
-		return post("moves/buildCity", "{\"type\": \"buildCity\", \"playerIndex\": " + playerIndex + ", "
+		return post("moves/buildCity", "{\"type\": \"buildCity\", \"owner\": " + playerIndex + ", "
 				+ "\"vertexLocation\": {"
 				+ "\"x\": " + vertexObject.getVertexLocation().getHexLoc().getX() + ", "
 				+ "\"y\": " + vertexObject.getVertexLocation().getHexLoc().getY() + ", "
@@ -367,7 +367,7 @@ public class ServerProxy implements IProxy {
 	@Override
 	public String offerTrade(int playerIndex, TradeOffer offer) {
 		List<Integer> offerList = offer.getOffer();
-		return post("moves/offerTrade", "{\"type\": \"offerTrade\", \"playerIndex\": " + playerIndex + ", "
+		return post("moves/offerTrade", "{\"type\": \"offerTrade\", \"owner\": " + playerIndex + ", "
 				+ "\"offer\": {"
 				+ "\"brick\": " + offerList.get(1) + ", "
 				+ "\"ore\": " + offerList.get(4) + ", "
@@ -380,13 +380,13 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String acceptTrade(int playerIndex, boolean willAccept) {
-		return post("moves/acceptTrade", "{\"type\": \"acceptTrade\", \"playerIndex\": "
+		return post("moves/acceptTrade", "{\"type\": \"acceptTrade\", \"owner\": "
 	+ playerIndex + ", \"willAccept\": " + willAccept + "}");
 	}
 
 	@Override
 	public String maritimeTrade(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource) {
-		return post("moves/maritimeTrade", "{\"type\": \"maritimeTrade\", \"playerIndex\": " + playerIndex 
+		return post("moves/maritimeTrade", "{\"type\": \"maritimeTrade\", \"owner\": " + playerIndex
 				+ ", \"ratio\": " + ratio + ", "
 				+ "\"inputResource\": \"" + inputResource.toString() + "\", "
 				+ "\"outputResource\": \"" + outputResource.toString() + "\""
@@ -395,7 +395,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String robPlayer(int playerIndex, int victimIndex, HexLocation location) {
-		return post("moves/robPlayer", "{\"type\": \"robPlayer\", \"playerIndex\": " + playerIndex 
+		return post("moves/robPlayer", "{\"type\": \"robPlayer\", \"owner\": " + playerIndex
 				+ ", \"victimIndex\": " + victimIndex + ", "
 				+ "\"vertexLocation\": {"
 				+ "\"x\": " + location.getX() + ", "
@@ -405,17 +405,17 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String finishTurn(int playerIndex) {
-		return post("moves/finishTurn", "{\"type\": \"finishTurn\", \"playerIndex\": " + playerIndex + "}");
+		return post("moves/finishTurn", "{\"type\": \"finishTurn\", \"owner\": " + playerIndex + "}");
 	}
 
 	@Override
 	public String buyDevCard(int playerIndex) {
-		return post("moves/buyDevCard", "{\"type\": \"buyDevCard\", \"playerIndex\": " + playerIndex + "}");
+		return post("moves/buyDevCard", "{\"type\": \"buyDevCard\", \"owner\": " + playerIndex + "}");
 	}
 
 	@Override
 	public String soldier(int playerIndex, int victimIndex, HexLocation location) {
-		return post("moves/Soldier", "{\"type\": \"Soldier\", \"playerIndex\": " + playerIndex 
+		return post("moves/Soldier", "{\"type\": \"Soldier\", \"owner\": " + playerIndex
 				+ ", \"victimIndex\": " + victimIndex + ", "
 				+ "\"vertexLocation\": {"
 				+ "\"x\": " + location.getX() + ", "
@@ -425,7 +425,7 @@ public class ServerProxy implements IProxy {
 	
 	@Override
 	public String yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
-		return post("moves/Year_of_Plenty", "{\"type\": \"Year_of_Plenty\", \"playerIndex\": " + playerIndex 
+		return post("moves/Year_of_Plenty", "{\"type\": \"Year_of_Plenty\", \"owner\": " + playerIndex
 				+ ", \"resource1\": " + resource1.toString()
 				+ ", \"resource2\": " + resource2.toString()
 				+ "}");
@@ -433,7 +433,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public String roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
-		return post("moves/Road_Building", "{\"type\": \"Road_Building\", \"playerIndex\": " + playerIndex + ", "
+		return post("moves/Road_Building", "{\"type\": \"Road_Building\", \"owner\": " + playerIndex + ", "
 				+ "\"spot1\": {"
 				+ "\"x\": " + spot1.getHexLoc().getX() + ", "
 				+ "\"y\": " + spot1.getHexLoc().getY() + ", "
@@ -449,11 +449,11 @@ public class ServerProxy implements IProxy {
 	@Override
 	public String monopoly(ResourceType resource, int playerIndex) {
 		return post("moves/Monopoly", "{\"type\": \"Monopoly\", \"resource\": \"" + resource.toString() 
-				+ "\", \"playerIndex\": " + playerIndex + "}");
+				+ "\", \"owner\": " + playerIndex + "}");
 	}
 
 	@Override
 	public String monument(int playerIndex) {
-		return post("moves/Monument", "{\"type\": \"Monument\", \"playerIndex\": " + playerIndex + "}");
+		return post("moves/Monument", "{\"type\": \"Monument\", \"owner\": " + playerIndex + "}");
 	}
 }

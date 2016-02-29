@@ -1,21 +1,21 @@
 package model;
 
 public class Road {
-	int playerIndex;
+	int owner;
 	EdgeValue 	location;
 	
 	public Road(){
 		location = null;
-		playerIndex = -1;
+		owner = -1;
 	}
 	
 	public Road(EdgeValue location){
 		setLocation(location);
 	}
 	
-	public int getPlayerIndex()				{ return playerIndex; 			}
+	public int getOwner()				{ return owner; 			}
 	public EdgeValue 	getLocation() 				{ return location; 			}
 	
-	public void setPlayerIndex(int id) 				{ this.playerIndex = id; 		}
+	public void setOwner(int id) 				{ this.owner = id; 		}
 	public void setLocation(EdgeValue location)		{ this.location = location; }
 }
