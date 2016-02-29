@@ -149,7 +149,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 					}
 
-					// Print Ports
+					//Print ports
 					for(int i = 0; i < ports.size(); i++){
 						PortType type = ports.get(i).getResource();
 
@@ -158,7 +158,7 @@ public class MapController extends Controller implements IMapController,IObserve
 						if(type == null){
 							type = PortType.THREE;
 						}
-						getView().addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), type);
+						getView().addPort(new EdgeLocation(ports.get(i).getLocation(), ports.get(i).getDirection()), type);
 					}
 
 					// Rounds

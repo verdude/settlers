@@ -68,42 +68,14 @@ public class ClientFacade {
 		return gameStarted;
 	}
 
-	public void setGameStarted(boolean gameStarted) {
-		this.gameStarted = gameStarted;
-	}
-
 	public int getVersion() {
 		return clientModel.getVersion();
 	}
 	
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
-		String gameState = clientModel.getTurnTracker().getStatus();
 		getContext();
-//		switch (gameState){
-//			case "Rolling":
-//				getContext().setState(new RollingState());
-//				break;
-//			case "Discarding":
-//				getContext().setState(new DiscardingState());
-//				break;
-//			case "Playing":
-//				getContext().setState(new PlayingState());
-//				break;
-//			case "Robbing":
-//				getContext().setState(new RobbingState());
-//				break;
-//			case "FirstRound":
-//				getContext().setState(new FirstRoundState());
-//				break;
-//			case "SecondRound":
-//				getContext().setState(new SecondRoundState());
-//				break;
-//			default:
-//				break;
-//
-//
-//		}
+		gameStarted = true;
 		for(IObserver observer : observers) {
 			observer.notify(clientModel);
 		}

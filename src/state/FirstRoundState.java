@@ -2,6 +2,8 @@ package state;
 
 import java.awt.EventQueue;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import model.ClientException;
 import model.ClientFacade;
@@ -108,28 +110,29 @@ public class FirstRoundState implements IState {
 
 					}
 
-					// Print Ports
-					for(int i = 0; i < ports.size(); i++){
-						PortType type = ports.get(i).getResource();
-
-						System.out.println("PortType: " + type);
-
-						if(type == null){
-							type = PortType.THREE;
-						}
-						view.addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), type);
-					}
-
 					// Rounds
 					TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
 					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
 					int localPlayerIndex = localPlayer.getPlayerIndex();
 
 					if(turnTracker.getCurrentTurn() == localPlayerIndex){
-						view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
+						//view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
 						view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
-
-						ClientFacade.getSingleton().finishTurn();
+						// Wait for the road to be placed
+						Timer roadTimer = new Timer();
+						roadTimer.schedule(new TimerTask() {
+							@Override
+							public void run() {
+								try {
+									if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() < 15) {
+										System.out.println("Timer finishing turn");
+                                        ClientFacade.getSingleton().finishTurn();
+                                    }
+								} catch (ClientException e) {
+									e.printStackTrace();
+								}
+							}
+						}, 0, 500);
 					}
 
 

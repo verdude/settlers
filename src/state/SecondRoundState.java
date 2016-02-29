@@ -44,8 +44,8 @@ public class SecondRoundState implements IState {
 					int localPlayerIndex = localPlayer.getPlayerIndex();
 
 					if(turnTracker.getCurrentTurn() == localPlayerIndex){
-						view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
-						view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
+						//view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
+						//view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
 
 						ClientFacade.getSingleton().finishTurn();
 					}
