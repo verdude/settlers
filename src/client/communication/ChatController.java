@@ -48,7 +48,6 @@ public class ChatController extends Controller implements IChatController {
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		List<LogEntry> log = new ArrayList<LogEntry>();
 		List<LogEntry> messages = new ArrayList<LogEntry>();
 		for(MessageLine line : model.getChat().getLines()) 
 		{
@@ -61,19 +60,7 @@ public class ChatController extends Controller implements IChatController {
 			}
 			messages.add(new LogEntry(color, line.getMessage()));
 		}
-		for(MessageLine line : model.getLog().getLines()) 
-		{
-			CatanColor color = CatanColor.WHITE;
-			for(Player player : model.getPlayers()) {
-				if(player.getName().toLowerCase().equals(line.getSource().toLowerCase())) {
-					color = player.getColor();
-					break;
-				}
-			}
-			log.add(new LogEntry(color, line.getMessage()));
-		}
 		getView().setEntries(messages);
-		
 	}
 
 }
