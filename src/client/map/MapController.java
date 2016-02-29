@@ -380,9 +380,9 @@ public class MapController extends Controller implements IMapController,IObserve
 		//Place all of the roads front the model on the map
 		for (Road road : roads) {
 			
-			int playerIndex = road.getPlayerIndex();
+			int playerIndex = road.getOwner();
 			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			getView().placeRoad(road.getLocation().getLocation(), color);
+			getView().placeRoad(road.getLocation(), color);
 		}
 
 

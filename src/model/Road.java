@@ -4,20 +4,20 @@ import shared.locations.EdgeLocation;
 
 public class Road {
 	EdgeLocation location;
-	int playerIndex;
+	int owner;
 	
 	public Road(){
 		location = null;
-		playerIndex = -1;
+		owner = -1;
 	}
 	
 	public Road(EdgeLocation location){
 		setLocation(location);
 	}
 	
-	public int getPlayerIndex()				{ return playerIndex; 			}
+	public int getOwner()				{ return owner; 			}
 	public EdgeLocation getLocation() 				{ return location; 			}
 	
-	public void setPlayerIndex(int id) 				{ this.playerIndex = id; 		}
+	public void setOwner(int id) 				{ this.owner = id; 		}
 	public void setLocation(EdgeLocation location)		{ this.location = location; }
 }
