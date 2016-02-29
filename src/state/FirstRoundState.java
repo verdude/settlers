@@ -10,6 +10,8 @@ import model.EdgeValue;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import client.data.PlayerInfo;
@@ -28,80 +30,7 @@ public class FirstRoundState implements IState {
 
 			@Override
 			public void run() {
-				GameMap map;
-				List<Hex> hexes;
-				List<Port> ports;
 				try {
-					map = ClientFacade.getSingleton().getClientModel().getMap();
-					hexes = map.getHexes();
-					ports = map.getPorts();
-
-					if(hexes.size() < 1){
-						return;
-					}
-
-					// Print Hexes
-					for(int i = 0; i < hexes.size(); i++){
-						String type = hexes.get(i).getResource();
-
-						if(type == null){
-							type = "DESERT";
-						}
-
-						HexType hexType = HexType.valueOf(type.trim().toUpperCase());
-						HexLocation hexLoc = new HexLocation(hexes.get(i).getLocation().getX(), hexes.get(i).getLocation().getY());
-						view.addHex(hexLoc, hexType);
-					}
-
-					// Print WaterHexes
-					for(int x = -3; x < 4; x++){
-
-						// left side
-						if(x == -3){
-							for(int y = 0; y < 4; y++){
-								view.addHex(new HexLocation(x, y), HexType.WATER);
-							}
-						}
-
-						// right side
-						else if(x == 3){
-							for(int y = 0; y > -4; y--){
-								view.addHex(new HexLocation(x, y), HexType.WATER);
-							}
-						}
-
-						else if(x == -2){
-							// y: -1, 3
-							view.addHex(new HexLocation(x, -1), HexType.WATER);
-							view.addHex(new HexLocation(x, 3), HexType.WATER);
-						}
-
-						else if(x == -1 ){
-							// y: -2, 3
-							view.addHex(new HexLocation(x, -2), HexType.WATER);
-							view.addHex(new HexLocation(x, 3), HexType.WATER);
-						}
-
-						else if(x == 0){
-							// y: -3, 3
-							view.addHex(new HexLocation(x, -3), HexType.WATER);
-							view.addHex(new HexLocation(x, 3), HexType.WATER);
-						}  
-
-						else if(x == 1){
-							// y: -3, 2
-							view.addHex(new HexLocation(x, -3), HexType.WATER);
-							view.addHex(new HexLocation(x, 2), HexType.WATER);
-						} 
-
-						else if(x == 2){
-							// y: -3, 1
-							view.addHex(new HexLocation(x, -3), HexType.WATER);
-							view.addHex(new HexLocation(x, 1), HexType.WATER);
-						} 
-
-					}
-
 					// Rounds
 					TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
 					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
@@ -109,15 +38,21 @@ public class FirstRoundState implements IState {
 
 					if(turnTracker.getCurrentTurn() == localPlayerIndex){
 						// Wait for the road to be placed
-						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() < 15) {
-							view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
+						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 15) {
+							startMove(PieceType.ROAD, true, true, view);
 						}
+						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 5) {
+							startMove(PieceType.SETTLEMENT, true, true, view);
+						}
+
 						Timer roadTimer = new Timer();
 						roadTimer.schedule(new TimerTask() {
 							@Override
 							public void run() {
 								try {
-									if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() < 15) {
+									System.out.println("Checking road");
+									if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() < 15 &&
+											ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() < 5) {
 										System.out.println("Timer finishing turn");
                                         ClientFacade.getSingleton().finishTurn();
 										this.cancel();
@@ -128,8 +63,6 @@ public class FirstRoundState implements IState {
 							}
 						}, 0, 500);
 					}
-
-
 				} catch (ClientException e) {
 					e.printStackTrace();
 				}
@@ -216,13 +149,20 @@ public class FirstRoundState implements IState {
 			e.printStackTrace();
 		}
 
-		System.out.println("CanBuildRoad: " + canDo);
 		return canDo;
 	}
 
 	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		return false;
+		boolean canDo = false;
+		try {
+			int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+			canDo = ClientFacade.getSingleton().getClientModel().canBuildSettlement(localPlayerIndex, vertLoc, true);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+		return canDo;
 	}
 
 	@Override
@@ -255,7 +195,22 @@ public class FirstRoundState implements IState {
 
 	@Override
 	public void placeSettlement(VertexLocation vertLoc, IMapView view) {
-		// TODO: Call ClientFacade placeSettlement
+		// TODO: Call ClientFacade place Settlement
+		int playerIndex;
+		try {
+			playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+
+			VertexObject vertexObject = new VertexObject();
+			vertexObject.setVertexLocation(vertLoc);
+			vertexObject.setOwner(playerIndex);
+			EdgeLocation edgeLocation = new EdgeLocation(vertLoc.getHexLoc(), EdgeDirection.North.fromString(vertLoc.getDirection().toString()));
+			vertexObject.setLocation(edgeLocation);
+
+			ClientFacade.getSingleton().buildSettlement(vertexObject, "true");
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

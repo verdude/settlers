@@ -159,8 +159,6 @@ public class MapController extends Controller implements IMapController,IObserve
 					for(int i = 0; i < ports.size(); i++){
 						PortType type = ports.get(i).getResource();
 
-						System.out.println("PortType: " + type);
-
 						if(type == null){
 							type = PortType.THREE;
 						}
@@ -178,43 +176,41 @@ public class MapController extends Controller implements IMapController,IObserve
 //
 //						ClientFacade.getSingleton().finishTurn(localPlayerIndex);
 //					}
-					startMove(PieceType.SETTLEMENT,true,true);
-					startMove(PieceType.ROAD,true,true);
 
 //					ClientFacade.getSingleton().getContext().startMove(PieceType.SETTLEMENT,true,true,getView());
 //					ClientFacade.getSingleton().getContext().startMove(PieceType.SETTLEMENT,true,true,getView());
 
-                List<VertexObject> cities = model.getMap().getCities();
-                        List<VertexObject> settlements = model.getMap().getSettlements();
-                        List<Road> roads = model.getMap().getRoads();
+                    List<VertexObject> cities = model.getMap().getCities();
+                    List<VertexObject> settlements = model.getMap().getSettlements();
+                    List<Road> roads = model.getMap().getRoads();
 
-                        //Place all of the cities front the model on the map
-                        for (VertexObject city : cities) {
+                    //Place all of the cities front the model on the map
+                    for (VertexObject city : cities) {
 
-                            int playerIndex = city.getOwner();
-                            CatanColor color = model.getPlayers()[playerIndex].getColor();
-                            getView().placeCity(city.getVertexLocation(), color);
-                        }
+                        int playerIndex = city.getOwner();
+                        CatanColor color = model.getPlayers()[playerIndex].getColor();
+                        getView().placeCity(city.getVertexLocation(), color);
+                    }
 
-                        //Place all of the settlements front the model on the map
-                        for (VertexObject settlement : settlements) {
+                    //Place all of the settlements front the model on the map
+                    for (VertexObject settlement : settlements) {
 
-                            int playerIndex = settlement.getOwner();
-                            CatanColor color = model.getPlayers()[playerIndex].getColor();
-                            getView().placeSettlement(settlement.getVertexLocation(), color);
-                        }
+                        int playerIndex = settlement.getOwner();
+                        CatanColor color = model.getPlayers()[playerIndex].getColor();
+                        getView().placeSettlement(settlement.getVertexLocation(), color);
+                    }
 
-                        //Place all of the roads front the model on the map
-                        for (Road road : roads) {
+                    //Place all of the roads front the model on the map
+                    for (Road road : roads) {
 
-                            int playerIndex = road.getOwner();
-                            System.out.println("Road index: " + playerIndex);
+                        int playerIndex = road.getOwner();
+                        System.out.println("Road index: " + playerIndex);
 
-                            CatanColor color = model.getPlayers()[playerIndex].getColor();
-                            System.out.println("1"+road.getLocation());
-                            System.out.println("2"+road.getLocation());
-                            getView().placeRoad(road.getLocation(), color);
-                        }
+                        CatanColor color = model.getPlayers()[playerIndex].getColor();
+                        System.out.println("1"+road.getLocation());
+                        System.out.println("2"+road.getLocation());
+                        getView().placeRoad(road.getLocation(), color);
+                    }
 
 				} catch (ClientException e) {
 					e.printStackTrace();
@@ -248,7 +244,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 		boolean canDo = false;
 		try {
-			ClientFacade.getSingleton().getContext().canPlaceSettlement(vertLoc);
+			canDo = ClientFacade.getSingleton().getContext().canPlaceSettlement(vertLoc);
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -359,41 +355,11 @@ public class MapController extends Controller implements IMapController,IObserve
 
 		this.model = model;
 		initFromModel();
-
-
-		List<VertexObject> cities = model.getMap().getCities();
-		List<VertexObject> settlements = model.getMap().getSettlements();
-		List<Road> roads = model.getMap().getRoads();
-
-
-		//Place all of the cities front the model on the map
-		for (VertexObject city : cities) {
-
-			int playerIndex = city.getOwner();
-			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			getView().placeCity(city.getVertexLocation(), color);
+		try {
+			ClientFacade.getSingleton().getContext().initFromModel(getView());
+		} catch (ClientException e) {
+			e.printStackTrace();
 		}
-
-		//Place all of the settlements front the model on the map
-		for (VertexObject settlement : settlements) {
-
-			int playerIndex = settlement.getOwner();
-			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			getView().placeSettlement(settlement.getVertexLocation(), color);
-		}
-
-		//Place all of the roads front the model on the map
-		for (Road road : roads) {
-			
-			int playerIndex = road.getOwner();
-			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			getView().placeRoad(road.getLocation(), color);
-		}
-
-
-
-
-
 	}
 }
 

@@ -33,26 +33,6 @@ public class SecondRoundState implements IState {
 
 			@Override
 			public void run() {
-				GameMap map;
-
-				// Rounds
-				TurnTracker turnTracker;
-				try {
-					turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
-
-					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
-					int localPlayerIndex = localPlayer.getPlayerIndex();
-
-					if(turnTracker.getCurrentTurn() == localPlayerIndex){
-						//view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
-						//view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
-						System.out.println("in second round");
-						//ClientFacade.getSingleton().finishTurn();
-					}
-				} catch (ClientException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		});
 

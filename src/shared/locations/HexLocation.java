@@ -91,6 +91,6 @@ public class HexLocation
 	{
 		this.y = y;
 	}
-	
+
 }
 

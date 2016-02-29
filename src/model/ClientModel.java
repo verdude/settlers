@@ -390,8 +390,7 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildRoad(int playerIndex, shared.locations.EdgeLocation newLocation, boolean isFree) {
-		System.out.println("Called Big Cando for ROAD");
-		
+
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
@@ -620,7 +619,17 @@ public class ClientModel {
 		VertexLocation settLoc = vertex.getNormalizedLocation();
 		VertexDirection settDir = settLoc.getDirection();
 
-		if(turnTracker.getCurrentTurn() != playerIndex  || !player.getHasRolled()){
+		boolean firstRounds = false;
+
+		try {
+			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
+						  ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if((turnTracker.getCurrentTurn() != playerIndex  || !player.getHasRolled()) && !firstRounds){
 			return false;
 
 		}
@@ -657,8 +666,10 @@ public class ClientModel {
 			for(Road r : map.getRoads()){
 
 				if(r.getOwner() == player.getPlayerID()){
-					HexLocation tempHexLoc = r.getLocation().getHexLoc();
-					EdgeDirection tempDir = r.getLocation().getDirection();
+					EdgeLocation tempLocation = r.getLocation().getNormalizedLocation();
+					HexLocation tempHexLoc = tempLocation.getHexLoc();
+					EdgeDirection tempDir = tempLocation.getDirection();
+
 
 					switch(settDir){
 					

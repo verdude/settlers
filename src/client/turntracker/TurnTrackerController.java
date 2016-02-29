@@ -53,7 +53,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void notify(ClientModel model) {
 		try {
-			System.out.println("notified turn tracker");
 			if (ClientFacade.getSingleton().getGameStarted() == false) {
 				System.out.println("Returned in turn tracker. Game not started");
 				return;
