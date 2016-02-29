@@ -16,4 +16,5 @@ public class City {
 	
 	public void setPlayerIndex(int id) 				{ this.playerIndex = id; 		}
 	public void setLocation(VertexObject location)	{ this.location = location; }
+
 }

@@ -1,18 +1,14 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import shared.locations.*;
 import state.FirstRoundState;
 import state.PlayingState;
 import state.SecondRoundState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientModel {
 
@@ -1039,6 +1035,7 @@ public class ClientModel {
 		if(player.getCities() > 0 && resources.getOre() >= 3 && resources.getWheat() >= 2){
 		
 			for(VertexObject s : map.getSettlements()){
+
 
 				//If there is a settlement at the vertexLocation and the player is the owner of the settlement
 				if(s.getVertexLocation().getNormalizedLocation().equals(cityLoc) && s.getOwner() == player.getPlayerIndex()){

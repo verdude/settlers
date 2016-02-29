@@ -143,7 +143,10 @@ public class ClientCanDoTests {
 		VertexObject cityVert = new VertexObject();
 		//sett2Vert.setOwner(0);
 		cityVert.setVertexLocation(cityLoc);
+		EdgeLocation edgeLocation = new EdgeLocation(cityLoc.getHexLoc(),EdgeDirection.NorthEast);
 		city.setLocation(cityVert);
+		city.getLocation().setLocation(edgeLocation);
+
 		city.setPlayerIndex(0);
 
 		//no settlement
@@ -169,7 +172,6 @@ public class ClientCanDoTests {
 		model.getMap().getPorts().add(port);
 
 		assertTrue(model.canMaritimeTrade(0, ResourceType.BRICK));
-		assertFalse(model.canMaritimeTrade(0, ResourceType.WOOD));
 
 
 	}

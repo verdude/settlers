@@ -29,6 +29,9 @@ public class VertexObject {
 		public int 	getOwner() 								{ return owner; 			}
 		public VertexLocation getVertexLocation()					{
 
+			if(vertexLocation != null && vertexLocation.getDirection() != null){
+				return vertexLocation;
+			}
 			if(location.getDirection() != null) {
 				return location.toVertexLocation();
 			}else{
