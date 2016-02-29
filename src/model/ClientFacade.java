@@ -223,7 +223,7 @@ public class ClientFacade {
 				e.printStackTrace();
 				return false;
 			}
-			String model = proxy.sendChat(playerName, message);
+			String model = proxy.sendChat(localPlayer.getPlayerIndex(), message);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
 		return canDo;

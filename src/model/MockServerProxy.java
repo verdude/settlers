@@ -782,7 +782,7 @@ public class MockServerProxy implements IProxy {
 	}
 
 	@Override
-	public String sendChat(String playerName, String message) {
+	public String sendChat(int playerIndex, String message) {
 		return gamesModel("");
 	}
 
