@@ -227,7 +227,7 @@ public class ClientFacadeTest {
 	@Test
 	public void buildSettlementTest() {
 		VertexObject vertexObject = new VertexObject();
-		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
+		vertexObject.setVertexLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
 		vertexObject.setOwner(0);
 		assertTrue(facade.buildSettlement(vertexObject, "true"));
 	}
@@ -235,7 +235,7 @@ public class ClientFacadeTest {
 	@Test
 	public void buildCityTest() {
 		VertexObject vertexObject = new VertexObject();
-		vertexObject.setLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
+		vertexObject.setVertexLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
 		vertexObject.setOwner(0);
 
 		Settlement settlement = new Settlement();

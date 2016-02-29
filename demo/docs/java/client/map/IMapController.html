@@ -9,7 +9,7 @@
 </head>
 <body>
 <script type="text/javascript"><!--
-    if (location.href.indexOf('is-external=true') == -1) {
+    if (vertexLocation.href.indexOf('is-external=true') == -1) {
         parent.document.title="IMapController";
     }
 //-->
@@ -237,8 +237,8 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <div class="block">This method is called whenever the user is trying to place a road on the
  map. It is called by the view for each "mouse move" event. The returned
  value tells the view whether or not to allow the road to be placed at the
- specified location.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The proposed road location</dd>
+ specified vertexLocation.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The proposed road vertexLocation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the road can be placed at edgeLoc, false otherwise</dd></dl>
 </li>
 </ul>
@@ -252,8 +252,8 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <div class="block">This method is called whenever the user is trying to place a settlement
  on the map. It is called by the view for each "mouse move" event. The
  returned value tells the view whether or not to allow the settlement to
- be placed at the specified location.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The proposed settlement location</dd>
+ be placed at the specified vertexLocation.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The proposed settlement vertexLocation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the settlement can be placed at vertLoc, false otherwise</dd></dl>
 </li>
 </ul>
@@ -267,8 +267,8 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <div class="block">This method is called whenever the user is trying to place a city on the
  map. It is called by the view for each "mouse move" event. The returned
  value tells the view whether or not to allow the city to be placed at the
- specified location.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The proposed city location</dd>
+ specified vertexLocation.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The proposed city vertexLocation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the city can be placed at vertLoc, false otherwise</dd></dl>
 </li>
 </ul>
@@ -282,8 +282,8 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <div class="block">This method is called whenever the user is trying to place the robber on
  the map. It is called by the view for each "mouse move" event. The
  returned value tells the view whether or not to allow the robber to be
- placed at the specified location.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The proposed robber location</dd>
+ placed at the specified vertexLocation.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The proposed robber vertexLocation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the robber can be placed at hexLoc, false otherwise</dd></dl>
 </li>
 </ul>
@@ -295,7 +295,7 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <h4>placeRoad</h4>
 <pre>void&nbsp;placeRoad(<a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a>&nbsp;edgeLoc)</pre>
 <div class="block">This method is called when the user clicks the mouse to place a road.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The road location</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The road vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="placeSettlement(shared.locations.VertexLocation)">
@@ -307,7 +307,7 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <pre>void&nbsp;placeSettlement(<a href="../../shared/locations/VertexLocation.html" title="class in shared.locations">VertexLocation</a>&nbsp;vertLoc)</pre>
 <div class="block">This method is called when the user clicks the mouse to place a
  settlement.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The settlement location</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The settlement vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="placeCity(shared.locations.VertexLocation)">
@@ -318,7 +318,7 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <h4>placeCity</h4>
 <pre>void&nbsp;placeCity(<a href="../../shared/locations/VertexLocation.html" title="class in shared.locations">VertexLocation</a>&nbsp;vertLoc)</pre>
 <div class="block">This method is called when the user clicks the mouse to place a city.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The city location</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The city vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="placeRobber(shared.locations.HexLocation)">
@@ -329,7 +329,7 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <h4>placeRobber</h4>
 <pre>void&nbsp;placeRobber(<a href="../../shared/locations/HexLocation.html" title="class in shared.locations">HexLocation</a>&nbsp;hexLoc)</pre>
 <div class="block">This method is called when the user clicks the mouse to place the robber.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The robber location</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The robber vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="startMove(shared.definitions.PieceType, boolean, boolean)">

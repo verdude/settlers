@@ -289,7 +289,7 @@ public class ClientFacade {
 	/**
 	 * Places a road on the map
 	 * @param free Whether the piece was free of cost
-	 * @param roadLocation The new location for the road
+	 * @param roadLocation The new vertexLocation for the road
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
 	 * @return Whether it was attempted
@@ -317,7 +317,7 @@ public class ClientFacade {
 	 * 
 	 * Builds a new settlement on the map
 	 * @param free Whether the settlement was free of cost
-	 * @param vertexObject The new location of the settlement
+	 * @param vertexObject The new vertexLocation of the settlement
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
@@ -325,7 +325,7 @@ public class ClientFacade {
 	public boolean buildSettlement(VertexObject vertexObject, String free) {
 		boolean isFree = free.equals("true");
 		int playerIndex = localPlayer.getPlayerIndex();
-		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject.getLocation(), isFree);
+		boolean canDo = clientModel.canBuildSettlement(playerIndex, vertexObject.getVertexLocation(), isFree);
 		if(canDo)
 		{
 			try {
@@ -343,14 +343,14 @@ public class ClientFacade {
 
 	/**
 	 * Builds a new city on the map
-	 * @param vertexObject The location of the city to be built
+	 * @param vertexObject The vertexLocation of the city to be built
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
 	public boolean buildCity(VertexObject vertexObject) {
 		int playerIndex = localPlayer.getPlayerIndex();
-		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject.getLocation());
+		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject.getVertexLocation());
 		if(canDo)
 		{
 			try {
@@ -406,10 +406,10 @@ public class ClientFacade {
 
 	/**
 	 * Steals a card from a player
-	 * @param location The new location of the robber
+	 * @param location The new vertexLocation of the robber
 	 * @param victimIndex The playerIndex of the person from which the card will be stolen
 	 * @pre The corresponding "canDo" method returns true.
-	 * @post The robber's new location is location and the player at victimIndex is less one card, and that card is given to the robbing player.
+	 * @post The robber's new vertexLocation is vertexLocation and the player at victimIndex is less one card, and that card is given to the robbing player.
 	 * @return Whether it was attempted
 	 */
 	public boolean robPlayer(int victimIndex, HexLocation location) {
@@ -477,10 +477,10 @@ public class ClientFacade {
 
 	/**
 	 * A Soldier card is played
-	 * @param location The new robber location
+	 * @param location The new robber vertexLocation
 	 * @param victimIndex The player from which you are stealing a card
 	 * @pre The corresponding "canDo" method returns true.
-	 * @post The robber is placed in location, receiving that as a new location, and the victimIndex-player is less one card which is added to the player's hand who played the soldier card.
+	 * @post The robber is placed in vertexLocation, receiving that as a new vertexLocation, and the victimIndex-player is less one card which is added to the player's hand who played the soldier card.
 	 * @return Whether it was attempted
 	 */
 	public boolean soldier(int victimIndex, HexLocation location) {

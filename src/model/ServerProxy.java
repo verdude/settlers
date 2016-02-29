@@ -338,7 +338,7 @@ public class ServerProxy implements IProxy {
 				+ "\"roadLocation\": {"
 				+ "\"x\": " + roadLocation.getLocation().getHexLoc().getX() + ", "
 				+ "\"y\": " + roadLocation.getLocation().getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + roadLocation.getLocation().getDir().toString() + "\""
+				+ "\"direction\": \"" + roadLocation.getLocation().getDirection().toString() + "\""
 				+ "}, "
 				+ "\"free\": " + free + "}");
 	}
@@ -347,9 +347,9 @@ public class ServerProxy implements IProxy {
 	public String buildSettlement(int playerIndex, VertexObject vertexObject, String free) {
 		return post("moves/buildSettlement", "{\"type\": \"buildSettlement\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"vertexLocation\": {"
-				+ "\"x\": " + vertexObject.getLocation().getHexLoc().getX() + ", "
-				+ "\"y\": " + vertexObject.getLocation().getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + vertexObject.getLocation().getDirection().toString() + "\""
+				+ "\"x\": " + vertexObject.getVertexLocation().getHexLoc().getX() + ", "
+				+ "\"y\": " + vertexObject.getVertexLocation().getHexLoc().getY() + ", "
+				+ "\"direction\": \"" + vertexObject.getVertexLocation().getDirection().toString() + "\""
 				+ "}, "
 				+ "\"free\": " + free + "}");
 	}
@@ -358,9 +358,9 @@ public class ServerProxy implements IProxy {
 	public String buildCity(int playerIndex, VertexObject vertexObject) {
 		return post("moves/buildCity", "{\"type\": \"buildCity\", \"playerIndex\": " + playerIndex + ", "
 				+ "\"vertexLocation\": {"
-				+ "\"x\": " + vertexObject.getLocation().getHexLoc().getX() + ", "
-				+ "\"y\": " + vertexObject.getLocation().getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + vertexObject.getLocation().getDirection().toString() + "\""
+				+ "\"x\": " + vertexObject.getVertexLocation().getHexLoc().getX() + ", "
+				+ "\"y\": " + vertexObject.getVertexLocation().getHexLoc().getY() + ", "
+				+ "\"direction\": \"" + vertexObject.getVertexLocation().getDirection().toString() + "\""
 				+ "}}");
 	}
 
@@ -397,7 +397,7 @@ public class ServerProxy implements IProxy {
 	public String robPlayer(int playerIndex, int victimIndex, HexLocation location) {
 		return post("moves/robPlayer", "{\"type\": \"robPlayer\", \"playerIndex\": " + playerIndex 
 				+ ", \"victimIndex\": " + victimIndex + ", "
-				+ "\"location\": {"
+				+ "\"vertexLocation\": {"
 				+ "\"x\": " + location.getX() + ", "
 				+ "\"y\": " + location.getY()
 				+ "}}");
@@ -417,7 +417,7 @@ public class ServerProxy implements IProxy {
 	public String soldier(int playerIndex, int victimIndex, HexLocation location) {
 		return post("moves/Soldier", "{\"type\": \"Soldier\", \"playerIndex\": " + playerIndex 
 				+ ", \"victimIndex\": " + victimIndex + ", "
-				+ "\"location\": {"
+				+ "\"vertexLocation\": {"
 				+ "\"x\": " + location.getX() + ", "
 				+ "\"y\": " + location.getY()
 				+ "}}");
@@ -437,12 +437,12 @@ public class ServerProxy implements IProxy {
 				+ "\"spot1\": {"
 				+ "\"x\": " + spot1.getHexLoc().getX() + ", "
 				+ "\"y\": " + spot1.getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + spot1.getDir().toString() + "\""
+				+ "\"direction\": \"" + spot1.getDirection().toString() + "\""
 				+ "}, "
 				+ "\"spot2\": {"
 				+ "\"x\": " + spot2.getHexLoc().getX() + ", "
 				+ "\"y\": " + spot2.getHexLoc().getY() + ", "
-				+ "\"direction\": \"" + spot2.getDir().toString() + "\""
+				+ "\"direction\": \"" + spot2.getDirection().toString() + "\""
 				+ "}}");
 	}
 

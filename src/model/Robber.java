@@ -10,9 +10,9 @@ public class Robber {
 	}
 	
 	/**	Moves the Robber when the player rolls 7
-	 * @pre		Robber has a valid location
-	 * post		New location is not the same as old location
-	 * @param location, The new hex location for the robber
+	 * @pre		Robber has a valid vertexLocation
+	 * post		New vertexLocation is not the same as old vertexLocation
+	 * @param location, The new hex vertexLocation for the robber
 	 * @throws ClientException if this function runs and dies when it shoouldn't
 	 */
 	public void move(HexLocation location) throws GameMapException{}

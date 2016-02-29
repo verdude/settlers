@@ -300,12 +300,12 @@ catan.map.Controller = (function catan_controller_namespace() {
 		/**
 		 This method is called whenever the user is trying to place a piece on the map. 
          It is called by the view for each &quot;mouse move&quot; event.  
-         The returned value tells the view whether or not to allow the piece to be &quot;dropped&quot; at the current location.
+         The returned value tells the view whether or not to allow the piece to be &quot;dropped&quot; at the current vertexLocation.
 
-		 @param {MapLocation} loc The location being considered for piece placement
+		 @param {MapLocation} loc The vertexLocation being considered for piece placement
 		 @param {String} type The type of piece the player is trying to place (&quot;robber&quot;,&quot;road&quot;,&quot;settlement&quot;,&quot;city&quot;)
 		 @method onDrag
-		 @return {boolean} Whether or not the given piece can be placed at the current location.
+		 @return {boolean} Whether or not the given piece can be placed at the current vertexLocation.
 		*/
 		MapController.prototype.onDrag = function (loc, type) {
 		};
@@ -314,7 +314,7 @@ catan.map.Controller = (function catan_controller_namespace() {
 		 This method is called when the user clicks the mouse to place a piece.
          This method should close the modal and possibly trigger the Rob View.
 
-		 @param {MapLocation} loc The location where the piece is being placed
+		 @param {MapLocation} loc The vertexLocation where the piece is being placed
 		 @param {String} type The type of piece being placed (&quot;robber&quot;,&quot;road&quot;,&quot;settlement&quot;,&quot;city&quot;)
 		 @method onDrop
 		*/

@@ -36,7 +36,7 @@ public class ClientCanDoTests {
 
 		VertexObject sett1Vert = new VertexObject();
 		sett1Vert.setOwner(0);
-		sett1Vert.setLocation(sett1Loc);
+		sett1Vert.setVertexLocation(sett1Loc);
 		sett1.setLocation(sett1Vert);
 		sett1.setPlayerIndex(0);
 
@@ -104,11 +104,11 @@ public class ClientCanDoTests {
 
 		VertexObject sett2Vert = new VertexObject();
 		//sett2Vert.setOwner(0);
-		sett2Vert.setLocation(sett1Loc);
+		sett2Vert.setVertexLocation(sett1Loc);
 		sett2.setLocation(sett2Vert);
 		sett2.setPlayerIndex(0);
 
-				assertFalse(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation(),false));
+				assertFalse(model.canBuildSettlement(0, sett2Vert.getVertexLocation().getNormalizedLocation(),false));
 
 
 		Road road2 = new Road();
@@ -129,7 +129,7 @@ public class ClientCanDoTests {
 
 
 		
-		assertTrue(model.canBuildSettlement(0, sett2Vert.getLocation().getNormalizedLocation(),false));
+		assertTrue(model.canBuildSettlement(0, sett2Vert.getVertexLocation().getNormalizedLocation(),false));
 
 
 
@@ -143,21 +143,21 @@ public class ClientCanDoTests {
 
 		VertexObject cityVert = new VertexObject();
 		//sett2Vert.setOwner(0);
-		cityVert.setLocation(cityLoc);
+		cityVert.setVertexLocation(cityLoc);
 		city.setLocation(cityVert);
 		city.setPlayerIndex(0);
 
 		//no settlement
-		assertFalse(model.canBuildCity(0, cityVert.getLocation()));
+		assertFalse(model.canBuildCity(0, cityVert.getVertexLocation()));
 
 		cityLoc = new VertexLocation(new HexLocation(0,0), VertexDirection.NorthEast);
 
 		cityVert = new VertexObject();
 		//sett2Vert.setOwner(0);
-		cityVert.setLocation(cityLoc);
+		cityVert.setVertexLocation(cityLoc);
 		city.setLocation(cityVert);
 		city.setPlayerIndex(0);
-		assertTrue(model.canBuildCity(0, cityVert.getLocation()));
+		assertTrue(model.canBuildCity(0, cityVert.getVertexLocation()));
 
 	}
 

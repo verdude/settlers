@@ -1,22 +1,35 @@
 package model;
 
+import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 
 public class VertexObject {
-	int owner; // The index of the player that owns the vertex
-	VertexLocation location;
+		int owner; // The index of the player that owns the vertex
+		VertexLocation vertexLocation;
+		EdgeLocation location;
 
 
-	public VertexObject(){
-		owner = -1;
-		//...
+	public EdgeLocation getLocation() {
+		return location;
 	}
 
-	// Getters
-	public int 	getOwner() 								{ return owner; 			}
-	public VertexLocation getLocation()					{ return location; 			}
+	public void setLocation(EdgeLocation location) {
+		this.location = location;
+	}
 
-	// Setters
-	public void setOwner(int owner) 					{ this.owner = owner; 		}
-	public void setLocation(VertexLocation location) 	{ this.location = location; }
+
+		public VertexObject(){
+			owner = -1;
+//			location = new EdgeLocation(new HexLocation(0,0), EdgeDirection.North);
+//			vertexLocation = location.toVertexLocation();
+			//...
+		}
+
+		// Getters
+		public int 	getOwner() 								{ return owner; 			}
+		public VertexLocation getVertexLocation()					{ return vertexLocation; 			}
+
+		// Setters
+		public void setOwner(int owner) 					{ this.owner = owner; 		}
+		public void setVertexLocation(VertexLocation vertexLocation) 	{ this.vertexLocation = vertexLocation; }
 }

@@ -116,7 +116,12 @@ public class VertexLocation
 				return null;
 		}
 	}
-
+//	public EdgeLocation toEdgeLoc(){
+//
+//		String dir = this.getNormalizedLocation().toString();
+//		EdgeLocation edgeLocation = new EdgeLocation(getHexLoc(),EdgeDirection.North.fromString(dir));
+//		return edgeLocation;
+//	}
 
 }
 

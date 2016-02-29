@@ -9,7 +9,7 @@
 </head>
 <body>
 <script type="text/javascript"><!--
-    if (location.href.indexOf('is-external=true') == -1) {
+    if (vertexLocation.href.indexOf('is-external=true') == -1) {
         parent.document.title="VertexLocation";
     }
 //-->
@@ -97,7 +97,7 @@
 <br>
 <pre>public class <span class="strong">VertexLocation</span>
 extends java.lang.Object</pre>
-<div class="block">Represents the location of a vertex on a hex map</div>
+<div class="block">Represents the vertexLocation of a vertex on a hex map</div>
 </li>
 </ul>
 </div>
@@ -117,7 +117,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><strong><a href="../../shared/locations/VertexLocation.html#VertexLocation(shared.locations.HexLocation, shared.locations.VertexDirection)">VertexLocation</a></strong>(<a href="../../shared/locations/HexLocation.html" title="class in shared.locations">HexLocation</a>&nbsp;hexLoc,
-              <a href="../../shared/locations/VertexDirection.html" title="enum in shared.locations">VertexDirection</a>&nbsp;dir)</code>&nbsp;</td>
+              <a href="../../shared/locations/VertexDirection.html" title="enum in shared.locations">VertexDirection</a>&nbsp;direction)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -149,7 +149,7 @@ extends java.lang.Object</pre>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../shared/locations/VertexLocation.html" title="class in shared.locations">VertexLocation</a></code></td>
 <td class="colLast"><code><strong><a href="../../shared/locations/VertexLocation.html#getNormalizedLocation()">getNormalizedLocation</a></strong>()</code>
-<div class="block">Returns a canonical (i.e., unique) value for this vertex location.</div>
+<div class="block">Returns a canonical (i.e., unique) value for this vertex vertexLocation.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -189,7 +189,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>VertexLocation</h4>
 <pre>public&nbsp;VertexLocation(<a href="../../shared/locations/HexLocation.html" title="class in shared.locations">HexLocation</a>&nbsp;hexLoc,
-              <a href="../../shared/locations/VertexDirection.html" title="enum in shared.locations">VertexDirection</a>&nbsp;dir)</pre>
+              <a href="../../shared/locations/VertexDirection.html" title="enum in shared.locations">VertexDirection</a>&nbsp;direction)</pre>
 </li>
 </ul>
 </li>
@@ -264,11 +264,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getNormalizedLocation</h4>
 <pre>public&nbsp;<a href="../../shared/locations/VertexLocation.html" title="class in shared.locations">VertexLocation</a>&nbsp;getNormalizedLocation()</pre>
-<div class="block">Returns a canonical (i.e., unique) value for this vertex location. Since
+<div class="block">Returns a canonical (i.e., unique) value for this vertex vertexLocation. Since
  each vertex has three different locations on a map, this method converts
- a vertex location to a single canonical form. This is useful for using
+ a vertex vertexLocation to a single canonical form. This is useful for using
  vertex locations as map keys.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>Normalized vertex location</dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>Normalized vertex vertexLocation</dd></dl>
 </li>
 </ul>
 </li>

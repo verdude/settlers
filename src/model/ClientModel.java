@@ -383,7 +383,7 @@ public class ClientModel {
 	}
 	/**
 	 * Checks the model to see if the client can build a road 
-	 * @param newLocation of type EdgeValue it is assumed that the location is normalized.
+	 * @param newLocation of type EdgeValue it is assumed that the vertexLocation is normalized.
 	 * @param playerIndex the index of the player playing the road
 	 * @pre None
 	 * @post True if client can perform buildRoad
@@ -395,7 +395,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
-		//EdgeLocation newLocation = edgeValue.getLocation();
+		//EdgeLocation newLocation = edgeValue.getVertexLocation();
 
 		int roads = player.getRoads();
 //		if(edgeValue.getOwner() >= 0){//If there is already an owner
@@ -410,7 +410,7 @@ public class ClientModel {
 			if(x == newLocation.getHexLoc().getX() && y == newLocation.getHexLoc().getY()){
 				if(newLocation.getNormalizedLocation().equals(road.getLocation().getLocation().getNormalizedLocation())){
 					
-					System.out.println("Invalid road location!");
+					System.out.println("Invalid road vertexLocation!");
 					return false;
 				}
 			}
@@ -436,28 +436,28 @@ public class ClientModel {
 				EdgeLocation tempEdgeLocation = tempEdgeValue.getLocation();
 
 				if(tempEdgeLocation.equals(newLocation)){// If a road already has this edgeLocation
-					System.out.println("There is a road at this location!");
+					System.out.println("There is a road at this vertexLocation!");
 					return false;
 				}
 
 			}
 			//
 			for(VertexObject s : map.getSettlements()){
-				EdgeDirection roadDirection = newLocation.getDir();
-				VertexDirection settlementDirection = s.getLocation().getDirection();
+				EdgeDirection roadDirection = newLocation.getDirection();
+				VertexDirection settlementDirection = s.getVertexLocation().getDirection();
 
 				switch(roadDirection){
 				case NorthWest:
 					if((settlementDirection.equals(VertexDirection.NorthWest) || settlementDirection.equals(VertexDirection.West))
 							&& s.getOwner() == player.getPlayerID()){
-						if(s.getLocation().getHexLoc().equals( newLocation.getHexLoc())){
+						if(s.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 							return true;
 						}						}
 					break;
 				case North:
 					if((settlementDirection.equals(VertexDirection.NorthWest) || settlementDirection.equals(VertexDirection.NorthEast))
 							&& s.getOwner() == player.getPlayerID()){
-						if(s.getLocation().getHexLoc().equals( newLocation.getHexLoc())){
+						if(s.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 							return true;
 						}						}
 					break;
@@ -465,7 +465,7 @@ public class ClientModel {
 					//HexLocation to the lower right of the hex that the road is considered on after normalizing
 					HexLocation tempLoc = new HexLocation(newLocation.getHexLoc().getX()+1,newLocation.getHexLoc().getY());
 					if(s.getOwner() == player.getPlayerID()
-							&& (s.getLocation().getHexLoc().equals(tempLoc)
+							&& (s.getVertexLocation().getHexLoc().equals(tempLoc)
 									&& settlementDirection.equals(VertexDirection.NorthWest))){
 						return true;
 					}
@@ -485,23 +485,23 @@ public class ClientModel {
 			}
 
 			for(VertexObject c : map.getCities()){
-				EdgeDirection roadDirection = newLocation.getDir();
-				VertexDirection cityDirection = c.getLocation().getDirection();
-				if(c.getLocation().getHexLoc().equals( newLocation.getHexLoc())){
+				EdgeDirection roadDirection = newLocation.getDirection();
+				VertexDirection cityDirection = c.getVertexLocation().getDirection();
+				if(c.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 
 				}
 				switch(roadDirection){
 				case NorthWest:
 					if((cityDirection.equals(VertexDirection.NorthWest) || cityDirection.equals(VertexDirection.West))
 							&& c.getOwner() == player.getPlayerID()){
-						if(c.getLocation().getHexLoc().equals( newLocation.getHexLoc())){
+						if(c.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 							return true;
 						}						}
 					break;
 				case North:
 					if((cityDirection.equals(VertexDirection.NorthWest) || cityDirection.equals(VertexDirection.NorthEast))
 							&& c.getOwner() == player.getPlayerID()){
-						if(c.getLocation().getHexLoc().equals( newLocation.getHexLoc())){
+						if(c.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 							return true;
 						}						}
 					break;
@@ -509,7 +509,7 @@ public class ClientModel {
 					//HexLocation to the lower right of the hex that the road is considered on after normalizing
 					HexLocation tempLoc = new HexLocation(newLocation.getHexLoc().getX()+1,newLocation.getHexLoc().getY());
 					if(c.getOwner() == player.getPlayerID()
-							&& (c.getLocation().getHexLoc().equals(tempLoc)
+							&& (c.getVertexLocation().getHexLoc().equals(tempLoc)
 									&& cityDirection.equals(VertexDirection.NorthWest))){
 						return true;
 					}
@@ -524,8 +524,8 @@ public class ClientModel {
 			}
 
 			for(Road r : roadList){
-				EdgeDirection roadDirection = newLocation.getDir();
-				EdgeDirection tempDirection = r.getLocation().getLocation().getDir();
+				EdgeDirection roadDirection = newLocation.getDirection();
+				EdgeDirection tempDirection = r.getLocation().getLocation().getDirection();
 
 				HexLocation tempHexLoc = r.getLocation().getLocation().getHexLoc();
 				HexLocation roadHexLoc = newLocation.getHexLoc();
@@ -628,11 +628,11 @@ public class ClientModel {
 		List<VertexObject> settlementList  = map.getSettlements();
 
 		for(VertexObject settlement : settlementList){
-			HexLocation settHex = settlement.getLocation().getHexLoc();
+			HexLocation settHex = settlement.getVertexLocation().getHexLoc();
 			int x = settHex.getX();
 			int y = settHex.getY();
 			if(x == settLoc.getHexLoc().getX() && y == settLoc.getHexLoc().getY()){
-				if(settLoc.getDirection().equals(settlement.getLocation().getDirection())){
+				if(settLoc.getDirection().equals(settlement.getVertexLocation().getDirection())){
 					return false;
 				}
 			}
@@ -658,7 +658,7 @@ public class ClientModel {
 
 				if(r.getPlayerIndex() == player.getPlayerID()){
 					HexLocation tempHexLoc = r.getLocation().getLocation().getHexLoc();
-					EdgeDirection tempDir = r.getLocation().getLocation().getDir();
+					EdgeDirection tempDir = r.getLocation().getLocation().getDirection();
 
 					switch(settDir){
 					
@@ -707,8 +707,8 @@ public class ClientModel {
 			
 			for(VertexObject s : map.getSettlements()){
 
-					HexLocation tempHexLoc = s.getLocation().getHexLoc();
-					VertexDirection tempDir = s.getLocation().getDirection();
+					HexLocation tempHexLoc = s.getVertexLocation().getHexLoc();
+					VertexDirection tempDir = s.getVertexLocation().getDirection();
 
 					switch(settDir){
 					
@@ -760,8 +760,8 @@ public class ClientModel {
 			
 			for(VertexObject c : map.getCities()){
 
-				HexLocation tempHexLoc = c.getLocation().getHexLoc();
-				VertexDirection tempDir = c.getLocation().getDirection();
+				HexLocation tempHexLoc = c.getVertexLocation().getHexLoc();
+				VertexDirection tempDir = c.getVertexLocation().getDirection();
 
 				switch(settDir){
 				
@@ -843,7 +843,7 @@ public class ClientModel {
 			for(VertexObject s : map.getSettlements()){
 
 				//If there is a settlement at the vertexLocation and the player is the owner of the settlement
-				if(s.getLocation().getNormalizedLocation().equals(cityLoc) && s.getOwner() == player.getPlayerID()){
+				if(s.getVertexLocation().getNormalizedLocation().equals(cityLoc) && s.getOwner() == player.getPlayerID()){
 					return true;
 				}
 			}			
@@ -944,7 +944,7 @@ public class ClientModel {
 			
 			for(VertexObject s : map.getSettlements()){
 				
-				VertexLocation settLoc = s.getLocation();
+				VertexLocation settLoc = s.getVertexLocation();
 				HexLocation settHex = settLoc.getHexLoc();
 				VertexDirection settDir = settLoc.getDirection();
 				
@@ -986,7 +986,7 @@ public class ClientModel {
 			}
 			for(VertexObject c : map.getCities()){
 				
-				VertexLocation cityLoc = c.getLocation();
+				VertexLocation cityLoc = c.getVertexLocation();
 				HexLocation citHyex = cityLoc.getHexLoc();
 				VertexDirection cityDir = cityLoc.getDirection();
 				
@@ -1080,7 +1080,7 @@ public class ClientModel {
 
 		for(VertexObject s : map.getSettlements()){
 			
-			VertexLocation settLoc = s.getLocation();
+			VertexLocation settLoc = s.getVertexLocation();
 			HexLocation settHex = settLoc.getHexLoc();
 			VertexDirection settDir = settLoc.getDirection();
 			if(s.getOwner() == player.getPlayerID()){
@@ -1105,7 +1105,7 @@ public class ClientModel {
 		
 	for(VertexObject c : map.getCities()){
 				
-				VertexLocation cityLoc = c.getLocation();
+				VertexLocation cityLoc = c.getVertexLocation();
 				HexLocation cityHex = cityLoc.getHexLoc();
 				VertexDirection cityDir = cityLoc.getDirection();
 				if(c.getOwner() == player.getPlayerID()){

@@ -9,7 +9,7 @@
 </head>
 <body>
 <script type="text/javascript"><!--
-    if (location.href.indexOf('is-external=true') == -1) {
+    if (vertexLocation.href.indexOf('is-external=true') == -1) {
         parent.document.title="IMapView";
     }
 //-->
@@ -204,7 +204,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <pre>void&nbsp;addHex(<a href="../../shared/locations/HexLocation.html" title="class in shared.locations">HexLocation</a>&nbsp;hexLoc,
           <a href="../../shared/definitions/HexType.html" title="enum in shared.definitions">HexType</a>&nbsp;hexType)</pre>
 <div class="block">This method adds a hex to the map.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The hex's location</dd><dd><code>hexType</code> - The hex's type</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The hex's vertexLocation</dd><dd><code>hexType</code> - The hex's type</dd></dl>
 </li>
 </ul>
 <a name="addNumber(shared.locations.HexLocation, int)">
@@ -216,7 +216,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <pre>void&nbsp;addNumber(<a href="../../shared/locations/HexLocation.html" title="class in shared.locations">HexLocation</a>&nbsp;hexLoc,
              int&nbsp;num)</pre>
 <div class="block">This method adds a number to the map.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The number's location</dd><dd><code>num</code> - The number to add (must be in the range 2-6, 8-12)</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The number's vertexLocation</dd><dd><code>num</code> - The number to add (must be in the range 2-6, 8-12)</dd></dl>
 </li>
 </ul>
 <a name="addPort(shared.locations.EdgeLocation, shared.definitions.PortType)">
@@ -228,7 +228,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <pre>void&nbsp;addPort(<a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a>&nbsp;edgeLoc,
            <a href="../../shared/definitions/PortType.html" title="enum in shared.definitions">PortType</a>&nbsp;portType)</pre>
 <div class="block">This method adds a port to the map.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The port's location</dd><dd><code>portType</code> - The port's type</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The port's vertexLocation</dd><dd><code>portType</code> - The port's type</dd></dl>
 </li>
 </ul>
 <a name="placeRoad(shared.locations.EdgeLocation, shared.definitions.CatanColor)">
@@ -240,7 +240,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <pre>void&nbsp;placeRoad(<a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a>&nbsp;edgeLoc,
              <a href="../../shared/definitions/CatanColor.html" title="enum in shared.definitions">CatanColor</a>&nbsp;color)</pre>
 <div class="block">This method places a road on the map.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The road's location</dd><dd><code>color</code> - The road's color</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The road's vertexLocation</dd><dd><code>color</code> - The road's color</dd></dl>
 </li>
 </ul>
 <a name="placeSettlement(shared.locations.VertexLocation, shared.definitions.CatanColor)">
@@ -252,7 +252,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <pre>void&nbsp;placeSettlement(<a href="../../shared/locations/VertexLocation.html" title="class in shared.locations">VertexLocation</a>&nbsp;vertLoc,
                    <a href="../../shared/definitions/CatanColor.html" title="enum in shared.definitions">CatanColor</a>&nbsp;color)</pre>
 <div class="block">This method places a settlement on the map.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The settlement's location</dd><dd><code>color</code> - The settlement's color</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The settlement's vertexLocation</dd><dd><code>color</code> - The settlement's color</dd></dl>
 </li>
 </ul>
 <a name="placeCity(shared.locations.VertexLocation, shared.definitions.CatanColor)">
@@ -264,7 +264,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <pre>void&nbsp;placeCity(<a href="../../shared/locations/VertexLocation.html" title="class in shared.locations">VertexLocation</a>&nbsp;vertLoc,
              <a href="../../shared/definitions/CatanColor.html" title="enum in shared.definitions">CatanColor</a>&nbsp;color)</pre>
 <div class="block">This method places a city on the map.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The city's location</dd><dd><code>color</code> - The city's color</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The city's vertexLocation</dd><dd><code>color</code> - The city's color</dd></dl>
 </li>
 </ul>
 <a name="placeRobber(shared.locations.HexLocation)">
@@ -275,7 +275,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <h4>placeRobber</h4>
 <pre>void&nbsp;placeRobber(<a href="../../shared/locations/HexLocation.html" title="class in shared.locations">HexLocation</a>&nbsp;hexLoc)</pre>
 <div class="block">This method places the robber on the map.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The robber's location</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The robber's vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="startDrop(shared.definitions.PieceType, shared.definitions.CatanColor, boolean)">

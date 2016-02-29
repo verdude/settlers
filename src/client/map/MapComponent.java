@@ -693,7 +693,7 @@ public class MapComponent extends JComponent
 		
 		Point2D edgePoint = getEdgePoint(edgeLoc);
 		
-		List<Point2D> roadShape = translateShape(ROADS.get(edgeLoc.getDir()),
+		List<Point2D> roadShape = translateShape(ROADS.get(edgeLoc.getDirection()),
 												 edgePoint);
 		
 		Polygon poly = toPolygon(roadShape);
@@ -907,7 +907,7 @@ public class MapComponent extends JComponent
 	private double getPortRotation(EdgeLocation edgeLoc)
 	{
 		
-		return PORT_ROTATIONS.get(edgeLoc.getDir());
+		return PORT_ROTATIONS.get(edgeLoc.getDirection());
 	}
 	
 	private static Point2D getHexPoint(HexLocation hexLoc)
@@ -948,7 +948,7 @@ public class MapComponent extends JComponent
 		
 		Point2D hexPoint = getHexPoint(normEdgeLoc.getHexLoc());
 		
-		Point2D edgePoint = EDGE_POINTS.get(normEdgeLoc.getDir());
+		Point2D edgePoint = EDGE_POINTS.get(normEdgeLoc.getDirection());
 		
 		return add(hexPoint, edgePoint);
 	}

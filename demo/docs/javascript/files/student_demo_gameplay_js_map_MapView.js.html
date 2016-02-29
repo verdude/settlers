@@ -375,8 +375,8 @@ catan.map.View = (function makeMapView(){
     /**
 	An (x,y) point
 	@Constructor
-	@Param {integer} x The x location
-	@Param {Integer} y The y location
+	@Param {integer} x The x vertexLocation
+	@Param {Integer} y The y vertexLocation
 	@Class Point
 	*/
 	function Point(x,y){
@@ -586,7 +586,7 @@ catan.map.View = (function makeMapView(){
 
 		// gives you the center of the bounding spot;
 		LocationDefinition.prototype.getCenter = core.abstractFunction;
-		// gives type location of the mouse
+		// gives type vertexLocation of the mouse
 		LocationDefinition.prototype.getTypeLocation = core.abstractFunction;
 		// gets the nogo symbol radius for this typedef:
 		LocationDefinition.prototype.makeNoGo = function(loc,image){
@@ -1200,7 +1200,7 @@ catan.map.View = (function makeMapView(){
 		/**
 		 This adds a hex to the board.
 
-		 @param {HexLocation} loc The location to put the hex. This should only be called at most once per hex location
+		 @param {HexLocation} loc The vertexLocation to put the hex. This should only be called at most once per hex vertexLocation
 		 @param {String} type The type of the hex: a resource(&quot;wood&quot;,&quot;brick&quot;,&quot;sheep&quot;,&quot;wheat&quot;,&quot;ore&quot;), &quot;desert&quot;, or &quot;water&quot;
 		 @param {Boolean} [noDraw] Optional - if omitted or false, the view is not redrawn.	 
 		 @method addHex
@@ -1212,7 +1212,7 @@ catan.map.View = (function makeMapView(){
 		/**
 		 This adds a number to the board.
 
-		 @param {HexLocation} loc The location to put the number. This should only be called at most once per hex location
+		 @param {HexLocation} loc The vertexLocation to put the number. This should only be called at most once per hex vertexLocation
 		 @param {Integer} number The number to put on the map	 
 		 @param {Boolean} [noDraw] Optional - if omitted or false, the view is not redrawn.
 		 @method addNumber
@@ -1224,7 +1224,7 @@ catan.map.View = (function makeMapView(){
 		/**
 		 This adds a port to the board.
 
-		 @param {PortLoc} loc The location to put the port. This should only be called only once per port
+		 @param {PortLoc} loc The vertexLocation to put the port. This should only be called only once per port
 		 @param {String} type The port type: a resource(&quot;wood&quot;,&quot;brick&quot;,&quot;sheep&quot;,&quot;wheat&quot;,&quot;ore&quot;), or &quot;three&quot;	 
 		 @param {Boolean} [noDraw] Optional - if omitted or false, the view is not redrawn.
 		 @method addPort
@@ -1236,7 +1236,7 @@ catan.map.View = (function makeMapView(){
 		/**
 		 This places the robber on the board. Subsequent calls move the robber.
 
-		 @param {HexLocation} loc The location to put the robber. 
+		 @param {HexLocation} loc The vertexLocation to put the robber.
 		 @param {Boolean} [noDraw] Optional - if omitted or false, the view is not redrawn.	 
 		 @method placeRobber
 		*/
@@ -1249,7 +1249,7 @@ catan.map.View = (function makeMapView(){
 		/**
 		 This adds a settlement to the board. 
 
-		 @param {VertexLoc} loc The location to put the settlement. 
+		 @param {VertexLoc} loc The vertexLocation to put the settlement.
 		 @param {String} playerColor The player color
 		 @param {Boolean} [noDraw] Optional - if omitted or false, the view is not redrawn.	 
 		 @method placeSettlement
@@ -1267,7 +1267,7 @@ catan.map.View = (function makeMapView(){
 		/**
 		 This adds a city to the board. 
 
-		 @param {VertexLoc} loc The location to put the city. 
+		 @param {VertexLoc} loc The vertexLocation to put the city.
 		 @param {String} playerColor The player color
 		 @param {Boolean} [noDraw] Optional - if omitted or false, the view is not redrawn.	 
 		 @method placeCity
@@ -1283,7 +1283,7 @@ catan.map.View = (function makeMapView(){
 		/**
 		 This adds a road to the board. 
 
-		 @param {EdgeLoc} loc The location to put the road. 
+		 @param {EdgeLoc} loc The vertexLocation to put the road.
 		 @param {String} playerColor The player color
 		 @param {Boolean} [noDraw] Optional - if omitted or false, the view is not redrawn.	 
 		 @method placeRoad

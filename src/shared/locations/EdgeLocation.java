@@ -7,17 +7,43 @@ public class EdgeLocation
 {
 	
 	private HexLocation hexLoc;
-	private EdgeDirection dir;
-	
-	public EdgeLocation(HexLocation hexLoc, EdgeDirection dir)
+	private EdgeDirection direction;
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	private int x;
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	private int y;
+
+
+
+
+	public EdgeLocation(HexLocation hexLoc, EdgeDirection direction)
 	{
 		setHexLoc(hexLoc);
-		setDir(dir);
+		setDirection(direction);
+
 	}
 	
 	public HexLocation getHexLoc()
 	{
-		return hexLoc;
+
+
+		return new HexLocation(x,y);
 	}
 	
 	private void setHexLoc(HexLocation hexLoc)
@@ -29,20 +55,20 @@ public class EdgeLocation
 		this.hexLoc = hexLoc;
 	}
 	
-	public EdgeDirection getDir()
+	public EdgeDirection getDirection()
 	{
-		return dir;
+		return direction;
 	}
 	
-	private void setDir(EdgeDirection dir)
+	private void setDirection(EdgeDirection direction)
 	{
-		this.dir = dir;
+		this.direction = direction;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "EdgeLocation [hexLoc=" + hexLoc + ", dir=" + dir + "]";
+		return "EdgeLocation [hexLoc=" + hexLoc + ", direction=" + direction + "]";
 	}
 	
 	@Override
@@ -50,7 +76,7 @@ public class EdgeLocation
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dir == null) ? 0 : dir.hashCode());
+		result = prime * result + ((direction == null) ? 0 : direction.hashCode());
 		result = prime * result + ((hexLoc == null) ? 0 : hexLoc.hashCode());
 		return result;
 	}
@@ -65,7 +91,7 @@ public class EdgeLocation
 		if(getClass() != obj.getClass())
 			return false;
 		EdgeLocation other = (EdgeLocation)obj;
-		if(dir != other.dir)
+		if(direction != other.direction)
 			return false;
 		if(hexLoc == null)
 		{
@@ -90,7 +116,7 @@ public class EdgeLocation
 		
 		// Return an EdgeLocation that has direction NW, N, or NE
 		
-		switch (dir)
+		switch (direction)
 		{
 			case NorthWest:
 			case North:
@@ -99,12 +125,19 @@ public class EdgeLocation
 			case SouthWest:
 			case South:
 			case SouthEast:
-				return new EdgeLocation(hexLoc.getNeighborLoc(dir),
-										dir.getOppositeDirection());
+				return new EdgeLocation(hexLoc.getNeighborLoc(direction),
+										direction.getOppositeDirection());
 			default:
 				assert false;
 				return null;
 		}
+	}
+
+	public VertexLocation toVertexLocation(){
+
+		String dir = this.getNormalizedLocation().toString();
+		VertexLocation vertexLocation = new VertexLocation(getHexLoc(),VertexDirection.East.fromString(dir));
+		return vertexLocation;
 	}
 }
 

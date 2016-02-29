@@ -695,7 +695,7 @@ move the robber.  This is called when the user plays a &quot;solider&quot; devel
 
     <div class="description">
         <p>This method is called whenever the user is trying to place a piece on the map. 
-         It is called by the view for each &quot;mouse move&quot; event.<br>         The returned value tells the view whether or not to allow the piece to be &quot;dropped&quot; at the current location.</p>
+         It is called by the view for each &quot;mouse move&quot; event.<br>         The returned value tells the view whether or not to allow the piece to be &quot;dropped&quot; at the current vertexLocation.</p>
 
     </div>
 
@@ -714,7 +714,7 @@ move the robber.  This is called when the user plays a &quot;solider&quot; devel
                     
 
                     <div class="param-description">
-                        <p>The location being considered for piece placement</p>
+                        <p>The vertexLocation being considered for piece placement</p>
 
                     </div>
 
@@ -750,7 +750,7 @@ move the robber.  This is called when the user plays a &quot;solider&quot; devel
                     
                         <span class="type">Boolean</span>:
                     
-                    <p>Whether or not the given piece can be placed at the current location.</p>
+                    <p>Whether or not the given piece can be placed at the current vertexLocation.</p>
 
                 
             </div>
@@ -840,7 +840,7 @@ move the robber.  This is called when the user plays a &quot;solider&quot; devel
                     
 
                     <div class="param-description">
-                        <p>The location where the piece is being placed</p>
+                        <p>The vertexLocation where the piece is being placed</p>
 
                     </div>
 

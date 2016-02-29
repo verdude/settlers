@@ -11,7 +11,7 @@
 <body>
 <script type="text/javascript"><!--
     try {
-        if (location.href.indexOf('is-external=true') == -1) {
+        if (vertexLocation.href.indexOf('is-external=true') == -1) {
             parent.document.title="Robber";
         }
     }
@@ -150,13 +150,13 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../client/Robber.html#move-client.HexLocation-">move</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../client/Robber.html#move-client.HexLocation-">move</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation)</code>
 <div class="block">Moves the Robber when the player rolls 7</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../client/Robber.html#setLocation-client.HexLocation-">setLocation</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../client/Robber.html#setLocation-client.HexLocation-">setLocation</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -203,17 +203,17 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>move</h4>
-<pre>public&nbsp;void&nbsp;move(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location)
+<pre>public&nbsp;void&nbsp;move(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation)
           throws <a href="../client/ClientException.html" title="class in client">ClientException</a></pre>
 <div class="block">Moves the Robber when the player rolls 7</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>location,</code> - The new hex location for the robber</dd>
+<dd><code>vertexLocation,</code> - The new hex vertexLocation for the robber</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../client/ClientException.html" title="class in client">ClientException</a></code> - if this function runs and dies when it shoouldn't</dd>
 <dt><span class="simpleTagLabel">Precondition</span></dt>
-<dd>Robber has a valid location
- post           New location is not the same as old location</dd>
+<dd>Robber has a valid vertexLocation
+ post           New vertexLocation is not the same as old vertexLocation</dd>
 </dl>
 </li>
 </ul>
@@ -232,7 +232,7 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>setLocation</h4>
-<pre>public&nbsp;void&nbsp;setLocation(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location)</pre>
+<pre>public&nbsp;void&nbsp;setLocation(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation)</pre>
 </li>
 </ul>
 </li>

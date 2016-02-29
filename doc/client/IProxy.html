@@ -11,7 +11,7 @@
 <body>
 <script type="text/javascript"><!--
     try {
-        if (location.href.indexOf('is-external=true') == -1) {
+        if (vertexLocation.href.indexOf('is-external=true') == -1) {
             parent.document.title="IProxy";
         }
     }
@@ -268,7 +268,7 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i23" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../client/IProxy.html#robPlayer-client.HexLocation-int-">robPlayer</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location,
+<td class="colLast"><code><span class="memberNameLink"><a href="../client/IProxy.html#robPlayer-client.HexLocation-int-">robPlayer</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation,
          int&nbsp;victimIndex)</code>
 <div class="block">Steals a card from a player</div>
 </td>
@@ -287,7 +287,7 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i26" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../client/IProxy.html#soldier-client.HexLocation-int-">soldier</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location,
+<td class="colLast"><code><span class="memberNameLink"><a href="../client/IProxy.html#soldier-client.HexLocation-int-">soldier</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation,
        int&nbsp;victimIndex)</code>
 <div class="block">A Soldier card is played</div>
 </td>
@@ -705,7 +705,7 @@ var activeTableTab = "activeTableTab";
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>free</code> - Whether the piece was free of cost</dd>
-<dd><code>roadLocation</code> - The new location for the road</dd>
+<dd><code>roadLocation</code> - The new vertexLocation for the road</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the road was placed</dd>
 <dt><span class="simpleTagLabel">Precondition</span></dt>
@@ -727,7 +727,7 @@ var activeTableTab = "activeTableTab";
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>free</code> - Whether the settlement was free of cost</dd>
-<dd><code>vertexObject</code> - The new location of the settlement</dd>
+<dd><code>vertexObject</code> - The new vertexLocation of the settlement</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the settlement was built</dd>
 <dt><span class="simpleTagLabel">Precondition</span></dt>
@@ -747,7 +747,7 @@ var activeTableTab = "activeTableTab";
 <div class="block">Builds a new city on the map</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>vertexObject</code> - The location of the city to be built</dd>
+<dd><code>vertexObject</code> - The vertexLocation of the city to be built</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the city was built</dd>
 <dt><span class="simpleTagLabel">Precondition</span></dt>
@@ -809,19 +809,19 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>robPlayer</h4>
-<pre>boolean&nbsp;robPlayer(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location,
+<pre>boolean&nbsp;robPlayer(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation,
                   int&nbsp;victimIndex)</pre>
 <div class="block">Steals a card from a player</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>location</code> - The new location of the robber</dd>
+<dd><code>vertexLocation</code> - The new vertexLocation of the robber</dd>
 <dd><code>victimIndex</code> - The playerIndex of the person from which the card will be stolen</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the thievery was successful</dd>
 <dt><span class="simpleTagLabel">Precondition</span></dt>
 <dd>The corresponding "canDo" method returns true.</dd>
 <dt><span class="simpleTagLabel">Postcondition</span></dt>
-<dd>The robber's new location is location and the player at victimIndex is less one card, and that card is given to the robbing player.</dd>
+<dd>The robber's new vertexLocation is vertexLocation and the player at victimIndex is less one card, and that card is given to the robbing player.</dd>
 </dl>
 </li>
 </ul>
@@ -867,19 +867,19 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>soldier</h4>
-<pre>boolean&nbsp;soldier(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location,
+<pre>boolean&nbsp;soldier(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation,
                 int&nbsp;victimIndex)</pre>
 <div class="block">A Soldier card is played</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>location</code> - The new robber location</dd>
+<dd><code>vertexLocation</code> - The new robber vertexLocation</dd>
 <dd><code>victimIndex</code> - The player from which you are stealing a card</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the action was successful</dd>
 <dt><span class="simpleTagLabel">Precondition</span></dt>
 <dd>The corresponding "canDo" method returns true.</dd>
 <dt><span class="simpleTagLabel">Postcondition</span></dt>
-<dd>The robber is placed in location, receiving that as a new location, and the victimIndex-player is less one card which is added to the player's hand who played the soldier card.</dd>
+<dd>The robber is placed in vertexLocation, receiving that as a new vertexLocation, and the victimIndex-player is less one card which is added to the player's hand who played the soldier card.</dd>
 </dl>
 </li>
 </ul>

@@ -333,7 +333,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 			int playerIndex = city.getOwner();
 			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			getView().placeCity(city.getLocation(), color);
+			getView().placeCity(city.getVertexLocation(), color);
 		}
 
 		//Place all of the settlements front the model on the map
@@ -341,7 +341,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 			int playerIndex = settlement.getOwner();
 			CatanColor color = model.getPlayers()[playerIndex].getColor();
-			getView().placeSettlement(settlement.getLocation(), color);
+			getView().placeSettlement(settlement.getVertexLocation(), color);
 		}
 
 		//Place all of the roads front the model on the map

@@ -237,10 +237,10 @@ catan.models.Map = (function mapNameSpace(){
     
     /**
 	This class represents an edge. It inherits from BaseContainer.
-    The data in this class (that you get from the JSON model) is independent of the hexgrid, except for the location.
+    The data in this class (that you get from the JSON model) is independent of the hexgrid, except for the vertexLocation.
     Therefore, we leave it up to you to decide how to implement it.
     It must however implement one function that the hexgrid looks for: &#x27;isOccupied&#x27; - look at its documentation.
-    From the JSON, this object will have two properties: location, and ownerID.
+    From the JSON, this object will have two properties: vertexLocation, and ownerID.
     Besides the &#x27;isOccupied&#x27; method, you may add any other methods that you need.
     
     @constructor
@@ -266,10 +266,10 @@ catan.models.Map = (function mapNameSpace(){
     
     /**
 	This class represents a vertex. It inherits from BaseContainer.
-    The data in this class (that you get from the JSON model) is independent of the hexgrid, except for the location.
+    The data in this class (that you get from the JSON model) is independent of the hexgrid, except for the vertexLocation.
     Therefore, we leave it up to you to decide how to implement it.
     It must however implement one function that the hexgrid looks for: &#x27;isOccupied&#x27; - look at its documentation.
-    From the JSON, this object will have three properties: location, ownerID and worth.
+    From the JSON, this object will have three properties: vertexLocation, ownerID and worth.
     Besides the &#x27;isOccupied&#x27; method, you may add any other methods that you need.
     
     @constructor
@@ -304,7 +304,7 @@ catan.models.Map = (function mapNameSpace(){
     (The core.forceInherit sets the constructor, in case you are curious how that works)
       
     @constructor
-    @param {hexgrid.HexLocation} location - the location of this hex. It&#x27;s used to generate locations for the vertexes and edges.
+    @param {hexgrid.HexLocation} vertexLocation - the vertexLocation of this hex. It&#x27;s used to generate locations for the vertexes and edges.
     @extends hexgrid.BasicHex
 	
 	@class CatanHex
@@ -313,8 +313,8 @@ catan.models.Map = (function mapNameSpace(){
     
         core.forceClassInherit(CatanHex, hexgrid.BasicHex);
         
-        function CatanHex(location){          
-            hexgrid.BasicHex.call(this,location,CatanEdge,CatanVertex);
+        function CatanHex(vertexLocation){
+            hexgrid.BasicHex.call(this,vertexLocation,CatanEdge,CatanVertex);
 			$(&quot;#debug&quot;).append(&quot;&lt;br&gt;In CatanHex Constructor (&quot; + this.getLocation().getX() + &quot;, &quot; + this.getLocation().getY() + &quot;)&quot;);
         } 
         

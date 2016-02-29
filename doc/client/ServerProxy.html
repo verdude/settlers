@@ -11,7 +11,7 @@
 <body>
 <script type="text/javascript"><!--
     try {
-        if (location.href.indexOf('is-external=true') == -1) {
+        if (vertexLocation.href.indexOf('is-external=true') == -1) {
             parent.document.title="ServerProxy";
         }
     }
@@ -490,7 +490,7 @@ implements <a href="../client/IProxy.html" title="interface in client">IProxy</a
 </tr>
 <tr id="i56" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../client/ServerProxy.html#robPlayer-client.HexLocation-int-">robPlayer</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location,
+<td class="colLast"><code><span class="memberNameLink"><a href="../client/ServerProxy.html#robPlayer-client.HexLocation-int-">robPlayer</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation,
          int&nbsp;victimIndex)</code>
 <div class="block">Inherited from implemented class</div>
 </td>
@@ -509,7 +509,7 @@ implements <a href="../client/IProxy.html" title="interface in client">IProxy</a
 </tr>
 <tr id="i59" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../client/ServerProxy.html#soldier-client.HexLocation-int-">soldier</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location,
+<td class="colLast"><code><span class="memberNameLink"><a href="../client/ServerProxy.html#soldier-client.HexLocation-int-">soldier</a></span>(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation,
        int&nbsp;victimIndex)</code>
 <div class="block">Inherited from implemented class</div>
 </td>
@@ -930,7 +930,7 @@ implements <a href="../client/IProxy.html" title="interface in client">IProxy</a
 <dd><code><a href="../client/IProxy.html#buildRoad-boolean-client.EdgeLocation-">buildRoad</a></code>&nbsp;in interface&nbsp;<code><a href="../client/IProxy.html" title="interface in client">IProxy</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>free</code> - Whether the piece was free of cost</dd>
-<dd><code>roadLocation</code> - The new location for the road</dd>
+<dd><code>roadLocation</code> - The new vertexLocation for the road</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the method was a success</dd>
 </dl>
@@ -950,7 +950,7 @@ implements <a href="../client/IProxy.html" title="interface in client">IProxy</a
 <dd><code><a href="../client/IProxy.html#buildSettlement-boolean-client.VertexObject-">buildSettlement</a></code>&nbsp;in interface&nbsp;<code><a href="../client/IProxy.html" title="interface in client">IProxy</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>free</code> - Whether the settlement was free of cost</dd>
-<dd><code>vertextObject</code> - The new location of the settlement</dd>
+<dd><code>vertextObject</code> - The new vertexLocation of the settlement</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the method was a success</dd>
 </dl>
@@ -968,7 +968,7 @@ implements <a href="../client/IProxy.html" title="interface in client">IProxy</a
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../client/IProxy.html#buildCity-client.VertexObject-">buildCity</a></code>&nbsp;in interface&nbsp;<code><a href="../client/IProxy.html" title="interface in client">IProxy</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>vertextObject</code> - The location of the city to be built</dd>
+<dd><code>vertextObject</code> - The vertexLocation of the city to be built</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the method was a success</dd>
 </dl>
@@ -1022,14 +1022,14 @@ implements <a href="../client/IProxy.html" title="interface in client">IProxy</a
 <ul class="blockList">
 <li class="blockList">
 <h4>robPlayer</h4>
-<pre>public&nbsp;boolean&nbsp;robPlayer(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location,
+<pre>public&nbsp;boolean&nbsp;robPlayer(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation,
                          int&nbsp;victimIndex)</pre>
 <div class="block">Inherited from implemented class</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../client/IProxy.html#robPlayer-client.HexLocation-int-">robPlayer</a></code>&nbsp;in interface&nbsp;<code><a href="../client/IProxy.html" title="interface in client">IProxy</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>location</code> - The new location of the robber</dd>
+<dd><code>vertexLocation</code> - The new vertexLocation of the robber</dd>
 <dd><code>victimIndex</code> - The playerIndex of the person from which the card will be stolen</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the method was a success</dd>
@@ -1074,14 +1074,14 @@ implements <a href="../client/IProxy.html" title="interface in client">IProxy</a
 <ul class="blockList">
 <li class="blockList">
 <h4>soldier</h4>
-<pre>public&nbsp;boolean&nbsp;soldier(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;location,
+<pre>public&nbsp;boolean&nbsp;soldier(<a href="../client/HexLocation.html" title="class in client">HexLocation</a>&nbsp;vertexLocation,
                        int&nbsp;victimIndex)</pre>
 <div class="block">Inherited from implemented class</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../client/IProxy.html#soldier-client.HexLocation-int-">soldier</a></code>&nbsp;in interface&nbsp;<code><a href="../client/IProxy.html" title="interface in client">IProxy</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>location</code> - The new robber location</dd>
+<dd><code>vertexLocation</code> - The new robber vertexLocation</dd>
 <dd><code>victimIndex</code> - The player from which you are stealing a card</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Whether the method was a success</dd>

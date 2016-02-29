@@ -234,9 +234,9 @@
 
 
 <div class="box intro">
-    <p>This class represent an edge location. It consists of a hex location
+    <p>This class represent an edge vertexLocation. It consists of a hex vertexLocation
 and an edge direction
-    This takes a hex location and a direction. Alternatively you can use
+    This takes a hex vertexLocation and a direction. Alternatively you can use
      (x,y,direction)</p>
 
 </div>
@@ -321,7 +321,7 @@ and an edge direction
                     
 
                     <div class="param-description">
-                        <p>The location of the parent hex</p>
+                        <p>The vertexLocation of the parent hex</p>
 
                     </div>
 
@@ -547,7 +547,7 @@ and an edge direction
             <div class="returns-description">
                 
                     
-                    <p>boolean Returns true if the other location has the same x,y</p>
+                    <p>boolean Returns true if the other vertexLocation has the same x,y</p>
 
                 
             </div>
@@ -603,7 +603,7 @@ and an edge direction
 
     <div class="description">
         <p>Abstract
-Returns a canonical representation of this location (ie unique and consistent - all locations that are equal have the same canonical representation.)</p>
+Returns a canonical representation of this vertexLocation (ie unique and consistent - all locations that are equal have the same canonical representation.)</p>
 
     </div>
 
@@ -618,7 +618,7 @@ Returns a canonical representation of this location (ie unique and consistent - 
                     
                         <span class="type"><a href="../classes/hex_core.BaseLocation.html" class="crosslink">hex_core.BaseLocation</a></span>:
                     
-                    <p>The canonical representation of this location</p>
+                    <p>The canonical representation of this vertexLocation</p>
 
                 
             </div>
@@ -746,7 +746,7 @@ Returns a canonical representation of this location (ie unique and consistent - 
     </div>
 
     <div class="description">
-        <p>This function returns this Edge location as well as the edge location for
+        <p>This function returns this Edge vertexLocation as well as the edge vertexLocation for
 the other hex that this edge touches.</p>
 
     </div>
@@ -819,7 +819,7 @@ object is equivalent to (reflexive). Size = 2.</p>
 
     <div class="description">
         <p>Abstract
-        Returns a unique string id for this location
+        Returns a unique string id for this vertexLocation
 All locations in any equivalence group will have the same id string.</p>
 
     </div>
@@ -934,7 +934,7 @@ All locations in any equivalence group will have the same id string.</p>
             <div class="returns-description">
                 
                     
-                    <p>hex_core.HexLocation Returns a location next to this one, in the direction of the &#39;hexDirection&#39; given</p>
+                    <p>hex_core.HexLocation Returns a vertexLocation next to this one, in the direction of the &#39;hexDirection&#39; given</p>
 
                 
             </div>
@@ -1004,7 +1004,7 @@ All locations in any equivalence group will have the same id string.</p>
                     
                         <span class="type"><a href="../classes/hex_core.VertexLocation.html" class="crosslink">hex_core.VertexLocation</a></span>:
                     
-                    <p>[Array] vertexes touching this location</p>
+                    <p>[Array] vertexes touching this vertexLocation</p>
 
                 
             </div>
@@ -1059,7 +1059,7 @@ All locations in any equivalence group will have the same id string.</p>
     </div>
 
     <div class="description">
-        <p>Get the next logical location by traveling about the center of the hex in a counter-clockwise direction</p>
+        <p>Get the next logical vertexLocation by traveling about the center of the hex in a counter-clockwise direction</p>
 
     </div>
 
@@ -1074,7 +1074,7 @@ All locations in any equivalence group will have the same id string.</p>
                     
                         <span class="type"><a href="../classes/hex_core.BaseLocation.html" class="crosslink">hex_core.BaseLocation</a></span>:
                     
-                    <p>[Array] The next location CCW</p>
+                    <p>[Array] The next vertexLocation CCW</p>
 
                 
             </div>
@@ -1132,7 +1132,7 @@ All locations in any equivalence group will have the same id string.</p>
     </div>
 
     <div class="description">
-        <p>Returns a reference to the hex that this location is on.</p>
+        <p>Returns a reference to the hex that this vertexLocation is on.</p>
 
     </div>
 

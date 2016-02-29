@@ -35,21 +35,21 @@
 		</script>
 		<script type="text/javascript">           
 			$(window).load(function(){
-				if(window.location.search=="?duplicateUsername"){
+				if(window.vertexLocation.search=="?duplicateUsername"){
 					$('#duplicateUsername').modal('show');
-				} else if (window.location.search=="?failedLogin"){
+				} else if (window.vertexLocation.search=="?failedLogin"){
 					$('#failedLogin').modal('show');
 				}
                 
                 ajax_submit(
                     'form[name=login]',
-                    function success(data){location="/joinGame.html"},
+                    function success(data){vertexLocation="/joinGame.html"},
                     function failure(data){alert(data.responseText)}
                 );
                     
                 ajax_submit(
                     'form[name=register]',
-                    function success(data){location="/joinGame.html"},
+                    function success(data){vertexLocation="/joinGame.html"},
                     function failure(data){alert(data.responseText)}
                 )
 			})

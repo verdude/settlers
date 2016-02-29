@@ -28,7 +28,7 @@ public class PlayingState implements IState {
         try {
             int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 //			EdgeValue edgeValue = new EdgeValue();
-//			edgeValue.setLocation(edgeLoc.getNormalizedLocation());
+//			edgeValue.setVertexLocation(edgeLoc.getNormalizedLocation());
 
             return ClientFacade.getSingleton().getClientModel().canBuildRoad(playerIndex,
                     edgeLoc.getNormalizedLocation(),false);
@@ -98,7 +98,7 @@ public class PlayingState implements IState {
             color = ClientFacade.getSingleton().getLocalPlayer().getColor();
             VertexObject vertexObject = new VertexObject();
             vertexObject.setOwner(playerIndex);
-            vertexObject.setLocation(vertLoc);
+            vertexObject.setVertexLocation(vertLoc);
             ClientFacade.getSingleton().buildSettlement(vertexObject,"false");
         } catch (ClientException e) {
             e.printStackTrace();
@@ -115,7 +115,7 @@ public class PlayingState implements IState {
             color = ClientFacade.getSingleton().getLocalPlayer().getColor();
             VertexObject vertexObject = new VertexObject();
             vertexObject.setOwner(playerIndex);
-            vertexObject.setLocation(vertLoc);
+            vertexObject.setVertexLocation(vertLoc);
             ClientFacade.getSingleton().buildCity(vertexObject);
 
         } catch (ClientException e) {

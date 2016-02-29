@@ -9,7 +9,7 @@
 </head>
 <body>
 <script type="text/javascript"><!--
-    if (location.href.indexOf('is-external=true') == -1) {
+    if (vertexLocation.href.indexOf('is-external=true') == -1) {
         parent.document.title="MapController";
     }
 //-->
@@ -320,11 +320,11 @@ implements <a href="../../client/map/IMapController.html" title="interface in cl
 <div class="block">This method is called whenever the user is trying to place a road on the
  map. It is called by the view for each "mouse move" event. The returned
  value tells the view whether or not to allow the road to be placed at the
- specified location.</div>
+ specified vertexLocation.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/map/IMapController.html#canPlaceRoad(shared.locations.EdgeLocation)">canPlaceRoad</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/map/IMapController.html" title="interface in client.map">IMapController</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The proposed road location</dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The proposed road vertexLocation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the road can be placed at edgeLoc, false otherwise</dd></dl>
 </li>
 </ul>
@@ -339,11 +339,11 @@ implements <a href="../../client/map/IMapController.html" title="interface in cl
 <div class="block">This method is called whenever the user is trying to place a settlement
  on the map. It is called by the view for each "mouse move" event. The
  returned value tells the view whether or not to allow the settlement to
- be placed at the specified location.</div>
+ be placed at the specified vertexLocation.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/map/IMapController.html#canPlaceSettlement(shared.locations.VertexLocation)">canPlaceSettlement</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/map/IMapController.html" title="interface in client.map">IMapController</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The proposed settlement location</dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The proposed settlement vertexLocation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the settlement can be placed at vertLoc, false otherwise</dd></dl>
 </li>
 </ul>
@@ -358,11 +358,11 @@ implements <a href="../../client/map/IMapController.html" title="interface in cl
 <div class="block">This method is called whenever the user is trying to place a city on the
  map. It is called by the view for each "mouse move" event. The returned
  value tells the view whether or not to allow the city to be placed at the
- specified location.</div>
+ specified vertexLocation.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/map/IMapController.html#canPlaceCity(shared.locations.VertexLocation)">canPlaceCity</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/map/IMapController.html" title="interface in client.map">IMapController</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The proposed city location</dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The proposed city vertexLocation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the city can be placed at vertLoc, false otherwise</dd></dl>
 </li>
 </ul>
@@ -377,11 +377,11 @@ implements <a href="../../client/map/IMapController.html" title="interface in cl
 <div class="block">This method is called whenever the user is trying to place the robber on
  the map. It is called by the view for each "mouse move" event. The
  returned value tells the view whether or not to allow the robber to be
- placed at the specified location.</div>
+ placed at the specified vertexLocation.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/map/IMapController.html#canPlaceRobber(shared.locations.HexLocation)">canPlaceRobber</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/map/IMapController.html" title="interface in client.map">IMapController</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The proposed robber location</dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The proposed robber vertexLocation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the robber can be placed at hexLoc, false otherwise</dd></dl>
 </li>
 </ul>
@@ -397,7 +397,7 @@ implements <a href="../../client/map/IMapController.html" title="interface in cl
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/map/IMapController.html#placeRoad(shared.locations.EdgeLocation)">placeRoad</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/map/IMapController.html" title="interface in client.map">IMapController</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The road location</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The road vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="placeSettlement(shared.locations.VertexLocation)">
@@ -413,7 +413,7 @@ implements <a href="../../client/map/IMapController.html" title="interface in cl
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/map/IMapController.html#placeSettlement(shared.locations.VertexLocation)">placeSettlement</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/map/IMapController.html" title="interface in client.map">IMapController</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The settlement location</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The settlement vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="placeCity(shared.locations.VertexLocation)">
@@ -428,7 +428,7 @@ implements <a href="../../client/map/IMapController.html" title="interface in cl
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/map/IMapController.html#placeCity(shared.locations.VertexLocation)">placeCity</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/map/IMapController.html" title="interface in client.map">IMapController</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The city location</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>vertLoc</code> - The city vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="placeRobber(shared.locations.HexLocation)">
@@ -443,7 +443,7 @@ implements <a href="../../client/map/IMapController.html" title="interface in cl
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/map/IMapController.html#placeRobber(shared.locations.HexLocation)">placeRobber</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/map/IMapController.html" title="interface in client.map">IMapController</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The robber location</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>hexLoc</code> - The robber vertexLocation</dd></dl>
 </li>
 </ul>
 <a name="startMove(shared.definitions.PieceType, boolean, boolean)">

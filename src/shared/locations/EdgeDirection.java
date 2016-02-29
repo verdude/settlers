@@ -46,5 +46,27 @@ public enum EdgeDirection
 			default: throw new IllegalArgumentException();
 		}
 	}
+
+	public EdgeDirection fromString(String string){
+		switch(string){
+			case "NW":
+				return NorthWest;
+			case "N":
+				return North;
+			case "NE":
+				return NorthEast;
+			case "SE":
+				return SouthEast;
+			case "S":
+				return South;
+			case "SW":
+				return SouthWest;
+			default:
+				return null;
+
+
+		}
+
+	}
 }
 

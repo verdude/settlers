@@ -9,7 +9,7 @@
 </head>
 <body>
 <script type="text/javascript"><!--
-    if (location.href.indexOf('is-external=true') == -1) {
+    if (vertexLocation.href.indexOf('is-external=true') == -1) {
         parent.document.title="EdgeLocation";
     }
 //-->
@@ -97,7 +97,7 @@
 <br>
 <pre>public class <span class="strong">EdgeLocation</span>
 extends java.lang.Object</pre>
-<div class="block">Represents the location of an edge on a hex map</div>
+<div class="block">Represents the vertexLocation of an edge on a hex map</div>
 </li>
 </ul>
 </div>
@@ -117,7 +117,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><strong><a href="../../shared/locations/EdgeLocation.html#EdgeLocation(shared.locations.HexLocation, shared.locations.EdgeDirection)">EdgeLocation</a></strong>(<a href="../../shared/locations/HexLocation.html" title="class in shared.locations">HexLocation</a>&nbsp;hexLoc,
-            <a href="../../shared/locations/EdgeDirection.html" title="enum in shared.locations">EdgeDirection</a>&nbsp;dir)</code>&nbsp;</td>
+            <a href="../../shared/locations/EdgeDirection.html" title="enum in shared.locations">EdgeDirection</a>&nbsp;direction)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -149,7 +149,7 @@ extends java.lang.Object</pre>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a></code></td>
 <td class="colLast"><code><strong><a href="../../shared/locations/EdgeLocation.html#getNormalizedLocation()">getNormalizedLocation</a></strong>()</code>
-<div class="block">Returns a canonical (i.e., unique) value for this edge location.</div>
+<div class="block">Returns a canonical (i.e., unique) value for this edge vertexLocation.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -189,7 +189,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>EdgeLocation</h4>
 <pre>public&nbsp;EdgeLocation(<a href="../../shared/locations/HexLocation.html" title="class in shared.locations">HexLocation</a>&nbsp;hexLoc,
-            <a href="../../shared/locations/EdgeDirection.html" title="enum in shared.locations">EdgeDirection</a>&nbsp;dir)</pre>
+            <a href="../../shared/locations/EdgeDirection.html" title="enum in shared.locations">EdgeDirection</a>&nbsp;direction)</pre>
 </li>
 </ul>
 </li>
@@ -264,11 +264,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getNormalizedLocation</h4>
 <pre>public&nbsp;<a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a>&nbsp;getNormalizedLocation()</pre>
-<div class="block">Returns a canonical (i.e., unique) value for this edge location. Since
+<div class="block">Returns a canonical (i.e., unique) value for this edge vertexLocation. Since
  each edge has two different locations on a map, this method converts a
- hex location to a single canonical form. This is useful for using hex
+ hex vertexLocation to a single canonical form. This is useful for using hex
  locations as map keys.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>Normalized hex location</dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>Normalized hex vertexLocation</dd></dl>
 </li>
 </ul>
 </li>

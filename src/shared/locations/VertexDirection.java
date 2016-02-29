@@ -35,5 +35,27 @@ public enum VertexDirection
 			default: throw new IllegalArgumentException();
 		}
 	}
+
+	public VertexDirection fromString(String string){
+		switch(string){
+			case "NW":
+				return NorthWest;
+			case "W":
+				return West;
+			case "NE":
+				return NorthEast;
+			case "SE":
+				return SouthEast;
+			case "E":
+				return East;
+			case "SW":
+				return SouthWest;
+			default:
+				return null;
+
+
+		}
+
+	}
 }
 

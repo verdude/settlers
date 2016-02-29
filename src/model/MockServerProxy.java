@@ -64,7 +64,7 @@ public class MockServerProxy implements IProxy {
 
 	@Override
 	public String gamesList() {
-		return "{\"deck\":{\"yearOfPlenty\":2,\"monopoly\":2,\"soldier\":14,\"roadBuilding\":2,\"monument\":5},\"map\":{\"hexes\":[{\"location\":{\"x\":0,\"y\":-2}},{\"resource\":\"brick\",\"location\":{\"x\":1,\"y\":-2},\"number\":4},{\"resource\":\"wood\",\"location\":{\"x\":2,\"y\":-2},\"number\":11},{\"resource\":\"brick\",\"location\":{\"x\":-1,\"y\":-1},\"number\":8},{\"resource\":\"wood\",\"location\":{\"x\":0,\"y\":-1},\"number\":3},{\"resource\":\"ore\",\"location\":{\"x\":1,\"y\":-1},\"number\":9},{\"resource\":\"sheep\",\"location\":{\"x\":2,\"y\":-1},\"number\":12},{\"resource\":\"ore\",\"location\":{\"x\":-2,\"y\":0},\"number\":5},{\"resource\":\"sheep\",\"location\":{\"x\":-1,\"y\":0},\"number\":10},{\"resource\":\"wheat\",\"location\":{\"x\":0,\"y\":0},\"number\":11},{\"resource\":\"brick\",\"location\":{\"x\":1,\"y\":0},\"number\":5},{\"resource\":\"wheat\",\"location\":{\"x\":2,\"y\":0},\"number\":6},{\"resource\":\"wheat\",\"location\":{\"x\":-2,\"y\":1},\"number\":2},{\"resource\":\"sheep\",\"location\":{\"x\":-1,\"y\":1},\"number\":9},{\"resource\":\"wood\",\"location\":{\"x\":0,\"y\":1},\"number\":4},{\"resource\":\"sheep\",\"location\":{\"x\":1,\"y\":1},\"number\":10},{\"resource\":\"wood\",\"location\":{\"x\":-2,\"y\":2},\"number\":6},{\"resource\":\"ore\",\"location\":{\"x\":-1,\"y\":2},\"number\":3},{\"resource\":\"wheat\",\"location\":{\"x\":0,\"y\":2},\"number\":8}],\"roads\":[{\"owner\":1,\"location\":{\"direction\":\"S\",\"x\":-1,\"y\":-1}},{\"owner\":3,\"location\":{\"direction\":\"SW\",\"x\":-1,\"y\":1}},{\"owner\":3,\"location\":{\"direction\":\"SW\",\"x\":2,\"y\":-2}},{\"owner\":2,\"location\":{\"direction\":\"S\",\"x\":1,\"y\":-1}},{\"owner\":0,\"location\":{\"direction\":\"S\",\"x\":0,\"y\":1}},{\"owner\":2,\"location\":{\"direction\":\"S\",\"x\":0,\"y\":0}},{\"owner\":1,\"location\":{\"direction\":\"SW\",\"x\":-2,\"y\":1}},{\"owner\":0,\"location\":{\"direction\":\"SW\",\"x\":2,\"y\":0}}],\"cities\":[],\"settlements\":[{\"owner\":3,\"location\":{\"direction\":\"SW\",\"x\":-1,\"y\":1}},{\"owner\":3,\"location\":{\"direction\":\"SE\",\"x\":1,\"y\":-2}},{\"owner\":2,\"location\":{\"direction\":\"SW\",\"x\":0,\"y\":0}},{\"owner\":2,\"location\":{\"direction\":\"SW\",\"x\":1,\"y\":-1}},{\"owner\":1,\"location\":{\"direction\":\"SW\",\"x\":-2,\"y\":1}},{\"owner\":0,\"location\":{\"direction\":\"SE\",\"x\":0,\"y\":1}},{\"owner\":1,\"location\":{\"direction\":\"SW\",\"x\":-1,\"y\":-1}},{\"owner\":0,\"location\":{\"direction\":\"SW\",\"x\":2,\"y\":0}}],\"radius\":3,\"ports\":[{\"ratio\":2,\"resource\":\"brick\",\"direction\":\"NE\",\"location\":{\"x\":-2,\"y\":3}},{\"ratio\":3,\"direction\":\"SE\",\"location\":{\"x\":-3,\"y\":0}},{\"ratio\":2,\"resource\":\"sheep\",\"direction\":\"NW\",\"location\":{\"x\":3,\"y\":-1}},{\"ratio\":3,\"direction\":\"NW\",\"location\":{\"x\":2,\"y\":1}},{\"ratio\":3,\"direction\":\"N\",\"location\":{\"x\":0,\"y\":3}},{\"ratio\":2,\"resource\":\"ore\",\"direction\":\"S\",\"location\":{\"x\":1,\"y\":-3}},{\"ratio\":3,\"direction\":\"SW\",\"location\":{\"x\":3,\"y\":-3}},{\"ratio\":2,\"resource\":\"wheat\",\"direction\":\"S\",\"location\":{\"x\":-1,\"y\":-2}},{\"ratio\":2,\"resource\":\"wood\",\"direction\":\"NE\",\"location\":{\"x\":-3,\"y\":2}}],\"robber\":{\"x\":0,\"y\":-2}},\"players\":[{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":1,\"ore\":0},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":0,\"playerIndex\":0,\"name\":\"Sam\",\"color\":\"red\"},{\"resources\":{\"brick\":1,\"wood\":0,\"sheep\":1,\"wheat\":0,\"ore\":1},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":1,\"playerIndex\":1,\"name\":\"Brooke\",\"color\":\"blue\"},{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":1,\"ore\":0},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":10,\"playerIndex\":2,\"name\":\"Pete\",\"color\":\"red\"},{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":0,\"ore\":1},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":11,\"playerIndex\":3,\"name\":\"Mark\",\"color\":\"green\"}],\"log\":{\"lines\":[{\"source\":\"Sam\",\"message\":\"Sam built a road\"},{\"source\":\"Sam\",\"message\":\"Sam built a settlement\"},{\"source\":\"Sam\",\"message\":\"Sam's turn just ended\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a road\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a settlement\"},{\"source\":\"Brooke\",\"message\":\"Brooke's turn just ended\"},{\"source\":\"Pete\",\"message\":\"Pete built a road\"},{\"source\":\"Pete\",\"message\":\"Pete built a settlement\"},{\"source\":\"Pete\",\"message\":\"Pete's turn just ended\"},{\"source\":\"Mark\",\"message\":\"Mark built a road\"},{\"source\":\"Mark\",\"message\":\"Mark built a settlement\"},{\"source\":\"Mark\",\"message\":\"Mark's turn just ended\"},{\"source\":\"Mark\",\"message\":\"Mark built a road\"},{\"source\":\"Mark\",\"message\":\"Mark built a settlement\"},{\"source\":\"Mark\",\"message\":\"Mark's turn just ended\"},{\"source\":\"Pete\",\"message\":\"Pete built a road\"},{\"source\":\"Pete\",\"message\":\"Pete built a settlement\"},{\"source\":\"Pete\",\"message\":\"Pete's turn just ended\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a road\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a settlement\"},{\"source\":\"Brooke\",\"message\":\"Brooke's turn just ended\"},{\"source\":\"Sam\",\"message\":\"Sam built a road\"},{\"source\":\"Sam\",\"message\":\"Sam built a settlement\"},{\"source\":\"Sam\",\"message\":\"Sam's turn just ended\"}]},\"chat\":{\"lines\":[]},\"bank\":{\"brick\":23,\"wood\":21,\"sheep\":20,\"wheat\":22,\"ore\":22},\"turnTracker\":{\"status\":\"Rolling\",\"currentTurn\":0,\"longestRoad\":-1,\"largestArmy\":-1},\"winner\":-1,\"version\":0}";
+		return "{\"deck\":{\"yearOfPlenty\":2,\"monopoly\":2,\"soldier\":14,\"roadBuilding\":2,\"monument\":5},\"map\":{\"hexes\":[{\"vertexLocation\":{\"x\":0,\"y\":-2}},{\"resource\":\"brick\",\"vertexLocation\":{\"x\":1,\"y\":-2},\"number\":4},{\"resource\":\"wood\",\"vertexLocation\":{\"x\":2,\"y\":-2},\"number\":11},{\"resource\":\"brick\",\"vertexLocation\":{\"x\":-1,\"y\":-1},\"number\":8},{\"resource\":\"wood\",\"vertexLocation\":{\"x\":0,\"y\":-1},\"number\":3},{\"resource\":\"ore\",\"vertexLocation\":{\"x\":1,\"y\":-1},\"number\":9},{\"resource\":\"sheep\",\"vertexLocation\":{\"x\":2,\"y\":-1},\"number\":12},{\"resource\":\"ore\",\"vertexLocation\":{\"x\":-2,\"y\":0},\"number\":5},{\"resource\":\"sheep\",\"vertexLocation\":{\"x\":-1,\"y\":0},\"number\":10},{\"resource\":\"wheat\",\"vertexLocation\":{\"x\":0,\"y\":0},\"number\":11},{\"resource\":\"brick\",\"vertexLocation\":{\"x\":1,\"y\":0},\"number\":5},{\"resource\":\"wheat\",\"vertexLocation\":{\"x\":2,\"y\":0},\"number\":6},{\"resource\":\"wheat\",\"vertexLocation\":{\"x\":-2,\"y\":1},\"number\":2},{\"resource\":\"sheep\",\"vertexLocation\":{\"x\":-1,\"y\":1},\"number\":9},{\"resource\":\"wood\",\"vertexLocation\":{\"x\":0,\"y\":1},\"number\":4},{\"resource\":\"sheep\",\"vertexLocation\":{\"x\":1,\"y\":1},\"number\":10},{\"resource\":\"wood\",\"vertexLocation\":{\"x\":-2,\"y\":2},\"number\":6},{\"resource\":\"ore\",\"vertexLocation\":{\"x\":-1,\"y\":2},\"number\":3},{\"resource\":\"wheat\",\"vertexLocation\":{\"x\":0,\"y\":2},\"number\":8}],\"roads\":[{\"owner\":1,\"vertexLocation\":{\"direction\":\"S\",\"x\":-1,\"y\":-1}},{\"owner\":3,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-1,\"y\":1}},{\"owner\":3,\"vertexLocation\":{\"direction\":\"SW\",\"x\":2,\"y\":-2}},{\"owner\":2,\"vertexLocation\":{\"direction\":\"S\",\"x\":1,\"y\":-1}},{\"owner\":0,\"vertexLocation\":{\"direction\":\"S\",\"x\":0,\"y\":1}},{\"owner\":2,\"vertexLocation\":{\"direction\":\"S\",\"x\":0,\"y\":0}},{\"owner\":1,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-2,\"y\":1}},{\"owner\":0,\"vertexLocation\":{\"direction\":\"SW\",\"x\":2,\"y\":0}}],\"cities\":[],\"settlements\":[{\"owner\":3,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-1,\"y\":1}},{\"owner\":3,\"vertexLocation\":{\"direction\":\"SE\",\"x\":1,\"y\":-2}},{\"owner\":2,\"vertexLocation\":{\"direction\":\"SW\",\"x\":0,\"y\":0}},{\"owner\":2,\"vertexLocation\":{\"direction\":\"SW\",\"x\":1,\"y\":-1}},{\"owner\":1,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-2,\"y\":1}},{\"owner\":0,\"vertexLocation\":{\"direction\":\"SE\",\"x\":0,\"y\":1}},{\"owner\":1,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-1,\"y\":-1}},{\"owner\":0,\"vertexLocation\":{\"direction\":\"SW\",\"x\":2,\"y\":0}}],\"radius\":3,\"ports\":[{\"ratio\":2,\"resource\":\"brick\",\"direction\":\"NE\",\"vertexLocation\":{\"x\":-2,\"y\":3}},{\"ratio\":3,\"direction\":\"SE\",\"vertexLocation\":{\"x\":-3,\"y\":0}},{\"ratio\":2,\"resource\":\"sheep\",\"direction\":\"NW\",\"vertexLocation\":{\"x\":3,\"y\":-1}},{\"ratio\":3,\"direction\":\"NW\",\"vertexLocation\":{\"x\":2,\"y\":1}},{\"ratio\":3,\"direction\":\"N\",\"vertexLocation\":{\"x\":0,\"y\":3}},{\"ratio\":2,\"resource\":\"ore\",\"direction\":\"S\",\"vertexLocation\":{\"x\":1,\"y\":-3}},{\"ratio\":3,\"direction\":\"SW\",\"vertexLocation\":{\"x\":3,\"y\":-3}},{\"ratio\":2,\"resource\":\"wheat\",\"direction\":\"S\",\"vertexLocation\":{\"x\":-1,\"y\":-2}},{\"ratio\":2,\"resource\":\"wood\",\"direction\":\"NE\",\"vertexLocation\":{\"x\":-3,\"y\":2}}],\"robber\":{\"x\":0,\"y\":-2}},\"players\":[{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":1,\"ore\":0},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":0,\"playerIndex\":0,\"name\":\"Sam\",\"color\":\"red\"},{\"resources\":{\"brick\":1,\"wood\":0,\"sheep\":1,\"wheat\":0,\"ore\":1},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":1,\"playerIndex\":1,\"name\":\"Brooke\",\"color\":\"blue\"},{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":1,\"ore\":0},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":10,\"playerIndex\":2,\"name\":\"Pete\",\"color\":\"red\"},{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":0,\"ore\":1},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":11,\"playerIndex\":3,\"name\":\"Mark\",\"color\":\"green\"}],\"log\":{\"lines\":[{\"source\":\"Sam\",\"message\":\"Sam built a road\"},{\"source\":\"Sam\",\"message\":\"Sam built a settlement\"},{\"source\":\"Sam\",\"message\":\"Sam's turn just ended\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a road\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a settlement\"},{\"source\":\"Brooke\",\"message\":\"Brooke's turn just ended\"},{\"source\":\"Pete\",\"message\":\"Pete built a road\"},{\"source\":\"Pete\",\"message\":\"Pete built a settlement\"},{\"source\":\"Pete\",\"message\":\"Pete's turn just ended\"},{\"source\":\"Mark\",\"message\":\"Mark built a road\"},{\"source\":\"Mark\",\"message\":\"Mark built a settlement\"},{\"source\":\"Mark\",\"message\":\"Mark's turn just ended\"},{\"source\":\"Mark\",\"message\":\"Mark built a road\"},{\"source\":\"Mark\",\"message\":\"Mark built a settlement\"},{\"source\":\"Mark\",\"message\":\"Mark's turn just ended\"},{\"source\":\"Pete\",\"message\":\"Pete built a road\"},{\"source\":\"Pete\",\"message\":\"Pete built a settlement\"},{\"source\":\"Pete\",\"message\":\"Pete's turn just ended\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a road\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a settlement\"},{\"source\":\"Brooke\",\"message\":\"Brooke's turn just ended\"},{\"source\":\"Sam\",\"message\":\"Sam built a road\"},{\"source\":\"Sam\",\"message\":\"Sam built a settlement\"},{\"source\":\"Sam\",\"message\":\"Sam's turn just ended\"}]},\"chat\":{\"lines\":[]},\"bank\":{\"brick\":23,\"wood\":21,\"sheep\":20,\"wheat\":22,\"ore\":22},\"turnTracker\":{\"status\":\"Rolling\",\"currentTurn\":0,\"longestRoad\":-1,\"largestArmy\":-1},\"winner\":-1,\"version\":0}";
 	}
 
 	@Override
@@ -117,14 +117,14 @@ public class MockServerProxy implements IProxy {
 				"  \"map\": {\r\n" + 
 				"    \"hexes\": [\r\n" + 
 				"      {\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": -2\r\n" + 
 				"        }\r\n" + 
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"brick\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 1,\r\n" + 
 				"          \"y\": -2\r\n" + 
 				"        },\r\n" + 
@@ -132,7 +132,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"wood\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 2,\r\n" + 
 				"          \"y\": -2\r\n" + 
 				"        },\r\n" + 
@@ -140,7 +140,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"brick\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": -1\r\n" + 
 				"        },\r\n" + 
@@ -148,7 +148,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"wood\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": -1\r\n" + 
 				"        },\r\n" + 
@@ -156,7 +156,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"ore\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 1,\r\n" + 
 				"          \"y\": -1\r\n" + 
 				"        },\r\n" + 
@@ -164,7 +164,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"sheep\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 2,\r\n" + 
 				"          \"y\": -1\r\n" + 
 				"        },\r\n" + 
@@ -172,7 +172,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"ore\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -2,\r\n" + 
 				"          \"y\": 0\r\n" + 
 				"        },\r\n" + 
@@ -180,7 +180,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"sheep\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": 0\r\n" + 
 				"        },\r\n" + 
@@ -188,7 +188,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"wheat\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": 0\r\n" + 
 				"        },\r\n" + 
@@ -196,7 +196,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"brick\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 1,\r\n" + 
 				"          \"y\": 0\r\n" + 
 				"        },\r\n" + 
@@ -204,7 +204,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"wheat\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 2,\r\n" + 
 				"          \"y\": 0\r\n" + 
 				"        },\r\n" + 
@@ -212,7 +212,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"wheat\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -2,\r\n" + 
 				"          \"y\": 1\r\n" + 
 				"        },\r\n" + 
@@ -220,7 +220,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"sheep\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": 1\r\n" + 
 				"        },\r\n" + 
@@ -228,7 +228,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"wood\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": 1\r\n" + 
 				"        },\r\n" + 
@@ -236,7 +236,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"sheep\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 1,\r\n" + 
 				"          \"y\": 1\r\n" + 
 				"        },\r\n" + 
@@ -244,7 +244,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"wood\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -2,\r\n" + 
 				"          \"y\": 2\r\n" + 
 				"        },\r\n" + 
@@ -252,7 +252,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"ore\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": 2\r\n" + 
 				"        },\r\n" + 
@@ -260,7 +260,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"resource\": \"wheat\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": 2\r\n" + 
 				"        },\r\n" + 
@@ -270,7 +270,7 @@ public class MockServerProxy implements IProxy {
 				"    \"roads\": [\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 1,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"S\",\r\n" + 
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": -1\r\n" + 
@@ -278,7 +278,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 3,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": 1\r\n" + 
@@ -286,7 +286,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 3,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": 2,\r\n" + 
 				"          \"y\": -2\r\n" + 
@@ -294,7 +294,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 2,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"S\",\r\n" + 
 				"          \"x\": 1,\r\n" + 
 				"          \"y\": -1\r\n" + 
@@ -302,7 +302,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 0,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"S\",\r\n" + 
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": 1\r\n" + 
@@ -310,7 +310,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 2,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"S\",\r\n" + 
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": 0\r\n" + 
@@ -318,7 +318,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 1,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": -2,\r\n" + 
 				"          \"y\": 1\r\n" + 
@@ -326,7 +326,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 0,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": 2,\r\n" + 
 				"          \"y\": 0\r\n" + 
@@ -337,7 +337,7 @@ public class MockServerProxy implements IProxy {
 				"    \"settlements\": [\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 3,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": 1\r\n" + 
@@ -345,7 +345,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 3,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SE\",\r\n" + 
 				"          \"x\": 1,\r\n" + 
 				"          \"y\": -2\r\n" + 
@@ -353,7 +353,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 2,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": 0\r\n" + 
@@ -361,7 +361,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 2,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": 1,\r\n" + 
 				"          \"y\": -1\r\n" + 
@@ -369,7 +369,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 1,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": -2,\r\n" + 
 				"          \"y\": 1\r\n" + 
@@ -377,7 +377,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 0,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SE\",\r\n" + 
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": 1\r\n" + 
@@ -385,7 +385,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 1,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": -1\r\n" + 
@@ -393,7 +393,7 @@ public class MockServerProxy implements IProxy {
 				"      },\r\n" + 
 				"      {\r\n" + 
 				"        \"owner\": 0,\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"direction\": \"SW\",\r\n" + 
 				"          \"x\": 2,\r\n" + 
 				"          \"y\": 0\r\n" + 
@@ -405,7 +405,7 @@ public class MockServerProxy implements IProxy {
 				"      {\r\n" + 
 				"        \"ratio\": 3,\r\n" + 
 				"        \"direction\": \"NW\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 2,\r\n" + 
 				"          \"y\": 1\r\n" + 
 				"        }\r\n" + 
@@ -414,7 +414,7 @@ public class MockServerProxy implements IProxy {
 				"        \"ratio\": 2,\r\n" + 
 				"        \"resource\": \"brick\",\r\n" + 
 				"        \"direction\": \"NE\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -2,\r\n" + 
 				"          \"y\": 3\r\n" + 
 				"        }\r\n" + 
@@ -422,7 +422,7 @@ public class MockServerProxy implements IProxy {
 				"      {\r\n" + 
 				"        \"ratio\": 3,\r\n" + 
 				"        \"direction\": \"SW\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 3,\r\n" + 
 				"          \"y\": -3\r\n" + 
 				"        }\r\n" + 
@@ -430,7 +430,7 @@ public class MockServerProxy implements IProxy {
 				"      {\r\n" + 
 				"        \"ratio\": 3,\r\n" + 
 				"        \"direction\": \"N\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 0,\r\n" + 
 				"          \"y\": 3\r\n" + 
 				"        }\r\n" + 
@@ -439,7 +439,7 @@ public class MockServerProxy implements IProxy {
 				"        \"ratio\": 2,\r\n" + 
 				"        \"resource\": \"wood\",\r\n" + 
 				"        \"direction\": \"NE\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -3,\r\n" + 
 				"          \"y\": 2\r\n" + 
 				"        }\r\n" + 
@@ -447,7 +447,7 @@ public class MockServerProxy implements IProxy {
 				"      {\r\n" + 
 				"        \"ratio\": 3,\r\n" + 
 				"        \"direction\": \"SE\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -3,\r\n" + 
 				"          \"y\": 0\r\n" + 
 				"        }\r\n" + 
@@ -456,7 +456,7 @@ public class MockServerProxy implements IProxy {
 				"        \"ratio\": 2,\r\n" + 
 				"        \"resource\": \"wheat\",\r\n" + 
 				"        \"direction\": \"S\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": -1,\r\n" + 
 				"          \"y\": -2\r\n" + 
 				"        }\r\n" + 
@@ -465,7 +465,7 @@ public class MockServerProxy implements IProxy {
 				"        \"ratio\": 2,\r\n" + 
 				"        \"resource\": \"ore\",\r\n" + 
 				"        \"direction\": \"S\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 1,\r\n" + 
 				"          \"y\": -3\r\n" + 
 				"        }\r\n" + 
@@ -474,7 +474,7 @@ public class MockServerProxy implements IProxy {
 				"        \"ratio\": 2,\r\n" + 
 				"        \"resource\": \"sheep\",\r\n" + 
 				"        \"direction\": \"NW\",\r\n" + 
-				"        \"location\": {\r\n" + 
+				"        \"vertexLocation\": {\r\n" +
 				"          \"x\": 3,\r\n" + 
 				"          \"y\": -1\r\n" + 
 				"        }\r\n" + 
