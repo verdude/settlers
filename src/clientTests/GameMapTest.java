@@ -1,6 +1,7 @@
 package clientTests;
 
 import static org.junit.Assert.assertTrue;
+
 import model.EdgeValue;
 import model.GameMap;
 import model.GameMapException;

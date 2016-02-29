@@ -3,7 +3,6 @@ package model;
 import java.util.List;
 
 import shared.definitions.ResourceType;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
 /**
@@ -283,7 +282,7 @@ public interface IProxy {
 	 * @post Two roads are placed that belong to the corresponding player. They are placed correctly.
 	 * @return The model
 	 */
-	public String roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2);
+	public String roadBuilding(int playerIndex, shared.locations.EdgeLocation spot1, shared.locations.EdgeLocation spot2);
 
 	/**
 	 * Plays the monopoly card

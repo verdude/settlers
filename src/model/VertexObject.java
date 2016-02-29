@@ -20,7 +20,7 @@ public class VertexObject {
 
 		public VertexObject(){
 			owner = -1;
-//			location = new EdgeLocation(new HexLocation(0,0), EdgeDirection.North);
+//			location = new EdgeValue(new HexLocation(0,0), EdgeDirection.North);
 //			vertexLocation = location.toVertexLocation();
 			//...
 		}

@@ -67,7 +67,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeRoad(EdgeValue position) throws GameMapException {
-		roads.add(new Road(position));
+		roads.add(new Road(position.getLocation()));
 	}
 	
 	

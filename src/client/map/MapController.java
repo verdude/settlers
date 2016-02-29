@@ -206,8 +206,8 @@ public class MapController extends Controller implements IMapController,IObserve
 
                             CatanColor color = model.getPlayers()[playerIndex].getColor();
                             System.out.println("1"+road.getLocation());
-                            System.out.println("2"+road.getLocation().getLocation());
-                            getView().placeRoad(road.getLocation().getLocation(), color);
+                            System.out.println("2"+road.getLocation());
+                            getView().placeRoad(road.getLocation(), color);
                         }
 
 				} catch (ClientException e) {
@@ -355,13 +355,40 @@ public class MapController extends Controller implements IMapController,IObserve
 		initFromModel();
 
 
+		List<VertexObject> cities = model.getMap().getCities();
+		List<VertexObject> settlements = model.getMap().getSettlements();
+		List<Road> roads = model.getMap().getRoads();
 
-		List<Hex> hexList = null;
-		try {
-			hexList = ClientFacade.getSingleton().getClientModel().getMap().getHexes();
-		} catch (ClientException e) {
-			e.printStackTrace();
+
+		//Place all of the cities front the model on the map
+		for (VertexObject city : cities) {
+
+			int playerIndex = city.getOwner();
+			CatanColor color = model.getPlayers()[playerIndex].getColor();
+			getView().placeCity(city.getVertexLocation(), color);
 		}
+
+		//Place all of the settlements front the model on the map
+		for (VertexObject settlement : settlements) {
+
+			int playerIndex = settlement.getOwner();
+			CatanColor color = model.getPlayers()[playerIndex].getColor();
+			getView().placeSettlement(settlement.getVertexLocation(), color);
+		}
+
+		//Place all of the roads front the model on the map
+		for (Road road : roads) {
+
+			int playerIndex = road.getOwner();
+			System.out.println("Road index: " + playerIndex);
+
+			CatanColor color = model.getPlayers()[playerIndex].getColor();
+			System.out.println("1"+road.getLocation());
+			System.out.println("2"+road.getLocation());
+			getView().placeRoad(road.getLocation(), color);
+		}
+
+
 
 
 

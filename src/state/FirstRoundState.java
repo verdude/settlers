@@ -5,19 +5,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import model.ClientException;
-import model.ClientFacade;
+import model.*;
 import model.EdgeValue;
-import model.GameMap;
-import model.Hex;
-import model.Port;
-import model.TurnTracker;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
-import shared.definitions.PortType;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import client.data.PlayerInfo;
@@ -163,11 +155,11 @@ public class FirstRoundState implements IState {
 					view.addHex(hexLoc, hexType);
 
 
-	 				getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NorthWest),
+	 				getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.NorthWest),
 							CatanColor.RED);
-					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.SouthWest),
+					getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.SouthWest),
 							CatanColor.BLUE);
-					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.South),
+					getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.South),
 							CatanColor.ORANGE);
 					getView().placeSettlement(new VertexLocation(hexLoc, VertexDirection.NorthWest), CatanColor.GREEN);
 					getView().placeCity(new VertexLocation(hexLoc, VertexDirection.NorthEast), CatanColor.PURPLE);
@@ -182,11 +174,11 @@ public class FirstRoundState implements IState {
 //						HexType hexType = HexType.values()[r];
 //						HexLocation hexLoc = new HexLocation(-x, y);
 //						getView().addHex(hexLoc, hexType);
-//						getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NorthWest),
+//						getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.NorthWest),
 //								CatanColor.RED);
-//						getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.SouthWest),
+//						getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.SouthWest),
 //								CatanColor.BLUE);
-//						getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.South),
+//						getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.South),
 //								CatanColor.ORANGE);
 //						getView().placeSettlement(new VertexLocation(hexLoc, VertexDirection.NorthWest), CatanColor.GREEN);
 //						getView().placeCity(new VertexLocation(hexLoc, VertexDirection.NorthEast), CatanColor.PURPLE);
@@ -198,12 +190,12 @@ public class FirstRoundState implements IState {
 
 
 //			PortType portType = PortType.BRICK;
-//			getView().addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), portType);
-//			getView().addPort(new EdgeLocation(new HexLocation(0, -3), EdgeDirection.South), portType);
-//			getView().addPort(new EdgeLocation(new HexLocation(-3, 3), EdgeDirection.NorthEast), portType);
-//			getView().addPort(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), portType);
-//			getView().addPort(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), portType);
-//			getView().addPort(new EdgeLocation(new HexLocation(3, 0), EdgeDirection.NorthWest), portType);
+//			getView().addPort(new EdgeValue(new HexLocation(0, 3), EdgeDirection.North), portType);
+//			getView().addPort(new EdgeValue(new HexLocation(0, -3), EdgeDirection.South), portType);
+//			getView().addPort(new EdgeValue(new HexLocation(-3, 3), EdgeDirection.NorthEast), portType);
+//			getView().addPort(new EdgeValue(new HexLocation(-3, 0), EdgeDirection.SouthEast), portType);
+//			getView().addPort(new EdgeValue(new HexLocation(3, -3), EdgeDirection.SouthWest), portType);
+//			getView().addPort(new EdgeValue(new HexLocation(3, 0), EdgeDirection.NorthWest), portType);
 //
 //			getView().placeRobber(new HexLocation(0, 0));
 //
@@ -213,7 +205,7 @@ public class FirstRoundState implements IState {
 	}
 
 	@Override
-	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+	public boolean canPlaceRoad(shared.locations.EdgeLocation edgeLoc) {
 		boolean canDo = false;
 		try {
 			int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
@@ -242,7 +234,7 @@ public class FirstRoundState implements IState {
 	}
 
 	@Override
-	public void placeRoad(EdgeLocation edgeLoc, IMapView view) {
+	public void placeRoad(shared.locations.EdgeLocation edgeLoc, IMapView view) {
 		// TODO: Call ClientFacade buildRoad
 		int playerIndex;
 		try {

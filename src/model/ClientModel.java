@@ -389,13 +389,13 @@ public class ClientModel {
 	 * @post True if client can perform buildRoad
 	 * @return Whether the action is possible
 	 */
-	public boolean canBuildRoad(int playerIndex, EdgeLocation newLocation, boolean isFree) {
+	public boolean canBuildRoad(int playerIndex, shared.locations.EdgeLocation newLocation, boolean isFree) {
 		System.out.println("Called Big Cando for ROAD");
 		
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
-		//EdgeLocation newLocation = edgeValue.getVertexLocation();
+		//EdgeValue newLocation = edgeValue.getVertexLocation();
 
 		int roads = player.getRoads();
 //		if(edgeValue.getOwner() >= 0){//If there is already an owner
@@ -404,11 +404,11 @@ public class ClientModel {
 		List<Road> roadList = map.getRoads();
 
 		for(Road road : roadList){
-			HexLocation roadhex = road.getLocation().getLocation().getHexLoc();
+			HexLocation roadhex = road.getLocation().getHexLoc();
 			int x = roadhex.getX();
 			int y = roadhex.getY();
 			if(x == newLocation.getHexLoc().getX() && y == newLocation.getHexLoc().getY()){
-				if(newLocation.getNormalizedLocation().equals(road.getLocation().getLocation().getNormalizedLocation())){
+				if(newLocation.getNormalizedLocation().equals(road.getLocation().getNormalizedLocation())){
 					
 					System.out.println("Invalid road vertexLocation!");
 					return false;
@@ -432,8 +432,8 @@ public class ClientModel {
 				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex && (player.getHasRolled() || firstRounds) ){
 			roadList = map.getRoads();
 			for(Road r : roadList){
-				EdgeValue tempEdgeValue = r.getLocation();
-				EdgeLocation tempEdgeLocation = tempEdgeValue.getLocation();
+//				EdgeValue tempEdgeValue = r;
+				shared.locations.EdgeLocation tempEdgeLocation = r.getLocation();
 
 				if(tempEdgeLocation.equals(newLocation)){// If a road already has this edgeLocation
 					System.out.println("There is a road at this vertexLocation!");
@@ -525,9 +525,9 @@ public class ClientModel {
 
 			for(Road r : roadList){
 				EdgeDirection roadDirection = newLocation.getDirection();
-				EdgeDirection tempDirection = r.getLocation().getLocation().getDirection();
+				EdgeDirection tempDirection = r.getLocation().getDirection();
 
-				HexLocation tempHexLoc = r.getLocation().getLocation().getHexLoc();
+				HexLocation tempHexLoc = r.getLocation().getHexLoc();
 				HexLocation roadHexLoc = newLocation.getHexLoc();
 				HexLocation nwNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.NorthWest);
 				HexLocation neNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.NorthEast);
@@ -657,8 +657,8 @@ public class ClientModel {
 			for(Road r : map.getRoads()){
 
 				if(r.getOwner() == player.getPlayerID()){
-					HexLocation tempHexLoc = r.getLocation().getLocation().getHexLoc();
-					EdgeDirection tempDir = r.getLocation().getLocation().getDirection();
+					HexLocation tempHexLoc = r.getLocation().getHexLoc();
+					EdgeDirection tempDir = r.getLocation().getDirection();
 
 					switch(settDir){
 					

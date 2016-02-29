@@ -362,7 +362,7 @@ public class MapComponent extends JComponent
 	public void placeRoad(EdgeLocation edgeLoc, CatanColor color)
 	{
 		
-		roads.put(edgeLoc.getNormalizedLocation(), color);
+		roads.put(edgeLoc, color);
 		
 		this.repaint();
 	}

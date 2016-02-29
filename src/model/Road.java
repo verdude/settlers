@@ -1,21 +1,23 @@
 package model;
 
+import shared.locations.EdgeLocation;
+
 public class Road {
 	int owner;
-	EdgeValue 	location;
+	EdgeLocation location;
 	
 	public Road(){
 		location = null;
 		owner = -1;
 	}
 	
-	public Road(EdgeValue location){
+	public Road(EdgeLocation location){
 		setLocation(location);
 	}
 	
 	public int getOwner()				{ return owner; 			}
-	public EdgeValue 	getLocation() 				{ return location; 			}
+	public EdgeLocation getLocation() 				{ return location; 			}
 	
 	public void setOwner(int id) 				{ this.owner = id; 		}
-	public void setLocation(EdgeValue location)		{ this.location = location; }
+	public void setLocation(EdgeLocation location)		{ this.location = location; }
 }

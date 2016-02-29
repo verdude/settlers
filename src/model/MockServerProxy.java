@@ -3,7 +3,6 @@ package model;
 import java.util.List;
 
 import shared.definitions.ResourceType;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
 /**
@@ -872,8 +871,8 @@ public class MockServerProxy implements IProxy {
 	}
 
 	@Override
-	public String roadBuilding(int playerIndex, EdgeLocation spot1,
-			EdgeLocation spot2) {
+	public String roadBuilding(int playerIndex, shared.locations.EdgeLocation spot1,
+			shared.locations.EdgeLocation spot2) {
 		
 		return gamesModel("");
 	}

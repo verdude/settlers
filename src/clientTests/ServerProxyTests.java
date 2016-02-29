@@ -17,7 +17,6 @@ import org.junit.Test;
 
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -68,7 +67,7 @@ public class ServerProxyTests {
 	@Test
 	public void buildRoadTest() {
 		EdgeValue edgeValue =  new EdgeValue();
-		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
+		edgeValue.setLocation(new shared.locations.EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
 		assertNotEquals(proxy.buildRoad(0, edgeValue, "true"), "Error");
 	}
@@ -138,10 +137,10 @@ public class ServerProxyTests {
 	@Test
 	public void roadBuildingTest() {
 		EdgeValue edgeValue =  new EdgeValue();
-		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
+		edgeValue.setLocation(new shared.locations.EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
-		assertNotEquals(proxy.roadBuilding(0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.North),
-												new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North)), "Error");
+		assertNotEquals(proxy.roadBuilding(0, new shared.locations.EdgeLocation(new HexLocation(0,0), EdgeDirection.North),
+												new shared.locations.EdgeLocation(new HexLocation(0, 0), EdgeDirection.North)), "Error");
 	}
 
 	@Test

@@ -1,6 +1,7 @@
 package clientTests;
 
 import model.*;
+import model.EdgeValue;
 import org.junit.Before;
 import org.junit.Test;
 import shared.definitions.CatanColor;
@@ -45,11 +46,11 @@ public class ClientCanDoTests {
 
 		EdgeValue road1Val = new EdgeValue();
 		road1Val.setOwner(0);
-		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.NorthWest);
+		shared.locations.EdgeLocation road1Loc = new shared.locations.EdgeLocation(new HexLocation(1,-1), EdgeDirection.NorthWest);
 		road1Val.setLocation(road1Loc);
 
 		road1.setOwner(0);
-		road1.setLocation(road1Val);
+		road1.setLocation(road1Val.getLocation());
 
 
 		map = new GameMap();
@@ -83,16 +84,16 @@ public class ClientCanDoTests {
 		Road road2 = new Road();
 
 		EdgeValue road2Val = new EdgeValue();
-		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.North);
+		shared.locations.EdgeLocation road1Loc = new shared.locations.EdgeLocation(new HexLocation(1,-1), EdgeDirection.North);
 		road2Val.setLocation(road1Loc);
 
 		road2.setOwner(0);
-		road2.setLocation(road2Val);
+		road2.setLocation(road2Val.getLocation());
 
-		assertTrue(model.canBuildRoad(0, road2.getLocation().getLocation(),false));
-		road2.getLocation().setOwner(0);
+		assertTrue(model.canBuildRoad(0, road2.getLocation(),false));
+		road2.setOwner(0);
 		map.getRoads().add(road2);
-		assertFalse(model.canBuildRoad(0, road2.getLocation().getLocation(),false));
+		assertFalse(model.canBuildRoad(0, road2.getLocation(),false));
 
 
 	}
@@ -114,16 +115,16 @@ public class ClientCanDoTests {
 		Road road2 = new Road();
 
 		EdgeValue road2Val = new EdgeValue();
-		EdgeLocation road1Loc = new EdgeLocation(new HexLocation(1,-1), EdgeDirection.North);
+		shared.locations.EdgeLocation road1Loc = new shared.locations.EdgeLocation(new HexLocation(1,-1), EdgeDirection.North);
 		road2Val.setLocation(road1Loc);
 		road2.setOwner(0);
-		road2.setLocation(road2Val);
+		road2.setLocation(road2Val.getLocation());
 
 		
 		assertTrue(model.canBuildRoad(0, road2Val.getLocation(),false));
-		road2.getLocation().setOwner(0);
+		road2.setOwner(0);
 		road2Val.setOwner(0);
-		road2.setLocation(road2Val);
+		road2.setLocation(road2Val.getLocation());
 		map.getRoads().add(road2);
 		road2Val.setOwner(0);
 

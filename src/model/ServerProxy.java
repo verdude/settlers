@@ -1,7 +1,6 @@
 package model;
 
 import shared.definitions.ResourceType;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
 import java.io.BufferedReader;
@@ -432,7 +431,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public String roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
+	public String roadBuilding(int playerIndex, shared.locations.EdgeLocation spot1, shared.locations.EdgeLocation spot2) {
 		return post("moves/Road_Building", "{\"type\": \"Road_Building\", \"owner\": " + playerIndex + ", "
 				+ "\"spot1\": {"
 				+ "\"x\": " + spot1.getHexLoc().getX() + ", "

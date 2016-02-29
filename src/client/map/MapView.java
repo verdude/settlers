@@ -1,17 +1,25 @@
 package client.map;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-
-import client.base.*;
-import client.data.*;
+import client.base.IController;
+import client.base.IView;
+import client.base.OverlayView;
+import client.base.PanelView;
+import client.data.RobPlayerInfo;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
-import shared.definitions.*;
-import shared.locations.*;
+import shared.definitions.CatanColor;
+import shared.definitions.HexType;
+import shared.definitions.PieceType;
+import shared.definitions.PortType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Implementation for the map view
@@ -69,7 +77,7 @@ public class MapView extends PanelView implements IMapView
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc, CatanColor color)
 	{
-		map.placeRoad(edgeLoc, color);
+		map.placeRoad(edgeLoc.getNormalizedLocation(), color);
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package clientTests;
 
 import model.*;
+import model.EdgeValue;
 import org.junit.Before;
 import org.junit.Test;
 import shared.definitions.CatanColor;
@@ -219,7 +220,7 @@ public class ClientFacadeTest {
 	@Test
 	public void buildRoadTest() {
 		EdgeValue edgeValue =  new EdgeValue();
-		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
+		edgeValue.setLocation(new shared.locations.EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
 		assertTrue(facade.buildRoad(edgeValue, "true"));
 	}
@@ -284,10 +285,10 @@ public class ClientFacadeTest {
 	@Test
 	public void roadBuildingTest() {
 		EdgeValue edgeValue =  new EdgeValue();
-		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
+		edgeValue.setLocation(new shared.locations.EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
-		assertTrue(facade.roadBuilding(new EdgeLocation(new HexLocation(0,0), EdgeDirection.North),
-				new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North)));
+		assertTrue(facade.roadBuilding(new shared.locations.EdgeLocation(new HexLocation(0,0), EdgeDirection.North),
+				new shared.locations.EdgeLocation(new HexLocation(0, 0), EdgeDirection.North)));
 	}
 	
 	@Test

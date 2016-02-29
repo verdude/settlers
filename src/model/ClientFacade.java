@@ -3,7 +3,6 @@ package model;
 import client.base.IObserver;
 import client.data.PlayerInfo;
 import shared.definitions.ResourceType;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import state.*;
@@ -523,7 +522,7 @@ public class ClientFacade {
 	 * @post Two roads are placed that belong to the corresponding player. They are placed correctly.
 	 * @return Whether it was attempted
 	 */
-	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
+	public boolean roadBuilding(shared.locations.EdgeLocation spot1, shared.locations.EdgeLocation spot2) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canRoadBuilding(playerIndex);
 		if(canDo)
@@ -575,9 +574,9 @@ public class ClientFacade {
 		return clientModel;
 	}
 
-	public EdgeLocation vertexLocToEdgeLoc(VertexLocation vertexLocation){
+	public shared.locations.EdgeLocation vertexLocToEdgeLoc(VertexLocation vertexLocation){
 
-//		EdgeLocation edgeLocation = new EdgeLocation(vertexLocation.getHexLoc(),vertexLocation.getDirection());
+//		EdgeValue edgeLocation = new EdgeValue(vertexLocation.getHexLoc(),vertexLocation.getDirection());
 		return null;
 	}
 

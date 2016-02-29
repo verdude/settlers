@@ -15,25 +15,7 @@ public class HexLocation
 		setY(y);
 	}
 	
-	public int getX()
-	{
-		return x;
-	}
-	
-	private void setX(int x)
-	{
-		this.x = x;
-	}
-	
-	public int getY()
-	{
-		return y;
-	}
-	
-	private void setY(int y)
-	{
-		this.y = y;
-	}
+
 	
 	@Override
 	public String toString()
@@ -88,6 +70,26 @@ public class HexLocation
 				assert false;
 				return null;
 		}
+	}
+
+	public int getX()
+	{
+		return x;
+	}
+
+	private void setX(int x)
+	{
+		this.x = x;
+	}
+
+	public int getY()
+	{
+		return y;
+	}
+
+	private void setY(int y)
+	{
+		this.y = y;
 	}
 	
 }

@@ -34,7 +34,10 @@ public class EdgeLocation
 
 	public EdgeLocation(HexLocation hexLoc, EdgeDirection direction)
 	{
+
 		setHexLoc(hexLoc);
+		this.x = hexLoc.getX();
+		this.y = hexLoc.getY();
 		setDirection(direction);
 
 	}
@@ -68,7 +71,7 @@ public class EdgeLocation
 	@Override
 	public String toString()
 	{
-		return "EdgeLocation [hexLoc=" + hexLoc + ", direction=" + direction + "]";
+		return "EdgeValue [hexLoc=" + hexLoc + ", direction=" + direction + "]";
 	}
 	
 	@Override
@@ -114,7 +117,10 @@ public class EdgeLocation
 	public EdgeLocation getNormalizedLocation()
 	{
 		
-		// Return an EdgeLocation that has direction NW, N, or NE
+		// Return an EdgeValue that has direction NW, N, or NE
+		if(hexLoc == null){
+			hexLoc = new HexLocation(x,y);
+		}
 		
 		switch (direction)
 		{
@@ -139,5 +145,11 @@ public class EdgeLocation
 		VertexLocation vertexLocation = new VertexLocation(getHexLoc(),VertexDirection.East.fromString(dir));
 		return vertexLocation;
 	}
+//	public model.EdgeValue toEdgeValue(){
+//
+//		String dir = this.getDirection().toString();
+//		model.EdgeValue edgeLocation = new model.EdgeValue();
+//		return vertexLocation;
+//	}
 }
 

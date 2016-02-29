@@ -8,7 +8,6 @@ import model.EdgeValue;
 import model.VertexObject;
 import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 
@@ -24,7 +23,7 @@ public class PlayingState implements IState {
     }
 
     @Override
-    public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+    public boolean canPlaceRoad(shared.locations.EdgeLocation edgeLoc) {
         try {
             int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 //			EdgeValue edgeValue = new EdgeValue();
@@ -73,7 +72,7 @@ public class PlayingState implements IState {
     }
 
     @Override
-    public void placeRoad(EdgeLocation edgeLoc, IMapView view) {
+    public void placeRoad(shared.locations.EdgeLocation edgeLoc, IMapView view) {
         CatanColor color = null;
         try {
             int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
