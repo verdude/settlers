@@ -77,7 +77,7 @@ public class RollController extends Controller implements IRollController {
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
 			    public void run() {
-			    	if (!getRollView().isModalShowing()) {
+			    	if (getRollView().isModalShowing()) {
 						getRollView().closeModal();
 						rollDice();
 			    	}
