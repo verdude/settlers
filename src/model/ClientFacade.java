@@ -42,7 +42,6 @@ public class ClientFacade {
 		this.proxy = proxy;
 		gameStarted = false;
 		observers = new ArrayList<IObserver>();
-		ServerPoller.getSingleton(proxy);
 	}
 
 	/**
@@ -79,12 +78,19 @@ public class ClientFacade {
 			observer.notify(clientModel);
 		}
 	}
+
+	public void notifyAllObservers() {
+        for(IObserver observer : observers) {
+			observer.notify(clientModel);
+		}
+	}
 	
 	public void addObserver(IObserver newObserver) {
 		observers.add(newObserver);
 	}
 	
 	public void createLocalPlayer(String name) {
+		System.out.println("in create local player");
 		localPlayer = new PlayerInfo();
 		localPlayer.setName(name);
 		try {
@@ -580,4 +586,7 @@ public class ClientFacade {
 		return null;
 	}
 
+	public void setGameStarted(boolean gameStarted) {
+		this.gameStarted = gameStarted;
+	}
 }

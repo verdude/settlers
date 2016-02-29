@@ -5,10 +5,7 @@ import client.base.IAction;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import client.misc.IMessageView;
-import model.ClientException;
-import model.ClientFacade;
-import model.ClientModel;
-import model.Converter;
+import model.*;
 import shared.definitions.CatanColor;
 
 import java.util.ArrayList;
@@ -165,7 +162,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			System.out.println("Could not set the local Player. startJoinGame in JoinGameController.");
 			e1.printStackTrace();
 		}
-		index = 0;
 		//Get all of the players' colors
 		for (PlayerInfo player : game.getPlayers()) {
 			// Disable all of the chosen colors except for the localPlayer's
@@ -177,7 +173,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			} catch (ClientException e) {
 				e.printStackTrace();
 			}
-			index++;
 		}
 		getSelectColorView().showModal();
 	}
@@ -213,8 +208,21 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		// TODO Auto-generated method stub
-		
+		// set local player on every notify just because
+		PlayerInfo localPlayer;
+		try {
+			localPlayer = ClientFacade.getSingleton().getLocalPlayer();
+			for (Player player : model.getPlayers()) {
+				if (player.getPlayerID() == localPlayer.getId()) {
+					localPlayer.setPlayerIndex(player.getPlayerIndex());
+					ClientFacade.getSingleton().setLocalPlayer(localPlayer);
+					break;
+				}
+			}
+		} catch (ClientException e1) {
+			System.out.println("Could not set the local Player. join game controller.");
+			e1.printStackTrace();
+		}
 	}
 
 }

@@ -390,7 +390,6 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildRoad(int playerIndex, shared.locations.EdgeLocation newLocation, boolean isFree) {
-
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
@@ -448,14 +447,14 @@ public class ClientModel {
 				switch(roadDirection){
 				case NorthWest:
 					if((settlementDirection.equals(VertexDirection.NorthWest) || settlementDirection.equals(VertexDirection.West))
-							&& s.getOwner() == player.getPlayerID()){
+							&& s.getOwner() == player.getPlayerIndex()){
 						if(s.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 							return true;
 						}						}
 					break;
 				case North:
 					if((settlementDirection.equals(VertexDirection.NorthWest) || settlementDirection.equals(VertexDirection.NorthEast))
-							&& s.getOwner() == player.getPlayerID()){
+							&& s.getOwner() == player.getPlayerIndex()){
 						if(s.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 							return true;
 						}						}
@@ -463,7 +462,7 @@ public class ClientModel {
 				case NorthEast:
 					//HexLocation to the lower right of the hex that the road is considered on after normalizing
 					HexLocation tempLoc = new HexLocation(newLocation.getHexLoc().getX()+1,newLocation.getHexLoc().getY());
-					if(s.getOwner() == player.getPlayerID()
+					if(s.getOwner() == player.getPlayerIndex()
 							&& (s.getVertexLocation().getHexLoc().equals(tempLoc)
 									&& settlementDirection.equals(VertexDirection.NorthWest))){
 						return true;
@@ -492,14 +491,14 @@ public class ClientModel {
 				switch(roadDirection){
 				case NorthWest:
 					if((cityDirection.equals(VertexDirection.NorthWest) || cityDirection.equals(VertexDirection.West))
-							&& c.getOwner() == player.getPlayerID()){
+							&& c.getOwner() == player.getPlayerIndex()){
 						if(c.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 							return true;
 						}						}
 					break;
 				case North:
 					if((cityDirection.equals(VertexDirection.NorthWest) || cityDirection.equals(VertexDirection.NorthEast))
-							&& c.getOwner() == player.getPlayerID()){
+							&& c.getOwner() == player.getPlayerIndex()){
 						if(c.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 							return true;
 						}						}
@@ -507,7 +506,7 @@ public class ClientModel {
 				case NorthEast:
 					//HexLocation to the lower right of the hex that the road is considered on after normalizing
 					HexLocation tempLoc = new HexLocation(newLocation.getHexLoc().getX()+1,newLocation.getHexLoc().getY());
-					if(c.getOwner() == player.getPlayerID()
+					if(c.getOwner() == player.getPlayerIndex()
 							&& (c.getVertexLocation().getHexLoc().equals(tempLoc)
 									&& cityDirection.equals(VertexDirection.NorthWest))){
 						return true;
@@ -541,7 +540,7 @@ public class ClientModel {
 
 				switch(roadDirection){
 				case NorthWest:
-					if(r.getOwner() == player.getPlayerID()){
+					if(r.getOwner() == player.getPlayerIndex()){
 						if(tempHexLoc.equals(roadHexLoc) &&  tempDirection.equals(EdgeDirection.North)){
 							return true;
 						}else if(tempHexLoc.equals(swNeighbor) &&
@@ -556,7 +555,7 @@ public class ClientModel {
 
 					break;
 				case North:
-					if(r.getOwner() == player.getPlayerID()){
+					if(r.getOwner() == player.getPlayerIndex()){
 						if(tempHexLoc.equals(roadHexLoc)
 								&&  (tempDirection.equals(EdgeDirection.NorthEast)
 										|| tempDirection.equals(EdgeDirection.NorthWest))){
@@ -571,7 +570,7 @@ public class ClientModel {
 					break;
 				case NorthEast:
 
-					if(r.getOwner() == player.getPlayerID()){
+					if(r.getOwner() == player.getPlayerIndex()){
 						if(tempHexLoc.equals(roadHexLoc) &&  tempDirection.equals(EdgeDirection.North)){
 							return true;
 						}else if(tempHexLoc.equals(seNeighbor) &&
@@ -610,8 +609,6 @@ public class ClientModel {
 	 */
 	public boolean canBuildSettlement(int playerIndex, VertexLocation vertex, boolean isFree) {
 
-
-		
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();		
 
@@ -665,7 +662,7 @@ public class ClientModel {
 
 			for(Road r : map.getRoads()){
 
-				if(r.getOwner() == player.getPlayerID()){
+				if(r.getOwner() == player.getPlayerIndex()){
 					EdgeLocation tempLocation = r.getLocation().getNormalizedLocation();
 					HexLocation tempHexLoc = tempLocation.getHexLoc();
 					EdgeDirection tempDir = tempLocation.getDirection();
@@ -854,7 +851,7 @@ public class ClientModel {
 			for(VertexObject s : map.getSettlements()){
 
 				//If there is a settlement at the vertexLocation and the player is the owner of the settlement
-				if(s.getVertexLocation().getNormalizedLocation().equals(cityLoc) && s.getOwner() == player.getPlayerID()){
+				if(s.getVertexLocation().getNormalizedLocation().equals(cityLoc) && s.getOwner() == player.getPlayerIndex()){
 					return true;
 				}
 			}			
@@ -959,7 +956,7 @@ public class ClientModel {
 				HexLocation settHex = settLoc.getHexLoc();
 				VertexDirection settDir = settLoc.getDirection();
 				
-				if(s.getOwner()== player.getPlayerID() ){
+				if(s.getOwner()== player.getPlayerIndex() ){
 					switch(portDir){
 						case North:
 							if(settHex.equals(portHex) && (settDir.equals(VertexDirection.NorthEast) 
@@ -1001,7 +998,7 @@ public class ClientModel {
 				HexLocation citHyex = cityLoc.getHexLoc();
 				VertexDirection cityDir = cityLoc.getDirection();
 				
-				if(c.getOwner()== player.getPlayerID() ){
+				if(c.getOwner()== player.getPlayerIndex() ){
 					switch(portDir){
 						case North:
 							if(citHyex.equals(portHex) && (cityDir.equals(VertexDirection.NorthEast) 
@@ -1094,7 +1091,7 @@ public class ClientModel {
 			VertexLocation settLoc = s.getVertexLocation();
 			HexLocation settHex = settLoc.getHexLoc();
 			VertexDirection settDir = settLoc.getDirection();
-			if(s.getOwner() == player.getPlayerID()){
+			if(s.getOwner() == player.getPlayerIndex()){
 				if(settHex.equals(robberLocation) && (settDir.equals(VertexDirection.West) 
 						||settDir.equals(VertexDirection.NorthWest) 
 						|| settDir.equals(VertexDirection.NorthEast) )){
@@ -1119,7 +1116,7 @@ public class ClientModel {
 				VertexLocation cityLoc = c.getVertexLocation();
 				HexLocation cityHex = cityLoc.getHexLoc();
 				VertexDirection cityDir = cityLoc.getDirection();
-				if(c.getOwner() == player.getPlayerID()){
+				if(c.getOwner() == player.getPlayerIndex()){
 					if(cityHex.equals(robberLocation) && (cityDir.equals(VertexDirection.West) 
 							||cityDir.equals(VertexDirection.NorthWest) 
 							|| cityDir.equals(VertexDirection.NorthEast) )){
@@ -1148,8 +1145,18 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canFinishTurn(int playerIndex) {
+		boolean firstRounds = false;
+
+		try {
+			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
+						  ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		Player player = players[playerIndex];
-		if(turnTracker.getCurrentTurn() == playerIndex && player.getHasRolled()){
+		if(turnTracker.getCurrentTurn() == playerIndex && (firstRounds || player.getHasRolled())){
 			return true;
 		}else{
 			return false;

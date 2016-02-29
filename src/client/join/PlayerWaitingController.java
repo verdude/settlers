@@ -3,6 +3,9 @@ package client.join;
 import client.base.Controller;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
+import client.turntracker.TurnTrackerController;
+import client.turntracker.TurnTrackerView;
+import com.sun.deploy.util.SessionState;
 import model.*;
 
 import java.util.Timer;
@@ -71,6 +74,11 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
                         if (game.getId() == Integer.parseInt(ServerProxy.getSingleton().getGameID())) {
                             if (game.getPlayers().size() == 4) {
                                 getView().closeModal();
+								ClientFacade.getSingleton().setGameStarted(true);
+								// Notifies all of the controllers without changing anything
+								//ClientFacade.getSingleton().notifyAllObservers();
+								// start the server proxy
+								ServerPoller.getSingleton(ServerProxy.getSingleton());
                                 this.cancel();
                             }
                             break;

@@ -204,11 +204,8 @@ public class MapController extends Controller implements IMapController,IObserve
                     for (Road road : roads) {
 
                         int playerIndex = road.getOwner();
-                        System.out.println("Road index: " + playerIndex);
 
                         CatanColor color = model.getPlayers()[playerIndex].getColor();
-                        System.out.println("1"+road.getLocation());
-                        System.out.println("2"+road.getLocation());
                         getView().placeRoad(road.getLocation(), color);
                     }
 

@@ -23,6 +23,8 @@ import client.map.IMapView;
  */
 public class FirstRoundState implements IState {
 
+	private static boolean timerRunning = false;
+
 	@Override
 	public void initFromModel(IMapView view) {
 		// map init logic goes here!
@@ -32,36 +34,73 @@ public class FirstRoundState implements IState {
 			public void run() {
 				try {
 					// Rounds
+
 					TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
 					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
 					int localPlayerIndex = localPlayer.getPlayerIndex();
-
-					if(turnTracker.getCurrentTurn() == localPlayerIndex){
+					System.out.println("Player Index: " + localPlayerIndex + ", turnTrackerTurn: " + turnTracker.getCurrentTurn());
+					if(turnTracker.getCurrentTurn() == localPlayerIndex) {
+						System.out.println("Ots' bug trn");
 						// Wait for the road to be placed
+                        if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 5 &&
+									ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14) {
+							startMove(PieceType.SETTLEMENT, true, true, view);
+						}
 						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 15) {
 							startMove(PieceType.ROAD, true, true, view);
 						}
-						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 5) {
-							startMove(PieceType.SETTLEMENT, true, true, view);
-						}
 
-						Timer roadTimer = new Timer();
-						roadTimer.schedule(new TimerTask() {
-							@Override
-							public void run() {
-								try {
-									System.out.println("Checking road");
-									if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() < 15 &&
-											ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() < 5) {
-										System.out.println("Timer finishing turn");
-                                        ClientFacade.getSingleton().finishTurn();
-										this.cancel();
-                                    }
-								} catch (ClientException e) {
-									e.printStackTrace();
+						if (!timerRunning) {
+							System.out.println("Started the timer");
+							timerRunning = true;
+							Timer roadTimer = new Timer();
+							roadTimer.schedule(new TimerTask() {
+								@Override
+								public void run() {
+									try {
+										System.out.println("Checking road");
+										if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14 &&
+												ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 4) {
+											System.out.println("Timer finishing turn");
+											if (localPlayerIndex != 3) {
+												ClientFacade.getSingleton().finishTurn();
+											}
+											this.cancel();
+										}
+									} catch (ClientException e) {
+										e.printStackTrace();
+									}
 								}
-							}
-						}, 0, 500);
+							}, 0, 500);
+						}
+/*						if (localPlayerIndex == 3) {
+							// SECOND ROUND STATE FOR LAST PLAYER
+                            if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 4 &&
+                                    ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13) {
+                                startMove(PieceType.SETTLEMENT, true, true, view);
+                            }
+                            if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14) {
+                                startMove(PieceType.ROAD, true, true, view);
+                            }
+
+                            Timer roadTimer2 = new Timer();
+                            roadTimer2.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13 &&
+                                                ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 3) {
+                                            System.out.println("Timer finishing second round turn");
+                                            ClientFacade.getSingleton().finishTurn();
+                                            this.cancel();
+                                        }
+                                    } catch (ClientException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, 0, 500);
+						}*/
+
 					}
 				} catch (ClientException e) {
 					e.printStackTrace();
@@ -69,74 +108,6 @@ public class FirstRoundState implements IState {
 			}
 		});
 
-
-
-		/*
-			Random rand = new Random();
-
-			for (int x = 0; x <= 3; ++x) {
-
-				int maxY = 3 - x;
-				for (int y = -3; y <= maxY; ++y) {
-
-					System.out.println("X: " + x);
-					System.out.println("Y: " + y);
-
-					int r = rand.nextInt(HexType.values().length);
-					System.out.println("HexType: " + HexType.values()[r]);
-
-					HexType hexType = HexType.values()[r];
-					HexLocation hexLoc = new HexLocation(x, y);
-					view.addHex(hexLoc, hexType);
-
-
-	 				getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.NorthWest),
-							CatanColor.RED);
-					getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.SouthWest),
-							CatanColor.BLUE);
-					getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.South),
-							CatanColor.ORANGE);
-					getView().placeSettlement(new VertexLocation(hexLoc, VertexDirection.NorthWest), CatanColor.GREEN);
-					getView().placeCity(new VertexLocation(hexLoc, VertexDirection.NorthEast), CatanColor.PURPLE);
-
-				}
-
-
-//				if (x != 0) {
-//					int minY = x - 3;
-//					for (int y = minY; y <= 3; ++y) {
-//						int r = rand.nextInt(HexType.values().length);
-//						HexType hexType = HexType.values()[r];
-//						HexLocation hexLoc = new HexLocation(-x, y);
-//						getView().addHex(hexLoc, hexType);
-//						getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.NorthWest),
-//								CatanColor.RED);
-//						getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.SouthWest),
-//								CatanColor.BLUE);
-//						getView().placeRoad(new EdgeValue(hexLoc, EdgeDirection.South),
-//								CatanColor.ORANGE);
-//						getView().placeSettlement(new VertexLocation(hexLoc, VertexDirection.NorthWest), CatanColor.GREEN);
-//						getView().placeCity(new VertexLocation(hexLoc, VertexDirection.NorthEast), CatanColor.PURPLE);
-//					}
-//				}
-
-
-			}
-
-
-//			PortType portType = PortType.BRICK;
-//			getView().addPort(new EdgeValue(new HexLocation(0, 3), EdgeDirection.North), portType);
-//			getView().addPort(new EdgeValue(new HexLocation(0, -3), EdgeDirection.South), portType);
-//			getView().addPort(new EdgeValue(new HexLocation(-3, 3), EdgeDirection.NorthEast), portType);
-//			getView().addPort(new EdgeValue(new HexLocation(-3, 0), EdgeDirection.SouthEast), portType);
-//			getView().addPort(new EdgeValue(new HexLocation(3, -3), EdgeDirection.SouthWest), portType);
-//			getView().addPort(new EdgeValue(new HexLocation(3, 0), EdgeDirection.NorthWest), portType);
-//
-//			getView().placeRobber(new HexLocation(0, 0));
-//
-//			getView().addNumber(new HexLocation(-2, 0), 2);
-
-		 */
 	}
 
 	@Override
