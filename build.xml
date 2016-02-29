@@ -32,13 +32,15 @@
 	<property name="java.images" location="${java.direction}/images"/>
 	<property name="java.build" location="${java.direction}/build"/>
 	<property name="java.dist" location="${java.direction}/dist"/>
-	<property name="java.lib" location="${java.direction}/lib"/>
+	<property name="java.lib" location="${java.dist}/lib"/>
+	<property name="host" value="localhost"/>
+	<property name="port" value="8081"/>
 	
 	<!-- CLASSPATHS -->
 	<!-- ********** -->
     
 	<path id="java.lib.classpath">
-		<fileset dir="${java.lib.direction}">
+		<fileset dir="${java.lib}">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -112,14 +114,14 @@
 	
 	<target name="package" depends="compile" description="package the jar file" >
 		<mkdir dir="${java.dist}/lib"/>
-		<copy todir="${java.dist}/lib">
+		<copy todir="${java.lib}">
 			<fileset dir="${java.lib}">
 				<include name="**"/>
 			</fileset>
 		</copy>
 		<mkdir dir="${java.dist}/images"/>
 		<copy todir="${java.dist}/images">
-			<fileset dir="${java.images}">
+			<fileset dir="${java.dist}/images">
 				<include name="**"/>
 			</fileset>
 		</copy>
@@ -142,6 +144,10 @@
 	<target name="our-client" depends="package" description="compiles, packages, and runs the student client">
 		<java jar="${java.dist}/catan-client.jar" dir="${java.dist}" fork="yes">
 			<sysproperty key="com.sun.management.jmxremote" value=""/>
+			<!-- <arg value="-host" /> -->
+			<arg value="${host}" />
+			<!-- <arg value="-port" /> -->
+			<arg value="${port}" />
 			<assertions>
 				<enable/>
 			</assertions>
