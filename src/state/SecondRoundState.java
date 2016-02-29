@@ -20,6 +20,8 @@ import shared.locations.VertexLocation;
  */
 public class SecondRoundState implements IState {
 
+	private static boolean timerRunning = false;
+
 	@Override
 	public void initFromModel (IMapView view){
 		// map init logic goes here!
@@ -35,31 +37,33 @@ public class SecondRoundState implements IState {
 
 					if (turnTracker.getCurrentTurn() == localPlayerIndex && localPlayerIndex != 3) {
 						// Wait for the road to be placed
+						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14) {
+							startMove(PieceType.ROAD, true, true, view);
+						}
 						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 4 &&
 								ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13) {
 							startMove(PieceType.SETTLEMENT, true, true, view);
 						}
-						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14) {
-							startMove(PieceType.ROAD, true, true, view);
-						}
 
-						Timer roadTimer = new Timer();
-						roadTimer.schedule(new TimerTask() {
-							@Override
-							public void run() {
-								try {
-									System.out.println("Checking road");
-									if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13 &&
-											ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 3) {
-										System.out.println("Timer finishing turn");
-										ClientFacade.getSingleton().finishTurn();
-										this.cancel();
+						if (!timerRunning) {
+							timerRunning = true;
+							Timer roadTimer2 = new Timer();
+							roadTimer2.schedule(new TimerTask() {
+								@Override
+								public void run() {
+									try {
+										if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13 &&
+												ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 3) {
+											System.out.println("Timer finishing second round turn");
+											ClientFacade.getSingleton().finishTurn();
+											this.cancel();
+										}
+									} catch (ClientException e) {
+										e.printStackTrace();
 									}
-								} catch (ClientException e) {
-									e.printStackTrace();
 								}
-							}
-						}, 0, 500);
+							}, 0, 500);
+						}
 					}
 				} catch (ClientException e) {
 					e.printStackTrace();

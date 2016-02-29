@@ -23,7 +23,8 @@ import client.map.IMapView;
  */
 public class FirstRoundState implements IState {
 
-	private static boolean timerRunning = false;
+	private static boolean firstTimerRunning = false;
+	private static boolean secondTimerRunning = false;
 
 	@Override
 	public void initFromModel(IMapView view) {
@@ -50,9 +51,9 @@ public class FirstRoundState implements IState {
 							startMove(PieceType.ROAD, true, true, view);
 						}
 
-						if (!timerRunning) {
+						if (!firstTimerRunning) {
 							System.out.println("Started the timer");
-							timerRunning = true;
+							firstTimerRunning = true;
 							Timer roadTimer = new Timer();
 							roadTimer.schedule(new TimerTask() {
 								@Override
@@ -73,33 +74,38 @@ public class FirstRoundState implements IState {
 								}
 							}, 0, 500);
 						}
-/*						if (localPlayerIndex == 3) {
-							// SECOND ROUND STATE FOR LAST PLAYER
-                            if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 4 &&
-                                    ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13) {
-                                startMove(PieceType.SETTLEMENT, true, true, view);
-                            }
-                            if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14) {
-                                startMove(PieceType.ROAD, true, true, view);
-                            }
 
-                            Timer roadTimer2 = new Timer();
-                            roadTimer2.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13 &&
-                                                ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 3) {
-                                            System.out.println("Timer finishing second round turn");
-                                            ClientFacade.getSingleton().finishTurn();
-                                            this.cancel();
-                                        }
-                                    } catch (ClientException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }, 0, 500);
-						}*/
+						if (localPlayerIndex == 3) {
+							// SECOND ROUND STATE FOR LAST PLAYER
+							if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 4 &&
+									ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13) {
+								startMove(PieceType.SETTLEMENT, true, true, view);
+							}
+							if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14 &&
+									ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 4) {
+								startMove(PieceType.ROAD, true, true, view);
+							}
+
+							if (!secondTimerRunning) {
+								secondTimerRunning = true;
+								Timer roadTimer2 = new Timer();
+								roadTimer2.schedule(new TimerTask() {
+									@Override
+									public void run() {
+										try {
+											if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13 &&
+													ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 3) {
+												System.out.println("Timer finishing second round turn");
+												ClientFacade.getSingleton().finishTurn();
+												this.cancel();
+											}
+										} catch (ClientException e) {
+											e.printStackTrace();
+										}
+									}
+								}, 0, 500);
+							}
+						}
 
 					}
 				} catch (ClientException e) {

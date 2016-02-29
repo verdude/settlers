@@ -39,6 +39,12 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
+
+		try {
+			ClientFacade.getSingleton().addObserver(this);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public IJoinGameView getJoinGameView() {
@@ -214,6 +220,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			localPlayer = ClientFacade.getSingleton().getLocalPlayer();
 			for (Player player : model.getPlayers()) {
 				if (player.getPlayerID() == localPlayer.getId()) {
+					System.out.println(player.getPlayerIndex());
 					localPlayer.setPlayerIndex(player.getPlayerIndex());
 					ClientFacade.getSingleton().setLocalPlayer(localPlayer);
 					break;
@@ -223,6 +230,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			System.out.println("Could not set the local Player. join game controller.");
 			e1.printStackTrace();
 		}
+		System.out.println("done");
 	}
 
 }
