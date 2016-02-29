@@ -407,7 +407,7 @@ public class ClientModel {
 		List<Road> roadList = map.getRoads();
 
 		for(Road road : roadList){
-			HexLocation roadhex = road.getLocation().getHexLoc();
+			HexLocation roadhex = road.getLocation().getNormalizedLocation().getHexLoc();
 			int x = roadhex.getX();
 			int y = roadhex.getY();
 			if(x == newLocation.getHexLoc().getX() && y == newLocation.getHexLoc().getY()){
@@ -431,12 +431,100 @@ public class ClientModel {
 			e.printStackTrace();
 		}
 
+		HexLocation roadHexLoc = newLocation.getNormalizedLocation().getHexLoc();
+		EdgeDirection roadDirection = newLocation.getNormalizedLocation().getDirection();
+		if(firstRounds){
+			List<HexLocation> badWaterHexes = new ArrayList<HexLocation>();
+			badWaterHexes.add(new HexLocation(-2,-1));
+			badWaterHexes.add(new HexLocation(-1,-2));
+			badWaterHexes.add(new HexLocation(0,-3));
+			badWaterHexes.add(new HexLocation(1,-3));
+			badWaterHexes.add(new HexLocation(2,-3));
+			badWaterHexes.add(new HexLocation(3,-3));
+			badWaterHexes.add(new HexLocation(-2,4));
+			badWaterHexes.add(new HexLocation(-1,4));
+			badWaterHexes.add(new HexLocation(-1,4));
+			badWaterHexes.add(new HexLocation(0,4));
+			badWaterHexes.add(new HexLocation(1,3));
+			badWaterHexes.add(new HexLocation(2,2));
+			badWaterHexes.add(new HexLocation(-3,4));
+			badWaterHexes.add(new HexLocation(3,1));
+
+			if(badWaterHexes.contains(roadHexLoc)){
+				return false;
+			}
+
+			VertexLocation settlementLoc = new VertexLocation(new HexLocation(-2,3),VertexDirection.East);
+			VertexDirection settlementDirection = settlementLoc.getDirection();
+			Object seNeighbor = null;
+			Object swNeighbor = null;
+			switch (roadDirection){
+				case NorthWest:
+
+
+					badWaterHexes.add(new HexLocation(-2,3));
+					badWaterHexes.add(new HexLocation(-1,3));
+					badWaterHexes.add(new HexLocation(0,3));
+//							badWaterHexes.add(new HexLocation(1,2));
+//							badWaterHexes.add(new HexLocation(2,1));
+					if(badWaterHexes.contains(roadHexLoc)){
+						return false;
+					}
+					int roadY = roadHexLoc.getY();
+					boolean isRightY = roadY == -2 || roadY == -1 || roadY == -3;
+					if(settlementLoc.getHexLoc().equals(swNeighbor) &&
+							settlementDirection.equals(VertexDirection.NorthEast) ){
+						return false;
+					}else if(settlementLoc.getHexLoc().equals(roadHexLoc) &&
+							settlementDirection.equals(VertexDirection.NorthWest)){
+						return false;
+					}else if((roadHexLoc.getX() < -2  && !isRightY)|| roadHexLoc.getX() > 3 ){
+						return false;
+					}
+					break;
+				case North:
+					if(settlementLoc.getHexLoc().equals(roadHexLoc) && (settlementDirection.equals(VertexDirection.NorthWest) ||
+							settlementDirection.equals(VertexDirection.NorthEast))){
+						return false;
+					}else if(roadHexLoc.getX() < -2 || roadHexLoc.getX() > 2){
+						return false;
+					}
+					break;
+				case NorthEast:
+					badWaterHexes.add(new HexLocation(2,1));
+//							badWaterHexes.add(new HexLocation(-2,3));
+//							badWaterHexes.add(new HexLocation(-1,3));
+					badWaterHexes.add(new HexLocation(0,3));
+					badWaterHexes.add(new HexLocation(1,2));
+					badWaterHexes.add(new HexLocation(2,1));
+
+					if(badWaterHexes.contains(roadHexLoc)){
+						return false;
+					}
+					if(roadHexLoc.getX() < -3){
+						return false;
+					}
+					roadY = roadHexLoc.getY();
+					boolean isLeftY = roadY == 2 || roadY == 1 || roadY == 3 || roadY ==4;
+					if(settlementLoc.getHexLoc().equals(seNeighbor) &&
+							settlementDirection.equals(VertexDirection.NorthWest)){
+						return false;
+					}else if(settlementLoc.getHexLoc().equals(roadHexLoc) &&
+							settlementDirection.equals(VertexDirection.NorthEast)){
+						return false;
+					}else if((roadHexLoc.getX() < -2 && !isLeftY)  || roadHexLoc.getX() > 2  ){
+						return false;
+					}
+					break;
+
+			}
+		}
 		if(((resources.getBrick() >= 1 && resources.getWood() >= 1 ) || isFree)
 				&& roads > 0 && turnTracker.getCurrentTurn() == playerIndex && (player.getHasRolled() || firstRounds) ){
 			roadList = map.getRoads();
 			for(Road r : roadList){
 //				EdgeValue tempEdgeValue = r;
-				shared.locations.EdgeLocation tempEdgeLocation = r.getLocation();
+				shared.locations.EdgeLocation tempEdgeLocation = r.getLocation().getNormalizedLocation();
 
 				if(tempEdgeLocation.equals(newLocation)){// If a road already has this edgeLocation
 					System.out.println("There is a road at this vertexLocation!");
@@ -446,8 +534,103 @@ public class ClientModel {
 			}
 			//
 			for(VertexObject s : map.getSettlements()){
-				EdgeDirection roadDirection = newLocation.getDirection();
-				VertexDirection settlementDirection = s.getVertexLocation().getDirection();
+				 roadDirection = newLocation.getNormalizedLocation().getDirection();
+				VertexDirection settlementDirection = s.getVertexLocation().getNormalizedLocation().getDirection();
+				VertexLocation settlementLoc = s.getVertexLocation().getNormalizedLocation();
+				EdgeLocation roadEdgeLoc = newLocation.getNormalizedLocation();
+
+				roadHexLoc = newLocation.getNormalizedLocation().getHexLoc();
+//				HexLocation nwNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.NorthWest);
+//				HexLocation neNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.NorthEast);
+//				//				HexLocation nNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.North);
+//				//				HexLocation sNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.South);
+				HexLocation seNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.SouthEast);
+				HexLocation swNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.SouthWest);
+				List<Hex> hexList = map.getHexes();
+
+				if(firstRounds){
+					List<HexLocation> badWaterHexes = new ArrayList<HexLocation>();
+					badWaterHexes.add(new HexLocation(-2,-1));
+					badWaterHexes.add(new HexLocation(-1,-2));
+					badWaterHexes.add(new HexLocation(0,-3));
+					badWaterHexes.add(new HexLocation(1,-3));
+					badWaterHexes.add(new HexLocation(2,-3));
+					badWaterHexes.add(new HexLocation(3,-3));
+					badWaterHexes.add(new HexLocation(-2,4));
+					badWaterHexes.add(new HexLocation(-1,4));
+					badWaterHexes.add(new HexLocation(-1,4));
+					badWaterHexes.add(new HexLocation(0,4));
+					badWaterHexes.add(new HexLocation(1,3));
+					badWaterHexes.add(new HexLocation(2,2));
+					badWaterHexes.add(new HexLocation(-3,4));
+					badWaterHexes.add(new HexLocation(3,1));
+
+					if(badWaterHexes.contains(roadHexLoc)){
+						return false;
+					}
+
+
+					switch (roadDirection){
+						case NorthWest:
+
+
+							badWaterHexes.add(new HexLocation(-2,3));
+							badWaterHexes.add(new HexLocation(-1,3));
+							badWaterHexes.add(new HexLocation(0,3));
+//							badWaterHexes.add(new HexLocation(1,2));
+//							badWaterHexes.add(new HexLocation(2,1));
+							if(badWaterHexes.contains(roadHexLoc)){
+								return false;
+							}
+							int roadY = roadHexLoc.getY();
+							boolean isRightY = roadY == -2 || roadY == -1 || roadY == -3;
+							if(settlementLoc.getHexLoc().equals(swNeighbor) &&
+									settlementDirection.equals(VertexDirection.NorthEast) ){
+								return false;
+							}else if(settlementLoc.getHexLoc().equals(roadHexLoc) &&
+									settlementDirection.equals(VertexDirection.NorthWest)){
+								return false;
+							}else if((roadHexLoc.getX() < -2  && !isRightY)|| roadHexLoc.getX() > 3 ){
+								return false;
+							}
+							break;
+						case North:
+							if(settlementLoc.getHexLoc().equals(roadHexLoc) && (settlementDirection.equals(VertexDirection.NorthWest) ||
+									settlementDirection.equals(VertexDirection.NorthEast))){
+								return false;
+							}else if(roadHexLoc.getX() < -2 || roadHexLoc.getX() > 2){
+								return false;
+							}
+							break;
+						case NorthEast:
+							badWaterHexes.add(new HexLocation(2,1));
+//							badWaterHexes.add(new HexLocation(-2,3));
+//							badWaterHexes.add(new HexLocation(-1,3));
+							badWaterHexes.add(new HexLocation(0,3));
+							badWaterHexes.add(new HexLocation(1,2));
+							badWaterHexes.add(new HexLocation(2,1));
+
+							if(badWaterHexes.contains(roadHexLoc)){
+								return false;
+							}
+							if(roadHexLoc.getX() < -3){
+								return false;
+							}
+							roadY = roadHexLoc.getY();
+							boolean isLeftY = roadY == 2 || roadY == 1 || roadY == 3 || roadY ==4;
+							if(settlementLoc.getHexLoc().equals(seNeighbor) &&
+									settlementDirection.equals(VertexDirection.NorthWest)){
+								return false;
+							}else if(settlementLoc.getHexLoc().equals(roadHexLoc) &&
+									settlementDirection.equals(VertexDirection.NorthEast)){
+								return false;
+							}else if((roadHexLoc.getX() < -2 && !isLeftY)  || roadHexLoc.getX() > 2  ){
+								return false;
+							}
+							break;
+
+					}
+				}
 
 				switch(roadDirection){
 				case NorthWest:
@@ -488,8 +671,8 @@ public class ClientModel {
 			}
 
 			for(VertexObject c : map.getCities()){
-				EdgeDirection roadDirection = newLocation.getDirection();
-				VertexDirection cityDirection = c.getVertexLocation().getDirection();
+				roadDirection = newLocation.getNormalizedLocation().getDirection();
+				VertexDirection cityDirection = c.getVertexLocation().getNormalizedLocation().getDirection();
 				if(c.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
 
 				}
@@ -527,18 +710,17 @@ public class ClientModel {
 			}
 
 			for(Road r : roadList){
-				EdgeDirection roadDirection = newLocation.getDirection();
-				EdgeDirection tempDirection = r.getLocation().getDirection();
+				 roadDirection = newLocation.getNormalizedLocation().getDirection();
+				EdgeDirection tempDirection = r.getLocation().getNormalizedLocation().getDirection();
 
-				HexLocation tempHexLoc = r.getLocation().getHexLoc();
-				HexLocation roadHexLoc = newLocation.getHexLoc();
+				HexLocation tempHexLoc = r.getLocation().getNormalizedLocation().getHexLoc();
+				 roadHexLoc = newLocation.getHexLoc();
 				HexLocation nwNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.NorthWest);
 				HexLocation neNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.NorthEast);
 				//				HexLocation nNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.North);
 				//				HexLocation sNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.South);
 				HexLocation seNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.SouthEast);
 				HexLocation swNeighbor = roadHexLoc.getNeighborLoc(EdgeDirection.SouthWest);
-
 
 
 
@@ -605,6 +787,8 @@ public class ClientModel {
 		}
 
 
+
+
 	}
 	/**
 	 * Checks the model to see if the client can build a settlement
@@ -631,6 +815,7 @@ public class ClientModel {
 			e.printStackTrace();
 		}
 
+
 		if((turnTracker.getCurrentTurn() != playerIndex  || !player.getHasRolled()) && !firstRounds){
 			return false;
 
@@ -654,7 +839,7 @@ public class ClientModel {
 		boolean hasRoadAttached = false;
 		boolean twoAway = true;
 
-		HexLocation settHexLoc = settLoc.getHexLoc();
+		HexLocation settHexLoc = settLoc.getNormalizedLocation().getHexLoc();
 		HexLocation nwNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.NorthWest);
 		HexLocation neNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.NorthEast);
 		HexLocation sNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.South);

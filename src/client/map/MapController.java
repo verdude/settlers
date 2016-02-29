@@ -11,10 +11,14 @@ import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import state.Context;
+import state.FirstRoundState;
+import state.SecondRoundState;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -174,12 +178,50 @@ public class MapController extends Controller implements IMapController,IObserve
                         getView().placeCity(city.getVertexLocation(), color);
                     }
 
+					boolean firstRounds = false;
+					try {
+						firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
+								ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
+					} catch (ClientException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                     //Place all of the settlements front the model on the map
                     for (VertexObject settlement : settlements) {
+						List<HexLocation> settHexesNW = new ArrayList<>();
+						List<HexLocation> settHexesNE = new ArrayList<>();
+
+						if(firstRounds) {
+
+							settHexesNW.add(new HexLocation(-3, 1));
+							settHexesNW.add(new HexLocation(-3, 2));
+							settHexesNW.add(new HexLocation(-3, 3));
+
+							settHexesNE.add(new HexLocation(3, -2));
+							settHexesNE.add(new HexLocation(3, -1));
+							settHexesNE.add(new HexLocation(3, 0));
+
+							if (settlement.getVertexLocation() == null) {
+
+
+								HexLocation settHexLoc = new HexLocation(settlement.getLocation().getX(), settlement.getLocation().getX());
+								settlement.setVertexLocation(new VertexLocation(settHexLoc,null));
+
+								if(settHexesNE.contains(settHexLoc)){
+									settlement.getVertexLocation().setVertexDirection(VertexDirection.NorthWest);
+								}else if(settHexesNW.contains(settHexLoc)){
+									settlement.getVertexLocation().setVertexDirection(VertexDirection.NorthWest);
+
+								}
+
+							}
+						}
+
 
                         int playerIndex = settlement.getOwner();
                         CatanColor color = model.getPlayers()[playerIndex].getColor();
-                        getView().placeSettlement(settlement.getVertexLocation(), color);
+						getView().placeSettlement(settlement.getVertexLocation(), color);
+
                     }
 
                     //Place all of the roads front the model on the map

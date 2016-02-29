@@ -19,7 +19,9 @@ public class VertexLocation
 	{
 		return hexLoc;
 	}
-	
+	public void setVertexDirection(VertexDirection direction){
+		this.direction = direction;
+	}
 	private void setHexLoc(HexLocation hexLoc)
 	{
 		if(hexLoc == null)

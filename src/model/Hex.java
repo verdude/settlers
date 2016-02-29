@@ -11,6 +11,7 @@ public class Hex {
 	public Hex() {
 		//...
 	}
+
 	
 	// Getters
 	public HexLocation	getLocation() 					{ return location; 					}
