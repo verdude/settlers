@@ -2,12 +2,12 @@ package clientTests;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import model.ClientException;
 import model.ClientModel;
 import model.MessageLine;
+import model.Player;
+
+import org.junit.Test;
 
 public class TestClientModel {
 
@@ -76,14 +76,11 @@ public class TestClientModel {
 	
 	@Test
 	public void testEndTurn() throws ClientException {
-		new ClientModel().endTurn();
+		ClientModel model = new ClientModel();
+		model.setPlayers(new Player[]{new Player("Jacob")});
+		
+		model.endTurn();
 //		Do the players need to be initialized in the model?
 	}
 
-	
-	// test Can-Do methods
-	@Test
-	public void testCanSendChat() {
-		
-	}
 }

@@ -1,9 +1,15 @@
 package client.communication;
 
-import client.base.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import model.MessageLine;
+import model.Player;
+import shared.definitions.CatanColor;
+import client.base.Controller;
 
 
 /**
@@ -29,7 +35,12 @@ public class ChatController extends Controller implements IChatController {
 
 	@Override
 	public void sendMessage(String message) {
-		
+		try {
+			ClientFacade.getSingleton().sendChat(ClientFacade.getSingleton().getLocalPlayer().getName(), message);
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -37,7 +48,31 @@ public class ChatController extends Controller implements IChatController {
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		// TODO Auto-generated method stub
+		List<LogEntry> log = new ArrayList<LogEntry>();
+		List<LogEntry> messages = new ArrayList<LogEntry>();
+		for(MessageLine line : model.getChat().getLines()) 
+		{
+			CatanColor color = CatanColor.WHITE;
+			for(Player player : model.getPlayers()) {
+				if(player.getName().toLowerCase().equals(line.getSource().toLowerCase())) {
+					color = player.getColor();
+					break;
+				}
+			}
+			messages.add(new LogEntry(color, line.getMessage()));
+		}
+		for(MessageLine line : model.getLog().getLines()) 
+		{
+			CatanColor color = CatanColor.WHITE;
+			for(Player player : model.getPlayers()) {
+				if(player.getName().toLowerCase().equals(line.getSource().toLowerCase())) {
+					color = player.getColor();
+					break;
+				}
+			}
+			log.add(new LogEntry(color, line.getMessage()));
+		}
+		getView().setEntries(messages);
 		
 	}
 
