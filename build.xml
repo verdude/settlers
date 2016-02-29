@@ -32,15 +32,13 @@
 	<property name="java.images" location="${java.direction}/images"/>
 	<property name="java.build" location="${java.direction}/build"/>
 	<property name="java.dist" location="${java.direction}/dist"/>
-	<property name="java.lib" location="${java.dist}/lib"/>
-	<property name="host" value="localhost"/>
-	<property name="port" value="8081"/>
+	<property name="java.lib" location="${java.direction}/lib"/>
 	
 	<!-- CLASSPATHS -->
 	<!-- ********** -->
     
 	<path id="java.lib.classpath">
-		<fileset dir="${java.lib}">
+		<fileset dir="${java.lib.direction}">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -114,14 +112,14 @@
 	
 	<target name="package" depends="compile" description="package the jar file" >
 		<mkdir dir="${java.dist}/lib"/>
-		<copy todir="${java.lib}">
+		<copy todir="${java.dist}/lib">
 			<fileset dir="${java.lib}">
 				<include name="**"/>
 			</fileset>
 		</copy>
 		<mkdir dir="${java.dist}/images"/>
 		<copy todir="${java.dist}/images">
-			<fileset dir="${java.dist}/images">
+			<fileset dir="${java.images}">
 				<include name="**"/>
 			</fileset>
 		</copy>
@@ -141,13 +139,12 @@
 		</jar>
 	</target>
 	
+	<!-- How to use: 
+		ant our-client -Dhost={{HOST}} -Dport={{PORT}}	 
+	-->
 	<target name="our-client" depends="package" description="compiles, packages, and runs the student client">
 		<java jar="${java.dist}/catan-client.jar" dir="${java.dist}" fork="yes">
 			<sysproperty key="com.sun.management.jmxremote" value=""/>
-			<!-- <arg value="-host" /> -->
-			<arg value="${host}" />
-			<!-- <arg value="-port" /> -->
-			<arg value="${port}" />
 			<assertions>
 				<enable/>
 			</assertions>

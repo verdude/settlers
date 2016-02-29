@@ -17,6 +17,9 @@ Run your server using "ant our-server".
 
 Run your client using "ant our-client".
 
+To set host and/or port:
+ant our-client -Dhost={{HOST}} -Dport={{PORT}}	
+
 
 There are example JSON files under the 'sample' folder.  These are examples 
 of the JSON objects used to make requests to the server, and to return the 
