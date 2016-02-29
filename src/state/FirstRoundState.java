@@ -108,9 +108,10 @@ public class FirstRoundState implements IState {
 					int localPlayerIndex = localPlayer.getPlayerIndex();
 
 					if(turnTracker.getCurrentTurn() == localPlayerIndex){
-						//view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
-						view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
 						// Wait for the road to be placed
+						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() < 15) {
+							view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
+						}
 						Timer roadTimer = new Timer();
 						roadTimer.schedule(new TimerTask() {
 							@Override
@@ -119,6 +120,7 @@ public class FirstRoundState implements IState {
 									if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() < 15) {
 										System.out.println("Timer finishing turn");
                                         ClientFacade.getSingleton().finishTurn();
+										this.cancel();
                                     }
 								} catch (ClientException e) {
 									e.printStackTrace();

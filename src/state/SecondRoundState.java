@@ -46,8 +46,8 @@ public class SecondRoundState implements IState {
 					if(turnTracker.getCurrentTurn() == localPlayerIndex){
 						//view.startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
 						//view.startDrop(PieceType.ROAD, localPlayer.getColor(), false);
-
-						ClientFacade.getSingleton().finishTurn();
+						System.out.println("in second round");
+						//ClientFacade.getSingleton().finishTurn();
 					}
 				} catch (ClientException e) {
 					// TODO Auto-generated catch block

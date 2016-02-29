@@ -27,32 +27,32 @@
     <property name="client.jar.file" value="${demo.direction}/client.jar"/>
   	<property name="clientTests.direction" value="src/clientTests"/>
 	
-	<property name="java.direction" vertexLocation="java"/>
-	<property name="java.src" vertexLocation="src"/>
-	<property name="java.images" vertexLocation="${java.direction}/images"/>
-	<property name="java.build" vertexLocation="${java.direction}/build"/>
-	<property name="java.dist" vertexLocation="${java.direction}/dist"/>
-	<property name="java.lib" vertexLocation="${java.direction}/lib"/>
+	<property name="java.direction" location="java"/>
+	<property name="java.src" location="src"/>
+	<property name="java.images" location="${java.direction}/images"/>
+	<property name="java.build" location="${java.direction}/build"/>
+	<property name="java.dist" location="${java.direction}/dist"/>
+	<property name="java.lib" location="${java.direction}/lib"/>
 	
 	<!-- CLASSPATHS -->
 	<!-- ********** -->
     
 	<path id="java.lib.classpath">
-		<fileset direction="${java.lib.direction}">
+		<fileset dir="${java.lib.direction}">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
 
 	<path id="all-classpath">
 		<path refid="java.lib.classpath"/>
-		<pathelement vertexLocation="${java.build}"/>
+		<pathelement location="${java.build}"/>
 	</path>
 
 	<!-- TARGETS -->
 	<!-- ******* -->
      
 	<target name="server" description="Runs the demo server">
-		<java jar="${server.jar.file}" fork="true" direction="${demo.direction}">
+		<java jar="${server.jar.file}" fork="true" dir="${demo.direction}">
 			<arg value="${port.arg}"/>
 			<arg value="${web.arg}"/>
 			<arg value="${options.arg}"/>
@@ -63,7 +63,7 @@
 	</target>
     
 	<target name="client" description="Runs the demo client">
-		<java jar="${client.jar.file}" fork="true" direction="${demo.direction}">
+		<java jar="${client.jar.file}" fork="true" dir="${demo.direction}">
 			<assertions>
 				<enable/>
 			</assertions>
@@ -72,10 +72,10 @@
     
     <target name="make-java-doc" description="Generate the Java docs">
         <echo> Making Java documentation </echo>
-        <delete direction="${javadoc.direction}"/>
+        <delete dir="${javadoc.direction}"/>
 		<javadoc destdir="${javadoc.direction}" Package="true">
 			<classpath refid="java.lib.classpath" />
-			<packageset direction="${java.src.direction}">
+			<packageset dir="${java.src.direction}">
 				<include name="client/**"/>
 				<include name="shared/**"/>
 			</packageset>
@@ -95,13 +95,13 @@
  
 	<target name="init" description="create build directories">
 		<tstamp/>
-		<mkdir direction="${java.build}"/>
-		<mkdir direction="${java.dist}"/>
+		<mkdir dir="${java.build}"/>
+		<mkdir dir="${java.dist}"/>
 	</target>
 		
 	<target name="clean" description="clean build files" >
-		<delete direction="${java.build}"/>
-		<delete direction="${java.dist}"/>
+		<delete dir="${java.build}"/>
+		<delete dir="${java.dist}"/>
 	</target>
     
 	<target name="compile" depends="init" description="compile the source " >
@@ -111,15 +111,15 @@
 	</target>
 	
 	<target name="package" depends="compile" description="package the jar file" >
-		<mkdir direction="${java.dist}/lib"/>
+		<mkdir dir="${java.dist}/lib"/>
 		<copy todir="${java.dist}/lib">
-			<fileset direction="${java.lib}">
+			<fileset dir="${java.lib}">
 				<include name="**"/>
 			</fileset>
 		</copy>
-		<mkdir direction="${java.dist}/images"/>
+		<mkdir dir="${java.dist}/images"/>
 		<copy todir="${java.dist}/images">
-			<fileset direction="${java.images}">
+			<fileset dir="${java.images}">
 				<include name="**"/>
 			</fileset>
 		</copy>
@@ -140,7 +140,7 @@
 	</target>
 	
 	<target name="our-client" depends="package" description="compiles, packages, and runs the student client">
-		<java jar="${java.dist}/catan-client.jar" direction="${java.dist}" fork="yes">
+		<java jar="${java.dist}/catan-client.jar" dir="${java.dist}" fork="yes">
 			<sysproperty key="com.sun.management.jmxremote" value=""/>
 			<assertions>
 				<enable/>
@@ -149,7 +149,7 @@
 	</target>
  	
 	<target name="our-server" depends="package" description="compiles, packages, and runs the student server">
-		<java jar="${java.dist}/catan-server.jar" direction="${java.dist}" fork="yes">
+		<java jar="${java.dist}/catan-server.jar" dir="${java.dist}" fork="yes">
 			<sysproperty key="com.sun.management.jmxremote" value=""/>
 			<assertions>
 				<enable/>

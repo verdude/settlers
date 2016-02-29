@@ -90,6 +90,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 					// Print Hexes
 					for(int i = 0; i < hexes.size(); i++){
+
 						String type = hexes.get(i).getResource();
 
 						if(type == null){
@@ -99,6 +100,10 @@ public class MapController extends Controller implements IMapController,IObserve
 						HexType hexType = HexType.valueOf(type.trim().toUpperCase());
 						HexLocation hexLoc = new HexLocation(hexes.get(i).getLocation().getX(), hexes.get(i).getLocation().getY());
 						getView().addHex(hexLoc, hexType);
+						if (hexes.get(i).getNumber() == 0) {
+							continue;
+						}
+						getView().addNumber(hexLoc, hexes.get(i).getNumber());
 					}
 
 					// Print WaterHexes
