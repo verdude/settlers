@@ -1122,6 +1122,31 @@ public class ClientModel {
 		ResourceList resources = player.getResources();
 		boolean access = false;
 		boolean hasResources = false;
+
+		switch (resource){
+
+			case WOOD:
+				if(resources.getWood() > 3){
+					return true;
+				}
+			case BRICK:
+				if(resources.getBrick() > 3){
+					return true;
+				}
+			case SHEEP:
+				if(resources.getSheep() > 3){
+					return true;
+				}
+			case WHEAT:
+				if(resources.getWheat() > 3){
+					return true;
+				}
+			case ORE:
+				if(resources.getOre() > 3){
+					return true;
+				}
+		}
+
 		
 		List<PortType> portsWithAccess = new ArrayList<>();
 		
