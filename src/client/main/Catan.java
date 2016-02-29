@@ -47,8 +47,16 @@ public class Catan extends JFrame
 	
 	public static void main(final String[] args)
 	{
+		String HOST = "localhost";
+		String PORT = "8081";
+		
+		if(args.length > 2){
+			HOST = args[0];
+			PORT = args[1];
+		}
+		
 		try {
-			ClientFacade.getSingleton(ServerProxy.getSingleton(args[0], args[1]));
+			ClientFacade.getSingleton(ServerProxy.getSingleton(HOST, PORT));
 		} catch (MalformedURLException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("cant make server");
