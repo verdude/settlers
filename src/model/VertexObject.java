@@ -27,7 +27,7 @@ public class VertexObject {
 
 		// Getters
 		public int 	getOwner() 								{ return owner; 			}
-		public VertexLocation getVertexLocation()					{ return vertexLocation; 			}
+		public VertexLocation getVertexLocation()					{ return location.toVertexLocation(); 			}
 
 		// Setters
 		public void setOwner(int owner) 					{ this.owner = owner; 		}

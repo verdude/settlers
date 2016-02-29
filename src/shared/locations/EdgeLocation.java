@@ -135,7 +135,7 @@ public class EdgeLocation
 
 	public VertexLocation toVertexLocation(){
 
-		String dir = this.getNormalizedLocation().toString();
+		String dir = this.getDirection().toString();
 		VertexLocation vertexLocation = new VertexLocation(getHexLoc(),VertexDirection.East.fromString(dir));
 		return vertexLocation;
 	}
