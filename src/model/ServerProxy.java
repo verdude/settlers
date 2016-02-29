@@ -284,8 +284,8 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public String sendChat(String playerName, String message) {
-		return post("moves/sendChat", "{\"type\": \"sendChat\", \"playerIndex\": " + playerName + ", \"content\": \"" + message + "\"}");
+	public String sendChat(int playerIndex, String message) {
+		return post("moves/sendChat", "{\"type\": \"sendChat\", \"playerIndex\": " + playerIndex + ", \"content\": \"" + message + "\"}");
 	}
 
 	@Override

@@ -3,9 +3,12 @@ package client.communication;
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.definitions.CatanColor;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import model.MessageLine;
+import model.Player;
 import client.base.Controller;
 
 
@@ -18,7 +21,6 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		
 		super(view);
 		
-		initFromModel();
 		try {
 			ClientFacade.getSingleton().addObserver(this);
 		} catch (ClientException e) {
@@ -33,11 +35,20 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		return (IGameHistoryView)super.getView();
 	}
 	
-	private void initFromModel() {
-		// We need to populate it from the model
-		List<LogEntry> entries = new ArrayList<LogEntry>();
-
-		getView().setEntries(entries);
+	private void initFromModel(ClientModel model) {
+		List<LogEntry> log = new ArrayList<LogEntry>();
+		for(MessageLine line : model.getLog().getLines()) 
+		{
+			CatanColor color = CatanColor.WHITE;
+			for(Player player : model.getPlayers()) {
+				if(player.getName().toLowerCase().equals(line.getSource().toLowerCase())) {
+					color = player.getColor();
+					break;
+				}
+			}
+			log.add(new LogEntry(color, line.getMessage()));
+		}
+		getView().setEntries(log);
 	}
 
 	/* (non-Javadoc)
@@ -45,8 +56,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		// TODO Auto-generated method stub
-		
+		initFromModel(model);
 	}
 	
 }
