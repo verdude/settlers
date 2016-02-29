@@ -59,7 +59,7 @@ public class FirstRoundState implements IState {
 								@Override
 								public void run() {
 									try {
-										System.out.println("Checking road");
+										System.out.println("First Timer state one");
 										if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14 &&
 												ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 4) {
 											System.out.println("Timer finishing turn");
@@ -88,11 +88,12 @@ public class FirstRoundState implements IState {
 
 							if (!secondTimerRunning) {
 								secondTimerRunning = true;
-								Timer roadTimer2 = new Timer();
-								roadTimer2.schedule(new TimerTask() {
+								Timer timer2 = new Timer();
+								timer2.schedule(new TimerTask() {
 									@Override
 									public void run() {
 										try {
+											System.out.println("Second timer checking");
 											if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 13 &&
 													ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getSettlements() == 3) {
 												System.out.println("Timer finishing second round turn");

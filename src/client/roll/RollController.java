@@ -64,14 +64,18 @@ public class RollController extends Controller implements IRollController {
 	@Override
 	public void notify(ClientModel model) {
 		if(model.getTurnTracker().getStatus().toLowerCase().contains("rolling")) {
-			ScheduledExecutorService s = Executors.newSingleThreadScheduledExecutor();     
+			if (!getRollView().isModalShowing()) {
+				getRollView().showModal();
+			}
+			System.out.println("rolling timer thing");
+			ScheduledExecutorService s = Executors.newSingleThreadScheduledExecutor();
 			s.schedule(new Runnable() {
 			    public void run() {
-			    	rollDice();
+					System.out.println("auto rolling");
 					getRollView().closeModal();
+					rollDice();
 			    }
-			}, 20, TimeUnit.SECONDS);
-			getRollView().showModal();
+			}, 3, TimeUnit.SECONDS);
 		}
 	}
 

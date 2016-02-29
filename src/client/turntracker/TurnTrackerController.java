@@ -35,8 +35,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	@Override
 	public void endTurn() {
-		getView().updateGameState("Waiting for other players.", true);
 		try {
+			getView().updateGameState(ClientFacade.getSingleton().getContext().getState().toString(), false);
 			ClientFacade.getSingleton().finishTurn();
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
@@ -61,7 +61,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			getView().setLocalPlayerColor(localPlayer.getColor());
 			Player[] players = ClientFacade.getSingleton().getClientModel().getPlayers();
 			TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
-			System.out.println("Current index: " + turnTracker.getCurrentTurn());
 			for(int i = 0; i < players.length; i++) {
 				if (players[i] == null) {
 					continue;
@@ -83,7 +82,12 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 						players[i].getPlayerIndex() == turnTracker.getCurrentTurn(),
 						largestArmy,
 						longestRoad);
-				}
+			}
+			if (ClientFacade.getSingleton().getClientModel().canFinishTurn(localPlayer.getPlayerIndex())) {
+				getView().updateGameState("Finish turn.", true);
+			} else {
+				getView().updateGameState(ClientFacade.getSingleton().getContext().getState().toString(), false);
+			}
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

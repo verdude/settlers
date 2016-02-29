@@ -35,6 +35,11 @@ public class SecondRoundState implements IState {
 					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
 					int localPlayerIndex = localPlayer.getPlayerIndex();
 
+					if (localPlayerIndex == 3) {
+						ClientFacade.getSingleton().finishTurn();
+						return;
+					}
+
 					if (turnTracker.getCurrentTurn() == localPlayerIndex && localPlayerIndex != 3) {
 						// Wait for the road to be placed
 						if (ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].getRoads() == 14) {
@@ -47,8 +52,8 @@ public class SecondRoundState implements IState {
 
 						if (!timerRunning) {
 							timerRunning = true;
-							Timer roadTimer2 = new Timer();
-							roadTimer2.schedule(new TimerTask() {
+							Timer timer = new Timer();
+							timer.schedule(new TimerTask() {
 								@Override
 								public void run() {
 									try {
