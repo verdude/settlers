@@ -1,25 +1,24 @@
 package clientTests;
 
-import static org.junit.Assert.assertNotEquals;
-
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import model.EdgeValue;
 import model.ServerProxy;
 import model.TradeOffer;
 import model.VertexObject;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
+
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class ServerProxyTests {
 
@@ -126,7 +125,7 @@ public class ServerProxyTests {
 
 	@Test
 	public void soldierTest() {
-		assertNotEquals(proxy.soldier(0, 3, new HexLocation(0, 0)), "Error");
+		assertEquals(proxy.soldier(0, 3, new HexLocation(0, 0)), "Error");
 	}
 
 	@Test

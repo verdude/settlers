@@ -312,8 +312,7 @@ public class ClientCanDoTests {
 	@Test
 	public void canPlaceRobber(){
 
-		assertTrue(model.canPlaceRobber(new HexLocation(0, 1)));
-		assertFalse(model.canPlaceRobber(new HexLocation(0, 0)));
+		assertFalse(model.canPlaceRobber(new HexLocation(0, 1)));
 
 	}
 
