@@ -75,6 +75,22 @@ public class PointsController extends Controller implements IPointsController {
 			}
 
 			getPointsView().setPoints(victoryPoints);
+			Player localPlayer = ClientFacade.getSingleton().getClientModel().getPlayers()[currentPlayer.getPlayerIndex()];
+			boolean gameOver = false;
+			if(victoryPoints >= 10 ) {
+				gameOver = true;
+			}
+
+			if(gameOver) {
+				if( currentPlayer.getPlayerIndex() == ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn()){
+					getFinishedView().setWinner(localPlayer.getName(), true);
+					getFinishedView().showModal();
+				}else {
+					getFinishedView().setWinner(localPlayer.getName(), false);
+					getFinishedView().showModal();
+				}
+			}
+
 		} catch (ClientException e) {
 			System.out.println("Could not set the points. PointsController.");
 			e.printStackTrace();

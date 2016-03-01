@@ -36,7 +36,42 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void endTurn() {
 		try {
-			getView().updateGameState(ClientFacade.getSingleton().getContext().getState().toString(), false);
+			int largestRoads = 4;
+			int playerWithLong = -1;
+
+			int mostSoldiers = 2;
+			int playerWithArmy = -1;
+
+			Player[] players = ClientFacade.getSingleton().getClientModel().getPlayers();
+			for(Player player : players){
+				if(15 - player.getRoads() > largestRoads){
+					largestRoads = 15 - player.getRoads();
+					playerWithLong = player.getPlayerIndex();
+				}
+
+				if(player.getSoldiers() > mostSoldiers){
+					playerWithArmy = player.getPlayerIndex();
+				}
+			}
+			if(playerWithLong != -1){
+				ClientFacade.getSingleton().getClientModel().getTurnTracker().setLongestRoad(playerWithLong);
+			}
+			if(playerWithArmy != -1){
+				ClientFacade.getSingleton().getClientModel().getTurnTracker().setLargestArmy(playerWithLong);
+
+			}
+
+//			int victoryPoints = 0;
+//			Player localPlayer = ClientFacade.getSingleton().getClientModel().getPlayers()[ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex()];
+//			victoryPoints = localPlayer.getVictoryPoints();
+//			if(ClientFacade.getSingleton().getClientModel().getTurnTracker().getLargestArmy() == localPlayer.getPlayerIndex()){
+//				victoryPoints += 2;
+//			}
+//			if(ClientFacade.getSingleton().getClientModel().getTurnTracker().getLongestRoad() == localPlayer.getPlayerIndex()){
+//				victoryPoints += 2;
+//			}
+
+
 			ClientFacade.getSingleton().finishTurn();
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
