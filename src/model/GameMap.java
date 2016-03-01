@@ -45,6 +45,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeSettlement(VertexObject position) throws GameMapException {
+		position.setVertexLocation(position.getVertexLocation().getNormalizedLocation());
 		settlements.add(position);
 	}
 	

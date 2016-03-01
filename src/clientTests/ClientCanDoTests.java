@@ -54,6 +54,7 @@ public class ClientCanDoTests {
 
 		map = new GameMap();
 
+
 		map.getSettlements().add(sett1.getLocation());
 		map.getRoads().add(road1);
 
@@ -245,10 +246,8 @@ public class ClientCanDoTests {
 
 	@Test
 	public void canRollNumberTest(){
-		model.getPlayers()[0].setHasRolled(false);
 		assertTrue(model.canRollNumber(0));
-		model.getPlayers()[0].setHasRolled(true);
-		assertFalse(model.canRollNumber(0));
+
 	}
 
 	@Test
