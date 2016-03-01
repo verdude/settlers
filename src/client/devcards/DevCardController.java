@@ -1,10 +1,13 @@
 package client.devcards;
 
+import com.sun.security.ntlm.Client;
+
 import client.base.Controller;
 import client.base.IAction;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import model.Player;
 import shared.definitions.ResourceType;
 
 
@@ -63,7 +66,12 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void buyCard() {
-		
+		try {
+			ClientFacade.getSingleton().buyDevCard();
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getBuyCardView().closeModal();
 	}
 
@@ -117,7 +125,11 @@ public class DevCardController extends Controller implements IDevCardController 
 	 */
 	@Override
 	public void notify(ClientModel model) {
-		// TODO Auto-generated method stub
+		
+		int localPlayerIndex = model.getTurnTracker().getCurrentTurn();
+		Player localPlayer = model.getPlayers()[localPlayerIndex];
+		
+		
 		
 	}
 
