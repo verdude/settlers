@@ -6,6 +6,8 @@ import java.net.MalformedURLException;
 
 import javax.swing.*;
 
+import model.ClientException;
+import model.ClientFacade;
 import client.base.*;
 import client.utils.ImageUtils;
 
@@ -28,20 +30,21 @@ public class RollResultView extends OverlayView implements IRollResultView {
 	private JLabel rollLabel;
 	private ImageIcon picture;
 	private JLabel pictureLabel;
+	private int currentNumber;
 
 	public RollResultView() {
-		
+
 		this.setOpaque(true);
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createLineBorder(Color.black, BORDER_WIDTH));
-		
+
 		//add the title label to the panel
 		titleLabel = new JLabel("Roll Results");
 		Font titleLabelFont = titleLabel.getFont();
 		titleLabelFont = titleLabelFont.deriveFont(titleLabelFont.getStyle(), TITLE_TEXT_SIZE);
 		titleLabel.setFont(titleLabelFont);
 		this.add(titleLabel, BorderLayout.NORTH);
-		
+
 		//add the button to the panel
 		okayButton = new JButton("Okay");
 		okayButton.addActionListener(actionListener);
@@ -49,7 +52,7 @@ public class RollResultView extends OverlayView implements IRollResultView {
 		okayButtonFont = okayButtonFont.deriveFont(okayButtonFont.getStyle(), BUTTON_TEXT_SIZE);
 		okayButton.setFont(okayButtonFont);
 		this.add(okayButton, BorderLayout.SOUTH);
-		
+
 		//create the rollLabel
 		rollLabel = new JLabel("ERROR: YOU FORGOT TO SET THE ROLL VALUE BEFORE DISPLAYING THIS WINDOW... NAUGHTY, NAUGHTY");
 		Font rollLabelFont = rollLabel.getFont();
@@ -57,12 +60,12 @@ public class RollResultView extends OverlayView implements IRollResultView {
 		rollLabel.setFont(rollLabelFont);
 		rollLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		rollLabel.setBorder(BorderFactory.createEmptyBorder(25, 0, 25, 0));
-		
+
 		//create the picture
 		picture = new ImageIcon(ImageUtils.loadImage("images/resources/resources.png").getScaledInstance(250, 250, Image.SCALE_SMOOTH));
 		pictureLabel = new JLabel();
 		pictureLabel.setIcon(picture);
-		
+
 		//create the center label
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new BorderLayout());
@@ -70,7 +73,7 @@ public class RollResultView extends OverlayView implements IRollResultView {
 		centerPanel.add(Box.createRigidArea(new Dimension(25,25)));
 		centerPanel.add(rollLabel, BorderLayout.SOUTH);
 		this.add(centerPanel,BorderLayout.CENTER);
-		
+
 		//add some spacing
 		this.add(Box.createRigidArea(new Dimension(50,50)),BorderLayout.EAST);
 		this.add(Box.createRigidArea(new Dimension(50,50)),BorderLayout.WEST);
@@ -79,22 +82,29 @@ public class RollResultView extends OverlayView implements IRollResultView {
 	private ActionListener actionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			if (e.getSource() == okayButton) {
-				
+
 				closeModal();
+				try {
+					ClientFacade.getSingleton().rollNumber(currentNumber);
+				} catch (ClientException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}	
 	};
-	
+
 	@Override
 	public IRollController getController() {
-		
+
 		return (IRollController)super.getController();
 	}
 
 	@Override
 	public void setRollValue(int value) {
+		currentNumber = value;
 		String rollText = String.format("You rolled a %d.", value);
 		rollLabel.setText(rollText);
 	}

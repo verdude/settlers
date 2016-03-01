@@ -73,7 +73,7 @@ public class ClientCanDoTests {
 		model.setPlayers(playerList);
 		model.setTurnTracker(turnTracker);
 
-
+		model.getMap().setRobber(new HexLocation(0, 0));
 
 	}
 
@@ -312,10 +312,8 @@ public class ClientCanDoTests {
 	@Test
 	public void canPlaceRobber(){
 
-		model.setRoll(7);
-		assertTrue(model.canPlaceRobber(0));
-		model.setRoll(2);
-		assertFalse(model.canPlaceRobber(0));
+		assertTrue(model.canPlaceRobber(new HexLocation(0, 1)));
+		assertFalse(model.canPlaceRobber(new HexLocation(0, 0)));
 
 	}
 

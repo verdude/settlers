@@ -230,7 +230,7 @@ public class FirstRoundState implements IState {
 	}
 
 	@Override
-	public void robPlayer(RobPlayerInfo victim) {
+	public void robPlayer(RobPlayerInfo victim, HexLocation hexLoc) {
 
 	}
 

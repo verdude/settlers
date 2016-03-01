@@ -160,7 +160,7 @@ public class PlayingState implements IState {
     }
 
     @Override
-    public void robPlayer(RobPlayerInfo victim) {
+    public void robPlayer(RobPlayerInfo victim, HexLocation hexLoc) {
 
     }
 

@@ -1,5 +1,6 @@
 package client.roll;
 
+import java.awt.EventQueue;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -45,14 +46,22 @@ public class RollController extends Controller implements IRollController {
 	public IRollView getRollView() {
 		return (IRollView)getView();
 	}
-
+	boolean timerRunning = false;
 	@Override
 	public void rollDice() {
 		try {
-			getResultView().setRollValue(ClientFacade.getSingleton().rollNumber());
 			if (!getResultView().isModalShowing() &&
 					ClientFacade.getSingleton().getClientModel().canRollNumber(ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex())) {
 				getResultView().showModal();
+				final int number;
+				try {
+					int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+					number = ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].rollNumber();
+				} catch (ClientException e) {
+					e.printStackTrace();
+					return;
+				}
+				getResultView().setRollValue(number);
 			}
 		} catch (ClientException e) {
 			System.out.println("Problem when rolling dice");
@@ -69,20 +78,21 @@ public class RollController extends Controller implements IRollController {
 			try {
 				if (!getRollView().isModalShowing() &&
 						ClientFacade.getSingleton().getClientModel().canRollNumber(ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex())) {
-                    getRollView().showModal();
-                }
+					getRollView().showModal();
+				}
 			} catch (ClientException e) {
 				e.printStackTrace();
 			}
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
-			    public void run() {
-			    	if (getRollView().isModalShowing()) {
+				public void run() {
+					if (getRollView().isModalShowing()) {
 						getRollView().closeModal();
+						timerRunning = false;
 						rollDice();
-			    	}
+					}
 					this.cancel();
-			    }
+				}
 			}, 3000, 3000);
 		}
 	}

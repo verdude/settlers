@@ -1,16 +1,24 @@
 package client.map;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import java.util.*;
-
-import shared.definitions.PieceType;
-import client.base.*;
-import client.data.*;
+import model.ClientException;
+import model.ClientFacade;
+import model.ServerProxy;
+import shared.locations.HexLocation;
+import client.base.OverlayView;
+import client.data.RobPlayerInfo;
 
 
 /**
@@ -72,6 +80,7 @@ public class RobView extends OverlayView implements IRobView {
 			
 			if (e.getSource() == defaultButton) {
 				closeModal();
+				getController().robPlayer(new RobPlayerInfo());
 			}
 			else{
 				
