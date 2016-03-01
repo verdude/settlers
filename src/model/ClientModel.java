@@ -1173,8 +1173,8 @@ public class ClientModel {
 
 
 		List<PortType> portsWithAccess = new ArrayList<>();
-
-		if(turnTracker.getCurrentTurn() != playerIndex ){
+		
+		if(turnTracker.getCurrentTurn() != playerIndex){
 			return false;
 		}
 
@@ -1186,9 +1186,9 @@ public class ClientModel {
 
 			HexLocation seNeighbor = portHex.getNeighborLoc(EdgeDirection.SouthEast);
 
-			for(VertexObject s : map.getSettlements()){
+			for(VertexObject s : map.getSettlements()){				
+				VertexLocation settLoc = s.getVertexLocation().getNormalizedLocation();
 
-				VertexLocation settLoc = s.getVertexLocation();
 				HexLocation settHex = settLoc.getHexLoc();
 				VertexDirection settDir = settLoc.getDirection();
 
@@ -1228,9 +1228,9 @@ public class ClientModel {
 
 				}
 			}
-			for(VertexObject c : map.getCities()){
+			for(VertexObject c : map.getCities()){				
+				VertexLocation cityLoc = c.getVertexLocation().getNormalizedLocation();
 
-				VertexLocation cityLoc = c.getVertexLocation();
 				HexLocation citHyex = cityLoc.getHexLoc();
 				VertexDirection cityDir = cityLoc.getDirection();
 
@@ -1276,6 +1276,11 @@ public class ClientModel {
 
 
 		for(PortType type : portsWithAccess ){
+			if (type == null) {
+				// the three for one ports are null
+				type = PortType.THREE;
+			}
+
 			if(type.equals(PortType.BRICK) && resource.equals(ResourceType.BRICK)){
 				if(resources.getBrick() > 1){
 					hasResources = true;
