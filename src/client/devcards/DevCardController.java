@@ -1,6 +1,5 @@
 package client.devcards;
 
-import com.sun.security.ntlm.Client;
 
 import client.base.Controller;
 import client.base.IAction;
