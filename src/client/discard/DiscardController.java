@@ -1,11 +1,13 @@
 package client.discard;
 
-import shared.definitions.*;
-import client.base.*;
-import client.misc.*;
+import client.base.Controller;
+import client.data.PlayerInfo;
+import client.misc.IWaitView;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import model.ResourceList;
+import shared.definitions.ResourceType;
 
 
 /**
@@ -14,7 +16,8 @@ import model.ClientModel;
 public class DiscardController extends Controller implements IDiscardController {
 
 	private IWaitView waitView;
-	
+	int amountToDiscard;
+	PlayerInfo localPlayer;
 	/**
 	 * DiscardController constructor
 	 * 
@@ -24,7 +27,15 @@ public class DiscardController extends Controller implements IDiscardController 
 	public DiscardController(IDiscardView view, IWaitView waitView) {
 		
 		super(view);
-		
+		ResourceList resourceList = null;
+//		try {
+//			//localPlayer = ClientFacade.getSingleton().getLocalPlayer();
+//			//resourceList = ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayer.getPlayerIndex()].getResources();
+//
+//		} catch (ClientException e) {
+//			e.printStackTrace();
+//		}
+		//amountToDiscard = resourceList.getTotal()/2;
 		this.waitView = waitView;
 		try {
 			ClientFacade.getSingleton().addObserver(this);
@@ -44,7 +55,8 @@ public class DiscardController extends Controller implements IDiscardController 
 
 	@Override
 	public void increaseAmount(ResourceType resource) {
-		
+
+
 	}
 
 	@Override

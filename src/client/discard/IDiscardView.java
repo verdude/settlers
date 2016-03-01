@@ -6,7 +6,10 @@ import shared.definitions.*;
 /**
  * Discard view interface
  */
-public interface IDiscardView extends IOverlayView
+public interface
+
+
+IDiscardView extends IOverlayView
 {
 	
 	/**

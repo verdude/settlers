@@ -942,12 +942,14 @@ public class ClientModel {
 						break;
 					case NorthWest:
 						if(tempHexLoc.equals(settHexLoc) &&
-								(tempDir.equals(VertexDirection.West)
-										|| tempDir.equals(VertexDirection.NorthEast))){
+								(tempDir.equals(VertexDirection.NorthEast))){
 							twoAway = false;
 						}else if(tempHexLoc.equals(nwNeighbor) &&
-								tempDir.equals(VertexDirection.NorthWest)){
+								tempDir.equals(VertexDirection.NorthEast)){
 							twoAway = false;
+						}else if (tempHexLoc.equals((settHexLoc)) &&
+								(tempDir.equals(VertexDirection.NorthEast) && tempHexLoc.equals(seNeighbor))){
+							return false;
 						}
 
 						break;
