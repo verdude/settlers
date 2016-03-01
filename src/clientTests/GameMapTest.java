@@ -1,13 +1,13 @@
 package clientTests;
 
-import static org.junit.Assert.assertTrue;
-
 import model.EdgeValue;
 import model.GameMap;
 import model.GameMapException;
 import model.VertexObject;
-
 import org.junit.Test;
+import shared.locations.*;
+
+import static org.junit.Assert.assertTrue;
 
 public class GameMapTest {
 	static GameMap testMap;
@@ -35,7 +35,10 @@ public class GameMapTest {
 		testMap = new GameMap();
 		
 		try {
-			testMap.placeSettlement(new VertexObject());
+			VertexObject vertexObject = new VertexObject();
+			vertexObject.setVertexLocation(new VertexLocation(new HexLocation(0,0), VertexDirection.East));
+			vertexObject.setLocation(new EdgeLocation(new HexLocation(0,0), EdgeDirection.North));
+			testMap.placeSettlement(vertexObject);
 			assertTrue(testMap.getSettlements().size() > 0);
 		} catch (GameMapException e) {
 			assertTrue(false);
@@ -47,7 +50,10 @@ public class GameMapTest {
 		testMap = new GameMap();
 		
 		try {
-			testMap.placeCity(new VertexObject());
+			VertexObject vertexObject = new VertexObject();
+			vertexObject.setVertexLocation(new VertexLocation(new HexLocation(0,0), VertexDirection.East));
+			vertexObject.setLocation(new EdgeLocation(new HexLocation(0,0), EdgeDirection.North));
+			testMap.placeCity(vertexObject);
 			assertTrue(testMap.getCities().size() > 0);
 		} catch (GameMapException e) {
 			assertTrue(false);
@@ -59,7 +65,9 @@ public class GameMapTest {
 		testMap = new GameMap();
 		
 		try {
-			testMap.placeRoad(new EdgeValue());
+			EdgeValue edgeValue = new EdgeValue();
+			edgeValue.setLocation(new EdgeLocation(new HexLocation(0,0), EdgeDirection.North));
+			testMap.placeRoad(edgeValue);
 			assertTrue(testMap.getRoads().size() > 0);
 		} catch (GameMapException e) {
 			assertTrue(false);

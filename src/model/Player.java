@@ -156,6 +156,7 @@ public class Player {
 			resources.setWood(resources.getWood() - 1);
 		}
 
+
 		
 	}
 	
