@@ -962,7 +962,7 @@ public class ClientModel {
 								(tempDir.equals(VertexDirection.NorthWest))){
 							twoAway = false;
 						}else if(tempHexLoc.equals(neNeighbor) &&
-								(tempDir.equals(VertexDirection.NorthWest))){
+								(tempDir.equals(VertexDirection.NorthEast))){
 							twoAway = false;
 						}
 
@@ -1001,7 +1001,7 @@ public class ClientModel {
 										|| tempDir.equals(VertexDirection.NorthEast))){
 							twoAway = false;
 						}else if(tempHexLoc.equals(nwNeighbor) &&
-								tempDir.equals(VertexDirection.NorthWest)){
+								tempDir.equals(VertexDirection.NorthEast)){
 							twoAway = false;
 						}
 

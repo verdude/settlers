@@ -57,6 +57,8 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeCity(VertexObject position) throws GameMapException {
+		position.setVertexLocation(position.getVertexLocation().getNormalizedLocation());
+
 		cities.add(position);
 	}
 	
@@ -68,6 +70,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void placeRoad(EdgeValue position) throws GameMapException {
+		position.setLocation(position.getLocation().getNormalizedLocation());
 		roads.add(new Road(position.getLocation()));
 	}
 	
