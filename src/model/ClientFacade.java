@@ -23,6 +23,7 @@ public class ClientFacade {
 	public Context getContext() {
 		if(context == null){
 			context = new Context();
+			context.setState(new PlayingState());
 		}
 		String status = clientModel.getTurnTracker().getStatus();
 		if(status != null){

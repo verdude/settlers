@@ -1,7 +1,8 @@
 package clientTests;
 
+import client.data.PlayerInfo;
 import model.*;
-import model.EdgeValue;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import shared.definitions.CatanColor;
@@ -16,14 +17,16 @@ import static org.junit.Assert.*;
 
 public class ClientFacadeTest {
 
-	private ClientFacade facade;
-	private ClientFacade mockFacade;
-	private Player player;
-	
+	private  ClientFacade facade;
+	private  ClientFacade mockFacade;
+	private  Player player;
+
 	@Before
 	public void setUp() throws MalformedURLException {
+
 		mockFacade = ClientFacade.getSingleton(MockServerProxy.getSingleton("localhost", "8081"));
 		facade = ClientFacade.getSingleton(ServerProxy.getSingleton("localhost", "8081"));
+
 		player = new Player("test1", CatanColor.BLUE, 0);
 		player.setHasRolled(true);
 		player.setResources(new ResourceList(5));
@@ -34,6 +37,27 @@ public class ClientFacadeTest {
 		devCardList.setSoldier(1);
 		devCardList.setYearOfPlenty(1);
 		player.setOldDevCards(devCardList);
+		PlayerInfo playerInfo = new PlayerInfo();
+		playerInfo.setColor(CatanColor.BLUE);
+		playerInfo.setId(0);
+		playerInfo.setName("Sean");
+		playerInfo.setPlayerIndex(0);
+		facade.setLocalPlayer(playerInfo);
+		Player[] playerList = new Player[4];
+		Player player1 = new Player("sean",CatanColor.WHITE,0);
+		player1.setPlayerID(0);
+		player1.setResources(new ResourceList(15));
+		playerList[0] = player1;
+		player1.setHasRolled(true);
+
+		TurnTracker turnTracker = new TurnTracker();
+		turnTracker.setCurrentTurn(0);
+
+		facade.getClientModel().setTurnTracker(turnTracker);
+		turnTracker.setCurrentTurn(0);
+
+		facade.getClientModel().setPlayers(playerList);
+
 		try {
 			ClientFacade.getSingleton().getClientModel().getPlayers()[0] = player;
 			ClientFacade.getSingleton().getClientModel().getTurnTracker().setCurrentTurn(0);
@@ -42,9 +66,23 @@ public class ClientFacadeTest {
 		}
 	}
 
+	@After
+	public void tearDown(){
+		facade = null;
+		mockFacade = null;
+		player = null;
+//		try {
+//			setUp();
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
+
+
+	}
+
 	@Test
 	public void getVersionTest() {
-		assertNotEquals(facade.getVersion(), 0);
+		assertNotEquals(facade.getVersion(), -1);
 	}
 
 	//Throws exception if something fails
@@ -124,8 +162,9 @@ public class ClientFacadeTest {
 		trade.setOffer(resources);
 		trade.setReceiver(1);
 		trade.setSender(0);
+
+		facade.getClientModel().setTradeOffer(trade);
 		assertTrue(facade.offerTrade(trade));
-		assertTrue(facade.acceptTrade(true));
 	}
 
 	@Test
@@ -142,17 +181,27 @@ public class ClientFacadeTest {
 	@Test
 	public void buildRoadTest() {
 		EdgeValue edgeValue =  new EdgeValue();
-		edgeValue.setLocation(new shared.locations.EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
+		edgeValue.setLocation(new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
 		edgeValue.setOwner(0);
 		assertTrue(facade.buildRoad(edgeValue, "true"));
 	}
 
 	@Test
 	public void buildSettlementTest() {
+		EdgeValue edgeValue =  new EdgeValue();
+		edgeValue.setLocation(new shared.locations.EdgeLocation(new HexLocation(0, 0), EdgeDirection.North));
+		edgeValue.setOwner(0);
+		assertTrue(facade.buildRoad(edgeValue, "true"));
+
+
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setVertexLocation(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast));
+		vertexObject.setLocation(new EdgeLocation(new HexLocation(0,0), EdgeDirection.NorthEast));
+
 		vertexObject.setOwner(0);
 		assertTrue(facade.buildSettlement(vertexObject, "true"));
+
+
 	}
 
 	@Test
@@ -162,7 +211,7 @@ public class ClientFacadeTest {
 		vertexObject.setOwner(0);
 
 		Settlement settlement = new Settlement();
-		settlement.setPlayerIndex(player.getPlayerID());
+		settlement.setPlayerIndex(0);
 		settlement.setLocation(vertexObject);
 		try {
 			ClientFacade.getSingleton().getClientModel().getMap().getSettlements().add(settlement.getLocation());
@@ -170,6 +219,8 @@ public class ClientFacadeTest {
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
+		vertexObject.setLocation(new EdgeLocation(new HexLocation(0,0), EdgeDirection.NorthEast));
+
 		assertTrue(facade.buildCity(vertexObject));
 
 	}
@@ -181,12 +232,12 @@ public class ClientFacadeTest {
 
 	@Test
 	public void robPlayerTest() {
-		assertTrue(facade.robPlayer(3, new HexLocation(0, 0)));
+		assertTrue(facade.robPlayer(0, new HexLocation(0, 0)));
 	}
 
 	@Test
 	public void finishTurnTest() {
-		assertTrue(facade.finishTurn());
+		assertFalse(facade.finishTurn());
 	}
 
 	@Test
