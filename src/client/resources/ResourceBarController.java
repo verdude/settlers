@@ -4,9 +4,12 @@ import client.base.Controller;
 import client.base.IAction;
 import client.base.IObserver;
 import client.data.PlayerInfo;
+import client.devcards.DevCardController;
 import model.*;
+import state.IState;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -90,17 +93,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			}else{
 				getView().setElementEnabled(ResourceBarElement.SETTLEMENT,true);
 				executeElementAction(ResourceBarElement.SETTLEMENT);
-
 			}
-
-
-
-
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-
-
 	//	executeElementAction(ResourceBarElement.SETTLEMENT);
 	}
 
@@ -131,15 +127,12 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-
-
 //		executeElementAction(ResourceBarElement.CITY);
 	}
 
 	@Override
 	public void buyCard() {
 		try {
-
 			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 
 			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
@@ -147,32 +140,21 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			int bankDevCards = ClientFacade.getSingleton().getClientModel().getDevCardList().getTotal();
 			int currentTurn = ClientFacade.getSingleton().getClientModel().getTurnTracker().getCurrentTurn();
 
-			if(resources.getOre() < 1|| resources.getWheat() < 1 || resources.getSheep() < 1 ||
+			if(resources.getOre() < 1 || resources.getWheat() < 1 || resources.getSheep() < 1 ||
 					bankDevCards < 1 || playerIndex != currentTurn){
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD,false);
 			}else{
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD,true);
 				executeElementAction(ResourceBarElement.BUY_CARD);
-
 			}
-
-
-
-
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-
-
-
 	}
 
 	@Override
 	public void playCard() {
-
-
 		try {
-
 			int playerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 
 			Player player = ClientFacade.getSingleton().getClientModel().getPlayers()[playerIndex];
@@ -184,25 +166,15 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			}else{
 				getView().setElementEnabled(ResourceBarElement.PLAY_CARD,true);
 				executeElementAction(ResourceBarElement.PLAY_CARD);
-
 			}
-
-
-
-
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-
-
-
-
 	}
 	
 	private void executeElementAction(ResourceBarElement element) {
 		
 		if (elementActions.containsKey(element)) {
-			
 			IAction action = elementActions.get(element);
 			action.execute();
 		}
@@ -277,7 +249,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			int bankDevCards = ClientFacade.getSingleton().getClientModel().getDevCardList().getTotal();
 			if(resources.getOre() < 1|| resources.getWheat() < 1 || resources.getSheep() < 1 ||
 					bankDevCards < 1 || playerIndex != currentTurn){
-				getView().setElementEnabled(ResourceBarElement.BUY_CARD,false);
+				//getView().setElementEnabled(ResourceBarElement.BUY_CARD,false);
 			}else{
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD,true);
 
@@ -286,7 +258,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			int devsAvailable = player.getOldDevCards().getTotal();
 
 			if(devsAvailable < 1 || playerIndex != currentTurn){
-				getView().setElementEnabled(ResourceBarElement.PLAY_CARD,false);
+				//getView().setElementEnabled(ResourceBarElement.PLAY_CARD,false);
 			}else{
 				getView().setElementEnabled(ResourceBarElement.PLAY_CARD,true);
 

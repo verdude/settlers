@@ -3,10 +3,8 @@ package client.devcards;
 
 import client.base.Controller;
 import client.base.IAction;
-import model.ClientException;
-import model.ClientFacade;
-import model.ClientModel;
-import model.Player;
+import model.*;
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 
 
@@ -53,13 +51,11 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startBuyCard() {
-		
 		getBuyCardView().showModal();
 	}
 
 	@Override
 	public void cancelBuyCard() {
-		
 		getBuyCardView().closeModal();
 	}
 
@@ -76,19 +72,29 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startPlayCard() {
-		
-		getPlayCardView().showModal();
+		try {
+			DevCardList cards = ClientFacade.getSingleton().getClientModel().getPlayers()[ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex()].getOldDevCards();
+
+			getPlayCardView().setCardAmount(DevCardType.MONOPOLY, cards.getMonopoly());
+			getPlayCardView().setCardAmount(DevCardType.MONUMENT, cards.getMonument());
+			getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, cards.getRoadBuilding());
+			getPlayCardView().setCardAmount(DevCardType.SOLDIER, cards.getSoldier());
+			getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, cards.getYearOfPlenty());
+			getPlayCardView().showModal();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
 	public void cancelPlayCard() {
-
 		getPlayCardView().closeModal();
 	}
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		
+
 	}
 
 	@Override
