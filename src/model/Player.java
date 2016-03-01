@@ -89,9 +89,6 @@ public class Player {
 			Random rand = new Random();
 			int roll = rand.nextInt(6)+1;
 			roll += rand.nextInt(6)+1;
-			//TEMP
-			roll = 7;
-			//TEMP
 			return roll;
 		
 	}
