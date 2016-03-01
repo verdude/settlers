@@ -29,10 +29,10 @@
 	
 	<property name="java.direction" location="java"/>
 	<property name="java.src" location="src"/>
-	<property name="java.images" location="${java.direction}/images"/>
+	<property name="java.images" location="${java.direction}/dist/images"/>
 	<property name="java.build" location="${java.direction}/build"/>
 	<property name="java.dist" location="${java.direction}/dist"/>
-	<property name="java.lib" location="${java.direction}/lib"/>
+	<property name="java.lib" location="${java.direction}/dist/lib"/>
 	
 	<!-- CLASSPATHS -->
 	<!-- ********** -->
