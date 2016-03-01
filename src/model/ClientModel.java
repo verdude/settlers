@@ -1135,6 +1135,49 @@ public class ClientModel {
 			}
 		}
 	}
+
+	/**
+	 * Checks if the player can do a 4 to 1 ratio maritime trade
+	 * @param playerIndex The index of the localPlayer
+	 * @param resource The resource type to check
+     * @return whether the player is allowed to perform a maritime trade for that option
+     */
+	public boolean canFourToOneMaritime(int playerIndex, ResourceType resource) {
+		Player player = players[playerIndex];
+		ResourceList resources = player.getResources();
+
+		switch (resource){
+
+			case WOOD:
+				if(resources.getWood() > 3){
+					return true;
+				}
+				break;
+			case BRICK:
+				if(resources.getBrick() > 3){
+					return true;
+				}
+				break;
+			case SHEEP:
+				if(resources.getSheep() > 3){
+					return true;
+				}
+				break;
+			case WHEAT:
+				if(resources.getWheat() > 3){
+					return true;
+				}
+				break;
+			case ORE:
+				if(resources.getOre() > 3){
+					return true;
+				}
+				break;
+			default: return false;
+		}
+		return false;
+	}
+
 	/**
 	 * Checks the model to see if the client can perform a maritime trade
 	 * @pre None

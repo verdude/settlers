@@ -103,6 +103,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 					temp[i] = availableToGive.get(i);
 				}
 				getTradeOverlay().showGiveOptions(temp);
+				getTradeOverlay().setTradeEnabled(false);
 				getTradeOverlay().showModal();
 			}
 		} catch (ClientException e) {
@@ -150,7 +151,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
         for (int i = 0; i < availableToGive.size(); ++i) {
             temp[i] = availableToGive.get(i);
         }
-		getTradeOverlay().showGetOptions(temp);
+		getTradeOverlay().showGetOptions(ResourceType.values());
 	}
 
 	@Override
@@ -170,8 +171,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		try {
 			ClientFacade facade = ClientFacade.getSingleton();
 			for (int i = 0; i < res.length; ++i) {
-				// check if the player can do a maritime trade for each of the resoures
-				if (facade.getClientModel().canMaritimeTrade(facade.getLocalPlayer().getPlayerIndex(), res[i])) {
+				// check if the player can do a maritime trade for each of the resources
+				if (facade.getClientModel().canFourToOneMaritime(facade.getLocalPlayer().getPlayerIndex(), res[i])) {
 					availableToGive.add(res[i]);
 				}
 			}
