@@ -69,86 +69,8 @@ public class ClientFacadeTest {
 
 	@Test
 	public void gamesListTest() {
-		assertEquals("[\r\n" + 
-				"  {\r\n" + 
-				"    \"title\": \"Default Game\",\r\n" + 
-				"    \"id\": 0,\r\n" + 
-				"    \"players\": [\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"orange\",\r\n" + 
-				"        \"name\": \"Sam\",\r\n" + 
-				"        \"id\": 0\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"blue\",\r\n" + 
-				"        \"name\": \"Brooke\",\r\n" + 
-				"        \"id\": 1\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"red\",\r\n" + 
-				"        \"name\": \"Pete\",\r\n" + 
-				"        \"id\": 10\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"green\",\r\n" + 
-				"        \"name\": \"Mark\",\r\n" + 
-				"        \"id\": 11\r\n" + 
-				"      }\r\n" + 
-				"    ]\r\n" + 
-				"  },\r\n" + 
-				"  {\r\n" + 
-				"    \"title\": \"AI Game\",\r\n" + 
-				"    \"id\": 1,\r\n" + 
-				"    \"players\": [\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"orange\",\r\n" + 
-				"        \"name\": \"Pete\",\r\n" + 
-				"        \"id\": 10\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"white\",\r\n" + 
-				"        \"name\": \"Squall\",\r\n" + 
-				"        \"id\": -2\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"purple\",\r\n" + 
-				"        \"name\": \"Quinn\",\r\n" + 
-				"        \"id\": -3\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"green\",\r\n" + 
-				"        \"name\": \"Ken\",\r\n" + 
-				"        \"id\": -4\r\n" + 
-				"      }\r\n" + 
-				"    ]\r\n" + 
-				"  },\r\n" + 
-				"  {\r\n" + 
-				"    \"title\": \"Empty Game\",\r\n" + 
-				"    \"id\": 2,\r\n" + 
-				"    \"players\": [\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"orange\",\r\n" + 
-				"        \"name\": \"Sam\",\r\n" + 
-				"        \"id\": 0\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"blue\",\r\n" + 
-				"        \"name\": \"Brooke\",\r\n" + 
-				"        \"id\": 1\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"red\",\r\n" + 
-				"        \"name\": \"Pete\",\r\n" + 
-				"        \"id\": 10\r\n" + 
-				"      },\r\n" + 
-				"      {\r\n" + 
-				"        \"color\": \"green\",\r\n" + 
-				"        \"name\": \"Mark\",\r\n" + 
-				"        \"id\": 11\r\n" + 
-				"      }\r\n" + 
-				"    ]\r\n" + 
-				"  }\r\n" + 
-				"]", mockFacade.gamesList());
+		assertEquals("{\"deck\":{\"yearOfPlenty\":2,\"monopoly\":2,\"soldier\":14,\"roadBuilding\":2,\"monument\":5},\"map\":{\"hexes\":[{\"vertexLocation\":{\"x\":0,\"y\":-2}},{\"resource\":\"brick\",\"vertexLocation\":{\"x\":1,\"y\":-2},\"number\":4},{\"resource\":\"wood\",\"vertexLocation\":{\"x\":2,\"y\":-2},\"number\":11},{\"resource\":\"brick\",\"vertexLocation\":{\"x\":-1,\"y\":-1},\"number\":8},{\"resource\":\"wood\",\"vertexLocation\":{\"x\":0,\"y\":-1},\"number\":3},{\"resource\":\"ore\",\"vertexLocation\":{\"x\":1,\"y\":-1},\"number\":9},{\"resource\":\"sheep\",\"vertexLocation\":{\"x\":2,\"y\":-1},\"number\":12},{\"resource\":\"ore\",\"vertexLocation\":{\"x\":-2,\"y\":0},\"number\":5},{\"resource\":\"sheep\",\"vertexLocation\":{\"x\":-1,\"y\":0},\"number\":10},{\"resource\":\"wheat\",\"vertexLocation\":{\"x\":0,\"y\":0},\"number\":11},{\"resource\":\"brick\",\"vertexLocation\":{\"x\":1,\"y\":0},\"number\":5},{\"resource\":\"wheat\",\"vertexLocation\":{\"x\":2,\"y\":0},\"number\":6},{\"resource\":\"wheat\",\"vertexLocation\":{\"x\":-2,\"y\":1},\"number\":2},{\"resource\":\"sheep\",\"vertexLocation\":{\"x\":-1,\"y\":1},\"number\":9},{\"resource\":\"wood\",\"vertexLocation\":{\"x\":0,\"y\":1},\"number\":4},{\"resource\":\"sheep\",\"vertexLocation\":{\"x\":1,\"y\":1},\"number\":10},{\"resource\":\"wood\",\"vertexLocation\":{\"x\":-2,\"y\":2},\"number\":6},{\"resource\":\"ore\",\"vertexLocation\":{\"x\":-1,\"y\":2},\"number\":3},{\"resource\":\"wheat\",\"vertexLocation\":{\"x\":0,\"y\":2},\"number\":8}],\"roads\":[{\"owner\":1,\"vertexLocation\":{\"direction\":\"S\",\"x\":-1,\"y\":-1}},{\"owner\":3,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-1,\"y\":1}},{\"owner\":3,\"vertexLocation\":{\"direction\":\"SW\",\"x\":2,\"y\":-2}},{\"owner\":2,\"vertexLocation\":{\"direction\":\"S\",\"x\":1,\"y\":-1}},{\"owner\":0,\"vertexLocation\":{\"direction\":\"S\",\"x\":0,\"y\":1}},{\"owner\":2,\"vertexLocation\":{\"direction\":\"S\",\"x\":0,\"y\":0}},{\"owner\":1,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-2,\"y\":1}},{\"owner\":0,\"vertexLocation\":{\"direction\":\"SW\",\"x\":2,\"y\":0}}],\"cities\":[],\"settlements\":[{\"owner\":3,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-1,\"y\":1}},{\"owner\":3,\"vertexLocation\":{\"direction\":\"SE\",\"x\":1,\"y\":-2}},{\"owner\":2,\"vertexLocation\":{\"direction\":\"SW\",\"x\":0,\"y\":0}},{\"owner\":2,\"vertexLocation\":{\"direction\":\"SW\",\"x\":1,\"y\":-1}},{\"owner\":1,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-2,\"y\":1}},{\"owner\":0,\"vertexLocation\":{\"direction\":\"SE\",\"x\":0,\"y\":1}},{\"owner\":1,\"vertexLocation\":{\"direction\":\"SW\",\"x\":-1,\"y\":-1}},{\"owner\":0,\"vertexLocation\":{\"direction\":\"SW\",\"x\":2,\"y\":0}}],\"radius\":3,\"ports\":[{\"ratio\":2,\"resource\":\"brick\",\"direction\":\"NE\",\"vertexLocation\":{\"x\":-2,\"y\":3}},{\"ratio\":3,\"direction\":\"SE\",\"vertexLocation\":{\"x\":-3,\"y\":0}},{\"ratio\":2,\"resource\":\"sheep\",\"direction\":\"NW\",\"vertexLocation\":{\"x\":3,\"y\":-1}},{\"ratio\":3,\"direction\":\"NW\",\"vertexLocation\":{\"x\":2,\"y\":1}},{\"ratio\":3,\"direction\":\"N\",\"vertexLocation\":{\"x\":0,\"y\":3}},{\"ratio\":2,\"resource\":\"ore\",\"direction\":\"S\",\"vertexLocation\":{\"x\":1,\"y\":-3}},{\"ratio\":3,\"direction\":\"SW\",\"vertexLocation\":{\"x\":3,\"y\":-3}},{\"ratio\":2,\"resource\":\"wheat\",\"direction\":\"S\",\"vertexLocation\":{\"x\":-1,\"y\":-2}},{\"ratio\":2,\"resource\":\"wood\",\"direction\":\"NE\",\"vertexLocation\":{\"x\":-3,\"y\":2}}],\"robber\":{\"x\":0,\"y\":-2}},\"players\":[{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":1,\"ore\":0},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":0,\"playerIndex\":0,\"name\":\"Sam\",\"color\":\"red\"},{\"resources\":{\"brick\":1,\"wood\":0,\"sheep\":1,\"wheat\":0,\"ore\":1},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":1,\"playerIndex\":1,\"name\":\"Brooke\",\"color\":\"blue\"},{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":1,\"ore\":0},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":10,\"playerIndex\":2,\"name\":\"Pete\",\"color\":\"red\"},{\"resources\":{\"brick\":0,\"wood\":1,\"sheep\":1,\"wheat\":0,\"ore\":1},\"oldDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"newDevCards\":{\"yearOfPlenty\":0,\"monopoly\":0,\"soldier\":0,\"roadBuilding\":0,\"monument\":0},\"roads\":13,\"cities\":4,\"settlements\":3,\"soldiers\":0,\"victoryPoints\":2,\"monuments\":0,\"playedDevCard\":false,\"discarded\":false,\"playerID\":11,\"playerIndex\":3,\"name\":\"Mark\",\"color\":\"green\"}],\"log\":{\"lines\":[{\"source\":\"Sam\",\"message\":\"Sam built a road\"},{\"source\":\"Sam\",\"message\":\"Sam built a settlement\"},{\"source\":\"Sam\",\"message\":\"Sam's turn just ended\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a road\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a settlement\"},{\"source\":\"Brooke\",\"message\":\"Brooke's turn just ended\"},{\"source\":\"Pete\",\"message\":\"Pete built a road\"},{\"source\":\"Pete\",\"message\":\"Pete built a settlement\"},{\"source\":\"Pete\",\"message\":\"Pete's turn just ended\"},{\"source\":\"Mark\",\"message\":\"Mark built a road\"},{\"source\":\"Mark\",\"message\":\"Mark built a settlement\"},{\"source\":\"Mark\",\"message\":\"Mark's turn just ended\"},{\"source\":\"Mark\",\"message\":\"Mark built a road\"},{\"source\":\"Mark\",\"message\":\"Mark built a settlement\"},{\"source\":\"Mark\",\"message\":\"Mark's turn just ended\"},{\"source\":\"Pete\",\"message\":\"Pete built a road\"},{\"source\":\"Pete\",\"message\":\"Pete built a settlement\"},{\"source\":\"Pete\",\"message\":\"Pete's turn just ended\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a road\"},{\"source\":\"Brooke\",\"message\":\"Brooke built a settlement\"},{\"source\":\"Brooke\",\"message\":\"Brooke's turn just ended\"},{\"source\":\"Sam\",\"message\":\"Sam built a road\"},{\"source\":\"Sam\",\"message\":\"Sam built a settlement\"},{\"source\":\"Sam\",\"message\":\"Sam's turn just ended\"}]},\"chat\":{\"lines\":[]},\"bank\":{\"brick\":23,\"wood\":21,\"sheep\":20,\"wheat\":22,\"ore\":22},\"turnTracker\":{\"status\":\"Rolling\",\"currentTurn\":0,\"longestRoad\":-1,\"largestArmy\":-1},\"winner\":-1,\"version\":0}",
+				mockFacade.gamesList());
 	}
 
 	@Test
