@@ -8,12 +8,15 @@ allows you to interactively call the server's web API methods, and documents
 the inputs and outputs of the server's methods.  The other links on the server's
 documentation page are not relevant to the version of the project you are doing.
 
-
+DEMO STUFF:
 Run the demo client using "ant client".
 
+(Run demo-server with custom port):
+ant server [-Dport={{PORT}}] 
 
+
+OUR STUFF:
 Run your server using "ant our-server".
-
 
 Run your client using "ant our-client".
 
