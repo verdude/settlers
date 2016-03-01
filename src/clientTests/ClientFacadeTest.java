@@ -213,7 +213,7 @@ public class ClientFacadeTest {
 
 	@Test
 	public void rollNumberTest() {
-		assertTrue(facade.rollNumber() < 13 && facade.rollNumber() > 1);
+		assertTrue(facade.rollNumber(12) < 13 && facade.rollNumber(2) > 1);
 
 	}
 

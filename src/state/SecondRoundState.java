@@ -189,7 +189,7 @@ public class SecondRoundState implements IState {
 	}
 
 	@Override
-	public void robPlayer(RobPlayerInfo victim) {
+	public void robPlayer(RobPlayerInfo victim, HexLocation hexLoc) {
 
 	}
 }

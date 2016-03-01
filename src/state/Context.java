@@ -71,7 +71,7 @@ public class Context implements IState {
 
     @Override
     public void placeRobber(HexLocation hexLoc, IMapView view) {
-            this.placeRobber(hexLoc,view);
+            this.state.placeRobber(hexLoc,view);
     }
 
     @Override
@@ -95,8 +95,8 @@ public class Context implements IState {
     }
 
     @Override
-    public void robPlayer(RobPlayerInfo victim) {
-        this.state.robPlayer(victim);
+    public void robPlayer(RobPlayerInfo victim, HexLocation hexLoc) {
+        this.state.robPlayer(victim, hexLoc);
     }
 
 

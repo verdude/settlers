@@ -270,20 +270,13 @@ public class ClientFacade {
 	 * @post The result of rolling the current number is performed.
 	 * @return Whether it was attempted
 	 */
-	public int rollNumber() {
+	public int rollNumber(int number) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		// maybe the player index shouldn't even be passed in. We could just get it here.
 		boolean canDo = clientModel.canRollNumber(playerIndex);
-		int number = -1;
 
 		if(canDo)
 		{
-			try {
-				number = clientModel.getPlayers()[playerIndex].rollNumber();
-			} catch (ClientException e) {
-				e.printStackTrace();
-				return -1;
-			}
 			String model = proxy.rollNumber(playerIndex, number);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}

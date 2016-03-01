@@ -1519,12 +1519,22 @@ public class ClientModel {
 	public void setDevCardList(DevCardList devCardList) {
 		this.devCardList = devCardList;
 	}
-
-	public boolean canPlaceRobber(int playerIndex){
-		if(turnTracker.getCurrentTurn() == playerIndex && roll == 7){
-			return true;
+	
+	public boolean canPlaceRobber(HexLocation hexLoc){
+		try {
+			HexLocation robber = ClientFacade.getSingleton().getClientModel().getMap().getRobber();
+			if(robber != null && (robber.getX() != hexLoc.getX() || robber.getY() != hexLoc.getY())) {
+				for(Hex hex : ClientFacade.getSingleton().getClientModel().getMap().getHexes()){
+					HexLocation currentLocation = hex.getLocation();
+					if(currentLocation.getX() == hexLoc.getX() && currentLocation.getY() == hexLoc.getY()) {
+						return true;
+					}
+				}
+			}
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
 		return false;
 	}
 

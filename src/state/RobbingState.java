@@ -1,7 +1,10 @@
 package state;
 
+import model.ClientException;
+import model.ClientFacade;
 import client.data.RobPlayerInfo;
 import client.map.IMapView;
+import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -34,7 +37,16 @@ public class RobbingState implements IState {
 
     @Override
     public boolean canPlaceRobber(HexLocation hexLoc) {
-        return false;
+    	boolean canDo = false;
+    	
+    	try {
+			canDo = ClientFacade.getSingleton().getClientModel().canPlaceRobber(hexLoc);
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        return canDo;
     }
 
     @Override
@@ -59,7 +71,14 @@ public class RobbingState implements IState {
 
     @Override
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView view) {
-
+		CatanColor color = null;
+		try {
+			color = ClientFacade.getSingleton().getLocalPlayer().getColor();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		//If it's the startup phase then the third param should be false
+		view.startDrop(pieceType, color, false);
     }
 
     @Override
@@ -78,7 +97,12 @@ public class RobbingState implements IState {
     }
 
     @Override
-    public void robPlayer(RobPlayerInfo victim) {
-
+    public void robPlayer(RobPlayerInfo victim, HexLocation hexLoc) {
+    	try {
+			ClientFacade.getSingleton().robPlayer(victim.getPlayerIndex(), hexLoc);
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

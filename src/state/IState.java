@@ -39,7 +39,7 @@ public interface IState {
 
     public void playRoadBuildingCard();
 
-    public void robPlayer(RobPlayerInfo victim);
+    public void robPlayer(RobPlayerInfo victim, HexLocation hexLoc);
 
 
 

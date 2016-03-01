@@ -49,10 +49,35 @@ public class RollController extends Controller implements IRollController {
 	@Override
 	public void rollDice() {
 		try {
-			getResultView().setRollValue(ClientFacade.getSingleton().rollNumber());
 			if (!getResultView().isModalShowing() &&
 					ClientFacade.getSingleton().getClientModel().canRollNumber(ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex())) {
 				getResultView().showModal();
+				final int number;
+				try {
+					int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+					number = ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayerIndex].rollNumber();
+				} catch (ClientException e) {
+					e.printStackTrace();
+					return;
+				}
+				getResultView().setRollValue(number);
+				
+				Timer timer = new Timer();
+				timer.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						if(!getResultView().isModalShowing()) {
+							try {
+								System.out.println("Closed, rolling " + number + " on facade");
+								ClientFacade.getSingleton().rollNumber(number);
+								this.cancel();
+							} catch (ClientException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+				}, 0, 500);
 			}
 		} catch (ClientException e) {
 			System.out.println("Problem when rolling dice");

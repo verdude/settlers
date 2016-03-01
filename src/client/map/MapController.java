@@ -15,6 +15,7 @@ import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import state.Context;
 import state.FirstRoundState;
+import state.RobbingState;
 import state.SecondRoundState;
 
 import java.awt.*;
@@ -29,7 +30,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 	private IRobView robView;
 	private ClientModel model;
-
+	private HexLocation robber;
 
 	public MapController(IMapView view, IRobView robView) {
 
@@ -331,6 +332,7 @@ public class MapController extends Controller implements IMapController,IObserve
 
 	public void placeRobber(HexLocation hexLoc) {
 
+		robber = hexLoc;
 		getView().placeRobber(hexLoc);
 
 		getRobView().showModal();
@@ -359,7 +361,12 @@ public class MapController extends Controller implements IMapController,IObserve
 
 	@Override
 	public void robPlayer(RobPlayerInfo victim) {
-
+		try {
+			ClientFacade.getSingleton().getContext().robPlayer(victim, robber);
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -383,6 +390,17 @@ public class MapController extends Controller implements IMapController,IObserve
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			if(ClientFacade.getSingleton().getContext().getState() instanceof RobbingState) {
+				startMove(PieceType.ROBBER, true, false);
+				System.out.println("placing robber");
+			}
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
 
