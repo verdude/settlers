@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GameMap {
 	int 				radius;				
-	Robber 				robber;
+	HexLocation 				robber;
 	List<Hex> 			hexes;
 	List<Port> 			ports;
 	List<Road> 			roads;
@@ -24,7 +24,7 @@ public class GameMap {
 		settlements 	= new ArrayList<VertexObject>();
 		cities 			= new ArrayList<VertexObject>();
 
-		robber			= new Robber();
+		robber			= new HexLocation(0, 0);
 	}
 	
 	/** Moves the robber to a different position on the map
@@ -34,7 +34,7 @@ public class GameMap {
 	 * @throws GameMapException if this function runs and dies when it shoouldn't
 	 */
 	public void moveRobber(HexLocation position) throws GameMapException {
-		robber.move(position);
+		robber = position;
 	}
 	
 	/** Places a settlement for the player on a given vertex
@@ -79,7 +79,7 @@ public class GameMap {
 	public List<VertexObject> getSettlements() 						{ return settlements; 		}
 	public List<VertexObject> 		getCities() 							{ return cities; 			}
 	public int 				getRadius() 							{ return radius; 			}
-	public Robber 			getRobber() 							{ return robber; 			}
+	public HexLocation 			getRobber() 							{ return robber; 			}
 	
 	// Setters
 	public void setHexes(List<Hex> hexes) 							{ this.hexes = hexes; 		}
@@ -88,5 +88,5 @@ public class GameMap {
 	public void setSettlements(List<VertexObject> settlements) 		{ this.settlements = settlements; 	}
 	public void setCities(List<VertexObject> cities) 						{ this.cities = cities; 	}
 	public void setRadius(int _RADIUS) 								{ radius = _RADIUS; 		}
-	public void setRobber(Robber robber) 							{ this.robber = robber; 	}
+	public void setRobber(HexLocation robber) 							{ this.robber = robber; 	}
 }

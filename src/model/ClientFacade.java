@@ -90,7 +90,6 @@ public class ClientFacade {
 	}
 	
 	public void createLocalPlayer(String name) {
-		System.out.println("in create local player");
 		localPlayer = new PlayerInfo();
 		localPlayer.setName(name);
 		try {

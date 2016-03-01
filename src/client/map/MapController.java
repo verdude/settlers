@@ -39,10 +39,8 @@ public class MapController extends Controller implements IMapController,IObserve
 		try {
 			ClientFacade.getSingleton().addObserver(this);
 		} catch (ClientException e) {
-<<<<<<< 907755eb48a4baede8c6e9d2b54f0385d478ed1c
 			System.out.println("Error when adding to the mapController to the observer list");
-=======
->>>>>>> Added mapCOntroller to observer list in its constructor
+
 			e.printStackTrace();
 		}
 	}
@@ -242,6 +240,8 @@ public class MapController extends Controller implements IMapController,IObserve
                         getView().placeRoad(road.getLocation(), color);
                     }
 
+                    getView().placeRobber(model.getMap().getRobber());
+                    
 				} catch (ClientException e) {
 					e.printStackTrace();
 				}
