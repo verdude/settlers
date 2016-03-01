@@ -50,7 +50,7 @@ public class Catan extends JFrame
 		String HOST = "localhost";
 		String PORT = "8081";
 		
-		if(args.length > 2){
+		if(args.length >= 2){
 			HOST = args[0];
 			PORT = args[1];
 		}
