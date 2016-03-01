@@ -1,14 +1,18 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
-import shared.locations.*;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import state.FirstRoundState;
 import state.PlayingState;
 import state.SecondRoundState;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ClientModel {
 
@@ -1291,7 +1295,8 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canRobPlayer(int playerIndex) {
-		Robber robber = map.getRobber();
+		Robber robber = new Robber();
+		robber.setLocation(map.getRobber());
 		Player player = players[playerIndex];
 		HexLocation robberLocation = robber.getLocation();
 		
