@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientFacade {
-	
+
 	private static ClientModel  clientModel;
 	private static ClientFacade singleton;
 	private IProxy proxy;
@@ -32,7 +32,7 @@ public class ClientFacade {
 	}
 
 
-	
+
 	/**
 	 * Default Constructor
 	 * 
@@ -54,7 +54,7 @@ public class ClientFacade {
 		}
 		return singleton;
 	}
-	
+
 	public static ClientFacade getSingleton() throws ClientException {
 		if (singleton == null) {
 			throw new ClientException();
@@ -69,26 +69,27 @@ public class ClientFacade {
 	public int getVersion() {
 		return clientModel.getVersion();
 	}
-	
+
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
 		getContext();
 		gameStarted = true;
+
+		for(int i = 0; i < observers.size(); i++) {
+			observers.get(i).notify(clientModel);
+		}
+	}
+
+	public void notifyAllObservers() {
 		for(IObserver observer : observers) {
 			observer.notify(clientModel);
 		}
 	}
 
-	public void notifyAllObservers() {
-        for(IObserver observer : observers) {
-			observer.notify(clientModel);
-		}
-	}
-	
 	public void addObserver(IObserver newObserver) {
 		observers.add(newObserver);
 	}
-	
+
 	public void createLocalPlayer(String name) {
 		localPlayer = new PlayerInfo();
 		localPlayer.setName(name);
@@ -149,7 +150,7 @@ public class ClientFacade {
 	public String gamesList() {
 		return proxy.gamesList();
 	}
-	
+
 
 	/**
 	 * This method creates a new game in the server called by the name given
@@ -172,7 +173,7 @@ public class ClientFacade {
 	 */
 	public boolean gamesJoin(int ID, String color) {
 		// do we need a canJoinGame?
-		
+
 		String response = proxy.gamesJoin(ID, color);
 		return response.contains("Success");
 	}	
@@ -188,9 +189,9 @@ public class ClientFacade {
 	 */
 	public boolean gamesSave(int ID, String name) {
 		String response = proxy.gamesSave(ID, name);
-		
+
 		return response.contains("Success");
-		}
+	}
 
 	/**
 	 * This method is for testing and debugging purposes. 
@@ -411,7 +412,10 @@ public class ClientFacade {
 	 */
 	public boolean robPlayer(int victimIndex, HexLocation location) {
 		int playerIndex = localPlayer.getPlayerIndex();
-		boolean canDo = clientModel.canRobPlayer(playerIndex);
+		boolean canDo = clientModel.canRobPlayer(victimIndex);
+		if(victimIndex == -1) {
+			canDo = true;
+		}
 		if(canDo)
 		{
 			try {
@@ -488,7 +492,7 @@ public class ClientFacade {
 			String model = proxy.soldier(playerIndex, victimIndex, location);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
-		
+
 		return canDo;
 	}
 
@@ -508,7 +512,7 @@ public class ClientFacade {
 			String model = proxy.yearOfPlenty(playerIndex, resource1, resource2);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
-		
+
 		return canDo;
 	}
 
@@ -528,7 +532,7 @@ public class ClientFacade {
 			String model = proxy.roadBuilding(playerIndex, spot1, spot2);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
-		
+
 		return canDo;
 	}
 
@@ -546,7 +550,7 @@ public class ClientFacade {
 			String model = proxy.monopoly(resource, playerIndex);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
-		
+
 		return canDo;
 	}
 
@@ -564,7 +568,7 @@ public class ClientFacade {
 			String model = proxy.monument(playerIndex);
 			updateModel((ClientModel) Converter.deserializeClientModel(model));
 		}
-		
+
 		return canDo;
 	}
 
@@ -574,7 +578,7 @@ public class ClientFacade {
 
 	public shared.locations.EdgeLocation vertexLocToEdgeLoc(VertexLocation vertexLocation){
 
-//		EdgeValue edgeLocation = new EdgeValue(vertexLocation.getHexLoc(),vertexLocation.getDirection());
+		//		EdgeValue edgeLocation = new EdgeValue(vertexLocation.getHexLoc(),vertexLocation.getDirection());
 		return null;
 	}
 

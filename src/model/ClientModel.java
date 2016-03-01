@@ -1316,25 +1316,28 @@ public class ClientModel {
 
 		HexLocation seNeighbor = robberLocation.getNeighborLoc(EdgeDirection.SouthEast);
 		HexLocation swNeighbor = robberLocation.getNeighborLoc(EdgeDirection.SouthWest);
+		HexLocation sNeighbor = robberLocation.getNeighborLoc(EdgeDirection.South);
 
 		for(VertexObject s : map.getSettlements()){
 
-			VertexLocation settLoc = s.getVertexLocation();
+			VertexLocation settLoc = s.getVertexLocation().getNormalizedLocation();
 			HexLocation settHex = settLoc.getHexLoc();
 			VertexDirection settDir = settLoc.getDirection();
 			if(s.getOwner() == player.getPlayerIndex()){
-				if(settHex.equals(robberLocation) && (settDir.equals(VertexDirection.West)
-						||settDir.equals(VertexDirection.NorthWest)
+				if(settHex.equals(robberLocation) && (settDir.equals(VertexDirection.NorthWest)
 						|| settDir.equals(VertexDirection.NorthEast) )){
 
 					return true;
-				}else if(settHex.equals(seNeighbor) && (settDir.equals(VertexDirection.West )
+				}else if(settHex.equals(seNeighbor) && (settDir.equals(VertexDirection.NorthWest))){
+					return true;
+
+				} else if(settHex.equals(swNeighbor) && settDir.equals(VertexDirection.NorthEast)){
+					return true;
+
+				} else if(settHex.equals(sNeighbor) && (settDir.equals(VertexDirection.NorthEast)
 						|| settDir.equals(VertexDirection.NorthWest))){
 					return true;
-
-				} else if(settHex.equals(swNeighbor) && settDir.equals(VertexDirection.NorthWest)){
-					return true;
-
+	
 				}
 			}
 
@@ -1482,9 +1485,6 @@ public class ClientModel {
 	 * @post true if the player can roll a number, false otherwise
 	 */
 	public boolean canRollNumber(int playerIndex){
-
-		Player player = players[playerIndex];
-
 		if(turnTracker.getCurrentTurn() == playerIndex){
 			return true;
 		}else{

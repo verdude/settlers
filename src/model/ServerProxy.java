@@ -396,7 +396,7 @@ public class ServerProxy implements IProxy {
 	public String robPlayer(int playerIndex, int victimIndex, HexLocation location) {
 		return post("moves/robPlayer", "{\"type\": \"robPlayer\", \"playerIndex\": " + playerIndex 
 				+ ", \"victimIndex\": " + victimIndex + ", "
-				+ "\"vertexLocation\": {"
+				+ "\"location\": {"
 				+ "\"x\": " + location.getX() + ", "
 				+ "\"y\": " + location.getY()
 				+ "}}");

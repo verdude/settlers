@@ -333,9 +333,39 @@ public class MapController extends Controller implements IMapController,IObserve
 	public void placeRobber(HexLocation hexLoc) {
 
 		robber = hexLoc;
+		try {
+			ClientFacade.getSingleton().getClientModel().getMap().setRobber(robber);
+		} catch (ClientException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		getView().placeRobber(hexLoc);
-
 		getRobView().showModal();
+		List<RobPlayerInfo> victims = new ArrayList<RobPlayerInfo>();
+		try {
+			ClientModel model = ClientFacade.getSingleton().getClientModel();
+			int localPlayerIndex = ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
+			for(int i = 0; i < model.getPlayers().length; i++) {
+				if(model.canRobPlayer(i) && i != localPlayerIndex) {
+					Player player = model.getPlayers()[i];
+					RobPlayerInfo victim = new RobPlayerInfo();
+					victim.setColor(player.getColor());
+					victim.setId(player.getPlayerID());
+					victim.setName(player.getName());
+					victim.setNumCards(player.getResources().getTotal());
+					victim.setPlayerIndex(player.getPlayerIndex());
+					victims.add(victim);
+				}
+			}
+			RobPlayerInfo[] victimArray = new RobPlayerInfo[victims.size()];
+			for(int i = 0; i < victimArray.length; i++) {
+				victimArray[i] = victims.get(i);
+			}
+			getRobView().setPlayers(victimArray);
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
