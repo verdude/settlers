@@ -12,7 +12,7 @@ DEMO STUFF:
 Run the demo client using "ant client".
 
 (Run demo-server with custom port):
-ant server [-Dport={{PORT}}] 
+ant server [-Dport.arg={{PORT}}] 
 
 
 OUR STUFF:
