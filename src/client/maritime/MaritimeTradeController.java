@@ -194,11 +194,12 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			boolean isLocalPlayersTurn = model.getTurnTracker().getCurrentTurn() ==
 											ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex();
 			// sets the maritime trade button to on or off
+			// Dont' actually want to set the button to off.
 			if (isLocalPlayersTurn && currState instanceof PlayingState && loadAvailableResources()){
-				((MaritimeTradeView)getView()).enableMaritimeTrade(true);
+				//((MaritimeTradeView)getView()).enableMaritimeTrade(true);
 				return true;
 			} else {
-				((MaritimeTradeView)getView()).enableMaritimeTrade(false);
+				//((MaritimeTradeView)getView()).enableMaritimeTrade(false);
 				return false;
 			}
 		} catch (ClientException e) {
