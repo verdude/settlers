@@ -30,7 +30,9 @@ public class EdgeLocation
 	private int y;
 
 
-
+	public void setEdgeDirection(EdgeDirection edgeDirection){
+		this.direction = edgeDirection';'
+	}
 
 	public EdgeLocation(HexLocation hexLoc, EdgeDirection direction)
 	{

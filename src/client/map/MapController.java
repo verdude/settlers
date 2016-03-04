@@ -9,10 +9,7 @@ import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import shared.locations.*;
 import state.Context;
 import state.FirstRoundState;
 import state.RobbingState;
@@ -228,6 +225,29 @@ public class MapController extends Controller implements IMapController,IObserve
 
                         int playerIndex = settlement.getOwner();
                         CatanColor color = model.getPlayers()[playerIndex].getColor();
+						//Need to add to city as well
+						HexLocation settHexLoc = settlement.getLocation().getHexLoc();
+						if(settlement.getLocation().getDirection() == null){
+							if(settHexLoc.equals(new HexLocation(2,-1))){
+								settlement.getLocation().setEdgeDirection(EdgeDirection.NorthWest);
+								settlement.setVertexLocation(new VertexLocation(new HexLocation(3,-1),VertexDirection.NorthWest));
+							}else if(settHexLoc.equals(new HexLocation(2,-2))){
+								settlement.getLocation().setEdgeDirection(EdgeDirection.NorthWest);
+								settlement.setVertexLocation(new VertexLocation(new HexLocation(3,-2),VertexDirection.NorthWest));
+							}else if(settHexLoc.equals(new HexLocation(2,0))){
+								settlement.getLocation().setEdgeDirection(EdgeDirection.NorthWest);
+								settlement.setVertexLocation(new VertexLocation(new HexLocation(3,0),VertexDirection.NorthWest));
+							}else if(settHexLoc.equals(new HexLocation(-2,2))){
+								settlement.getLocation().setEdgeDirection(EdgeDirection.NorthEast);
+								settlement.setVertexLocation(new VertexLocation(new HexLocation(-3,3),VertexDirection.NorthEast));
+							}else if(settHexLoc.equals(new HexLocation(-2,1))){
+								settlement.getLocation().setEdgeDirection(EdgeDirection.NorthEast);
+								settlement.setVertexLocation(new VertexLocation(new HexLocation(-3,2),VertexDirection.NorthEast));
+							}else if(settHexLoc.equals(new HexLocation(-2,0))){
+								settlement.getLocation().setEdgeDirection(EdgeDirection.NorthEast);
+								settlement.setVertexLocation(new VertexLocation(new HexLocation(-3,1),VertexDirection.NorthEast));
+							}
+						}
 						getView().placeSettlement(settlement.getVertexLocation(), color);
 
                     }

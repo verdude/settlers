@@ -46,6 +46,13 @@ public class GameMap {
 	 */
 	public void placeSettlement(VertexObject position) throws GameMapException {
 		position.setVertexLocation(position.getVertexLocation().getNormalizedLocation());
+//		HexLocation settHexLoc = position.getLocation().getHexLoc();
+//		if(position.getLocation().getDirection() == null){
+//			if(settHexLoc.equals(new HexLocation(2,-1))){
+//				position.getLocation().setEdgeDirection(EdgeDirection.NorthWest);
+//			}
+//		}
+
 		settlements.add(position);
 	}
 	
