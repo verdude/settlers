@@ -105,9 +105,12 @@ public class LoginController extends Controller implements ILoginController {
 		
 		boolean success;
 		try {
-			if (getLoginView().getRegisterPassword().equals(getLoginView().getRegisterPasswordRepeat())) {
+			String password = getLoginView().getRegisterPassword();
+			String repeatPassword = getLoginView().getRegisterPasswordRepeat();
+			String username = getLoginView().getRegisterUsername();
+			if (password.equals(repeatPassword) && !password.isEmpty() && password != null && !username.isEmpty() && username != null) {
 				success = ClientFacade.getSingleton()
-						.userRegister(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
+						.userRegister(username, password);
 			} else {
 				success = false;
 			}
