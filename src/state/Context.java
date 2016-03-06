@@ -2,6 +2,8 @@ package state;
 
 import client.data.RobPlayerInfo;
 import client.map.IMapView;
+import model.ClientException;
+import model.ClientFacade;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -130,5 +132,19 @@ public class Context implements IState {
                 break;
         }
 
+    }
+
+    @Override
+    public String toString(){
+
+        try {
+            String status = ClientFacade.getSingleton().getClientModel().getTurnTracker().getStatus();
+
+            return status;
+
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

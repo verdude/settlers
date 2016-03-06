@@ -88,6 +88,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void notify(ClientModel model) {
 		try {
+			
 			if (!ClientFacade.getSingleton().getGameStarted()) {
 				System.out.println("Returned in turn tracker. Game not started");
 				return;
@@ -121,7 +122,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			if (ClientFacade.getSingleton().getClientModel().canFinishTurn(localPlayer.getPlayerIndex())) {
 				getView().updateGameState("Finish turn", true);
 			} else {
-				getView().updateGameState(ClientFacade.getSingleton().getContext().getState().toString(), false);
+				getView().updateGameState(ClientFacade.getSingleton().getContext().toString(), false);
 			}
 		} catch (ClientException e) {
 			// TODO Auto-generated catch block
