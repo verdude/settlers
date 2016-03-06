@@ -1,23 +1,34 @@
 package client.map;
 
-import client.base.Controller;
-import client.base.IObserver;
-import client.data.PlayerInfo;
-import client.data.RobPlayerInfo;
-import model.*;
+import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.ClientException;
+import model.ClientFacade;
+import model.ClientModel;
+import model.GameMap;
+import model.Hex;
+import model.Player;
+import model.Port;
+import model.Road;
+import model.VertexObject;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
-import shared.locations.*;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import state.Context;
 import state.FirstRoundState;
 import state.RobbingState;
 import state.SecondRoundState;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import client.base.Controller;
+import client.base.IObserver;
+import client.data.RobPlayerInfo;
 
 
 /**
@@ -154,21 +165,6 @@ public class MapController extends Controller implements IMapController,IObserve
 					}
 
 					// Rounds
-
-					TurnTracker turnTracker = ClientFacade.getSingleton().getClientModel().getTurnTracker();
-					
-					PlayerInfo localPlayer = ClientFacade.getSingleton().getLocalPlayer();
-					int localPlayerIndex = localPlayer.getPlayerIndex();
-
-//					if(turnTracker.getCurrentTurn() == localPlayerIndex){
-//					getView().startDrop(PieceType.SETTLEMENT, localPlayer.getColor(), false);
-//						getView().startDrop(PieceType.ROAD, localPlayer.getColor(), false);
-//
-//						ClientFacade.getSingleton().finishTurn(localPlayerIndex);
-//					}
-
-//					ClientFacade.getSingleton().getContext().startMove(PieceType.SETTLEMENT,true,true,getView());
-//					ClientFacade.getSingleton().getContext().startMove(PieceType.SETTLEMENT,true,true,getView());
 
 
                     List<VertexObject> cities = model.getMap().getCities();
@@ -442,7 +438,7 @@ public class MapController extends Controller implements IMapController,IObserve
 		}
 		
 		try {
-			if(ClientFacade.getSingleton().getContext().getState() instanceof RobbingState) {
+			if(ClientFacade.getSingleton().getContext().getState() instanceof RobbingState && ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex() == model.getTurnTracker().getCurrentTurn()) {
 				startMove(PieceType.ROBBER, true, false);
 				System.out.println("placing robber");
 			}

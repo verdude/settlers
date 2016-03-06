@@ -1,11 +1,15 @@
 package client.devcards;
 
 
-import client.base.Controller;
-import client.base.IAction;
-import model.*;
+import model.ClientException;
+import model.ClientFacade;
+import model.ClientModel;
+import model.DevCardList;
+import model.Player;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import client.base.Controller;
+import client.base.IAction;
 
 
 /**
