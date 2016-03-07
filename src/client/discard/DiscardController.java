@@ -9,6 +9,9 @@ import model.ClientModel;
 import model.ResourceList;
 import shared.definitions.ResourceType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Discard controller implementation
@@ -76,7 +79,12 @@ public class DiscardController extends Controller implements IDiscardController 
 	@Override
 	public void notify(ClientModel model) {
 		// TODO Auto-generated method stub
-		
+		try {
+			if (model.getTurnTracker().getStatus().equals("Discarding"))
+				ClientFacade.getSingleton().discardCards(new ArrayList<ResourceType>());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

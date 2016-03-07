@@ -256,13 +256,11 @@ public class ClientFacade {
 	 * @return Whether it was attempted
 	 */
 	public boolean discardCards(List<ResourceType> discardedCards) {
+		System.out.println("discarding cardz");
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canDiscardCards(playerIndex);
-		if(canDo)
-		{
-			String model = proxy.discardCards(playerIndex, discardedCards);
-			updateModel((ClientModel) Converter.deserializeClientModel(model));
-		}
+        String model = proxy.discardCards(playerIndex, discardedCards);
+        updateModel((ClientModel) Converter.deserializeClientModel(model));
 		return canDo;
 	}
 
