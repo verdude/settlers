@@ -13,6 +13,8 @@ import client.data.GameInfo;
 import client.data.PlayerInfo;
 import client.misc.IMessageView;
 
+import java.util.List;
+
 
 /**
  * Implementation for the join game controller
@@ -193,11 +195,21 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		getJoinGameView().closeModal();
 	}
 
-	private void resetColorModal(GameInfo game) {
-		// to do this i had to make the reset button method public in the select color modal
-		// I can't just use the set color enabled because in order to do that I would need to reset the modal entirely.
-		for (int i = 1; i < 10; ++i) {
-			((SelectColorView)getSelectColorView()).resetButton(i);
+	private void resetColorModal(List<PlayerInfo> players, int localPlayerId) {
+		for (CatanColor color : CatanColor.values()) {
+			boolean set = false;
+            for (PlayerInfo player : players) {
+                if (player.getId() != localPlayerId && color.equals(player.getColor())) {
+					getSelectColorView().setColorEnabled(player.getColor(), false);
+					set = true;
+					System.out.println(color.toString() + " set to false");
+					break;
+				}
+            }
+			if (!set){
+                getSelectColorView().setColorEnabled(color, true);
+				System.out.println(color.toString() + " set to true");
+            }
 		}
 	}
 
@@ -210,16 +222,15 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 				if (game.getId() == joinedGame) {
 					for (PlayerInfo player : game.getPlayers()) {
 						if (player.getId() != newPlayer.getId() && color.equals(player.getColor())) {
-							getSelectColorView().setColorEnabled(color, false);
+							resetColorModal(game.getPlayers(), newPlayer.getId());
 							IMessageView error = new MessageView();
 							error.setTitle("Error!");
 							error.setMessage("Hey! "+ player.getName() +" already chose that color!");
 							error.showModal();
-							getSelectColorView().setColorEnabled(player.getColor(), false);
-//							resetColorModal(game);
 							return;
 						}
 					}
+					break;
 				}
 			}
 			newPlayer.setColor(color);
