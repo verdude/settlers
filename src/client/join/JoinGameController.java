@@ -1,5 +1,6 @@
 package client.join;
 
+import client.misc.MessageView;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
@@ -192,10 +193,35 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		getJoinGameView().closeModal();
 	}
 
+	private void resetColorModal(GameInfo game) {
+		// to do this i had to make the reset button method public in the select color modal
+		// I can't just use the set color enabled because in order to do that I would need to reset the modal entirely.
+		for (int i = 1; i < 10; ++i) {
+			((SelectColorView)getSelectColorView()).resetButton(i);
+		}
+	}
+
 	@Override
 	public void joinGame(CatanColor color) {
 		try {
+			GameInfo[] games = Converter.deserializeGamesArray(ClientFacade.getSingleton().gamesList());
 			PlayerInfo newPlayer = ClientFacade.getSingleton().getLocalPlayer();
+			for (GameInfo game : games) {
+				if (game.getId() == joinedGame) {
+					for (PlayerInfo player : game.getPlayers()) {
+						if (player.getId() != newPlayer.getId() && color.equals(player.getColor())) {
+							getSelectColorView().setColorEnabled(color, false);
+							IMessageView error = new MessageView();
+							error.setTitle("Error!");
+							error.setMessage("Hey! "+ player.getName() +" already chose that color!");
+							error.showModal();
+							getSelectColorView().setColorEnabled(player.getColor(), false);
+//							resetColorModal(game);
+							return;
+						}
+					}
+				}
+			}
 			newPlayer.setColor(color);
 			ClientFacade.getSingleton().setLocalPlayer(newPlayer);
 			ClientFacade.getSingleton().gamesJoin(joinedGame, color.toString().toLowerCase());

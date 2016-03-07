@@ -260,7 +260,7 @@ public class SelectColorView extends OverlayView implements ISelectColorView {
 		}
 	};
 
-	private void resetButton(int val) {
+	public void resetButton(int val) {
 		switch (val) {
 		case 0:
 			break;
