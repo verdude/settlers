@@ -651,14 +651,14 @@ public class ClientModel {
 						case NorthWest:
 							if((settlementDirection.equals(VertexDirection.NorthWest) || settlementDirection.equals(VertexDirection.West))
 									&& s.getOwner() == player.getPlayerIndex()){
-								if(s.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
+								if(s.getVertexLocation().getNormalizedLocation().getHexLoc().equals( newLocation.getHexLoc())){
 									return true;
 								}						}
 							break;
 						case North:
 							if((settlementDirection.equals(VertexDirection.NorthWest) || settlementDirection.equals(VertexDirection.NorthEast))
 									&& s.getOwner() == player.getPlayerIndex()){
-								if(s.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
+								if(s.getVertexLocation().getNormalizedLocation().getHexLoc().equals( newLocation.getHexLoc())){
 									return true;
 								}						}
 							break;
@@ -666,7 +666,7 @@ public class ClientModel {
 							//HexLocation to the lower right of the hex that the road is considered on after normalizing
 							HexLocation tempLoc = new HexLocation(newLocation.getHexLoc().getX()+1,newLocation.getHexLoc().getY());
 							if(s.getOwner() == player.getPlayerIndex()
-									&& (s.getVertexLocation().getHexLoc().equals(tempLoc)
+									&& (s.getVertexLocation().getNormalizedLocation().getHexLoc().equals(tempLoc)
 									&& settlementDirection.equals(VertexDirection.NorthWest))){
 								return true;
 							}
@@ -695,14 +695,14 @@ public class ClientModel {
 						case NorthWest:
 							if((cityDirection.equals(VertexDirection.NorthWest) || cityDirection.equals(VertexDirection.West))
 									&& c.getOwner() == player.getPlayerIndex()){
-								if(c.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
+								if(c.getVertexLocation().getNormalizedLocation().getHexLoc().equals( newLocation.getHexLoc())){
 									return true;
 								}						}
 							break;
 						case North:
 							if((cityDirection.equals(VertexDirection.NorthWest) || cityDirection.equals(VertexDirection.NorthEast))
 									&& c.getOwner() == player.getPlayerIndex()){
-								if(c.getVertexLocation().getHexLoc().equals( newLocation.getHexLoc())){
+								if(c.getVertexLocation().getNormalizedLocation().getHexLoc().equals( newLocation.getHexLoc())){
 									return true;
 								}						}
 							break;
@@ -710,7 +710,7 @@ public class ClientModel {
 							//HexLocation to the lower right of the hex that the road is considered on after normalizing
 							HexLocation tempLoc = new HexLocation(newLocation.getHexLoc().getX()+1,newLocation.getHexLoc().getY());
 							if(c.getOwner() == player.getPlayerIndex()
-									&& (c.getVertexLocation().getHexLoc().equals(tempLoc)
+									&& (c.getVertexLocation().getNormalizedLocation().getHexLoc().equals(tempLoc)
 									&& cityDirection.equals(VertexDirection.NorthWest))){
 								return true;
 							}
