@@ -412,10 +412,13 @@ public class ClientFacade {
 	 * @return Whether it was attempted
 	 */
 	public boolean robPlayer(int victimIndex, HexLocation location) {
+		
 		int playerIndex = localPlayer.getPlayerIndex();
-		boolean canDo = clientModel.canRobPlayer(victimIndex);
+		boolean canDo;
 		if(victimIndex == -1) {
 			canDo = true;
+		} else{
+			canDo = clientModel.canRobPlayer(victimIndex);
 		}
 		if(canDo)
 		{
