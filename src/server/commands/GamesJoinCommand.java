@@ -8,6 +8,19 @@ import server.ICommand;
  *
  */
 public class GamesJoinCommand implements ICommand {
+	private int id;
+	private String color;
+
+	/**
+	 * @pre There is a game to join with the id
+	 * @post The player is added to the game with the id "id" as a player with the color "color"
+	 * @param id The id of the game to join
+	 * @param color The color of the player that is joining this game
+	 */
+	public GamesJoinCommand(int id, String color) {
+		this.id = id;
+		this.color = color;
+	}
 
 
 	/**

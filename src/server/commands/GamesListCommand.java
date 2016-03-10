@@ -4,6 +4,7 @@ import server.ICommand;
 
 /**
  * This represents the games/list endpoint
+ * This command has no input parameters, so will use the default constructor
  * @author S Jacob Powell
  *
  */

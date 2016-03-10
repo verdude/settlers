@@ -2,7 +2,6 @@ package server.commands;
 
 import server.ICommand;
 
-
 /**
  * This represents the moves/rollNumber endpoint
  * @author S Jacob Powell

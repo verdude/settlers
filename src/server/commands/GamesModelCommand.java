@@ -8,6 +8,16 @@ import server.ICommand;
  *
  */
 public class GamesModelCommand implements ICommand {
+	private int version;
+	
+	/**
+	 * @pre There is a game joined
+	 * @post The word "True" is returned if the version is the same, otherwise the model is returned
+	 * @param version The version that the client currently has of the model
+	 */
+	public GamesModelCommand(int version) {
+		this.version = version;
+	}
 
 
 	/**

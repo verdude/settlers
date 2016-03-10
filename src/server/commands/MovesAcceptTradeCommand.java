@@ -8,6 +8,19 @@ import server.ICommand;
  *
  */
 public class MovesAcceptTradeCommand implements ICommand {
+	private int playerIndex;
+	private boolean willAccept;
+	
+	/**
+	 * @pre There is a trade from another player to this player
+	 * @post The trade is either accepted or not according to "willAccept"
+	 * @param playerIndex The index of the player to which the trade accept is going
+	 * @param willAccept Whether the player accepts the trade
+	 */
+	public MovesAcceptTradeCommand(int playerIndex, boolean willAccept) {
+		this.playerIndex = playerIndex;
+		this.willAccept = willAccept;
+	}
 
 
 	/**

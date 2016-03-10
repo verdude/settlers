@@ -4,6 +4,7 @@ import server.ICommand;
 
 /**
  * This represents the game/ListAI endpoint
+ * There are no parameters for this command, so use the default constructor.
  * @author S Jacob Powell
  *
  */
