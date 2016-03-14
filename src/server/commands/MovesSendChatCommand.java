@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/sendChat endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesSendChatCommand implements ICommand {
+public class MovesSendChatCommand implements ICatanCommand {
 
 
 	/**

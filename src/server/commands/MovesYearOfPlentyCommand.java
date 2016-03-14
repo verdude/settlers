@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/YearOfPlenty endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesYearOfPlentyCommand implements ICommand {
+public class MovesYearOfPlentyCommand implements ICatanCommand {
 
 	@Override
 	public void execute() {

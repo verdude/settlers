@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the games/create endpoint
  * @author S Jacob Powell
  *
  */
-public class GamesCreateCommand implements ICommand {
+public class GamesCreateCommand implements ICatanCommand {
 	private boolean randomTiles;
 	private boolean randomNumbers;
 	private boolean randomPorts;

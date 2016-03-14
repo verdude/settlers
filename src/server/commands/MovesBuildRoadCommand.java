@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/buildRoad endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesBuildRoadCommand implements ICommand {
+public class MovesBuildRoadCommand implements ICatanCommand {
 
 
 	/**

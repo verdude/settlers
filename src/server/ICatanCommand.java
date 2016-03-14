@@ -1,5 +1,5 @@
 package server;
 
-public interface ICommand {
+public interface ICatanCommand {
 	public void execute();
 }

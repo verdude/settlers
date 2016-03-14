@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/buyDevCard endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesBuyDevCardCommand implements ICommand {
+public class MovesBuyDevCardCommand implements ICatanCommand {
 
 
 	/**

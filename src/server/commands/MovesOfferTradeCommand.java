@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/offerTrade endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesOfferTradeCommand implements ICommand {
+public class MovesOfferTradeCommand implements ICatanCommand {
 
 
 	/**

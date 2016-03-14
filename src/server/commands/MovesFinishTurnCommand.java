@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/finishTurn endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesFinishTurnCommand implements ICommand {
+public class MovesFinishTurnCommand implements ICatanCommand {
 
 
 	/**
