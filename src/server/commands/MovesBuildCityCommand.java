@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ICatanCommand;
+import shared.locations.VertexLocation;
 
 /**
  * This represents the moves/buildCity endpoint
@@ -9,6 +10,19 @@ import server.ICatanCommand;
  */
 public class MovesBuildCityCommand implements ICatanCommand {
 
+	int playerIndex;
+	VertexLocation vertexLocation;
+
+	/**
+	 * @pre The player can actually build a city at the vertex location as given by the cando method
+	 * @post A city will be built at the given vertex location for the player at the given player index
+	 * @param playerIndex index of the player building the city
+	 * @param vertexLocation location of where the city will be built
+     */
+	public MovesBuildCityCommand(int playerIndex, VertexLocation vertexLocation){
+		this.playerIndex = playerIndex;
+		this.vertexLocation = vertexLocation;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

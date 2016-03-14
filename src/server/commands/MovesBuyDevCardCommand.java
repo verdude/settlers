@@ -9,6 +9,17 @@ import server.ICatanCommand;
  */
 public class MovesBuyDevCardCommand implements ICatanCommand {
 
+	int playerIndex;
+
+	/**
+	 * @pre The associated cando returns true
+	 * @post the player will buy a dev card
+	 * @param playerIndex index of the player who is buying the dev card
+     */
+	public MovesBuyDevCardCommand(int playerIndex){
+		this.playerIndex = playerIndex;
+	}
+
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

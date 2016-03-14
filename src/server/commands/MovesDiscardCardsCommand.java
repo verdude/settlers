@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.ResourceList;
 import server.ICatanCommand;
 
 /**
@@ -9,6 +10,18 @@ import server.ICatanCommand;
  */
 public class MovesDiscardCardsCommand implements ICatanCommand {
 
+	int playerIndex;
+	ResourceList discardedCards;
+
+	/**
+	 * @pre If it is the discarding state and the associated cando returns true
+	 * @param playerIndex index of the player discarding cards
+	 * @param discardedCards the resource cards that the player is discarding
+     */
+	public MovesDiscardCardsCommand(int playerIndex, ResourceList discardedCards){
+		this.playerIndex = playerIndex;
+		this.discardedCards = discardedCards;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command
