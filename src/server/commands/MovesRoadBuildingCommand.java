@@ -9,6 +9,24 @@ import server.ICommand;
  */
 public class MovesRoadBuildingCommand implements ICommand {
 
+	private int playerIndex;
+	/*
+	// I'm not sure what type these spots are supposed to be.
+	spot1: {
+		"x": int,
+		"y": int,
+		"direction": string
+	}
+	spot2: {
+		"x": int,
+		"y": int,
+		"direction": string
+	}
+	*/
+
+	public MovesRoadBuildingCommand(int playerIndex /*The spots*/) {
+		this.playerIndex = playerIndex;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

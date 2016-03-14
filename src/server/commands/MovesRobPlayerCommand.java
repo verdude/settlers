@@ -9,6 +9,15 @@ import server.ICommand;
  */
 public class MovesRobPlayerCommand implements ICommand {
 
+	private int playerIndex;
+	private int victimIndex;
+	private HexLocation location;
+
+	public MovesRobPlayerCommand(int playerIndex, int victimIndex, HexLocation location) {
+		this.playerIndex = playerIndex;
+		this.victimIndex = victimIndex;
+		this.location = location;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

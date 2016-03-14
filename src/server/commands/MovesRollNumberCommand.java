@@ -9,6 +9,13 @@ import server.ICommand;
  */
 public class MovesRollNumberCommand implements ICommand {
 
+	private int playerIndex;
+	private int number;
+
+	public MovesRollNumberCommand(int playerIndex, int number) {
+		this.playerIndex = playerIndex;
+		this.number = number;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

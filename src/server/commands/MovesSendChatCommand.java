@@ -9,6 +9,13 @@ import server.ICommand;
  */
 public class MovesSendChatCommand implements ICommand {
 
+	private int playerIndex;
+	private String content;
+
+	public MovesSendChatCommand(int playerIndex, String content) {
+		this.playerIndex = playerIndex;
+		this.content = content;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

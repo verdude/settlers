@@ -9,6 +9,11 @@ import server.ICommand;
  */
 public class MovesMonumentCommand implements ICommand {
 
+	private int playerIndex;
+
+	public MovesMonumentCommand(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

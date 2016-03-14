@@ -9,6 +9,12 @@ import server.ICommand;
  */
 public class MovesOfferTradeCommand implements ICommand {
 
+	// not sure the json will map to this.
+	private TradeOffer offer;
+
+	public MovesOfferTradeCommand(TradeOffer offer) {
+		this.offer = offer;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

@@ -9,6 +9,13 @@ import server.ICommand;
  */
 public class MovesMonopolyCommand implements ICommand {
 
+	private String resource;
+	private int playerIndex;
+
+	public MovesMonopolyCommand(String resource, int playerIndex) {
+		this.resource = resource;
+		this.playerIndex = playerIndex;
+	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command
