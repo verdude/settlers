@@ -12,6 +12,12 @@ public class MovesSendChatCommand implements ICatanCommand {
 	private int playerIndex;
 	private String content;
 
+	/**
+	 * @pre None
+	 * @post The chat message will be sent.
+	 * @param playerIndex The index of the player sending the chat.
+	 * @param content The chat message to be sent.
+     */
 	public MovesSendChatCommand(int playerIndex, String content) {
 		this.playerIndex = playerIndex;
 		this.content = content;

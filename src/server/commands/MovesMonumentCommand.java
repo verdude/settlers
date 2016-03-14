@@ -11,6 +11,10 @@ public class MovesMonumentCommand implements ICatanCommand {
 
 	private int playerIndex;
 
+	/**
+	 * @pre The playerindex is valid (0-4). The player has a monument card. It is the player's turn
+	 * @param playerIndex Index of the player playing the monument card
+     */
 	public MovesMonumentCommand(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}

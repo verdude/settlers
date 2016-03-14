@@ -24,6 +24,13 @@ public class MovesRoadBuildingCommand implements ICatanCommand {
 	}
 	*/
 
+	/**
+	 * @pre it is the player's turn and the player can place a road in the spots that are specified
+	 * @post the Road building card effect is applied and the player is allowed to place roads
+	 * @param playerIndex the index of the player
+	 * @param spot1 The first road placement
+	 * @param spot2 the second road placement
+     */
 	public MovesRoadBuildingCommand(int playerIndex /*The spots*/) {
 		this.playerIndex = playerIndex;
 	}

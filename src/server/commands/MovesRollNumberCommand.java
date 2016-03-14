@@ -12,6 +12,12 @@ public class MovesRollNumberCommand implements ICatanCommand {
 	private int playerIndex;
 	private int number;
 
+	/**
+	 * @pre The It is the rolling phase and it is the palyer's turn The number is >1 && <13
+	 * @post The player rolls a number
+	 * @param playerIndex The player's index
+	 * @param number The number the player rolled
+     */
 	public MovesRollNumberCommand(int playerIndex, int number) {
 		this.playerIndex = playerIndex;
 		this.number = number;

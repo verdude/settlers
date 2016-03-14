@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.TradeOffer;
 import server.ICatanCommand;
 
 /**
@@ -12,6 +13,11 @@ public class MovesOfferTradeCommand implements ICatanCommand {
 	// not sure the json will map to this.
 	private TradeOffer offer;
 
+	/**
+	 * @pre It is the player's turn and the player has the required resources as well as the target player
+	 * @post The Trade is sent to the target player
+	 * @param offer The offer
+     */
 	public MovesOfferTradeCommand(TradeOffer offer) {
 		this.offer = offer;
 	}

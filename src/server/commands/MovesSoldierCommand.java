@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ICatanCommand;
+import shared.locations.HexLocation;
 
 /**
  * This represents the moves/Soldier endpoint
@@ -13,6 +14,14 @@ public class MovesSoldierCommand implements ICatanCommand {
 	private int victimIndex;
 	private HexLocation location;
 
+	/**
+	 *
+	 * @pre The player has a soldier card that is in their old dev cards list. It is their turn
+	 * @post The soldier card will be played
+	 * @param playerIndex The index of the player playing the soldier command
+	 * @param victimIndex The index of the victim
+	 * @param location The hex on the the soldier is played.
+     */
 	public MovesSoldierCommand(int playerIndex, int victimIndex, HexLocation location) {
 		this.playerIndex = playerIndex;
 		this.victimIndex = victimIndex;

@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.ICatanCommand;
+import shared.locations.HexLocation;
 
 /**
  * This represents the moves/robPlayer endpoint
@@ -13,6 +14,13 @@ public class MovesRobPlayerCommand implements ICatanCommand {
 	private int victimIndex;
 	private HexLocation location;
 
+	/**
+	 * @pre It is the player's turn. The location has the victim on it. The current phase is the robbing phase
+	 * @post The current a resource will be removed from the victim and the player will gain one of that resource type.
+ 	 * @param playerIndex The index of the player
+	 * @param victimIndex The index of the victim
+	 * @param location The hexlocation where the robber was placed
+     */
 	public MovesRobPlayerCommand(int playerIndex, int victimIndex, HexLocation location) {
 		this.playerIndex = playerIndex;
 		this.victimIndex = victimIndex;
