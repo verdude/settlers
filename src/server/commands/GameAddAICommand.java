@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This class represents the game/addAI endpoint
  * @author S Jacob Powell
  *
  */
-public class GameAddAICommand implements ICommand {
+public class GameAddAICommand implements ICatanCommand {
 	private String AIType;
 	
 	/**

@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/rollNumber endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesRollNumberCommand implements ICommand {
+public class MovesRollNumberCommand implements ICatanCommand {
 
 	private int playerIndex;
 	private int number;

@@ -1,6 +1,6 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the game/ListAI endpoint
@@ -8,7 +8,7 @@ import server.ICommand;
  * @author S Jacob Powell
  *
  */
-public class GameListAICommand implements ICommand {
+public class GameListAICommand implements ICatanCommand {
 
 
 	/**

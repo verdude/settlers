@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the games/model endpoint
  * @author S Jacob Powell
  *
  */
-public class GamesModelCommand implements ICommand {
+public class GamesModelCommand implements ICatanCommand {
 	private int version;
 	
 	/**

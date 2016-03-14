@@ -10,7 +10,7 @@ demo/*
 .metadata/*
 .recommenders/*
 /bin/
-
+pom.xml
 .idea
 *.iml
 

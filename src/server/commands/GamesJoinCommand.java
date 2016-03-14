@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the games/join endpoint
  * @author S Jacob Powell
  *
  */
-public class GamesJoinCommand implements ICommand {
+public class GamesJoinCommand implements ICatanCommand {
 	private int id;
 	private String color;
 

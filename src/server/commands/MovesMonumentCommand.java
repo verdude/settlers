@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/Monument endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesMonumentCommand implements ICommand {
+public class MovesMonumentCommand implements ICatanCommand {
 
 	private int playerIndex;
 

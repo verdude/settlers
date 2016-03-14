@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/acceptTrade endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesAcceptTradeCommand implements ICommand {
+public class MovesAcceptTradeCommand implements ICatanCommand {
 	private int playerIndex;
 	private boolean willAccept;
 	

@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/Monopoly endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesMonopolyCommand implements ICommand {
+public class MovesMonopolyCommand implements ICatanCommand {
 
 	private String resource;
 	private int playerIndex;

@@ -1,13 +1,13 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
 /**
  * This represents the moves/robPlayer endpoint
  * @author S Jacob Powell
  *
  */
-public class MovesRobPlayerCommand implements ICommand {
+public class MovesRobPlayerCommand implements ICatanCommand {
 
 	private int playerIndex;
 	private int victimIndex;

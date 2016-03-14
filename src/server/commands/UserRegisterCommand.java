@@ -1,8 +1,8 @@
 package server.commands;
 
-import server.ICommand;
+import server.ICatanCommand;
 
-public class UserRegisterCommand implements ICommand {
+public class UserRegisterCommand implements ICatanCommand {
 	private String username;
 	private String password;
 	
