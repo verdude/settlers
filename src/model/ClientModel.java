@@ -12,7 +12,6 @@ import java.util.List;
 
 public class ClientModel {
 
-	private ResourceList deck;
 	private MessageList chat;
 	private MessageList log;
 	private GameMap map;
@@ -23,7 +22,7 @@ public class ClientModel {
 	private int winner;
 
 
-	private DevCardList devCardList;
+	//private DevCardList devCardList;
 	private int roll;
 
 	/**
@@ -31,7 +30,6 @@ public class ClientModel {
 	 *
 	 */
 	public ClientModel() {
-		deck = new ResourceList(ResourceList.max);
 		chat = new MessageList();
 		log = new MessageList();
 		map = new GameMap();
@@ -39,7 +37,6 @@ public class ClientModel {
 		turnTracker = new TurnTracker();
 		version = -1;
 		winner = -1;
-		setDevCardList(new DevCardList());
 		roll = 0;
 	}
 
@@ -51,97 +48,7 @@ public class ClientModel {
 	public void setRoll(int roll){
 		this.roll = roll;
 	}
-	/**
-	 * Decrease the amount of the resource by the specified amount.
-	 * @param resource: String, the type of resource
-	 * @param amount: int, The amount of the resource to remove from the bank
-	 * @pre The resource must exist and there must be at least `amount` amount of that resource in the bank
-	 * @post There will be `amount` less of that resource in the bank
-	 * @throws ClientException if this function runs and dies when it shouldn't
-	 */
-	public void removeResource(String resource, int amount) throws ClientException {
-		resource = resource.toLowerCase();
-		switch(resource){
-			case "brick":
-				deck.setBrick(deck.getBrick() - amount);
-				if(deck.getBrick() < ResourceList.min) {
-					deck.setBrick(ResourceList.min);
-				}
-				break;
-			case "ore":
-				deck.setOre(deck.getOre() - amount);
-				if(deck.getOre() < ResourceList.min) {
-					deck.setOre(ResourceList.min);
-				}
-				break;
-			case "sheep":
-				deck.setSheep(deck.getSheep() - amount);
-				if(deck.getSheep() < ResourceList.min) {
-					deck.setSheep(ResourceList.min);
-				}
-				break;
-			case "wheat":
-				deck.setWheat(deck.getWheat() - amount);
-				if(deck.getWheat() < ResourceList.min) {
-					deck.setWheat(ResourceList.min);
-				}
-				break;
-			case "wood":
-				deck.setWood(deck.getWood() - amount);
-				if(deck.getWood() < ResourceList.min) {
-					deck.setWood(ResourceList.min);
-				}
-				break;
-			default:
-				throw new ClientException("Exception thrown in removeResource");
-		}
-	}
 
-	/**
-	 * Increase the amount of the resource by the specified amount.
-	 * @param resource: String, the type of resource
-	 * @param amount: int, The amount of the resource to add to the bank
-	 * @pre The resource must exist and there must be at least `amount` less than 19 of that resource in the bank
-	 * @post There will be `amount` more of that resource in the bank
-	 * @throws ClientException when this function fails when it shouldn't
-	 */
-	public void addResource(String resource, int amount) throws ClientException {
-		resource = resource.toLowerCase();
-		switch(resource){
-			case "brick":
-				deck.setBrick(deck.getBrick() + amount);
-				if(deck.getBrick() > ResourceList.max) {
-					deck.setBrick(ResourceList.max);
-				}
-				break;
-			case "ore":
-				deck.setOre(deck.getOre() + amount);
-				if(deck.getOre() > ResourceList.max) {
-					deck.setOre(ResourceList.max);
-				}
-				break;
-			case "sheep":
-				deck.setSheep(deck.getSheep() + amount);
-				if(deck.getSheep() > ResourceList.max) {
-					deck.setSheep(ResourceList.max);
-				}
-				break;
-			case "wheat":
-				deck.setWheat(deck.getWheat() + amount);
-				if(deck.getWheat() > ResourceList.max) {
-					deck.setWheat(ResourceList.max);
-				}
-				break;
-			case "wood":
-				deck.setWood(deck.getWood() + amount);
-				if(deck.getWood() > ResourceList.max) {
-					deck.setWood(ResourceList.max);
-				}
-				break;
-			default:
-				throw new ClientException("Exception thrown in addResource");
-		}
-	}
 
 	/**
 	 * Adds a MessageLine to the chat and log
@@ -175,19 +82,19 @@ public class ClientModel {
 		}
 	}
 
-	/**
-	 * @return the bank
-	 */
-	public ResourceList getBank() {
-		return deck;
-	}
-
-	/**
-	 * @param bank the bank to set
-	 */
-	public void setBank(ResourceList bank) {
-		this.deck = bank;
-	}
+//	/**
+//	 * @return the bank
+//	 */
+//	public ResourceList getBank() {
+//		return deck;
+//	}
+//
+//	/**
+//	 * @param bank the bank to set
+//	 */
+//	public void setBank(ResourceList bank) {
+//		this.deck = bank;
+//	}
 
 	/**
 	 * @return the chat
@@ -1556,8 +1463,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
-		if(resources.getOre() > 0 && resources.getSheep() > 0 && resources.getWheat() > 0
-				&& devCardList.getTotal() > 0){
+		if(resources.getOre() > 0 && resources.getSheep() > 0 && resources.getWheat() > 0){
 			return true;
 		}else{
 			return false;
@@ -1565,13 +1471,6 @@ public class ClientModel {
 
 	}
 
-	public DevCardList getDevCardList() {
-		return devCardList;
-	}
-
-	public void setDevCardList(DevCardList devCardList) {
-		this.devCardList = devCardList;
-	}
 	
 	public boolean canPlaceRobber(HexLocation hexLoc){
 		try {

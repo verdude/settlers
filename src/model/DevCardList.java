@@ -16,6 +16,7 @@ public class DevCardList {
 	private int soldier;
 
 	/**
+	 * This is for the ServerModel
 	 * Sets the progress cards initial value to 2.
 	 * Sets the soldier variable to 14.
 	 * Sets the monument (victory cards) to 5.
