@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.IFacade;
 import server.ICatanCommand;
 import shared.locations.EdgeLocation;
 
@@ -8,7 +9,7 @@ import shared.locations.EdgeLocation;
  * @author S Jacob Powell
  *
  */
-public class MovesBuildRoadCommand implements ICatanCommand {
+public class MovesBuildRoadCommand extends ICatanCommand {
 
 	int playerIndex;
 	EdgeLocation edgeLocation;
@@ -34,7 +35,7 @@ public class MovesBuildRoadCommand implements ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}

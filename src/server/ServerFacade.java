@@ -1,263 +1,169 @@
 package server;
 
-import server.commands.GameAddAICommand;
-import server.commands.GameListAICommand;
-import server.commands.GamesCreateCommand;
-import server.commands.GamesJoinCommand;
-import server.commands.GamesListCommand;
-import server.commands.GamesModelCommand;
-import server.commands.MovesAcceptTradeCommand;
-import server.commands.MovesBuildCityCommand;
-import server.commands.MovesBuildRoadCommand;
-import server.commands.MovesBuildSettlementCommand;
-import server.commands.MovesBuyDevCardCommand;
-import server.commands.MovesDiscardCardsCommand;
-import server.commands.MovesFinishTurnCommand;
-import server.commands.MovesMaritimeTradeCommand;
-import server.commands.MovesMonopolyCommand;
-import server.commands.MovesMonumentCommand;
-import server.commands.MovesOfferTradeCommand;
-import server.commands.MovesRoadBuildingCommand;
-import server.commands.MovesRobPlayerCommand;
-import server.commands.MovesRollNumberCommand;
-import server.commands.MovesSendChatCommand;
-import server.commands.MovesSoldierCommand;
-import server.commands.MovesYearOfPlentyCommand;
-import server.commands.UserLoginCommand;
-import server.commands.UserRegisterCommand;
+import java.util.List;
+
+import model.EdgeValue;
+import model.IFacade;
+import model.TradeOffer;
+import model.VertexObject;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 
 /**
  * This is the class that contains all of the commands which are to be done on the server model.
- * Each method takes in the corresponding Command class. 
+ * View the javadoc for IFacade for descriptions.
  * @author S. Jacob Powell
  *
  */
 
-public class ServerFacade {
+public class ServerFacade implements IFacade{
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void userLogin(UserLoginCommand command) {
-		
+	@Override
+	public boolean userLogin(String username, String password) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void userRegister(UserRegisterCommand command) {
-		
+	@Override
+	public boolean userRegister(String username, String password) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void gamesList(GamesListCommand command) {
-		
+	@Override
+	public String gamesList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void gamesCreate(GamesCreateCommand command) {
-		
+	@Override
+	public String gamesCreate(String randomTiles, String randomNumbers,
+			String randomPorts, String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void gamesJoin(GamesJoinCommand command) {
-		
+	@Override
+	public boolean gamesJoin(int ID, String color) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void gamesModel(GamesModelCommand command) {
-		
+	@Override
+	public boolean gamesSave(int ID, String name) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void gameAddAI(GameAddAICommand command) {
-		
+	@Override
+	public boolean gamesLoad(String name) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void gameListAI(GameListAICommand command) {
-		
+	@Override
+	public boolean sendChat(String playerName, String message) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesSendChat(MovesSendChatCommand command) {
-		
+	@Override
+	public boolean acceptTrade(boolean willAccept) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesRollNumber(MovesRollNumberCommand command) {
-		
+	@Override
+	public boolean discardCards(List<ResourceType> discardedCards) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesRobPlayer(MovesRobPlayerCommand command) {
-		
+	@Override
+	public int rollNumber(int number) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesFinishTurn(MovesFinishTurnCommand command) {
-		
+	@Override
+	public boolean buildRoad(EdgeValue roadLocation, String free) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesBuyDevCard(MovesBuyDevCardCommand command) {
-		
+	@Override
+	public boolean buildSettlement(VertexObject vertexObject, String free) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesYearOfPlenty(MovesYearOfPlentyCommand command) {
-		
+	@Override
+	public boolean buildCity(VertexObject vertexObject) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesRoadBuilding(MovesRoadBuildingCommand command) {
-		
+	@Override
+	public boolean offerTrade(TradeOffer offer) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesSoldier(MovesSoldierCommand command) {
-		
+	@Override
+	public boolean maritimeTrade(int ratio, ResourceType inputResource,
+			ResourceType outputResource) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesMonopoly(MovesMonopolyCommand command) {
-		
+	@Override
+	public boolean robPlayer(int victimIndex, HexLocation location) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesMonument(MovesMonumentCommand command) {
-		
+	@Override
+	public boolean finishTurn() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesBuildRoad(MovesBuildRoadCommand command) {
-		
+	@Override
+	public boolean buyDevCard() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesBuildSettlement(MovesBuildSettlementCommand command) {
-		
+	@Override
+	public boolean soldier(int victimIndex, HexLocation location) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesBuildCity(MovesBuildCityCommand command) {
-		
+	@Override
+	public boolean yearOfPlenty(ResourceType resource1, ResourceType resource2) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesOfferTrade(MovesOfferTradeCommand command) {
-		
+	@Override
+	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesAcceptTrade(MovesAcceptTradeCommand command) {
-		
+	@Override
+	public boolean monopoly(ResourceType resource, int playerIndex) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesMaritimeTrade(MovesMaritimeTradeCommand command) {
-		
+	@Override
+	public boolean monument() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	/**
-	 * @pre The commmand passed in is constructed with valid fields so the the execute method can be called.
-	 * @post The command passed in is executed on the model and stored in the database as needed.
-	 * @param command The command to be executed, of the type that corresponds to the method name.
-	 */
-	public void movesDiscardCards(MovesDiscardCardsCommand command) {
-		
-	}
 	
 }

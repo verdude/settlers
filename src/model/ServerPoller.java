@@ -94,7 +94,7 @@ public class ServerPoller {
 			@Override
 			public void run() {
 				ClientModel newModel = (ClientModel) Converter.deserializeClientModel(jsonModel);
-                ClientFacade facade = ClientFacade.getSingleton(proxy);
+				ClientFacade facade = ClientFacade.getSingleton(proxy);
                 if (newModel.getVersion() > facade.getVersion()) {
                     // means the version on the client is old
                     facade.updateModel(newModel);

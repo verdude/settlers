@@ -2,9 +2,11 @@ package clientTests;
 
 import client.data.PlayerInfo;
 import model.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.locations.*;

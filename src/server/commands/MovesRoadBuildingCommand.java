@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.IFacade;
 import server.ICatanCommand;
 
 /**
@@ -7,7 +8,7 @@ import server.ICatanCommand;
  * @author S Jacob Powell
  *
  */
-public class MovesRoadBuildingCommand implements ICatanCommand {
+public class MovesRoadBuildingCommand extends ICatanCommand {
 
 	private int playerIndex;
 	/*
@@ -40,7 +41,7 @@ public class MovesRoadBuildingCommand implements ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.IFacade;
 import server.ICatanCommand;
 import shared.definitions.ResourceType;
 
@@ -8,7 +9,7 @@ import shared.definitions.ResourceType;
  * @author S Jacob Powell
  *
  */
-public class MovesYearOfPlentyCommand implements ICatanCommand {
+public class MovesYearOfPlentyCommand extends ICatanCommand {
 
 	private int playerIndex;
 	private ResourceType resource1;
@@ -29,7 +30,7 @@ public class MovesYearOfPlentyCommand implements ICatanCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}

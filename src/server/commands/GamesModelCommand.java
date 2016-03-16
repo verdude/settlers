@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.IFacade;
 import server.ICatanCommand;
 
 /**
@@ -7,7 +8,7 @@ import server.ICatanCommand;
  * @author S Jacob Powell
  *
  */
-public class GamesModelCommand implements ICatanCommand {
+public class GamesModelCommand extends ICatanCommand {
 	private int version;
 	
 	/**
@@ -25,7 +26,7 @@ public class GamesModelCommand implements ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}

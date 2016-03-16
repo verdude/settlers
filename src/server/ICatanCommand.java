@@ -1,5 +1,7 @@
 package server;
 
-public interface ICatanCommand {
-	public void execute();
+import model.IFacade;
+
+public abstract class ICatanCommand {
+	public abstract void execute(IFacade facade);
 }

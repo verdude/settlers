@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.IFacade;
 import server.ICatanCommand;
 
 /**
@@ -7,7 +8,7 @@ import server.ICatanCommand;
  * @author S Jacob Powell
  *
  */
-public class GamesJoinCommand implements ICatanCommand {
+public class GamesJoinCommand extends ICatanCommand {
 	private int id;
 	private String color;
 
@@ -28,7 +29,7 @@ public class GamesJoinCommand implements ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}
