@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.IFacade;
 import server.ICatanCommand;
 import shared.locations.HexLocation;
 
@@ -8,7 +9,7 @@ import shared.locations.HexLocation;
  * @author S Jacob Powell
  *
  */
-public class MovesRobPlayerCommand implements ICatanCommand {
+public class MovesRobPlayerCommand extends ICatanCommand {
 
 	private int playerIndex;
 	private int victimIndex;
@@ -32,7 +33,7 @@ public class MovesRobPlayerCommand implements ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}

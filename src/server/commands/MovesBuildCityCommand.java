@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.IFacade;
 import server.ICatanCommand;
 import shared.locations.VertexLocation;
 
@@ -8,7 +9,7 @@ import shared.locations.VertexLocation;
  * @author S Jacob Powell
  *
  */
-public class MovesBuildCityCommand implements ICatanCommand {
+public class MovesBuildCityCommand extends ICatanCommand {
 
 	int playerIndex;
 	VertexLocation vertexLocation;
@@ -29,7 +30,7 @@ public class MovesBuildCityCommand implements ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}

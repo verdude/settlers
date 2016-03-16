@@ -10,7 +10,7 @@ import state.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientFacade {
+public class ClientFacade implements IFacade {
 
 	private static ClientModel  clientModel;
 	private static ClientFacade singleton;
@@ -20,6 +20,9 @@ public class ClientFacade {
 	private Context context;
 	private boolean gameStarted;
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#getContext()
+	 */
 	public Context getContext() {
 		if(context == null){
 			context = new Context();
@@ -63,14 +66,23 @@ public class ClientFacade {
 		return singleton;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#getGameStarted()
+	 */
 	public boolean getGameStarted() {
 		return gameStarted;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#getVersion()
+	 */
 	public int getVersion() {
 		return clientModel.getVersion();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#updateModel(model.ClientModel)
+	 */
 	public void updateModel(ClientModel newModel) {
 		clientModel = newModel;
 		getContext();
@@ -81,16 +93,25 @@ public class ClientFacade {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#notifyAllObservers()
+	 */
 	public void notifyAllObservers() {
 		for(IObserver observer : observers) {
 			observer.notify(clientModel);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#addObserver(client.base.IObserver)
+	 */
 	public void addObserver(IObserver newObserver) {
 		observers.add(newObserver);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#createLocalPlayer(java.lang.String)
+	 */
 	public void createLocalPlayer(String name) {
 		localPlayer = new PlayerInfo();
 		localPlayer.setName(name);
@@ -106,72 +127,60 @@ public class ClientFacade {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#setLocalPlayer(client.data.PlayerInfo)
+	 */
 	public void setLocalPlayer(PlayerInfo localPlayer) {
 		this.localPlayer = localPlayer;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#getLocalPlayer()
+	 */
 	public PlayerInfo getLocalPlayer() {
 		return localPlayer;
 	}
 
-	/**
-	 * Logs the caller in to the server, and sets their catan.user HTTP cookie
-	 * @param username The Username
-	 * @param password The Password
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The user is known and logged in to the server.
-	 * @return Whether it was successful
+	/* (non-Javadoc)
+	 * @see model.IFacade#userLogin(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public boolean userLogin(String username, String password) {
 		String response = proxy.userLogin(username, password);
 		createLocalPlayer(username);
 		return response.contains("Success");
 	}
 
-	/**
-	 * 1) Creates a new user account
-	 * 2) Logs the caller in to the server as the new user, and sets their catan.user HTTP cookie
-	 * @param username The Username
-	 * @param password The Password
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The user now exists in the database of users and can log in and perform anything a user can.
-	 * @return Whether it was successful
+	/* (non-Javadoc)
+	 * @see model.IFacade#userRegister(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public boolean userRegister(String username, String password) {
 		String response = proxy.userRegister(username, password);
 		return response.contains("Success");
 	}
 
-	/**
-	 * This asks the server for a list of the games
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A json containing all of the current games is returned
-	 * @return The list of games
+	/* (non-Javadoc)
+	 * @see model.IFacade#gamesList()
 	 */
+	@Override
 	public String gamesList() {
 		return proxy.gamesList();
 	}
 
 
-	/**
-	 * This method creates a new game in the server called by the name given
-	 * @param name The name of the game to be created
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A game is created and can now be joined and referenced by the name passed in.
-	 * @return The game information that was created
+	/* (non-Javadoc)
+	 * @see model.IFacade#gamesCreate(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public String gamesCreate(String randomTiles, String randomNumbers, String randomPorts, String name) {
 		return proxy.gamesCreate(randomTiles, randomNumbers, randomPorts, name);
 	}
 
-	/**
-	 * Joins a game of the given id on the server
-	 * @param ID ID of the game to join
-	 * @param color The color for the player. Must be all lower case.
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The user is added to the game queue and all other game components as a player.
-	 * @return Whether it was successful
+	/* (non-Javadoc)
+	 * @see model.IFacade#gamesJoin(int, java.lang.String)
 	 */
+	@Override
 	public boolean gamesJoin(int ID, String color) {
 		// do we need a canJoinGame?
 
@@ -179,41 +188,29 @@ public class ClientFacade {
 		return response.contains("Success");
 	}	
 
-	/**
-	 * 
-	 * This method is for testing and debugging purposes. 
-	 * Game files are saved to the server's saves/ directory.
-	 * @param name Name of the game to save
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A game state now exists on the server and can be loaded
-	 * @return Whether it was successful
+	/* (non-Javadoc)
+	 * @see model.IFacade#gamesSave(int, java.lang.String)
 	 */
+	@Override
 	public boolean gamesSave(int ID, String name) {
 		String response = proxy.gamesSave(ID, name);
 
 		return response.contains("Success");
 	}
 
-	/**
-	 * This method is for testing and debugging purposes. 
-	 * Game files are loaded from the server's saves/ directory.
-	 * @param name Name of the game to load
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A game state from the server is cloned and put into action.
-	 * @return Whether it was successful
+	/* (non-Javadoc)
+	 * @see model.IFacade#gamesLoad(java.lang.String)
 	 */
+	@Override
 	public boolean gamesLoad(String name) {
 		String response = proxy.gamesLoad(name);
 		return response.contains("Success");
 	}
 
-	/**
-	 * Sends a message to the other players
-	 * @param message The message you want to send
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A message is sent to the other players.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#sendChat(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public boolean sendChat(String playerName, String message) {
 		boolean canDo = clientModel.canSendChat(message);
 		if(canDo)
@@ -230,13 +227,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Accept a trade that has been presented
-	 * @param willAccept Whether the player accepted the trade
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The trade presented is executed if willAccept is true, not executed otherwise.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#acceptTrade(boolean)
 	 */
+	@Override
 	public boolean acceptTrade(boolean willAccept) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canAcceptTrade(playerIndex);
@@ -248,13 +242,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Tells the server which cards you discarded
-	 * @param discardedCards The collection of cards to be discarded
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post discardedCards is 1 card bigger and contains the card that is no longer in the player's possession, as it was discarded.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#discardCards(java.util.List)
 	 */
+	@Override
 	public boolean discardCards(List<ResourceType> discardedCards) {
 		System.out.println("discarding cardz");
 		int playerIndex = localPlayer.getPlayerIndex();
@@ -264,12 +255,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Tells the server which number the player rolled
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The result of rolling the current number is performed.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#rollNumber(int)
 	 */
+	@Override
 	public int rollNumber(int number) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		// maybe the player index shouldn't even be passed in. We could just get it here.
@@ -283,14 +272,10 @@ public class ClientFacade {
 		return number;
 	}
 
-	/**
-	 * Places a road on the map
-	 * @param free Whether the piece was free of cost
-	 * @param roadLocation The new vertexLocation for the road
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#buildRoad(model.EdgeValue, java.lang.String)
 	 */
+	@Override
 	public boolean buildRoad(EdgeValue roadLocation, String free) {
 		boolean isFree = free.equals("true");
 		int playerIndex = localPlayer.getPlayerIndex();
@@ -310,15 +295,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * 
-	 * Builds a new settlement on the map
-	 * @param free Whether the settlement was free of cost
-	 * @param vertexObject The new vertexLocation of the settlement
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#buildSettlement(model.VertexObject, java.lang.String)
 	 */
+	@Override
 	public boolean buildSettlement(VertexObject vertexObject, String free) {
 		boolean isFree = free.equals("true");
 		int playerIndex = localPlayer.getPlayerIndex();
@@ -338,13 +318,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Builds a new city on the map
-	 * @param vertexObject The vertexLocation of the city to be built
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#buildCity(model.VertexObject)
 	 */
+	@Override
 	public boolean buildCity(VertexObject vertexObject) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject.getVertexLocation());
@@ -363,13 +340,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Offers a trade from one player to the other for resources
-	 * @param offer The cards to be offered in a trade
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post A trade aggreement is presented to the player corresponding to receiver. The trade is made if receiver accepts the trade. The receiver receives offer and the offering player receives the counter part of the trade.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#offerTrade(model.TradeOffer)
 	 */
+	@Override
 	public boolean offerTrade(TradeOffer offer) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canOfferTrade(playerIndex);
@@ -381,15 +355,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Performs a maritme/ocean trade of resources
-	 * @param ratio What the exchange rate ratio is
-	 * @param inputResource What resoucre you are giving
-	 * @param outputResource What resource you are getting
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The player is less inputResource and more outputResource according to the ratio.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#maritimeTrade(int, shared.definitions.ResourceType, shared.definitions.ResourceType)
 	 */
+	@Override
 	public boolean maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canMaritimeTrade(playerIndex, inputResource);
@@ -401,14 +370,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Steals a card from a player
-	 * @param location The new vertexLocation of the robber
-	 * @param victimIndex The playerIndex of the person from which the card will be stolen
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The robber's new vertexLocation is vertexLocation and the player at victimIndex is less one card, and that card is given to the robbing player.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#robPlayer(int, shared.locations.HexLocation)
 	 */
+	@Override
 	public boolean robPlayer(int victimIndex, HexLocation location) {
 		
 		int playerIndex = localPlayer.getPlayerIndex();
@@ -432,12 +397,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Tells the server that this player has finished his turn
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The player can no longer perform and turn-related actions and the next player in the queue receives the currentTurn that the finishing player lost.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#finishTurn()
 	 */
+	@Override
 	public boolean finishTurn() {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canFinishTurn(playerIndex);
@@ -455,12 +418,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * At@pre Nonets to buy a develpoment card
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The players resources are given to the bank in the amount required for a dev card. The player receives a dev card.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#buyDevCard()
 	 */
+	@Override
 	public boolean buyDevCard() {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuyDevCard(playerIndex);
@@ -478,14 +439,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * A Soldier card is played
-	 * @param location The new robber vertexLocation
-	 * @param victimIndex The player from which you are stealing a card
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The robber is placed in vertexLocation, receiving that as a new vertexLocation, and the victimIndex-player is less one card which is added to the player's hand who played the soldier card.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#soldier(int, shared.locations.HexLocation)
 	 */
+	@Override
 	public boolean soldier(int victimIndex, HexLocation location) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canSoldier(playerIndex);
@@ -498,14 +455,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Plays the yearofplenty card
-	 * @param resource1 the first resource you want to receive
-	 * @param resource2 the second resource you want to receive
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post You receive resource1 and resource2 of your choice. (Check rules)
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#yearOfPlenty(shared.definitions.ResourceType, shared.definitions.ResourceType)
 	 */
+	@Override
 	public boolean yearOfPlenty(ResourceType resource1, ResourceType resource2) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canYearOfPlenty(playerIndex);
@@ -518,14 +471,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Plays the RoadBuilding card
-	 * @param spot1 The first spot that is connected to one of your roads
-	 * @param spot2 The second road spot that is connected to on of your roads or the first spot
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post Two roads are placed that belong to the corresponding player. They are placed correctly.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#roadBuilding(shared.locations.EdgeLocation, shared.locations.EdgeLocation)
 	 */
+	@Override
 	public boolean roadBuilding(shared.locations.EdgeLocation spot1, shared.locations.EdgeLocation spot2) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canRoadBuilding(playerIndex);
@@ -538,13 +487,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Plays the monopoly card
-	 * @param resource The resource being taken from other players
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The player receives resource from every one of the players. They no longer have the corresponding resource and the year of plenty-playing player has their cards. (Check rules)
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#monopoly(shared.definitions.ResourceType, int)
 	 */
+	@Override
 	public boolean monopoly(ResourceType resource, int playerIndex) {
 		boolean canDo = clientModel.canMonopoly(playerIndex);
 		if(canDo)
@@ -556,12 +502,10 @@ public class ClientFacade {
 		return canDo;
 	}
 
-	/**
-	 * Plays the monument card
-	 * @pre The corresponding "canDo" method returns true.
-	 * @post The monument card is played for the corresponding player.
-	 * @return Whether it was attempted
+	/* (non-Javadoc)
+	 * @see model.IFacade#monument()
 	 */
+	@Override
 	public boolean monument() {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canMonument(playerIndex);
@@ -574,16 +518,25 @@ public class ClientFacade {
 		return canDo;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#getClientModel()
+	 */
 	public ClientModel getClientModel(){
 		return clientModel;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#vertexLocToEdgeLoc(shared.locations.VertexLocation)
+	 */
 	public shared.locations.EdgeLocation vertexLocToEdgeLoc(VertexLocation vertexLocation){
 
 		//		EdgeValue edgeLocation = new EdgeValue(vertexLocation.getHexLoc(),vertexLocation.getDirection());
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.IFacade#setGameStarted(boolean)
+	 */
 	public void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
 	}

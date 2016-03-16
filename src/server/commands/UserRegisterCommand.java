@@ -1,8 +1,9 @@
 package server.commands;
 
+import model.IFacade;
 import server.ICatanCommand;
 
-public class UserRegisterCommand implements ICatanCommand {
+public class UserRegisterCommand extends ICatanCommand {
 	private String username;
 	private String password;
 	
@@ -18,7 +19,7 @@ public class UserRegisterCommand implements ICatanCommand {
 	}
 	
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}

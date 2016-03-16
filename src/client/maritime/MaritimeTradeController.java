@@ -5,12 +5,14 @@ import client.base.*;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
+import model.IFacade;
 import state.FirstRoundState;
 import state.IState;
 import state.PlayingState;
 import state.SecondRoundState;
 
 import javax.annotation.Resource;
+
 import java.util.ArrayList;
 import java.util.List;
 

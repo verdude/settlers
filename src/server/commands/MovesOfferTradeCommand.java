@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.IFacade;
 import model.TradeOffer;
 import server.ICatanCommand;
 
@@ -8,7 +9,7 @@ import server.ICatanCommand;
  * @author S Jacob Powell
  *
  */
-public class MovesOfferTradeCommand implements ICatanCommand {
+public class MovesOfferTradeCommand extends ICatanCommand {
 
 	// not sure the json will map to this.
 	private TradeOffer offer;
@@ -27,7 +28,7 @@ public class MovesOfferTradeCommand implements ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute() {
+	public void execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}
