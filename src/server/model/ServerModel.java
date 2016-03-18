@@ -15,7 +15,7 @@ public class ServerModel {
     private DevCardList devCards;
 
 
-    ServerModel(){
+    public ServerModel(){
         this.deck = new ResourceList(ResourceList.max);
         this.devCards = new DevCardList();
         this.clientModel = new ClientModel();

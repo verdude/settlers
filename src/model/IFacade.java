@@ -1,9 +1,9 @@
 package model;
 
-import java.util.List;
-
 import shared.definitions.ResourceType;
 import shared.locations.HexLocation;
+
+import java.util.List;
 
 public interface IFacade {
 	/**
@@ -107,7 +107,6 @@ public interface IFacade {
 	 * Tells the server which number the player rolled
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The result of rolling the current number is performed.
-	 * @return Whether it was attempted
 	 */
 	public abstract int rollNumber(int number);
 
