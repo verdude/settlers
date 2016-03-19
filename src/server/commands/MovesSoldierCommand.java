@@ -30,8 +30,11 @@ public class MovesSoldierCommand extends ICatanCommand {
 	}
 
 	@Override
-	public void execute(IFacade facade) {
-		// TODO Auto-generated method stub
+	public String execute(IFacade facade) {
+		String response = facade.soldier(victimIndex, location);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

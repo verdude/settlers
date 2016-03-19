@@ -9,9 +9,9 @@ import server.ICatanCommand;
  *
  */
 public class GamesCreateCommand extends ICatanCommand {
-	private boolean randomTiles;
-	private boolean randomNumbers;
-	private boolean randomPorts;
+	private String randomTiles;
+	private String randomNumbers;
+	private String randomPorts;
 	private String name;
 	
 	/**
@@ -24,9 +24,9 @@ public class GamesCreateCommand extends ICatanCommand {
 	 */
 	public GamesCreateCommand(boolean randomTiles, boolean randomNumbers,
 			boolean randomPorts, String name) {
-		this.randomTiles = randomTiles;
-		this.randomNumbers = randomNumbers;
-		this.randomPorts = randomPorts;
+		this.randomTiles = "" + randomTiles;
+		this.randomNumbers = "" + randomNumbers;
+		this.randomPorts = "" + randomPorts;
 		this.name = name;
 	}
 
@@ -36,8 +36,11 @@ public class GamesCreateCommand extends ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute(IFacade facade) {
-		// TODO Auto-generated method stub
+	public String execute(IFacade facade) {
+		String response = facade.gamesCreate(randomTiles, randomNumbers, randomPorts, name);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

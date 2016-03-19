@@ -1,9 +1,11 @@
 package model;
 
-import shared.definitions.ResourceType;
-import shared.locations.HexLocation;
-
 import java.util.List;
+
+import server.ICatanCommand;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 
 public interface IFacade {
 	/**
@@ -74,7 +76,7 @@ public interface IFacade {
 	 * @post A game state from the server is cloned and put into action.
 	 * @return Whether it was successful
 	 */
-	public abstract String  gamesLoad(String name);
+	public abstract String gamesLoad(String name);
 
 	/**
 	 * Sends a message to the other players
@@ -83,7 +85,7 @@ public interface IFacade {
 	 * @post A message is sent to the other players.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  sendChat(String playerName, String message);
+	public abstract String sendChat(int playerIndex, String message);
 
 	/**
 	 * Accept a trade that has been presented
@@ -101,14 +103,14 @@ public interface IFacade {
 	 * @post discardedCards is 1 card bigger and contains the card that is no longer in the player's possession, as it was discarded.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  discardCards(List<ResourceType> discardedCards);
+	public abstract String discardCards(List<ResourceType> discardedCards);
 
 	/**
 	 * Tells the server which number the player rolled
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post The result of rolling the current number is performed.
 	 */
-	public abstract String  rollNumber(int number);
+	public abstract String rollNumber(int number);
 
 	/**
 	 * Places a road on the map
@@ -118,7 +120,7 @@ public interface IFacade {
 	 * @post A road is placed on the roadLocation if free is true as well. Otherwise, no road was placed.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  buildRoad(EdgeValue roadLocation, String free);
+	public abstract String buildRoad(EdgeLocation roadLocation, String free);
 
 	/**
 	 * 
@@ -129,7 +131,7 @@ public interface IFacade {
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  buildSettlement(VertexObject vertexObject,
+	public abstract String buildSettlement(VertexObject vertexObject,
 			String free);
 
 	/**
@@ -139,7 +141,7 @@ public interface IFacade {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  buildCity(VertexObject vertexObject);
+	public abstract String buildCity(VertexObject vertexObject);
 
 	/**
 	 * Offers a trade from one player to the other for resources
@@ -148,7 +150,7 @@ public interface IFacade {
 	 * @post A trade aggreement is presented to the player corresponding to receiver. The trade is made if receiver accepts the trade. The receiver receives offer and the offering player receives the counter part of the trade.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  offerTrade(TradeOffer offer);
+	public abstract String offerTrade(TradeOffer offer);
 
 	/**
 	 * Performs a maritme/ocean trade of resources
@@ -159,7 +161,7 @@ public interface IFacade {
 	 * @post The player is less inputResource and more outputResource according to the ratio.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  maritimeTrade(int ratio,
+	public abstract String maritimeTrade(int ratio,
 			ResourceType inputResource, ResourceType outputResource);
 
 	/**
@@ -170,7 +172,7 @@ public interface IFacade {
 	 * @post The robber's new vertexLocation is vertexLocation and the player at victimIndex is less one card, and that card is given to the robbing player.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  robPlayer(int victimIndex, HexLocation location);
+	public abstract String robPlayer(int victimIndex, HexLocation location);
 
 	/**
 	 * Tells the server that this player has finished his turn
@@ -186,7 +188,7 @@ public interface IFacade {
 	 * @post The players resources are given to the bank in the amount required for a dev card. The player receives a dev card.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  buyDevCard();
+	public abstract String buyDevCard();
 
 	/**
 	 * A Soldier card is played
@@ -196,7 +198,7 @@ public interface IFacade {
 	 * @post The robber is placed in vertexLocation, receiving that as a new vertexLocation, and the victimIndex-player is less one card which is added to the player's hand who played the soldier card.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  soldier(int victimIndex, HexLocation location);
+	public abstract String soldier(int victimIndex, HexLocation location);
 
 	/**
 	 * Plays the yearofplenty card
@@ -206,7 +208,7 @@ public interface IFacade {
 	 * @post You receive resource1 and resource2 of your choice. (Check rules)
 	 * @return Whether it was attempted
 	 */
-	public abstract String  yearOfPlenty(ResourceType resource1,
+	public abstract String yearOfPlenty(ResourceType resource1,
 			ResourceType resource2);
 
 	/**
@@ -217,7 +219,7 @@ public interface IFacade {
 	 * @post Two roads are placed that belong to the corresponding player. They are placed correctly.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  roadBuilding(shared.locations.EdgeLocation spot1,
+	public abstract String roadBuilding(shared.locations.EdgeLocation spot1,
 			shared.locations.EdgeLocation spot2);
 
 	/**
@@ -227,7 +229,7 @@ public interface IFacade {
 	 * @post The player receives resource from every one of the players. They no longer have the corresponding resource and the year of plenty-playing player has their cards. (Check rules)
 	 * @return Whether it was attempted
 	 */
-	public abstract String  monopoly(ResourceType resource, int playerIndex);
+	public abstract String monopoly(ResourceType resource, int playerIndex);
 
 	/**
 	 * Plays the monument card
@@ -235,6 +237,13 @@ public interface IFacade {
 	 * @post The monument card is played for the corresponding player.
 	 * @return Whether it was attempted
 	 */
-	public abstract String  monument();
+	public abstract String monument();
+	
+	/**
+	 * Stores Catan Command into database
+	 * @pre The given command has successfully been executed by server
+	 * @post The given command is stored in the database
+	 */
+	public abstract void storeCommand(ICatanCommand command);
 
 }

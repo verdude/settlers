@@ -30,8 +30,11 @@ public class MovesYearOfPlentyCommand extends ICatanCommand {
 	}
 
 	@Override
-	public void execute(IFacade facade) {
-		// TODO Auto-generated method stub
+	public String execute(IFacade facade) {
+		String response = facade.yearOfPlenty(resource1, resource2);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

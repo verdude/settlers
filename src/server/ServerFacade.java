@@ -173,7 +173,7 @@ public class ServerFacade implements IFacade{
 
 	@Override
 
-	public String sendChat(String playerName, String message) {
+	public String sendChat(int playerIndex, String message) {
 		return null;
 	}
 
@@ -195,13 +195,13 @@ public class ServerFacade implements IFacade{
 
 	//Need to finish implementing this one!!!!
 	@Override
-	public String buildRoad(EdgeValue roadLocation, String free) {
+	public String buildRoad(EdgeLocation roadLocation, String free) {
 		boolean isFree = free.equals("true");
 
 
 		GameMap map = serverModel.getClientModel().getMap();
 
-		map.getRoads().add(new Road(roadLocation.getLocation()));
+		map.getRoads().add(new Road(roadLocation));
 		if(!isFree){
 			try {
 				serverModel.addResource("brick",1);
@@ -286,8 +286,9 @@ public class ServerFacade implements IFacade{
 	}
 
 	public void storeCommand(ICatanCommand command){
-
+		//TODO: Auto-generated method stub
 	}
+	
 	public List<Game> getGames() {
 		return games;
 	}

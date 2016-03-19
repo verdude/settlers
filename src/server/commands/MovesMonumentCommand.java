@@ -25,8 +25,11 @@ public class MovesMonumentCommand extends ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute(IFacade facade) {
-		// TODO Auto-generated method stub
+	public String execute(IFacade facade) {
+		String response = facade.monument();
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

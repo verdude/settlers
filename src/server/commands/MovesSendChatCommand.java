@@ -29,8 +29,11 @@ public class MovesSendChatCommand extends ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute(IFacade facade) {
-		// TODO Auto-generated method stub
+	public String execute(IFacade facade) {
+		String response = facade.sendChat(playerIndex, content);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

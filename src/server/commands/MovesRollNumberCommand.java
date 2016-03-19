@@ -29,7 +29,7 @@ public class MovesRollNumberCommand extends ICatanCommand {
 	 * @post This command is executed on the model
 	 */
 	@Override
-	public void execute(IFacade facade) {
+	public String execute(IFacade facade) {
 		// TODO Auto-generated method stub
 		
 	}
