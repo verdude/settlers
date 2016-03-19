@@ -5,7 +5,6 @@ import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -31,7 +30,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response acceptTrade(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -50,7 +49,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response buildCity(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -69,7 +68,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response buildRoad(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -88,7 +87,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response buildSettlement(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -107,7 +106,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response buyDevCard(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -126,7 +125,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response discardCards(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -145,7 +144,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response finishTurn(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -164,7 +163,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response maritimeTrade(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -183,7 +182,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response Monopoly(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -202,7 +201,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response Monument(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -221,7 +220,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response offerTrade(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -240,7 +239,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response roadBuilding(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -259,7 +258,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response robPlayer(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -278,7 +277,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response rollNumber(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -297,7 +296,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response sendChat(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -316,7 +315,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response Soldier(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -335,7 +334,7 @@ public class Moves {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response YearOfPlenty(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();

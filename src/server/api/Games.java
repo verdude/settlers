@@ -5,7 +5,6 @@ import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -31,7 +30,7 @@ public class Games {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response join(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -50,7 +49,7 @@ public class Games {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response list(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -69,7 +68,7 @@ public class Games {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response model(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -88,7 +87,7 @@ public class Games {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response create(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();

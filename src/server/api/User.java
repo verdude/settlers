@@ -5,7 +5,6 @@ import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -15,7 +14,6 @@ import javax.ws.rs.core.Response;
  *
  */
 @Path("user")
-@Produces(MediaType.APPLICATION_JSON)
 public class User {
 	/**
 	 * Logs the user in setting cookies etc.
@@ -30,7 +28,7 @@ public class User {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response login(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -49,7 +47,7 @@ public class User {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response register(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();

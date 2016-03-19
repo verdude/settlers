@@ -6,7 +6,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -32,7 +31,7 @@ public class Game {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response addAI(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
@@ -51,7 +50,7 @@ public class Game {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response listAI(
-			@Context String request,
+			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
