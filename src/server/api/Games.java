@@ -2,6 +2,7 @@ package server.api;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -44,7 +45,7 @@ public class Games {
 	 * @param userCookieString The cookie is placed in this string
 	 * @return The list of current games
 	 */
-	@POST
+	@GET
 	@Path("/list")
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})

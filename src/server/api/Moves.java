@@ -31,7 +31,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response acceptTrade(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -50,7 +51,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response buildCity(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -69,7 +71,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response buildRoad(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -88,7 +91,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response buildSettlement(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -107,7 +111,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response buyDevCard(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -126,7 +131,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response discardCards(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -145,7 +151,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response finishTurn(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -164,7 +171,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response maritimeTrade(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -183,7 +191,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response Monopoly(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -202,7 +211,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response Monument(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -221,7 +231,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response offerTrade(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -240,7 +251,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response roadBuilding(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -259,7 +271,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response robPlayer(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -278,7 +291,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response rollNumber(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -297,7 +311,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response sendChat(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -316,7 +331,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response Soldier(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -335,7 +351,8 @@ public class Moves {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response YearOfPlenty(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}

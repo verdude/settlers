@@ -32,7 +32,8 @@ public class Game {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response addAI(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -51,7 +52,8 @@ public class Game {
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response listAI(
 			String request,
-			@CookieParam(value = "catan.user") String userCookieString
+			@CookieParam(value = "catan.user") String userCookieString,
+			@CookieParam(value = "catan.game") String gameCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}

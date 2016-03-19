@@ -1,5 +1,6 @@
 package server;
 
+
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.*;
@@ -72,7 +73,7 @@ public class ServerFacade implements IFacade{
 		users.add(newUser);
 
 		return "Success";
-	}
+}
 
 	@Override
 	public String gamesList() {
@@ -106,7 +107,6 @@ public class ServerFacade implements IFacade{
 			e.printStackTrace();
 		}
 		return json;
-
 	}
 
 	@Override
@@ -136,9 +136,7 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public boolean sendChat(String playerName, String message) {
-
-
-
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -156,29 +154,14 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public int rollNumber(int number) {
-		// Have to add correct resources for each settlement or city to the correct player
-		serverModel.getClientModel().setRoll(number);
-		return number;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public boolean buildRoad(EdgeValue roadLocation, String free) {
-		boolean isFree = free.equals("true");
-
-
-		GameMap map = serverModel.getClientModel().getMap();
-
-		map.getRoads().add(new Road(roadLocation.getLocation()));
-		if(!isFree){
-			try {
-				serverModel.addResource("brick",1);
-				serverModel.addResource("wood",1);
-
-			} catch (ClientException e) {
-				e.printStackTrace();
-			}
-		}
-		return true;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

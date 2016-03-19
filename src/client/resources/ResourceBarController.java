@@ -1,16 +1,17 @@
 package client.resources;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import model.ClientException;
+import model.ClientFacade;
+import model.ClientModel;
+import model.Player;
+import model.ResourceList;
 import client.base.Controller;
 import client.base.IAction;
 import client.base.IObserver;
 import client.data.PlayerInfo;
-import client.devcards.DevCardController;
-import model.*;
-import state.IState;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
