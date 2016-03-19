@@ -9,12 +9,12 @@ import model.Player;
 public class Game {
 
     private int gameID;
-    private String name;
+    private String title;
     private ClientModel clientModel;
 
-    public Game(int gameID, String name, Player[] players, ClientModel clientModel){
+    public Game(int gameID, String title, Player[] players, ClientModel clientModel){
         this.gameID = gameID;
-        this.name = name;
+        this.title = title;
         this.clientModel = clientModel;
     }
 
@@ -34,12 +34,12 @@ public class Game {
         this.gameID = gameID;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 

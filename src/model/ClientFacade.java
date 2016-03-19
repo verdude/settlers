@@ -10,7 +10,7 @@ import state.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientFacade implements IFacade {
+public class ClientFacade  {
 
 	private static ClientModel  clientModel;
 	private static ClientFacade singleton;
@@ -144,7 +144,6 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#userLogin(java.lang.String, java.lang.String)
 	 */
-	@Override
 	public boolean userLogin(String username, String password) {
 		String response = proxy.userLogin(username, password);
 		createLocalPlayer(username);
@@ -154,7 +153,6 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#userRegister(java.lang.String, java.lang.String)
 	 */
-	@Override
 	public boolean userRegister(String username, String password) {
 		String response = proxy.userRegister(username, password);
 		return response.contains("Success");
@@ -163,7 +161,6 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#gamesList()
 	 */
-	@Override
 	public String gamesList() {
 		return proxy.gamesList();
 	}
@@ -172,7 +169,6 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#gamesCreate(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
-	@Override
 	public String gamesCreate(String randomTiles, String randomNumbers, String randomPorts, String name) {
 		return proxy.gamesCreate(randomTiles, randomNumbers, randomPorts, name);
 	}
@@ -180,7 +176,6 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#gamesJoin(int, java.lang.String)
 	 */
-	@Override
 	public boolean gamesJoin(int ID, String color) {
 		// do we need a canJoinGame?
 
@@ -191,7 +186,6 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#gamesSave(int, java.lang.String)
 	 */
-	@Override
 	public boolean gamesSave(int ID, String name) {
 		String response = proxy.gamesSave(ID, name);
 
@@ -201,7 +195,6 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#gamesLoad(java.lang.String)
 	 */
-	@Override
 	public boolean gamesLoad(String name) {
 		String response = proxy.gamesLoad(name);
 		return response.contains("Success");
@@ -210,7 +203,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#sendChat(java.lang.String, java.lang.String)
 	 */
-	@Override
+
 	public boolean sendChat(String playerName, String message) {
 		boolean canDo = clientModel.canSendChat(message);
 		if(canDo)
@@ -230,7 +223,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#acceptTrade(boolean)
 	 */
-	@Override
+
 	public boolean acceptTrade(boolean willAccept) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canAcceptTrade(playerIndex);
@@ -245,7 +238,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#discardCards(java.util.List)
 	 */
-	@Override
+
 	public boolean discardCards(List<ResourceType> discardedCards) {
 		System.out.println("discarding cardz");
 		int playerIndex = localPlayer.getPlayerIndex();
@@ -258,7 +251,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#rollNumber(int)
 	 */
-	@Override
+
 	public int rollNumber(int number) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		// maybe the player index shouldn't even be passed in. We could just get it here.
@@ -275,7 +268,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#buildRoad(model.EdgeValue, java.lang.String)
 	 */
-	@Override
+
 	public boolean buildRoad(EdgeValue roadLocation, String free) {
 		boolean isFree = free.equals("true");
 		int playerIndex = localPlayer.getPlayerIndex();
@@ -298,7 +291,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#buildSettlement(model.VertexObject, java.lang.String)
 	 */
-	@Override
+
 	public boolean buildSettlement(VertexObject vertexObject, String free) {
 		boolean isFree = free.equals("true");
 		int playerIndex = localPlayer.getPlayerIndex();
@@ -321,7 +314,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#buildCity(model.VertexObject)
 	 */
-	@Override
+
 	public boolean buildCity(VertexObject vertexObject) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuildCity(playerIndex, vertexObject.getVertexLocation());
@@ -343,7 +336,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#offerTrade(model.TradeOffer)
 	 */
-	@Override
+
 	public boolean offerTrade(TradeOffer offer) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canOfferTrade(playerIndex);
@@ -358,7 +351,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#maritimeTrade(int, shared.definitions.ResourceType, shared.definitions.ResourceType)
 	 */
-	@Override
+
 	public boolean maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canMaritimeTrade(playerIndex, inputResource);
@@ -373,7 +366,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#robPlayer(int, shared.locations.HexLocation)
 	 */
-	@Override
+
 	public boolean robPlayer(int victimIndex, HexLocation location) {
 		
 		int playerIndex = localPlayer.getPlayerIndex();
@@ -400,7 +393,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#finishTurn()
 	 */
-	@Override
+
 	public boolean finishTurn() {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canFinishTurn(playerIndex);
@@ -421,7 +414,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#buyDevCard()
 	 */
-	@Override
+
 	public boolean buyDevCard() {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canBuyDevCard(playerIndex);
@@ -442,7 +435,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#soldier(int, shared.locations.HexLocation)
 	 */
-	@Override
+
 	public boolean soldier(int victimIndex, HexLocation location) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canSoldier(playerIndex);
@@ -458,7 +451,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#yearOfPlenty(shared.definitions.ResourceType, shared.definitions.ResourceType)
 	 */
-	@Override
+
 	public boolean yearOfPlenty(ResourceType resource1, ResourceType resource2) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canYearOfPlenty(playerIndex);
@@ -474,7 +467,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#roadBuilding(shared.locations.EdgeLocation, shared.locations.EdgeLocation)
 	 */
-	@Override
+
 	public boolean roadBuilding(shared.locations.EdgeLocation spot1, shared.locations.EdgeLocation spot2) {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canRoadBuilding(playerIndex);
@@ -490,7 +483,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#monopoly(shared.definitions.ResourceType, int)
 	 */
-	@Override
+
 	public boolean monopoly(ResourceType resource, int playerIndex) {
 		boolean canDo = clientModel.canMonopoly(playerIndex);
 		if(canDo)
@@ -505,7 +498,7 @@ public class ClientFacade implements IFacade {
 	/* (non-Javadoc)
 	 * @see model.IFacade#monument()
 	 */
-	@Override
+
 	public boolean monument() {
 		int playerIndex = localPlayer.getPlayerIndex();
 		boolean canDo = clientModel.canMonument(playerIndex);

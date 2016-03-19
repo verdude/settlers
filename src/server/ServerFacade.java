@@ -1,5 +1,7 @@
 package server;
 
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 import model.*;
 import server.model.Game;
 import server.model.ServerModel;
@@ -9,9 +11,7 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This is the class that contains all of the commands which are to be done on the server model.
@@ -24,9 +24,10 @@ public class ServerFacade implements IFacade{
 
 	private static ServerFacade singleton;
 	//The gameId will be the integer that points to a particular game
-	private Map<Integer,Game> games;
+	private List<Game> games;
 	private List<User> users;
 	private ServerModel serverModel;
+	Converter converter;
 
 	public static ServerFacade getSingleton() {
 		if (singleton == null) {
@@ -35,45 +36,77 @@ public class ServerFacade implements IFacade{
 		return singleton;
 	}
 	private ServerFacade(){
-		this.games = new HashMap<>();
+		this.games = new ArrayList<>();
 		this.users = new ArrayList<>();
 		this.serverModel = new ServerModel();
+		this.converter = new Converter();
+
 
 	}
 
 	@Override
-	public boolean userLogin(String username, String password) {
+	public String userLogin(String username, String password) {
 
+		if(username == null || username.matches("\\s*") || password == null || password.equals("\\s*")){
+			return "Invalid Request";
+		}
 		for (User user : users){
 			if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-				return true;
+				return "Success";
 			}
 		}
 
-		return false;
+		return "Failed to login - bad username or password.";
+
 	}
 
 	@Override
-	public boolean userRegister(String username, String password) {
+	public String userRegister(String username, String password) {
 
 		for(User user : users){
 			if(user.getUsername().equals(username)){
-				return false;
+				return "Failed to register - someone already has that username.";
 			}
 		}
-
 		User newUser = new User(username,password,users.size());
 		users.add(newUser);
 
-		return true;
+		return "Success";
 	}
 
 	@Override
 	public String gamesList() {
+		List<GameInfo> gamesInfo = new ArrayList<>();
+		List<PlayerInfo> playersInfo = new ArrayList<>();
+		int playerIndex = 0;
 
+		for(Player player : serverModel.getClientModel().getPlayers()){
+			PlayerInfo playerInfo = new PlayerInfo();
+			playerInfo.setPlayerIndex(playerIndex);
+			playerIndex++;
+			playerInfo.setId(player.getPlayerID());
+			playerInfo.setName(player.getName());
+			playerInfo.setColor(player.getColor());
+			playersInfo.add(playerInfo);
 
+		}
 
-		return null;
+		for(Game game : games){
+			GameInfo gameInfo = new GameInfo();
+			gameInfo.setId(game.getGameID());
+			gameInfo.setPlayers(playersInfo);
+			gameInfo.setTitle(game.getTitle());
+			gamesInfo.add(gameInfo);
+		}
+
+		String json = null;
+		try {
+			json =  converter.serialize(gamesInfo);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return json;
+
 	}
 
 	@Override
@@ -222,12 +255,24 @@ public class ServerFacade implements IFacade{
 	}
 
 
+	public String getModel(){
+		try {
 
-	public Map<Integer,Game> getGames() {
+			return converter.serialize(this.serverModel.getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return "Failure";
+	}
+
+	public void storeCommand(ICatanCommand command){
+
+	}
+	public List<Game> getGames() {
 		return games;
 	}
 
-	public void setGames(Map<Integer,Game> games) {
+	public void setGames(List<Game> games) {
 		this.games = games;
 	}
 

@@ -14,7 +14,7 @@ public interface IFacade {
 	 * @post The user is known and logged in to the server.
 	 * @return Whether it was successful
 	 */
-	public abstract boolean userLogin(String username, String password);
+	public abstract String userLogin(String username, String password);
 
 	/**
 	 * 1) Creates a new user account
@@ -25,7 +25,7 @@ public interface IFacade {
 	 * @post The user now exists in the database of users and can log in and perform anything a user can.
 	 * @return Whether it was successful
 	 */
-	public abstract boolean userRegister(String username, String password);
+	public abstract String userRegister(String username, String password);
 
 	/**
 	 * This asks the server for a list of the games
