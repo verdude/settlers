@@ -49,9 +49,7 @@ public class Game {
 	@GET
 	@Path("/listAI")
 	@Produces({MediaType.APPLICATION_JSON})
-	@Consumes({MediaType.APPLICATION_JSON})
 	public Response listAI(
-			String request,
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {

@@ -48,9 +48,7 @@ public class Games {
 	@GET
 	@Path("/list")
 	@Produces({MediaType.APPLICATION_JSON})
-	@Consumes({MediaType.APPLICATION_JSON})
 	public Response list(
-			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
