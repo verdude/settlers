@@ -29,7 +29,8 @@ public class User {
 	public Response login(
 			String request
 			) {
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		String setUserCookie = "";
+		return Response.ok().header("Set-cookie", setUserCookie).entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
 	/**
@@ -40,6 +41,7 @@ public class User {
 	 * @param userCookieString The cookie is placed in this sString
 	 * @return Whether the action was successful
 	 */
+	//The register command simply creates a new user, it does not log the user in and therefore does not set a cookie
 	@POST
 	@Path("/register")
 	@Produces({MediaType.APPLICATION_JSON})

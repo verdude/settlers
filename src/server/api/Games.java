@@ -34,7 +34,8 @@ public class Games {
 			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		String setGameCookie = "";
+		return Response.ok().header("Set-cookie", setGameCookie).entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
 	/**
