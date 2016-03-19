@@ -11,6 +11,10 @@ public class Game {
     private int gameID;
     private String title;
     private ClientModel clientModel;
+    boolean randomTiles;
+    boolean randomNumbers;
+    boolean randomPorts;
+
 
     public Game(int gameID, String title, Player[] players, ClientModel clientModel){
         this.gameID = gameID;
@@ -41,6 +45,31 @@ public class Game {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public boolean isRandomPorts() {
+        return randomPorts;
+    }
+
+    public void setRandomPorts(boolean randomPorts) {
+        this.randomPorts = randomPorts;
+    }
+
+    public boolean isRandomTiles() {
+        return randomTiles;
+    }
+
+    public void setRandomTiles(boolean randomTiles) {
+        this.randomTiles = randomTiles;
+    }
+
+    public boolean isRandomNumbers() {
+        return randomNumbers;
+    }
+
+    public void setRandomNumbers(boolean randomNumbers) {
+        this.randomNumbers = randomNumbers;
+    }
+
 
 
 }

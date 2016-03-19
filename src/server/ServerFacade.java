@@ -112,129 +112,166 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String gamesCreate(String randomTiles, String randomNumbers,
 			String randomPorts, String name) {
-		// TODO Auto-generated method stub
+		Game newGame = new Game(games.size(),name,new Player[4],new ClientModel());
+
+		boolean validInputTiles = false;
+		boolean validIputNumbers = false;
+		boolean validInputPorts = false;
+
+		boolean randomTilesBool = randomTiles.matches("(T|t)(R|r)(U|u)(E|e)");
+		newGame.setRandomTiles(randomTilesBool);
+		if(randomTilesBool || randomTiles.matches("(F|f)(A|a)(L|l)(S|s)(E|e)")){
+			validInputTiles = true;
+		}
+
+
+		boolean randomNumbersBool = randomNumbers.matches("(T|t)(R|r)(U|u)(E|e)");
+		newGame.setRandomNumbers(randomNumbersBool);
+		if(randomNumbersBool || randomNumbers.matches("(F|f)(A|a)(L|l)(S|s)(E|e)")){
+			validIputNumbers = true;
+		}
+
+		boolean randomPortsBool = randomPorts.matches("(T|t)(R|r)(U|u)(E|e)");
+		newGame.setRandomPorts(randomPortsBool);
+		if(randomPortsBool || randomPorts.matches("(F|f)(A|a)(L|l)(S|s)(E|e)")){
+			validInputTiles = true;
+		}
+
+
+
+		GameInfo gameInfo = new GameInfo();
+		gameInfo.setTitle(name);
+		gameInfo.setId(games.size());
+		gameInfo.setPlayers(new ArrayList<PlayerInfo>());
+
+		String response = "Invalid request";
+		if(validInputPorts && validInputTiles && validIputNumbers){
+			try {
+				response =  converter.serialize(gameInfo);
+				games.add(newGame);
+			} catch (ClientException e) {
+				e.printStackTrace();
+			}
+		}
+		return response;
+	}
+
+	@Override
+	public String gamesJoin(int ID, String color) {
 		return null;
 	}
 
 	@Override
-	public boolean gamesJoin(int ID, String color) {
-		// TODO Auto-generated method stub
-		return false;
+	public String gamesSave(int ID, String name) {
+		return null;
 	}
 
 	@Override
-	public boolean gamesSave(int ID, String name) {
-		// TODO Auto-generated method stub
-		return false;
+	public String gamesLoad(String name) {
+		return null;
 	}
 
 	@Override
-	public boolean gamesLoad(String name) {
-		// TODO Auto-generated method stub
-		return false;
+
+	public String sendChat(String playerName, String message) {
+		return null;
 	}
 
 	@Override
-	public boolean sendChat(String playerName, String message) {
-		// TODO Auto-generated method stub
-		return false;
+	public String acceptTrade(boolean willAccept) {
+		return null;
 	}
 
 	@Override
-	public boolean acceptTrade(boolean willAccept) {
-		// TODO Auto-generated method stub
-		return false;
+	public String discardCards(List<ResourceType> discardedCards) {
+		return null;
 	}
 
 	@Override
-	public boolean discardCards(List<ResourceType> discardedCards) {
-		// TODO Auto-generated method stub
-		return false;
+	public String rollNumber(int number) {
+		return null;
+	}
+
+
+	//Need to finish implementing this one!!!!
+	@Override
+	public String buildRoad(EdgeValue roadLocation, String free) {
+		boolean isFree = free.equals("true");
+
+
+		GameMap map = serverModel.getClientModel().getMap();
+
+		map.getRoads().add(new Road(roadLocation.getLocation()));
+		if(!isFree){
+			try {
+				serverModel.addResource("brick",1);
+				serverModel.addResource("wood",1);
+
+			} catch (ClientException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	@Override
-	public int rollNumber(int number) {
-		// TODO Auto-generated method stub
-		return 0;
+	public String buildSettlement(VertexObject vertexObject, String free) {
+		return null;
 	}
 
 	@Override
-	public boolean buildRoad(EdgeValue roadLocation, String free) {
-		// TODO Auto-generated method stub
-		return false;
+	public String buildCity(VertexObject vertexObject) {
+		return null;
 	}
 
 	@Override
-	public boolean buildSettlement(VertexObject vertexObject, String free) {
-		// TODO Auto-generated method stub
-		return false;
+	public String offerTrade(TradeOffer offer) {
+		return null;
 	}
 
 	@Override
-	public boolean buildCity(VertexObject vertexObject) {
-		// TODO Auto-generated method stub
-		return false;
+	public String maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
+		return null;
 	}
 
 	@Override
-	public boolean offerTrade(TradeOffer offer) {
-		// TODO Auto-generated method stub
-		return false;
+	public String robPlayer(int victimIndex, HexLocation location) {
+		return null;
 	}
 
 	@Override
-	public boolean maritimeTrade(int ratio, ResourceType inputResource,
-			ResourceType outputResource) {
-		// TODO Auto-generated method stub
-		return false;
+	public String finishTurn() {
+		return null;
 	}
 
 	@Override
-	public boolean robPlayer(int victimIndex, HexLocation location) {
-		// TODO Auto-generated method stub
-		return false;
+	public String buyDevCard() {
+		return null;
 	}
 
 	@Override
-	public boolean finishTurn() {
-		// TODO Auto-generated method stub
-		return false;
+	public String soldier(int victimIndex, HexLocation location) {
+		return null;
 	}
 
 	@Override
-	public boolean buyDevCard() {
-		// TODO Auto-generated method stub
-		return false;
+	public String yearOfPlenty(ResourceType resource1, ResourceType resource2) {
+		return null;
 	}
 
 	@Override
-	public boolean soldier(int victimIndex, HexLocation location) {
-		// TODO Auto-generated method stub
-		return false;
+	public String roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
+		return null;
 	}
 
 	@Override
-	public boolean yearOfPlenty(ResourceType resource1, ResourceType resource2) {
-		// TODO Auto-generated method stub
-		return false;
+	public String monopoly(ResourceType resource, int playerIndex) {
+		return null;
 	}
 
 	@Override
-	public boolean roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean monopoly(ResourceType resource, int playerIndex) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean monument() {
-		// TODO Auto-generated method stub
-		return false;
+	public String monument() {
+		return null;
 	}
 
 
