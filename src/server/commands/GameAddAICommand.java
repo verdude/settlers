@@ -27,7 +27,6 @@ public class GameAddAICommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }

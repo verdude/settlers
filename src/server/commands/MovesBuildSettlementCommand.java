@@ -12,6 +12,7 @@ import shared.locations.VertexLocation;
 public class MovesBuildSettlementCommand extends ICatanCommand {
 	int playerIndex;
 	VertexLocation vertexLocation;
+	String free;
 
 	/**
 	 * @pre The player can actually build a settlement at the vertex location as given by the cando method
@@ -22,6 +23,7 @@ public class MovesBuildSettlementCommand extends ICatanCommand {
 	public MovesBuildSettlementCommand(int playerIndex, VertexLocation vertexLocation){
 		this.playerIndex = playerIndex;
 		this.vertexLocation = vertexLocation;
+		this.free = "true";
 	}
 
 	/**
@@ -30,7 +32,10 @@ public class MovesBuildSettlementCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		// TODO Auto-generated method stub
+		String response = facade.buildSettlement(vertexLocation, free);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

@@ -2,6 +2,7 @@ package server.commands;
 
 import model.IFacade;
 import server.ICatanCommand;
+import shared.locations.EdgeLocation;
 
 /**
  * This represents the moves/roadBuilding endpoint
@@ -11,6 +12,8 @@ import server.ICatanCommand;
 public class MovesRoadBuildingCommand extends ICatanCommand {
 
 	private int playerIndex;
+	EdgeLocation spot1, spot2;
+	
 	/*
 	// I'm not sure what type these spots are supposed to be.
 	spot1: {
@@ -32,8 +35,10 @@ public class MovesRoadBuildingCommand extends ICatanCommand {
 	 * @param spot1 The first road placement
 	 * @param spot2 the second road placement
      */
-	public MovesRoadBuildingCommand(int playerIndex /*The spots*/) {
+	public MovesRoadBuildingCommand(int playerIndex, EdgeLocation spot1, EdgeLocation spot2 /*The spots*/) {
 		this.playerIndex = playerIndex;
+		this.spot1 = spot1;
+		this.spot2 = spot2;
 	}
 
 	/**
@@ -42,7 +47,10 @@ public class MovesRoadBuildingCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		// TODO Auto-generated method stub
+		String response = facade.roadBuilding(spot1, spot2);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

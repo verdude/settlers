@@ -28,7 +28,10 @@ public class MovesBuyDevCardCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		// TODO Auto-generated method stub
+		String response = facade.buyDevCard();
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

@@ -31,7 +31,10 @@ public class MovesBuildCityCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		// TODO Auto-generated method stub
+		String response = facade.buildCity(vertexLocation);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

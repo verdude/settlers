@@ -2,6 +2,7 @@ package server.commands;
 
 import model.IFacade;
 import server.ICatanCommand;
+import shared.definitions.ResourceType;
 
 /**
  * This represents the moves/Monopoly endpoint
@@ -10,7 +11,7 @@ import server.ICatanCommand;
  */
 public class MovesMonopolyCommand extends ICatanCommand {
 
-	private String resource;
+	private ResourceType resource;
 	private int playerIndex;
 
 	/**
@@ -19,7 +20,7 @@ public class MovesMonopolyCommand extends ICatanCommand {
 	 * @param resource The resource that the player wants
 	 * @param playerIndex The index of the player playing the monument card
      */
-	public MovesMonopolyCommand(String resource, int playerIndex) {
+	public MovesMonopolyCommand(ResourceType resource, int playerIndex) {
 		this.resource = resource;
 		this.playerIndex = playerIndex;
 	}

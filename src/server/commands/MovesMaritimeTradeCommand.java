@@ -2,6 +2,7 @@ package server.commands;
 
 import model.IFacade;
 import server.ICatanCommand;
+import shared.definitions.ResourceType;
 
 /**
  * This represents the moves/maritimeTrade endpoint
@@ -12,8 +13,8 @@ public class MovesMaritimeTradeCommand extends ICatanCommand {
 
 	int playerIndex;
 	int ratio;
-	String inputResource;
-	String outputResource;
+	ResourceType inputResource;
+	ResourceType outputResource;
 
 
 	/**
@@ -24,7 +25,7 @@ public class MovesMaritimeTradeCommand extends ICatanCommand {
 	 * @param inputResource the type of resource the player is giving
 	 * @param outputResource the type of resource the player is getting
      */
-	public MovesMaritimeTradeCommand(int playerIndex, int ratio, String inputResource, String outputResource){
+	public MovesMaritimeTradeCommand(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource){
 		this.playerIndex = playerIndex;
 		this.ratio = ratio;
 		this.inputResource = inputResource;
@@ -38,7 +39,10 @@ public class MovesMaritimeTradeCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		// TODO Auto-generated method stub
+		String response = facade.maritimeTrade(ratio, inputResource, outputResource);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }

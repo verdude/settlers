@@ -1,8 +1,11 @@
 package server.commands;
 
+import java.util.ArrayList;
+
 import model.IFacade;
 import model.ResourceList;
 import server.ICatanCommand;
+import shared.definitions.ResourceType;
 
 /**
  * This represents the moves/discardCards endpoint
@@ -12,14 +15,14 @@ import server.ICatanCommand;
 public class MovesDiscardCardsCommand extends ICatanCommand {
 
 	int playerIndex;
-	ResourceList discardedCards;
+	ArrayList<ResourceType> discardedCards;
 
 	/**
 	 * @pre If it is the discarding state and the associated cando returns true
 	 * @param playerIndex index of the player discarding cards
 	 * @param discardedCards the resource cards that the player is discarding
      */
-	public MovesDiscardCardsCommand(int playerIndex, ResourceList discardedCards){
+	public MovesDiscardCardsCommand(int playerIndex, ArrayList<ResourceType> discardedCards){
 		this.playerIndex = playerIndex;
 		this.discardedCards = discardedCards;
 	}
@@ -30,7 +33,7 @@ public class MovesDiscardCardsCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		String response = facade.discardCards(discardedCards)
+		String response = facade.discardCards(discardedCards);
 		
 		// TODO: on success, store this command in database
 		

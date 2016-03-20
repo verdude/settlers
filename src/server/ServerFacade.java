@@ -1,18 +1,27 @@
 package server;
 
 
-import client.data.GameInfo;
-import client.data.PlayerInfo;
-import model.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.ClientException;
+import model.ClientModel;
+import model.Converter;
+import model.GameMap;
+import model.IFacade;
+import model.Player;
+import model.Road;
+import model.TradeOffer;
+import model.VertexObject;
 import server.model.Game;
 import server.model.ServerModel;
 import server.model.User;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
-
-import java.util.ArrayList;
-import java.util.List;
+import shared.locations.VertexLocation;
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 
 /**
  * This is the class that contains all of the commands which are to be done on the server model.
@@ -215,12 +224,12 @@ public class ServerFacade implements IFacade{
 	}
 
 	@Override
-	public String buildSettlement(VertexObject vertexObject, String free) {
+	public String buildSettlement(VertexLocation vertexLocation, String free) {
 		return null;
 	}
 
 	@Override
-	public String buildCity(VertexObject vertexObject) {
+	public String buildCity(VertexLocation vertexLocation) {
 		return null;
 	}
 
@@ -312,6 +321,12 @@ public class ServerFacade implements IFacade{
 
 	public void setServerModel(ServerModel serverModel) {
 		this.serverModel = serverModel;
+	}
+
+	@Override
+	public String gamesModel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

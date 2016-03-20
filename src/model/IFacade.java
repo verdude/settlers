@@ -6,6 +6,7 @@ import server.ICatanCommand;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
 public interface IFacade {
 	/**
@@ -131,7 +132,7 @@ public interface IFacade {
 	 * @post A settlement is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public abstract String buildSettlement(VertexObject vertexObject,
+	public abstract String buildSettlement(VertexLocation vertexLocation,
 			String free);
 
 	/**
@@ -141,7 +142,7 @@ public interface IFacade {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public abstract String buildCity(VertexObject vertexObject);
+	public abstract String buildCity(VertexLocation vertexObject);
 
 	/**
 	 * Offers a trade from one player to the other for resources
@@ -246,4 +247,11 @@ public interface IFacade {
 	 */
 	public abstract void storeCommand(ICatanCommand command);
 
+	/**
+	 * Gets a stringified JSON object 
+	 * @pre The given command has successfully been executed by server
+	 * @post The given command is stored in the database
+	 */
+	public abstract String gamesModel();	
+	
 }

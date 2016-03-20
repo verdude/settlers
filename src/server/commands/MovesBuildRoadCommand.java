@@ -12,8 +12,8 @@ import shared.locations.EdgeLocation;
 public class MovesBuildRoadCommand extends ICatanCommand {
 
 	int playerIndex;
-	EdgeLocation edgeLocation;
-	boolean free;
+	EdgeLocation roadLocation;
+	String free;
 
 
 	/**
@@ -25,8 +25,8 @@ public class MovesBuildRoadCommand extends ICatanCommand {
      */
 	public MovesBuildRoadCommand(int playerIndex, EdgeLocation edgeLocation, boolean free){
 		this .playerIndex = playerIndex;
-		this.edgeLocation = edgeLocation;
-		this.free = free;
+		this.roadLocation = edgeLocation;
+		this.free = "" + free;
 	}
 
 
@@ -36,7 +36,7 @@ public class MovesBuildRoadCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		String response = facade.buildRoad();
+		String response = facade.buildRoad(roadLocation, free);
 		
 		// TODO: on success, store this command in database
 		

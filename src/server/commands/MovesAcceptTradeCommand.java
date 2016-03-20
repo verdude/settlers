@@ -30,7 +30,10 @@ public class MovesAcceptTradeCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		// TODO Auto-generated method stub
+		String response = facade.acceptTrade(willAccept);
 		
+		// TODO: on success, store this command in database
+		
+		return response;
 	}
 }
