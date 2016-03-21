@@ -21,9 +21,6 @@ public class Player {
 	private boolean playedDevCard;		// Whether or not a player has played a dev card this turn
 	private int playerID;
 	private ResourceList resources;
-	public boolean getHasRolled() {
-		return hasRolled;
-	}
 
 	public void setHasRolled(boolean hasRolled) {
 		this.hasRolled = hasRolled;

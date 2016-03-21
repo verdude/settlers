@@ -1,6 +1,5 @@
 package server.model;
 
-import model.ClientModel;
 import model.Player;
 
 /**
@@ -10,24 +9,25 @@ public class Game {
 
     private int gameID;
     private String title;
-    private ClientModel clientModel;
+    private ServerModel serverModel;
     boolean randomTiles;
     boolean randomNumbers;
     boolean randomPorts;
 
 
-    public Game(int gameID, String title, Player[] players, ClientModel clientModel){
+    public Game(int gameID, String title, Player[] players, ServerModel serverModel){
         this.gameID = gameID;
         this.title = title;
-        this.clientModel = clientModel;
+        this.serverModel = serverModel;
     }
 
-    public ClientModel getClientModel() {
-        return clientModel;
+
+    public ServerModel getServerModel() {
+        return serverModel;
     }
 
-    public void setClientModel(ClientModel clientModel) {
-        this.clientModel = clientModel;
+    public void setServerModel(ServerModel serverModel) {
+        this.serverModel = serverModel;
     }
 
     public int getGameID() {
