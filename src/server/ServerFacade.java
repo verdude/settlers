@@ -1,18 +1,9 @@
 package server;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import model.ClientException;
-import model.ClientModel;
-import model.Converter;
-import model.GameMap;
-import model.IFacade;
-import model.Player;
-import model.Road;
-import model.TradeOffer;
-import model.VertexObject;
+import client.data.GameInfo;
+import client.data.PlayerInfo;
+import model.*;
 import server.model.Game;
 import server.model.ServerModel;
 import server.model.User;
@@ -20,8 +11,11 @@ import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
-import client.data.GameInfo;
-import client.data.PlayerInfo;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the class that contains all of the commands which are to be done on the server model.
@@ -123,26 +117,30 @@ public class ServerFacade implements IFacade{
 			String randomPorts, String name) {
 		Game newGame = new Game(games.size(),name,new Player[4],new ClientModel());
 
+		randomTiles = randomTiles.toLowerCase();
+		randomNumbers = randomNumbers.toLowerCase();
+		randomPorts = randomPorts.toLowerCase();
+
 		boolean validInputTiles = false;
 		boolean validIputNumbers = false;
 		boolean validInputPorts = false;
 
-		boolean randomTilesBool = randomTiles.matches("(T|t)(R|r)(U|u)(E|e)");
+		boolean randomTilesBool = randomTiles.matches("true");
 		newGame.setRandomTiles(randomTilesBool);
-		if(randomTilesBool || randomTiles.matches("(F|f)(A|a)(L|l)(S|s)(E|e)")){
+		if(randomTilesBool || randomTiles.matches("false")){
 			validInputTiles = true;
 		}
 
 
-		boolean randomNumbersBool = randomNumbers.matches("(T|t)(R|r)(U|u)(E|e)");
+		boolean randomNumbersBool = randomNumbers.matches("true");
 		newGame.setRandomNumbers(randomNumbersBool);
-		if(randomNumbersBool || randomNumbers.matches("(F|f)(A|a)(L|l)(S|s)(E|e)")){
+		if(randomNumbersBool || randomNumbers.matches("false")){
 			validIputNumbers = true;
 		}
 
-		boolean randomPortsBool = randomPorts.matches("(T|t)(R|r)(U|u)(E|e)");
+		boolean randomPortsBool = randomPorts.matches("true");
 		newGame.setRandomPorts(randomPortsBool);
-		if(randomPortsBool || randomPorts.matches("(F|f)(A|a)(L|l)(S|s)(E|e)")){
+		if(randomPortsBool || randomPorts.matches("false")){
 			validInputTiles = true;
 		}
 
@@ -167,32 +165,74 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String gamesJoin(int ID, String color) {
-		return null;
+		String response = "The player could not be added to the specified game.";
+		if(ID >= games.size()){
+			return response;
+		}
+		color = color.toLowerCase();
+
+		Game desiredGame = null;
+		for (int i = 0; i < games.size(); i++){
+			if(games.get(i).getGameID() == ID){
+				desiredGame = games.get(i);
+			}
+		}
+		//How can I know who the player is that is logged in right now so I can properly add them to the game
+
+		return response;
 	}
 
 	@Override
 	public String gamesSave(int ID, String name) {
-		return null;
+		String response = "Invalid request";
+		if(ID >= 0 && ID < games.size() && name != null){
+			response = "Success";
+		}
+
+		PrintWriter out = null;
+		String model = null;
+		String fileName = name + ".txt";
+		try {
+			out = new PrintWriter("/saves/" + fileName);
+			model =converter.serialize(this.serverModel);
+			out.println(model);
+			out.close();
+
+		} catch (FileNotFoundException | ClientException e) {
+			e.printStackTrace();
+		}
+
+		return response;
 	}
 
 	@Override
 	public String gamesLoad(String name) {
+		//need to figure this out
 		return null;
 	}
 
 	@Override
 
 	public String sendChat(int playerIndex, String message) {
+		MessageLine messageLine = new MessageLine(message,Integer.toString(playerIndex));
+		this.serverModel.getClientModel().getChat().getLines().add(messageLine);
+		try {
+			return converter.serialize(this.serverModel.getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public String acceptTrade(boolean willAccept) {
+		//didn't implement in our  client
 		return null;
 	}
 
 	@Override
 	public String discardCards(List<ResourceType> discardedCards) {
+		//didn't implement in our client
 		return null;
 	}
 
@@ -202,15 +242,16 @@ public class ServerFacade implements IFacade{
 	}
 
 
-	//Need to finish implementing this one!!!!
 	@Override
 	public String buildRoad(EdgeLocation roadLocation, String free) {
+		free = free.toLowerCase();
 		boolean isFree = free.equals("true");
 
 
 		GameMap map = serverModel.getClientModel().getMap();
 
 		map.getRoads().add(new Road(roadLocation));
+		serverModel.getClientModel().setMap(map);
 		if(!isFree){
 			try {
 				serverModel.addResource("brick",1);
@@ -220,26 +261,106 @@ public class ServerFacade implements IFacade{
 				e.printStackTrace();
 			}
 		}
+		try {
+			return converter.serialize(this.serverModel.getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public String buildSettlement(VertexLocation vertexLocation, String free) {
+		free = free.toLowerCase();
+		boolean isFree = free.equals("true");
+
+		if(!isFree){
+			try {
+				serverModel.addResource("wheat",1);
+				serverModel.addResource("brick",1);
+				serverModel.addResource("wood",1);
+				serverModel.addResource("sheep",1);
+			} catch (ClientException e) {
+				e.printStackTrace();
+			}
+		}
+
+		GameMap map = serverModel.getClientModel().getMap();
+		VertexObject vertexObject = new VertexObject();
+		vertexObject.setVertexLocation(vertexLocation);
+		map.getSettlements().add(vertexObject);
+		serverModel.getClientModel().setMap(map);
+
+		try {
+			return converter.serialize(serverModel.getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public String buildCity(VertexLocation vertexLocation) {
+
+
+		try {
+			serverModel.addResource("wheat",2);
+			serverModel.addResource("ore",3);
+
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+
+		GameMap map = serverModel.getClientModel().getMap();
+		VertexObject vertexObject = new VertexObject();
+		vertexObject.setVertexLocation(vertexLocation);
+		map.getCities().add(vertexObject);
+		//Removes the settlement from the settlement list since it is being replaced with a city in the same spot
+		for(int i = 0; i < map.getSettlements().size(); i++){
+			VertexObject settlement = map.getSettlements().get(i);
+			if(settlement.getVertexLocation().getNormalizedLocation().getHexLoc().equals(vertexLocation.getNormalizedLocation().getHexLoc())
+					&& settlement.getVertexLocation().getNormalizedLocation().getDirection().equals(vertexLocation.getNormalizedLocation().getDirection())){
+				map.getSettlements().remove(i);
+				break;
+			}
+		}
+		serverModel.getClientModel().setMap(map);
+
+		try {
+			return converter.serialize(serverModel.getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public String offerTrade(TradeOffer offer) {
+		serverModel.getClientModel().getTradeOffer().setOffer(offer.getOffer());
+		serverModel.getClientModel().getTradeOffer().setReceiver(offer.getReceiver());
+		serverModel.getClientModel().getTradeOffer().setSender(offer.getSender());
+
+
+		try {
+			return converter.serialize(serverModel.getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public String maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
+
+		try {
+			serverModel.addResource(inputResource.toString(),ratio);
+			serverModel.removeResource(outputResource.toString(),1);
+			return converter.serialize(serverModel.getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
