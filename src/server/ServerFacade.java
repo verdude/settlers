@@ -34,7 +34,9 @@ public class ServerFacade implements IFacade{
 
 
 	private int currentGameID;
-	private int currentUserID;
+
+
+	private int playerIndex;
 
 
 	public static ServerFacade getSingleton() {
@@ -517,13 +519,7 @@ public class ServerFacade implements IFacade{
 		this.converter = converter;
 	}
 
-	public int getCurrentUserID() {
-		return currentUserID;
-	}
 
-	public void setCurrentUserID(int currentUserID) {
-		this.currentUserID = currentUserID;
-	}
 
 	public int getCurrentGameID() {
 		return currentGameID;
@@ -532,5 +528,24 @@ public class ServerFacade implements IFacade{
 	public void setCurrentGameID(int currentGameID) {
 		this.currentGameID = currentGameID;
 	}
+
+	public int getPlayerIndex() {
+		return playerIndex;
+	}
+
+	public void setPlayerIndex(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
+
+	public Game getCurrentGame(int gameID){
+		for(Game game : games){
+			if(game.getGameID() == gameID){
+				return game;
+			}
+		}
+		return null;
+	}
+
+
 
 }
