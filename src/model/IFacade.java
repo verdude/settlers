@@ -142,7 +142,7 @@ public interface IFacade {
 	 * @post A city is built on vertexObject if free is true. Otherwise, it is not built.
 	 * @return Whether it was attempted
 	 */
-	public abstract String buildCity(VertexLocation vertexObject);
+	public abstract String buildCity(VertexLocation vertexLocation);
 
 	/**
 	 * Offers a trade from one player to the other for resources

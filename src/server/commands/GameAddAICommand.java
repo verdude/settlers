@@ -27,6 +27,6 @@ public class GameAddAICommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		return null;
+		return "{\"error\": \"String unimplemented\"}";
 	}
 }
