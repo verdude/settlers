@@ -5,8 +5,11 @@ import org.json.JSONObject;
 import server.ICatanCommand;
 import server.ServerFacade;
 import server.commands.UserLoginCommand;
+<<<<<<< HEAD
 import server.commands.UserRegisterCommand;
 import server.ServerFacade;
+=======
+>>>>>>> work on endpoints
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
