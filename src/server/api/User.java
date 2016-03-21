@@ -1,5 +1,11 @@
 package server.api;
 
+
+import org.json.JSONObject;
+import server.ICatanCommand;
+import server.ServerFacade;
+import server.commands.UserLoginCommand;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,6 +36,19 @@ public class User {
 			String request
 			) {
 		String setUserCookie = "";
+		JSONObject body = new JSONObject(request);
+		String username = body.get("username").toString();
+		String password = body.get("password").toString();
+		if(username.isEmpty() || password.isEmpty()) {
+			System.out.println("IK'm empty");
+			return Response.serverError().build();
+		}
+		ICatanCommand login = new UserLoginCommand(username, password);
+		String response = login.execute(ServerFacade.getSingleton());
+		if(response.contains("error")) {
+			return Response.serverError().build();
+		}
+		setUserCookie = ServerFacade.getSingleton().getUsers().size() + "";
 		return Response.ok().header("Set-cookie", setUserCookie).entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 

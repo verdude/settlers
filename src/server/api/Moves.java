@@ -1,5 +1,10 @@
 package server.api;
 
+import org.json.JSONObject;
+import server.ICatanCommand;
+import server.ServerFacade;
+import server.commands.MovesAcceptTradeCommand;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
@@ -34,6 +39,12 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		JSONObject body = new JSONObject(request);
+		ICatanCommand acceptTrade = new MovesAcceptTradeCommand(Integer.parseInt(userCookieString), body.get("willAccept").toString().toLowerCase().contains("true"));
+		String response = acceptTrade.execute(ServerFacade.getSingleton());
+		if(response.contains("error")) {
+			return Response.serverError().build();
+		}
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
