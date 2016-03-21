@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import server.ICatanCommand;
 import server.ServerFacade;
 import server.commands.UserLoginCommand;
+import server.commands.UserRegisterCommand;
+import server.ServerFacade;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -12,6 +14,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
 
 /**
  * This class represents all of the user endpoints
@@ -25,7 +29,6 @@ public class User {
 	 * @pre The user exists in the server
 	 * @post The user is logged in
 	 * @param request The request body is injected into this String
-	 * @param userCookieString The cookie is placed in this string
 	 * @return Whether the action was successful
 	 */
 	@POST
@@ -40,7 +43,6 @@ public class User {
 		String username = body.get("username").toString();
 		String password = body.get("password").toString();
 		if(username.isEmpty() || password.isEmpty()) {
-			System.out.println("IK'm empty");
 			return Response.serverError().build();
 		}
 		ICatanCommand login = new UserLoginCommand(username, password);
@@ -57,7 +59,6 @@ public class User {
 	 * @pre The user does not exist on the server and the credentials are valid
 	 * @post The user is created
 	 * @param request The request body is injected into this String
-	 * @param userCookieString The cookie is placed in this sString
 	 * @return Whether the action was successful
 	 */
 	//The register command simply creates a new user, it does not log the user in and therefore does not set a cookie
@@ -68,6 +69,20 @@ public class User {
 	public Response register(
 			String request
 			) {
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+		String username = body.get("username").toString();
+		String password = body.get("password").toString();
+		String repeatedPassword = body.get("repeatPassword").toString();
+		if (!password.equals(repeatedPassword)) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\" : \"Unimplemented\"}").build();
+		} else {
+			ICatanCommand register = new UserRegisterCommand(username, password);
+			String response = register.execute(ServerFacade.getSingleton());
+			if (response.contains("Success")) {
+				return Response.ok().entity(response).build();
+			} else {
+				return Response.serverError().entity(response).build();
+			}
+		}
 	}
 }

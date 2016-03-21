@@ -1,5 +1,7 @@
 package server.api;
 
+import server.commands.GameAddAICommand;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
@@ -35,6 +37,7 @@ public class Game {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		GameAddAICommand addAi = new GameAddAICommand()
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
