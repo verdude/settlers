@@ -226,7 +226,7 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String gamesLoad(String name) {
 		//need to figure this out
-		return null;
+		return "Failure";
 	}
 
 	@Override
@@ -241,23 +241,32 @@ public class ServerFacade implements IFacade{
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "Failure";
 	}
 
 	@Override
 	public String acceptTrade(boolean willAccept) {
 		//didn't implement in our  client
-		return null;
+		return "Not Implemented";
 	}
 
 	@Override
 	public String discardCards(List<ResourceType> discardedCards) {
 		//didn't implement in our client
-		return null;
+		return "Not Implemented";
 	}
 
 	@Override
 	public String rollNumber(int number) {
+		if(number == 7){
+			games.get(currentGameID).getServerModel().getClientModel().getTurnTracker().setStatus("Robbing");
+			try {
+				return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
+			} catch (ClientException e) {
+				e.printStackTrace();
+			}
+
+		}
 
 		Game currentGame = games.get(currentGameID);
 		Player player  = currentGame.getServerModel().getClientModel().getPlayers()[playerIndex];
@@ -388,19 +397,32 @@ public class ServerFacade implements IFacade{
 
 
 		try {
+			games.get(currentGameID).getServerModel().getClientModel().getTurnTracker().setStatus("Playing");
+			games.get(currentGameID).getServerModel().getClientModel().setVersion(
+					games.get(currentGameID).getServerModel().getClientModel().getVersion() +1);
 			return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "Failure";
 	}
 
 
 	@Override
 	public String buildRoad(EdgeLocation roadLocation, String free) {
+
 		free = free.toLowerCase();
 		boolean isFree = free.equals("true");
-
+		if(!games.get(currentGameID).getServerModel().getClientModel().canBuildRoad(playerIndex,roadLocation,isFree)){
+			return "Failure";
+		}
+		List<Road> roads = games.get(currentGameID).getServerModel().getClientModel().getMap().getRoads();
+		List<VertexObject> settlements = games.get(currentGameID).getServerModel().getClientModel().getMap().getSettlements();
+		if(isFree && settlements.size() <= 4 && roads.size() < 4){
+			games.get(currentGameID).getServerModel().getClientModel().getTurnTracker().setStatus("FirstRound");
+		}else if(isFree && settlements.size() <= 8 && roads.size() < 8){
+			games.get(currentGameID).getServerModel().getClientModel().getTurnTracker().setStatus("SecondRound");
+		}
 
 		GameMap map = games.get(currentGameID).getServerModel().getClientModel().getMap();
 
@@ -426,7 +448,7 @@ public class ServerFacade implements IFacade{
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "Failure";
 	}
 
 	@Override
@@ -434,6 +456,10 @@ public class ServerFacade implements IFacade{
 		free = free.toLowerCase();
 		boolean isFree = free.equals("true");
 
+		if(!games.get(currentGameID).getServerModel().getClientModel().
+				canBuildSettlement(playerIndex,vertexLocation,isFree)){
+			return "Failure";
+		}
 		if(!isFree){
 			try {
 				games.get(currentGameID).getServerModel().addResource("wheat",1);
@@ -460,13 +486,15 @@ public class ServerFacade implements IFacade{
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "Failure";
 	}
 
 	@Override
 	public String buildCity(VertexLocation vertexLocation) {
 
-
+		if(!games.get(currentGameID).getServerModel().getClientModel().canBuildCity(playerIndex,vertexLocation)){
+			return "Failure";
+		}
 		try {
 			games.get(currentGameID).getServerModel().addResource("wheat",2);
 			games.get(currentGameID).getServerModel().addResource("ore",3);
@@ -500,7 +528,7 @@ public class ServerFacade implements IFacade{
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "Failure";
 	}
 
 	@Override
@@ -518,12 +546,15 @@ public class ServerFacade implements IFacade{
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "Failure";
 	}
 
 	@Override
 	public String maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
 
+		if(!games.get(currentGameID).getServerModel().getClientModel().canMaritimeTrade(playerIndex,inputResource)){
+			return "Failure";
+		}
 		try {
 			games.get(currentGameID).getServerModel().addResource(inputResource.toString(),ratio);
 			games.get(currentGameID).getServerModel().removeResource(outputResource.toString(),1);
@@ -535,17 +566,73 @@ public class ServerFacade implements IFacade{
 			e.printStackTrace();
 		}
 
-		return null;
+		return "Failure";
 	}
 
 	@Override
 	public String robPlayer(int victimIndex, HexLocation location) {
-		return null;
+
+		if (games.get(currentGameID).getServerModel().getClientModel().canRobPlayer(victimIndex)) {
+
+			switch (games.get(currentGameID).getServerModel().getClientModel().getPlayers()[victimIndex].robPlayer()) {
+
+				case WOOD:
+					games.get(currentGameID).getServerModel().getClientModel().getPlayers()[playerIndex].
+							getResources().addResource("wood",1);
+					break;
+				case BRICK:
+					games.get(currentGameID).getServerModel().getClientModel().getPlayers()[playerIndex].
+							getResources().addResource("brick",1);
+					break;
+				case SHEEP:
+					games.get(currentGameID).getServerModel().getClientModel().getPlayers()[playerIndex].
+							getResources().addResource("sheep",1);
+					break;
+				case WHEAT:
+					games.get(currentGameID).getServerModel().getClientModel().getPlayers()[playerIndex].
+							getResources().addResource("wheat",1);
+					break;
+				case ORE:
+					games.get(currentGameID).getServerModel().getClientModel().getPlayers()[playerIndex].
+							getResources().addResource("ore",1);
+					break;
+			}
+
+
+			try {
+				games.get(currentGameID).getServerModel().getClientModel().setVersion(
+						games.get(currentGameID).getServerModel().getClientModel().getVersion() +1);
+				games.get(currentGameID).getServerModel().getClientModel().getMap().setRobber(location);
+				return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
+			} catch (ClientException e) {
+				e.printStackTrace();
+			}
+		}
+		return "Failure";
+
 	}
 
 	@Override
 	public String finishTurn() {
-		return null;
+
+		Game currentGame = games.get(currentGameID);
+		int nextPlayer;
+		if(playerIndex == 3){
+			nextPlayer = 0;
+		}else{
+			nextPlayer = playerIndex + 1;
+		}
+		currentGame.getServerModel().getClientModel().getTurnTracker().setCurrentTurn(nextPlayer);
+		currentGame.getServerModel().getClientModel().getTurnTracker().setStatus("Rolling");
+
+		games.set(currentGameID,currentGame);
+
+		try {
+			return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return "Failure";
 	}
 
 	@Override
@@ -579,15 +666,7 @@ public class ServerFacade implements IFacade{
 	}
 
 
-	public String getModel(){
-		try {
 
-			return converter.serialize(this.games.get(currentGameID).getServerModel().getClientModel());
-		} catch (ClientException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	public void storeCommand(ICatanCommand command){
 		//TODO: Auto-generated method stub
@@ -595,8 +674,13 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String gamesModel() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+
+			return converter.serialize(this.games.get(currentGameID).getServerModel().getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return "Failure";
 	}
 	public List<Game> getGames() {
 		return games;

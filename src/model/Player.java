@@ -2,6 +2,7 @@ package model;
 
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
 import state.FirstRoundState;
 import state.SecondRoundState;
 
@@ -445,6 +446,28 @@ public class Player {
 		victoryPoints = (2 * (4 - cities)) + (5 - settlements) + monuments;
 
 		return victoryPoints;
+	}
+
+	public ResourceType robPlayer(){
+		if(resources.getTotal() >0){
+			if(resources.getBrick() > 0){
+				resources.setBrick(resources.getBrick()-1);
+				return ResourceType.BRICK;
+			}else if(resources.getOre() > 0){
+				resources.setOre(resources.getOre()-1);
+				return ResourceType.ORE;
+			}else if(resources.getSheep() > 0){
+				resources.setSheep(resources.getSheep()-1);
+				return ResourceType.SHEEP;
+			}else if(resources.getWheat() > 0){
+				resources.setWheat(resources.getWheat()-1);
+				return ResourceType.WHEAT;
+			}else if(resources.getWood() > 0){
+				resources.setWood(resources.getWood()-1);
+				return ResourceType.WOOD;
+			}
+		}
+		return  null;
 	}
 	
 	/**
