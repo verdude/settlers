@@ -55,6 +55,6 @@ public class Game {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 }
