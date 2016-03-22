@@ -51,7 +51,7 @@ public class User {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 		setUserCookie = ServerFacade.getSingleton().getUsers().size() + "";
-		return Response.ok().header("Set-cookie", setUserCookie).entity("{\"error\" : \"Unimplemented\"}").build();
+		return Response.serverError().header("Set-cookie", setUserCookie).entity(response).build();
 	}
 
 	/**
@@ -72,17 +72,13 @@ public class User {
 		JSONObject body = new JSONObject(request);
 		String username = body.get("username").toString();
 		String password = body.get("password").toString();
-		String repeatedPassword = body.get("repeatPassword").toString();
-		if (!password.equals(repeatedPassword)) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("Invalid Request").build();
+
+		ICatanCommand register = new UserRegisterCommand(username, password);
+		String response = register.execute(ServerFacade.getSingleton());
+		if (response.contains("Success")) {
+			return Response.ok().entity(response).build();
 		} else {
-			ICatanCommand register = new UserRegisterCommand(username, password);
-			String response = register.execute(ServerFacade.getSingleton());
-			if (response.contains("Success")) {
-				return Response.ok().entity(response).build();
-			} else {
-				return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response).build();
-			}
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response).build();
 		}
 	}
 }
