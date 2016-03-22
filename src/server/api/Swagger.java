@@ -27,7 +27,12 @@ public class Swagger {
 			if(path.isEmpty()) {
 				throw new FileNotFoundException();
 			}
-			return new FileInputStream(path);
+			if(path.contains("data")) {
+				return new FileInputStream(path + ".json");
+			}
+			else {
+				return new FileInputStream(path);
+			}
 		} catch (FileNotFoundException e) {
 			return new FileInputStream("docs/api/view/index.html");
 		}
