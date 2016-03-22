@@ -96,6 +96,25 @@ public class ResourceList {
 		return total;
 	}
 
+	public void addResource(String resource, int amount){
+		switch (resource.toLowerCase()){
+			case "brick":
+				brick += amount;
+				break;
+			case "ore":
+				ore += amount;
+				break;
+			case "sheep":
+				sheep += amount;
+				break;
+			case "wheat":
+				wheat += amount;
+				break;
+			case "wood":
+				wood += amount;
+
+		}
+	}
 	
 
 }

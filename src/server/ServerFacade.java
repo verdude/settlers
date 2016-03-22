@@ -7,6 +7,7 @@ import model.*;
 import server.model.Game;
 import server.model.ServerModel;
 import server.model.User;
+import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.locations.*;
 
@@ -25,17 +26,13 @@ import java.util.List;
 public class ServerFacade implements IFacade{
 
 	private static ServerFacade singleton;
-	//The gameId will be the integer that points to a particular game
 	private List<Game> games;
 	private List<User> users;
-	private ServerModel serverModel;
 	private Converter converter;
 	private List<User> loggedInUsers;
 
 
 	private int currentGameID;
-
-
 	private int playerIndex;
 
 
@@ -48,7 +45,6 @@ public class ServerFacade implements IFacade{
 	private ServerFacade(){
 		this.games = new ArrayList<>();
 		this.users = new ArrayList<>();
-		this.serverModel = new ServerModel();
 		this.converter = new Converter();
 		this.loggedInUsers = new ArrayList<>();
 
@@ -82,7 +78,6 @@ public class ServerFacade implements IFacade{
 		}
 		User newUser = new User(username,password,users.size());
 		users.add(newUser);
-		loggedInUsers.add(newUser);
 
 		return "Success";
 }
@@ -93,7 +88,7 @@ public class ServerFacade implements IFacade{
 		List<PlayerInfo> playersInfo = new ArrayList<>();
 		int playerIndex = 0;
 
-		for(Player player : serverModel.getClientModel().getPlayers()){
+		for(Player player : games.get(currentGameID).getServerModel().getClientModel().getPlayers()){
 			PlayerInfo playerInfo = new PlayerInfo();
 			playerInfo.setPlayerIndex(playerIndex);
 			playerIndex++;
@@ -180,14 +175,28 @@ public class ServerFacade implements IFacade{
 		}
 		color = color.toLowerCase();
 
-		Game desiredGame = null;
-		for (int i = 0; i < games.size(); i++){
-			if(games.get(i).getGameID() == ID){
-				desiredGame = games.get(i);
-			}
-		}
-		//How can I know who the player is that is logged in right now so I can properly add them to the game
+		Player player = games.get(currentGameID).getServerModel().getClientModel().getPlayers()[playerIndex];
 
+		player.setColor(CatanColor.BLUE.fromString(color.toLowerCase()));
+
+		games.get(ID).getServerModel().getClientModel().getPlayers()[playerIndex] = player;
+
+//		boolean added = false;
+//		for (int i = 0; i < games.size(); i++){
+//			if(games.get(i).getGameID() == ID){
+//				desiredGame = games.get(i);
+//				Player[] players = desiredGame.getServerModel().getClientModel().getPlayers();
+//				for(int j = 0; j < players.length; j++){
+//					if(players[j] == null && !added){
+//						players[j] = player;
+//						added = true;
+//					}else if(players[j].getPlayerID() == player.getPlayerID()){
+//
+//					}
+//				}
+//			}
+//		}
+		response = "Success";
 		return response;
 	}
 
@@ -203,7 +212,7 @@ public class ServerFacade implements IFacade{
 		String fileName = name + ".txt";
 		try {
 			out = new PrintWriter("/saves/" + fileName);
-			model =converter.serialize(this.serverModel);
+			model =converter.serialize(this.games.get(currentGameID).getServerModel());
 			out.println(model);
 			out.close();
 
@@ -224,10 +233,11 @@ public class ServerFacade implements IFacade{
 
 	public String sendChat(int playerIndex, String message) {
 		MessageLine messageLine = new MessageLine(message,Integer.toString(playerIndex));
-		this.serverModel.getClientModel().getChat().getLines().add(messageLine);
+		this.games.get(currentGameID).getServerModel().getClientModel().getChat().getLines().add(messageLine);
 		try {
-			serverModel.getClientModel().setVersion(serverModel.getClientModel().getVersion() +1);
-			return converter.serialize(this.serverModel.getClientModel());
+			games.get(currentGameID).getServerModel().getClientModel().setVersion(
+					games.get(currentGameID).getServerModel().getClientModel().getVersion() +1);
+			return converter.serialize(this.games.get(currentGameID).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -248,9 +258,14 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String rollNumber(int number) {
-		List<Hex> hexList = serverModel.getClientModel().getMap().getHexes();
 
-		for(VertexObject setttlement : serverModel.getClientModel().getMap().getSettlements()){
+		Game currentGame = games.get(currentGameID);
+		Player player  = currentGame.getServerModel().getClientModel().getPlayers()[playerIndex];
+
+
+		List<Hex> hexList = games.get(currentGameID).getServerModel().getClientModel().getMap().getHexes();
+
+		for(VertexObject setttlement : games.get(currentGameID).getServerModel().getClientModel().getMap().getSettlements()){
 			VertexDirection settDirec = setttlement.getVertexLocation().getNormalizedLocation().getDirection();
 			HexLocation settHexLoc = setttlement.getVertexLocation().getNormalizedLocation().getHexLoc();
 			HexLocation northNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.North);
@@ -260,28 +275,123 @@ public class ServerFacade implements IFacade{
 
 			switch (settDirec){
 				case NorthWest:
-					for(Hex hex : hexList){
-						if(settHexLoc.equals(hex.getLocation()) && hex.getNumber() == number){
+					for(Hex hex : hexList) {
 
-						}
-						if(hex.getLocation().equals(northNeighbor) && hex.getNumber() == number){
+						try {
+							if (settHexLoc.equals(hex.getLocation()) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 1);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 1);
+							}
+							if (hex.getLocation().equals(northNeighbor) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 1);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 1);
 
-						}
-						if(hex.getLocation().equals(northWestNeighbor) && hex.getNumber() == number){
+							}
+							if (hex.getLocation().equals(northWestNeighbor) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 1);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 1);
 
+							}
+						}catch (ClientException e){
+							e.getStackTrace();
 						}
 					}
 					break;
 				case NorthEast:
+					for(Hex hex : hexList){
+
+						try {
+							if (settHexLoc.equals(hex.getLocation()) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 1);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 1);
+							}
+							if (hex.getLocation().equals(northNeighbor) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 1);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 1);
+
+							}
+							if (hex.getLocation().equals(northEastNeighbor) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 1);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 1);
+
+							}
+						}catch (ClientException e){
+							e.getStackTrace();
+						}
+					}
+					break;
+			}
+
+
+		}
+
+		for(VertexObject city : games.get(currentGameID).getServerModel().getClientModel().getMap().getCities()){
+			VertexDirection cityDirec = city.getVertexLocation().getNormalizedLocation().getDirection();
+			HexLocation cityHexLoc = city.getVertexLocation().getNormalizedLocation().getHexLoc();
+			HexLocation northNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.North);
+			HexLocation northWestNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.NorthWest);
+			HexLocation northEastNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.NorthEast);
+
+			switch (cityDirec){
+				case NorthWest:
+					for(Hex hex : hexList){
+
+						try {
+							if (cityHexLoc.equals(hex.getLocation()) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 2);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 2);
+							}
+							if (hex.getLocation().equals(northNeighbor) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 2);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 2);
+
+							}
+							if (hex.getLocation().equals(northWestNeighbor) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 2);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 2);
+
+							}
+						}catch (ClientException e){
+							e.getStackTrace();
+						}
+					}
+					break;
+				case NorthEast:
+					for(Hex hex : hexList){
+
+						try {
+							if (cityHexLoc.equals(hex.getLocation()) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 2);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 2);
+							}
+							if (hex.getLocation().equals(northNeighbor) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 2);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 2);
+
+							}
+							if (hex.getLocation().equals(northEastNeighbor) && hex.getNumber() == number) {
+								player.getResources().addResource(hex.getResource(), 2);
+								games.get(currentGameID).getServerModel().removeResource(hex.getResource(), 2);
+
+							}
+						}catch (ClientException e){
+							e.getStackTrace();
+						}
+					}
 					break;
 			}
 		}
 
-		for(VertexObject city : serverModel.getClientModel().getMap().getCities()){
 
+		currentGame.getServerModel().getClientModel().getPlayers()[playerIndex] = player;
+		games.set(currentGameID,currentGame);
+
+
+		try {
+			return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
 		}
-
-
 		return null;
 	}
 
@@ -292,23 +402,27 @@ public class ServerFacade implements IFacade{
 		boolean isFree = free.equals("true");
 
 
-		GameMap map = serverModel.getClientModel().getMap();
+		GameMap map = games.get(currentGameID).getServerModel().getClientModel().getMap();
 
-		map.getRoads().add(new Road(roadLocation));
-		serverModel.getClientModel().setMap(map);
+		Road newRoad = new Road(roadLocation);
+		newRoad.setOwner(playerIndex);
+		map.getRoads().add(newRoad);
+
+		games.get(currentGameID).getServerModel().getClientModel().setMap(map);
 		if(!isFree){
 			try {
-				serverModel.addResource("brick",1);
-				serverModel.addResource("wood",1);
+				games.get(currentGameID).getServerModel().addResource("brick",1);
+				games.get(currentGameID).getServerModel().addResource("wood",1);
 
 			} catch (ClientException e) {
 				e.printStackTrace();
 			}
 		}
 		try {
-			serverModel.getClientModel().setVersion(serverModel.getClientModel().getVersion() +1);
+			games.get(currentGameID).getServerModel().getClientModel().setVersion(
+					games.get(currentGameID).getServerModel().getClientModel().getVersion() +1);
 
-			return converter.serialize(this.serverModel.getClientModel());
+			return converter.serialize(this.games.get(currentGameID).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -322,25 +436,27 @@ public class ServerFacade implements IFacade{
 
 		if(!isFree){
 			try {
-				serverModel.addResource("wheat",1);
-				serverModel.addResource("brick",1);
-				serverModel.addResource("wood",1);
-				serverModel.addResource("sheep",1);
+				games.get(currentGameID).getServerModel().addResource("wheat",1);
+				games.get(currentGameID).getServerModel().addResource("brick",1);
+				games.get(currentGameID).getServerModel().addResource("wood",1);
+				games.get(currentGameID).getServerModel().addResource("sheep",1);
 			} catch (ClientException e) {
 				e.printStackTrace();
 			}
 		}
 
-		GameMap map = serverModel.getClientModel().getMap();
+		GameMap map = games.get(currentGameID).getServerModel().getClientModel().getMap();
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setVertexLocation(vertexLocation);
+		vertexObject.setOwner(playerIndex);
+
 		map.getSettlements().add(vertexObject);
-		serverModel.getClientModel().setMap(map);
+		games.get(currentGameID).getServerModel().getClientModel().setMap(map);
 
 		try {
-			serverModel.getClientModel().setVersion(serverModel.getClientModel().getVersion() +1);
+			games.get(currentGameID).getServerModel().getClientModel().setVersion(games.get(currentGameID).getServerModel().getClientModel().getVersion() +1);
 
-			return converter.serialize(serverModel.getClientModel());
+			return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -352,16 +468,17 @@ public class ServerFacade implements IFacade{
 
 
 		try {
-			serverModel.addResource("wheat",2);
-			serverModel.addResource("ore",3);
+			games.get(currentGameID).getServerModel().addResource("wheat",2);
+			games.get(currentGameID).getServerModel().addResource("ore",3);
 
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
 
 
-		GameMap map = serverModel.getClientModel().getMap();
+		GameMap map = games.get(currentGameID).getServerModel().getClientModel().getMap();
 		VertexObject vertexObject = new VertexObject();
+		vertexObject.setOwner(playerIndex);
 		vertexObject.setVertexLocation(vertexLocation);
 		map.getCities().add(vertexObject);
 		//Removes the settlement from the settlement list since it is being replaced with a city in the same spot
@@ -373,12 +490,13 @@ public class ServerFacade implements IFacade{
 				break;
 			}
 		}
-		serverModel.getClientModel().setMap(map);
+		games.get(currentGameID).getServerModel().getClientModel().setMap(map);
 
 		try {
-			serverModel.getClientModel().setVersion(serverModel.getClientModel().getVersion() +1);
+			games.get(currentGameID).getServerModel().getClientModel().setVersion(
+					games.get(currentGameID).getServerModel().getClientModel().getVersion() +1);
 
-			return converter.serialize(serverModel.getClientModel());
+			return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -387,15 +505,16 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String offerTrade(TradeOffer offer) {
-		serverModel.getClientModel().getTradeOffer().setOffer(offer.getOffer());
-		serverModel.getClientModel().getTradeOffer().setReceiver(offer.getReceiver());
-		serverModel.getClientModel().getTradeOffer().setSender(offer.getSender());
+		games.get(currentGameID).getServerModel().getClientModel().getTradeOffer().setOffer(offer.getOffer());
+		games.get(currentGameID).getServerModel().getClientModel().getTradeOffer().setReceiver(offer.getReceiver());
+		games.get(currentGameID).getServerModel().getClientModel().getTradeOffer().setSender(offer.getSender());
 
 
 		try {
-			serverModel.getClientModel().setVersion(serverModel.getClientModel().getVersion() +1);
+			games.get(currentGameID).getServerModel().getClientModel().setVersion(
+					games.get(currentGameID).getServerModel().getClientModel().getVersion() +1);
 
-			return converter.serialize(serverModel.getClientModel());
+			return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -406,11 +525,12 @@ public class ServerFacade implements IFacade{
 	public String maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
 
 		try {
-			serverModel.addResource(inputResource.toString(),ratio);
-			serverModel.removeResource(outputResource.toString(),1);
-			serverModel.getClientModel().setVersion(serverModel.getClientModel().getVersion() +1);
+			games.get(currentGameID).getServerModel().addResource(inputResource.toString(),ratio);
+			games.get(currentGameID).getServerModel().removeResource(outputResource.toString(),1);
+			games.get(currentGameID).getServerModel().getClientModel().setVersion(
+					games.get(currentGameID).getServerModel().getClientModel().getVersion() +1);
 
-			return converter.serialize(serverModel.getClientModel());
+			return converter.serialize(games.get(currentGameID).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -462,7 +582,7 @@ public class ServerFacade implements IFacade{
 	public String getModel(){
 		try {
 
-			return converter.serialize(this.serverModel.getClientModel());
+			return converter.serialize(this.games.get(currentGameID).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
@@ -472,7 +592,12 @@ public class ServerFacade implements IFacade{
 	public void storeCommand(ICatanCommand command){
 		//TODO: Auto-generated method stub
 	}
-	
+
+	@Override
+	public String gamesModel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	public List<Game> getGames() {
 		return games;
 	}
@@ -490,19 +615,6 @@ public class ServerFacade implements IFacade{
 	}
 
 
-	public ServerModel getServerModel() {
-		return serverModel;
-	}
-
-	public void setServerModel(ServerModel serverModel) {
-		this.serverModel = serverModel;
-	}
-
-	@Override
-	public String gamesModel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	public List<User> getLoggedInUsers() {
 		return loggedInUsers;
 	}
@@ -545,7 +657,6 @@ public class ServerFacade implements IFacade{
 		}
 		return null;
 	}
-
 
 
 }

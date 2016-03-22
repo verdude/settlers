@@ -2,7 +2,7 @@ package shared.definitions;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.awt.Color;
+import java.awt.*;
 
 public enum CatanColor
 {
@@ -43,6 +43,31 @@ public enum CatanColor
 	public Color getJavaColor()
 	{
 		return color;
+	}
+	public CatanColor fromString(String color){
+		switch (color){
+			case "red":
+				return CatanColor.RED;
+			case "orange":
+				return CatanColor.ORANGE;
+			case "yellow":
+				return CatanColor.YELLOW;
+			case "blue":
+				return CatanColor.BLUE;
+			case "green":
+				return CatanColor.GREEN;
+			case "purple":
+				return CatanColor.PURPLE;
+			case "puce":
+				return CatanColor.PUCE;
+			case "white":
+				return CatanColor.WHITE;
+			case "brown":
+				return CatanColor.BROWN;
+			default:
+				return null;
+
+		}
 	}
 }
 
