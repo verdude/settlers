@@ -22,7 +22,7 @@ import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
  * @author S Jacob Powell
  *
  */
-@Path("user")
+@Path("/user")
 public class User {
 	/**
 	 * Logs the user in setting cookies etc.
@@ -33,7 +33,7 @@ public class User {
 	 */
 	@POST
 	@Path("/login")
-	@Produces({MediaType.TEXT_PLAIN})
+	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response login(
 			String request
@@ -42,16 +42,13 @@ public class User {
 		JSONObject body = new JSONObject(request);
 		String username = body.get("username").toString();
 		String password = body.get("password").toString();
-		if(username.isEmpty() || password.isEmpty()) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("Invalid Request").build();
-		}
 		ICatanCommand login = new UserLoginCommand(username, password);
 		String response = login.execute(ServerFacade.getSingleton());
-		if(response.contains("error")) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		if(response.contains("Failed")) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("\""+response+"\"").build();
 		}
 		setUserCookie = ServerFacade.getSingleton().getUsers().size() + "";
-		return Response.serverError().header("Set-cookie", setUserCookie).entity(response).build();
+		return Response.ok().header("Set-cookie", setUserCookie).entity("\""+response+"\"").build();
 	}
 
 	/**
@@ -64,11 +61,12 @@ public class User {
 	//The register command simply creates a new user, it does not log the user in and therefore does not set a cookie
 	@POST
 	@Path("/register")
-	@Produces({MediaType.TEXT_PLAIN})
+	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response register(
 			String request
 			) {
+		System.out.println("Messed up something really simple");
 		JSONObject body = new JSONObject(request);
 		String username = body.get("username").toString();
 		String password = body.get("password").toString();
@@ -76,9 +74,9 @@ public class User {
 		ICatanCommand register = new UserRegisterCommand(username, password);
 		String response = register.execute(ServerFacade.getSingleton());
 		if (response.contains("Success")) {
-			return Response.ok().entity(response).build();
+			return Response.ok().entity("\""+response+"\"").build();
 		} else {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("\""+response+"\"").build();
 		}
 	}
 }

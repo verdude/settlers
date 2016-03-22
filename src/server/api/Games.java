@@ -40,13 +40,14 @@ public class Games {
 			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
-		String setGameCookie = "";
 		ServerFacade.getSingleton().setPlayerIndex(Integer.parseInt(userCookieString));
+		String setGameCookie = "";
 		JSONObject body = new JSONObject(request);
 		int id = body.getInt("id");
 		String color = body.getString("color");
 		GamesJoinCommand joinCommand = new GamesJoinCommand(id, color);
 		String result = joinCommand.execute(ServerFacade.getSingleton());
+		// TODO need to get the game id from the joinCommand result and then update the facade.
 		if (result.contains("The player could not be added to the specified game.")) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(result).build();
 		}
@@ -67,6 +68,7 @@ public class Games {
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		GamesListCommand list = new GamesListCommand();
+		ServerFacade.getSingleton().setPlayerIndex(Integer.parseInt(userCookieString));
 		String result = list.execute(ServerFacade.getSingleton());
 		return Response.ok().entity(result).build();
 	}
@@ -92,6 +94,8 @@ public class Games {
 		boolean randomNumbers = body.getBoolean("randomNumbers");
 		boolean randomPorts = body.getBoolean("randomPorts");
 		String gameName = body.getString("name");
+
+		ServerFacade.getSingleton().setPlayerIndex(Integer.parseInt(userCookieString));
 
 		GamesCreateCommand createCommand = new GamesCreateCommand(randomTiles, randomNumbers, randomPorts, gameName);
 		String result = createCommand.execute(ServerFacade.getSingleton());
