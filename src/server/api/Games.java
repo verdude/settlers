@@ -1,5 +1,11 @@
 package server.api;
 
+import org.json.JSONObject;
+import server.ServerFacade;
+import server.commands.GamesCreateCommand;
+import server.commands.GamesJoinCommand;
+import server.commands.GamesListCommand;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
@@ -28,21 +34,29 @@ public class Games {
 	 */
 	@POST
 	@Path("/join")
-	@Produces({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.TEXT_PLAIN})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response join(
 			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		String setGameCookie = "";
-		return Response.ok().header("Set-cookie", setGameCookie).entity("{\"error\" : \"Unimplemented\"}").build();
+		ServerFacade.getSingleton().setPlayerIndex(Integer.parseInt(userCookieString));
+		JSONObject body = new JSONObject(request);
+		int id = body.getInt("id");
+		String color = body.getString("color");
+		GamesJoinCommand joinCommand = new GamesJoinCommand(id, color);
+		String result = joinCommand.execute(ServerFacade.getSingleton());
+		if (result.contains("The player could not be added to the specified game.")) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(result).build();
+		}
+		return Response.ok().header("Set-cookie", setGameCookie).entity(result).build();
 	}
 
 	/**
 	 * Gets a list of all of the current games
 	 * @pre The server is running
 	 * @post The list of games is returned
-	 * @param request The request body is injected into this String
 	 * @param userCookieString The cookie is placed in this string
 	 * @return The list of current games
 	 */
@@ -52,26 +66,9 @@ public class Games {
 	public Response list(
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
-	}
-
-	/**
-	 * Gets the latest model if there was an update
-	 * @pre A game is joined
-	 * @post The model or "true" is returned
-	 * @param request The request body is injected into this String
-	 * @param userCookieString The cookie is placed in this string
-	 * @return The model, if there is a newer version, "true" otherwise
-	 */
-	@POST
-	@Path("/model")
-	@Produces({MediaType.APPLICATION_JSON})
-	@Consumes({MediaType.APPLICATION_JSON})
-	public Response model(
-			String request,
-			@CookieParam(value = "catan.user") String userCookieString
-			) {
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		GamesListCommand list = new GamesListCommand();
+		String result = list.execute(ServerFacade.getSingleton());
+		return Response.ok().entity(result).build();
 	}
 
 	/**
@@ -90,7 +87,18 @@ public class Games {
 			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+		boolean randomTiles = body.getBoolean("randomTiles");
+		boolean randomNumbers = body.getBoolean("randomNumbers");
+		boolean randomPorts = body.getBoolean("randomPorts");
+		String gameName = body.getString("name");
+
+		GamesCreateCommand createCommand = new GamesCreateCommand(randomTiles, randomNumbers, randomPorts, gameName);
+		String result = createCommand.execute(ServerFacade.getSingleton());
+		if (result.equals("Invalid request")) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(result).build();
+		}
+		return Response.ok().entity(result).build();
 	}
 
 }
