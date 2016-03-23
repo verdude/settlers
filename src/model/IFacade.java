@@ -89,6 +89,13 @@ public interface IFacade {
 	public abstract String sendChat(int playerIndex, String message);
 
 	/**
+	 * Gets the model.
+	 * @param version
+	 * @return
+     */
+	public abstract String gamesModel(int version);
+
+	/**
 	 * Accept a trade that has been presented
 	 * @param willAccept Whether the player accepted the trade
 	 * @pre The corresponding "canDo" method returns true.

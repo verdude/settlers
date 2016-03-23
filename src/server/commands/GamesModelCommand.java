@@ -27,7 +27,7 @@ public class GamesModelCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		String response = facade.gamesModel();
+		String response = facade.gamesModel(version<0?0:version);
 		
 		// TODO: on success, store this command in database
 		

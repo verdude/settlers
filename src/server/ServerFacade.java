@@ -756,6 +756,19 @@ public class ServerFacade implements IFacade{
 		//TODO: Auto-generated method stub
 	}
 
+	public String gamesModel(int version) {
+		try {
+			if (version < games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion()) {
+				return converter.serialize(this.games.get(gameIdAndIndex).getServerModel().getClientModel());
+			} else {
+				return "true";
+			}
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return "Failure";
+	}
+
 	@Override
 	public String gamesModel() {
 		try {
