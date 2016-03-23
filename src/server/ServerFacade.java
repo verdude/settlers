@@ -129,7 +129,7 @@ public class ServerFacade implements IFacade{
 		randomPorts = randomPorts.toLowerCase();
 
 		boolean validInputTiles = false;
-		boolean validIputNumbers = false;
+		boolean validInputNumbers = false;
 		boolean validInputPorts = false;
 
 		boolean randomTilesBool = randomTiles.matches("true");
@@ -142,13 +142,13 @@ public class ServerFacade implements IFacade{
 		boolean randomNumbersBool = randomNumbers.matches("true");
 		newGame.setRandomNumbers(randomNumbersBool);
 		if(randomNumbersBool || randomNumbers.matches("false")){
-			validIputNumbers = true;
+			validInputNumbers = true;
 		}
 
 		boolean randomPortsBool = randomPorts.matches("true");
 		newGame.setRandomPorts(randomPortsBool);
 		if(randomPortsBool || randomPorts.matches("false")){
-			validInputTiles = true;
+			validInputPorts = true;
 		}
 
 
@@ -159,7 +159,7 @@ public class ServerFacade implements IFacade{
 		gameInfo.setPlayers(new ArrayList<PlayerInfo>());
 
 		String response = "Invalid request";
-		if(validInputPorts && validInputTiles && validIputNumbers){
+		if(validInputPorts && validInputTiles && validInputNumbers){
 			try {
 				response =  converter.serialize(gameInfo);
 				games.add(newGame);

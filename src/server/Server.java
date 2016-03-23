@@ -44,12 +44,15 @@ public class Server {
 		System.out.println("Debug user created as Sam, sam.");
 		userLogin("Sam", "sam");
 		System.out.println("Debug user logged in as Sam, sam.");
-		post("/games/create", "{" +
-				"  \"randomTiles\": true,\n" +
-				"  \"randomNumbers\": true,\n" +
-				"  \"randomPorts\": true,\n" +
-				"  \"name\": \"Test game\"\n" +
+		String create = post("/games/create", "{" +
+				"  \"randomTiles\": true," +
+				"  \"randomNumbers\": true," +
+				"  \"randomPorts\": true," +
+				"  \"name\": \"Test game\"" +
 				"}");
+		System.out.println("Just created a game: " + create);
+		String list = get("/games/list");
+		System.out.println("Gameslist : " + list);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,19 +76,19 @@ public class Server {
 		return hostName;
 	}
 
-
 	private static String post(String endPoint, String data)
 	{
 		try {
 			byte[] postData = data.getBytes(StandardCharsets.UTF_8);
 			int postDataLength = postData.length;
-			HttpURLConnection conn= (HttpURLConnection) new URL("localhost:8081" + endPoint).openConnection();
+			HttpURLConnection conn= (HttpURLConnection) new URL("http://localhost:8081" + endPoint).openConnection();
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Type", "application/json");
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
+			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie + "; catan.game=" + gameID);
 			conn.setUseCaches(false);
 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 			wr.write(postData);
@@ -106,11 +109,11 @@ public class Server {
 		try {
 			byte[] postData = ("{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}").getBytes(StandardCharsets.UTF_8);
 			int postDataLength = postData.length;
-			HttpURLConnection conn= (HttpURLConnection) new URL("localhost:8081/user/login").openConnection();
+			HttpURLConnection conn= (HttpURLConnection) new URL("http://localhost:8081/user/login").openConnection();
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Type", "application/json");
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
 			conn.setUseCaches(false);
@@ -136,11 +139,11 @@ public class Server {
 		try {
 			byte[] postData = ("{\"id\": \"" + id + "\", \"color\": \"" + color + "\"}").getBytes(StandardCharsets.UTF_8);
 			int postDataLength = postData.length;
-			HttpURLConnection conn= (HttpURLConnection) new URL("localhost:8081/games/join").openConnection();
+			HttpURLConnection conn= (HttpURLConnection) new URL("http://localhost:8081/games/join").openConnection();
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Type", "application/json");
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
 			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie);
@@ -151,6 +154,31 @@ public class Server {
 			String line;
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			gameID = conn.getHeaderField("Set-cookie").split(";")[0].split("catan.game=")[1];
+			while ((line = reader.readLine()) != null) {
+				response.append(line);
+			}
+			return response.toString();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return "Error";
+		}
+	}
+
+	private static String get(String endPoint)
+	{
+		try {
+			HttpURLConnection conn= (HttpURLConnection) new URL("http://localhost:8081" + endPoint).openConnection();
+			conn.setDoOutput(true);
+			conn.setInstanceFollowRedirects(false);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("charset", "utf-8");
+			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie + "; catan.game=" + gameID);
+			conn.setUseCaches(false);
+
+			StringBuilder response = new StringBuilder();
+			String line;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((line = reader.readLine()) != null) {
 				response.append(line);
 			}
