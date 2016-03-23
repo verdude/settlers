@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URLDecoder;
 
 /**
  * This class represents all of the moves endpoints
@@ -39,6 +40,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		JSONObject body = new JSONObject(request);
 		ICatanCommand acceptTrade = new MovesAcceptTradeCommand(Integer.parseInt(userCookieString), body.get("willAccept").toString().toLowerCase().contains("true"));
 		String response = acceptTrade.execute(ServerFacade.getSingleton());
@@ -65,6 +71,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -85,6 +96,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -105,6 +121,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -125,6 +146,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -145,6 +171,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -165,6 +196,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -185,6 +221,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -205,6 +246,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -225,6 +271,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -245,6 +296,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -265,6 +321,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -285,6 +346,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -305,6 +371,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -325,6 +396,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -345,6 +421,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -365,6 +446,11 @@ public class Moves {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 

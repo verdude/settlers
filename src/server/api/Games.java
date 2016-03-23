@@ -41,7 +41,11 @@ public class Games {
 			String request,
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
-		ServerFacade.getSingleton().setPlayerIndex(Integer.parseInt(userCookieString));
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		
 		String setGameCookie = "";
 		JSONObject body = new JSONObject(request);
 		int id = body.getInt("id");
@@ -72,8 +76,6 @@ public class Games {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		System.out.println(cookie.getInt("playerID"));
-
 		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
 		String result = list.execute(ServerFacade.getSingleton());
 		return Response.ok().entity(result).build();
@@ -101,7 +103,10 @@ public class Games {
 		boolean randomPorts = body.getBoolean("randomPorts");
 		String gameName = body.getString("name");
 
-		ServerFacade.getSingleton().setPlayerIndex(Integer.parseInt(userCookieString));
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
 
 		GamesCreateCommand createCommand = new GamesCreateCommand(randomTiles, randomNumbers, randomPorts, gameName);
 		String result = createCommand.execute(ServerFacade.getSingleton());

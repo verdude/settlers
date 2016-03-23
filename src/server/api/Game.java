@@ -1,5 +1,7 @@
 package server.api;
 
+import org.json.JSONObject;
+import server.ServerFacade;
 import server.commands.GameAddAICommand;
 
 import javax.ws.rs.Consumes;
@@ -10,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URLDecoder;
 
 /**
  * This class represents all of the game endpoints
@@ -37,6 +40,11 @@ public class Game {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 
@@ -55,6 +63,11 @@ public class Game {
 			@CookieParam(value = "catan.user") String userCookieString,
 			@CookieParam(value = "catan.game") String gameCookieString
 			) {
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+
 		return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\" : \"Unimplemented\"}").build();
 	}
 }
