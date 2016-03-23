@@ -141,6 +141,9 @@ public class ServerFacade implements IFacade{
 
 		boolean randomTilesBool = randomTiles.matches("true");
 		newGame.setRandomTiles(randomTilesBool);
+		if(randomTilesBool){
+			newGame.getServerModel().getClientModel().getMap().shuffleHexes();
+		}
 		if(randomTilesBool || randomTiles.matches("false")){
 			validInputTiles = true;
 		}
@@ -154,6 +157,9 @@ public class ServerFacade implements IFacade{
 
 		boolean randomPortsBool = randomPorts.matches("true");
 		newGame.setRandomPorts(randomPortsBool);
+		if(randomTilesBool){
+			newGame.getServerModel().getClientModel().getMap().shufflePorts();
+		}
 		if(randomPortsBool || randomPorts.matches("false")){
 			validInputPorts = true;
 		}
@@ -666,7 +672,54 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String buyDevCard() {
-		return null;
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuyDevCard(playerIdAndUserIndex)){
+			return "Failure";
+		}
+
+		try {
+			games.get(gameIdAndIndex).getServerModel().addResource("ore",1);
+			games.get(gameIdAndIndex).getServerModel().addResource("sheep",1);
+			games.get(gameIdAndIndex).getServerModel().addResource("wheat",1);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		DevCardList devCardList = games.get(gameIdAndIndex).getServerModel().getDevCards();
+		if(devCardList.getTotal() < 1){
+			return "Failure";
+		}else if(devCardList.getYearOfPlenty() > 0){
+			devCardList.setYearOfPlenty(devCardList.getYearOfPlenty() -1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setYearOfPlenty(newDevs.getYearOfPlenty()+1);
+
+		}else if(devCardList.getRoadBuilding() > 0){
+			devCardList.setRoadBuilding(devCardList.getRoadBuilding() -1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setRoadBuilding(newDevs.getRoadBuilding()+1);
+
+		}else if(devCardList.getMonument() > 0){
+			devCardList.setMonument(devCardList.getMonument() -1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setMonument(newDevs.getMonument()+1);
+
+		}else if(devCardList.getMonopoly() > 0){
+			devCardList.setMonopoly(devCardList.getMonopoly() -1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setMonopoly(newDevs.getMonopoly()+1);
+
+		}else if(devCardList.getSoldier() > 0){
+			devCardList.setSoldier(devCardList.getSoldier() -1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setSoldier(newDevs.getSoldier()+1);
+
+		}
+
+		try {
+			return Converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return "Failure";
+
 	}
 
 	@Override

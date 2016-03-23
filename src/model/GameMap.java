@@ -3,7 +3,9 @@ package model;
 import shared.locations.HexLocation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class GameMap {
 	int 				radius;				
@@ -14,18 +16,44 @@ public class GameMap {
 	List<VertexObject> 	settlements;
 	List<VertexObject> 	cities;
 	
-	
+
+
 	
 	// Methods
-	public GameMap(){
-		hexes 		= new ArrayList<Hex>();
-		ports 		= new ArrayList<Port>();
-		roads 		= new ArrayList<Road>();
+	public GameMap() {
+		hexes = new ArrayList<Hex>();
+		ports = new ArrayList<Port>();
+		roads = new ArrayList<Road>();
 		settlements = new ArrayList<VertexObject>();
-		cities 		= new ArrayList<VertexObject>();
-		robber		= new HexLocation(0, 0);
+		cities = new ArrayList<VertexObject>();
+		robber = new HexLocation(0, 0);
+		String jsonData = "[{\"location\":{\"x\":0,\"y\":-2},\"number\":0},{\"location\":{\"x\":1,\"y\":-2},\"resource\":\"brick\",\"number\":4},{\"location\":{\"x\":2,\"y\":-2},\"resource\":\"wood\",\"number\":11},{\"location\":{\"x\":-1,\"y\":-1},\"resource\":\"brick\",\"number\":8},{\"location\":{\"x\":0,\"y\":-1},\"resource\":\"wood\",\"number\":3},{\"location\":{\"x\":1,\"y\":-1},\"resource\":\"ore\",\"number\":9},{\"location\":{\"x\":2,\"y\":-1},\"resource\":\"sheep\",\"number\":12},{\"location\":{\"x\":-2,\"y\":0},\"resource\":\"ore\",\"number\":5},{\"location\":{\"x\":-1,\"y\":0},\"resource\":\"sheep\",\"number\":10},{\"location\":{\"x\":0,\"y\":0},\"resource\":\"wheat\",\"number\":11},{\"location\":{\"x\":1,\"y\":0},\"resource\":\"brick\",\"number\":5},{\"location\":{\"x\":2,\"y\":0},\"resource\":\"wheat\",\"number\":6},{\"location\":{\"x\":-2,\"y\":1},\"resource\":\"wheat\",\"number\":2},{\"location\":{\"x\":-1,\"y\":1},\"resource\":\"sheep\",\"number\":9},{\"location\":{\"x\":0,\"y\":1},\"resource\":\"wood\",\"number\":4},{\"location\":{\"x\":1,\"y\":1},\"resource\":\"sheep\",\"number\":10},{\"location\":{\"x\":-2,\"y\":2},\"resource\":\"wood\",\"number\":6},{\"location\":{\"x\":-1,\"y\":2},\"resource\":\"ore\",\"number\":3},{\"location\":{\"x\":0,\"y\":2},\"resource\":\"wheat\",\"number\":8}]";
+
+		Hex[] hexesArray = Converter.deserialize(jsonData, Hex[].class);
+
+		ArrayList<Hex> convertedHexes = new ArrayList<Hex>();
+
+		for (Hex hex : hexesArray) {
+			convertedHexes.add(hex);
+		}
+		hexes = convertedHexes;
+
+
+
 	}
-	
+
+	public  void shuffleHexes()
+	{
+		long seed = System.nanoTime();
+		Collections.shuffle(hexes, new Random(seed));
+	}
+	public  void shufflePorts()
+	{
+		long seed = System.nanoTime();
+		Collections.shuffle(ports, new Random(seed));
+	}
+
+
 	/** Moves the robber to a different position on the map
 	 * @pre 	The current player must have rolled a 7;
 	 * @post 	The robber will be moved to a different position on the map

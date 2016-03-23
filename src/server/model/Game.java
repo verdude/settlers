@@ -19,6 +19,7 @@ public class Game {
         this.gameID = gameID;
         this.title = title;
         this.serverModel = serverModel;
+
     }
 
 

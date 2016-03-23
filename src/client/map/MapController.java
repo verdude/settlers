@@ -1,34 +1,22 @@
 package client.map;
 
-import java.awt.EventQueue;
-import java.util.ArrayList;
-import java.util.List;
-
-import model.ClientException;
-import model.ClientFacade;
-import model.ClientModel;
-import model.GameMap;
-import model.Hex;
-import model.Player;
-import model.Port;
-import model.Road;
-import model.VertexObject;
+import client.base.Controller;
+import client.base.IObserver;
+import client.data.RobPlayerInfo;
+import model.*;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import shared.locations.*;
 import state.Context;
 import state.FirstRoundState;
 import state.RobbingState;
 import state.SecondRoundState;
-import client.base.Controller;
-import client.base.IObserver;
-import client.data.RobPlayerInfo;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -81,6 +69,7 @@ public class MapController extends Controller implements IMapController,IObserve
 				try {
 					map = ClientFacade.getSingleton().getClientModel().getMap();
 					hexes = map.getHexes();
+					//System.out.print("--------------\n" +new Converter().serialize(hexes)+ "--------------\n" );
 					ports = map.getPorts();
 
 					if(hexes.size() < 1){
