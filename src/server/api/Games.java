@@ -35,7 +35,7 @@ public class Games {
 	 */
 	@POST
 	@Path("/join")
-	@Produces({MediaType.TEXT_PLAIN})
+	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response join(
 			String request,
@@ -58,9 +58,9 @@ public class Games {
 		String result = joinCommand.execute(ServerFacade.getSingleton());
 		// TODO need to get the game id from the joinCommand result and then update the facade.
 		if (result.contains("The player could not be added to the specified game.")) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(result).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("\""+result+"\"").build();
 		}
-		return Response.ok().header("Set-cookie", setGameCookie).entity(result).build();
+		return Response.ok().header("Set-cookie", setGameCookie).entity("\""+result+"\"").build();
 	}
 
 	/**

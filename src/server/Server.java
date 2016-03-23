@@ -89,6 +89,11 @@ public class Server {
 
 		list = get("/games/list");
 		System.out.println("Gameslist : " + list);
+
+		post("/user/register", "{\"username\": \"Brooke\", \"password\" : \"brooke\"}");
+		System.out.println("Debug user created as Brooke, brooke.");
+		userLogin("Brooke", "brooke");
+		System.out.println("Debug user logged in as Brooke, brooke.");
 	}
 
 	@SuppressWarnings("unchecked")

@@ -191,6 +191,9 @@ public class ServerFacade implements IFacade{
 				}
 				count++;
 			}
+			if(count >= 4) {
+				return response;
+			}
 		}
 		Player player = new Player(users.get(count).getUsername(), CatanColor.BLUE.fromString(color.toLowerCase()), count);
 		player.setPlayerID(playerIdAndUserIndex);
