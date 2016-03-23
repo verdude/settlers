@@ -40,60 +40,59 @@ public class Server {
 		HttpServer HTTPServer = createHttpServer();
 		HTTPServer.start();
 		System.out.println("Server started.");
-//		auto_test_endpoints();
+		auto_test_endpoints();
 	}
 
 	private static void auto_test_endpoints() {
 		post("/user/register", "{\"username\": \"Sam\", \"password\" : \"sam\"}");
-		System.out.println("Debug user created as Sam, sam.");
 		userLogin("Sam", "sam");
-		System.out.println("Debug user logged in as Sam, sam.");
-		String create = post("/games/create", "{" +
+		post("/games/create", "{" +
 				"  \"randomTiles\": true," +
 				"  \"randomNumbers\": true," +
 				"  \"randomPorts\": true," +
 				"  \"name\": \"Test game\"" +
 				"}");
-		System.out.println("Just created a game: " + create);
-		String list = get("/games/list");
-		System.out.println("Gameslist : " + list);
-		String join = post("/games/join", "{" +
+
+		post("/games/join", "{" +
 				"  \"id\": 0," +
 				"  \"color\": \"puce\"" +
 				"}");
-		System.out.println("Join game 0 as puce: " + join);
-
-		list = get("/games/list");
-		System.out.println("Gameslist : " + list);
-
-		join = post("/games/join", "{" +
+		post("/user/register", "{\"username\": \"Brooke\", \"password\" : \"brooke\"}");
+		userLogin("Brooke", "brooke");
+		post("/games/join", "{" +
 				"  \"id\": 0," +
 				"  \"color\": \"green\"" +
 				"}");
-		System.out.println("Join game 0 as puce: " + join);
-
-		list = get("/games/list");
-		System.out.println("Gameslist : " + list);
-
 		post("/user/register", "{\"username\": \"b\", \"password\" : \"b\"}");
-		System.out.println("Debug user created as b, b.");
-
 		userLogin("b", "b");
-		System.out.println("Debug user logged in as b, b.");
-
-		join = post("/games/join", "{" +
+		post("/games/join", "{" +
 				"  \"id\": 0," +
-				"  \"color\": \"puce\"" +
+				"  \"color\": \"red\"" +
 				"}");
-		System.out.println("Joined: " + join);
+		post("/user/register", "{\"username\": \"e\", \"password\" : \"e\"}");
+		userLogin("e", "e");
+		post("/games/join", "{" +
+				"  \"id\": 0," +
+				"  \"color\": \"blue\"" +
+				"}");
+		System.out.println("");
+		String chatResponse = post("moves/sendChat", "{" +
+				"\"playerIndex\": " + 0 +
+				",\"content\": \"Sam says Hi\""+
+				"}");
 
-		list = get("/games/list");
-		System.out.println("Gameslist : " + list);
+		System.out.println(chatResponse);
 
-		post("/user/register", "{\"username\": \"Brooke\", \"password\" : \"brooke\"}");
-		System.out.println("Debug user created as Brooke, brooke.");
-		userLogin("Brooke", "brooke");
-		System.out.println("Debug user logged in as Brooke, brooke.");
+		String response = get("game/model?version=2");
+		System.out.println(response);
+		response = get("game/model?version=2");
+		System.out.println(response);
+		response = get("game/model?version=2");
+		System.out.println(response);
+		response = get("game/model?version=2");
+		System.out.println(response);
+		response = get("game/model?version=2");
+		System.out.println(response);
 	}
 
 	@SuppressWarnings("unchecked")
