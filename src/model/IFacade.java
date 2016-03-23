@@ -75,7 +75,7 @@ public interface IFacade {
 	 * @param name Name of the game to load
 	 * @pre The corresponding "canDo" method returns true.
 	 * @post A game state from the server is cloned and put into action.
-	 * @return Whether it was successful
+	 * @return the json representation of the clientModel
 	 */
 	public abstract String gamesLoad(String name);
 

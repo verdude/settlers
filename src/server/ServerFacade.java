@@ -11,8 +11,12 @@ import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.locations.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -205,6 +209,16 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String gamesSave(int ID, String name) {
+
+
+		File file = new File( System.getProperty("user.dir") + "/saves/");
+		if (!file.exists()) {
+			if (file.mkdir()) {
+				System.out.println("Directory is created!");
+			} else {
+				System.out.println("Failed to create directory!");
+			}
+		}
 		String response = "Invalid request";
 		if(ID >= 0 && ID < games.size() && name != null){
 			response = "Success";
@@ -214,8 +228,8 @@ public class ServerFacade implements IFacade{
 		String model = null;
 		String fileName = name + ".txt";
 		try {
-			out = new PrintWriter("/saves/" + fileName);
-			model =converter.serialize(this.games.get(gameIdAndIndex).getServerModel());
+			out = new PrintWriter( System.getProperty("user.dir") + "/saves/" + fileName);
+			model = converter.serialize(this.games.get(gameIdAndIndex).getServerModel());
 			out.println(model);
 			out.close();
 
@@ -228,8 +242,20 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String gamesLoad(String name) {
-		//need to figure this out
-		return "Failure";
+		List<String> lines = null;
+		try {
+			lines = Files.readAllLines(Paths.get(System.getProperty("user.dir") + "/saves/" + name));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		File file = new File( System.getProperty("user.dir") + "/saves/" + name);
+		if (file.exists()) {
+			return lines.get(0);
+
+		}else{
+			return "Failure";
+		}
+
 	}
 
 	@Override
