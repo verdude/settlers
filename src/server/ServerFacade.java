@@ -608,6 +608,9 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String robPlayer(int victimIndex, HexLocation location) {
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canRobPlayer(victimIndex)){
+			return "Failure";
+		}
 
 		if (games.get(gameIdAndIndex).getServerModel().getClientModel().canRobPlayer(victimIndex)) {
 
@@ -652,6 +655,9 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String finishTurn() {
 
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canFinishTurn(playerIdAndUserIndex)){
+			return "Failure";
+		}
 		Game currentGame = games.get(gameIdAndIndex);
 		int nextPlayer;
 		if(playerIdAndUserIndex == 3){
@@ -726,17 +732,34 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String soldier(int victimIndex, HexLocation location) {
-		return null;
+		return robPlayer(victimIndex,location);
 	}
 
 	@Override
 	public String yearOfPlenty(ResourceType resource1, ResourceType resource2) {
-		return null;
+
+
+		try {
+			games.get(gameIdAndIndex).getServerModel().removeResource(resource1.toString(),1);
+			games.get(gameIdAndIndex).getServerModel().removeResource(resource2.toString(),1);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getResources().addResource(resource1.toString(),1);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getResources().addResource(resource2.toString(),1);
+
+			return Converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+
+		return "Failure";
 	}
 
 	@Override
 	public String roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
-		return null;
+
+		buildRoad(spot1,"true");
+
+		return buildRoad(spot2,"true");
 	}
 
 	@Override
