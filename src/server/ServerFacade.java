@@ -193,6 +193,7 @@ public class ServerFacade implements IFacade{
 			}
 		}
 		Player player = new Player(users.get(count).getUsername(), CatanColor.BLUE.fromString(color.toLowerCase()), count);
+		player.setPlayerID(playerIdAndUserIndex);
 		games.get(ID).getServerModel().getClientModel().getPlayers()[count] = player;
 
 		response = "Success";

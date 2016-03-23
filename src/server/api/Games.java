@@ -46,9 +46,13 @@ public class Games {
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
+
 		String setGameCookie = "";
 		JSONObject body = new JSONObject(request);
 		int id = body.getInt("id");
+
+		ServerFacade.getSingleton().setGameIdAndIndex(id);
+
 		String color = body.getString("color");
 		GamesJoinCommand joinCommand = new GamesJoinCommand(id, color);
 		String result = joinCommand.execute(ServerFacade.getSingleton());

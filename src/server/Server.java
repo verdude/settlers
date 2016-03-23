@@ -74,6 +74,21 @@ public class Server {
 
 		list = get("/games/list");
 		System.out.println("Gameslist : " + list);
+
+		post("/user/register", "{\"username\": \"b\", \"password\" : \"b\"}");
+		System.out.println("Debug user created as b, b.");
+
+		userLogin("b", "b");
+		System.out.println("Debug user logged in as b, b.");
+
+		join = post("/games/join", "{" +
+				"  \"id\": 0," +
+				"  \"color\": \"puce\"" +
+				"}");
+		System.out.println("Joined: " + join);
+
+		list = get("/games/list");
+		System.out.println("Gameslist : " + list);
 	}
 
 	@SuppressWarnings("unchecked")
