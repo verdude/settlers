@@ -40,6 +40,10 @@ public class Server {
 		HttpServer HTTPServer = createHttpServer();
 		HTTPServer.start();
 		System.out.println("Server started.");
+		auto_test_endpoints();
+	}
+
+	private static void auto_test_endpoints() {
 		post("/user/register", "{\"username\": \"Sam\", \"password\" : \"sam\"}");
 		System.out.println("Debug user created as Sam, sam.");
 		userLogin("Sam", "sam");
@@ -52,6 +56,23 @@ public class Server {
 				"}");
 		System.out.println("Just created a game: " + create);
 		String list = get("/games/list");
+		System.out.println("Gameslist : " + list);
+		String join = post("/games/join", "{" +
+				"  \"id\": 0," +
+				"  \"color\": \"puce\"" +
+				"}");
+		System.out.println("Join game 0 as puce: " + join);
+
+		list = get("/games/list");
+		System.out.println("Gameslist : " + list);
+
+		join = post("/games/join", "{" +
+				"  \"id\": 0," +
+				"  \"color\": \"green\"" +
+				"}");
+		System.out.println("Join game 0 as puce: " + join);
+
+		list = get("/games/list");
 		System.out.println("Gameslist : " + list);
 	}
 

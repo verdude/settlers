@@ -119,7 +119,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../client/turntracker/ITurnTrackerView.html#initializePlayer(int, java.lang.String, shared.definitions.CatanColor)">initializePlayer</a></strong>(int&nbsp;playerIndex,
+<td class="colLast"><code><strong><a href="../../client/turntracker/ITurnTrackerView.html#initializePlayer(int, java.lang.String, shared.definitions.CatanColor)">initializePlayer</a></strong>(int&nbsp;playerIdAndUserIndex,
                 java.lang.String&nbsp;playerName,
                 <a href="../../shared/definitions/CatanColor.html" title="enum in shared.definitions">CatanColor</a>&nbsp;playerColor)</code>
 <div class="block">Initializes the properties for a player in the turn tracker display</div>
@@ -140,7 +140,7 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../client/turntracker/ITurnTrackerView.html#updatePlayer(int, int, boolean, boolean, boolean)">updatePlayer</a></strong>(int&nbsp;playerIndex,
+<td class="colLast"><code><strong><a href="../../client/turntracker/ITurnTrackerView.html#updatePlayer(int, int, boolean, boolean, boolean)">updatePlayer</a></strong>(int&nbsp;playerIdAndUserIndex,
             int&nbsp;points,
             boolean&nbsp;highlight,
             boolean&nbsp;largestArmy,
@@ -187,11 +187,11 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <ul class="blockList">
 <li class="blockList">
 <h4>initializePlayer</h4>
-<pre>void&nbsp;initializePlayer(int&nbsp;playerIndex,
+<pre>void&nbsp;initializePlayer(int&nbsp;playerIdAndUserIndex,
                     java.lang.String&nbsp;playerName,
                     <a href="../../shared/definitions/CatanColor.html" title="enum in shared.definitions">CatanColor</a>&nbsp;playerColor)</pre>
 <div class="block">Initializes the properties for a player in the turn tracker display</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>playerIndex</code> - The player's index (0 - 3)</dd><dd><code>playerName</code> - The player's name</dd><dd><code>playerColor</code> - The player's color</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>playerIdAndUserIndex</code> - The player's index (0 - 3)</dd><dd><code>playerName</code> - The player's name</dd><dd><code>playerColor</code> - The player's color</dd></dl>
 </li>
 </ul>
 <a name="updatePlayer(int, int, boolean, boolean, boolean)">
@@ -200,13 +200,13 @@ extends <a href="../../client/base/IView.html" title="interface in client.base">
 <ul class="blockList">
 <li class="blockList">
 <h4>updatePlayer</h4>
-<pre>void&nbsp;updatePlayer(int&nbsp;playerIndex,
+<pre>void&nbsp;updatePlayer(int&nbsp;playerIdAndUserIndex,
                 int&nbsp;points,
                 boolean&nbsp;highlight,
                 boolean&nbsp;largestArmy,
                 boolean&nbsp;longestRoad)</pre>
 <div class="block">Updates the properties for a player in the turn tracker display</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>playerIndex</code> - The player's index (0-3)</dd><dd><code>points</code> - The number of victory points the player has</dd><dd><code>highlight</code> - Whether or not the player's display should be highlighted</dd><dd><code>largestArmy</code> - Whether or not the player has the largest army</dd><dd><code>longestRoad</code> - Whether or not the player has the longest road</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>playerIdAndUserIndex</code> - The player's index (0-3)</dd><dd><code>points</code> - The number of victory points the player has</dd><dd><code>highlight</code> - Whether or not the player's display should be highlighted</dd><dd><code>largestArmy</code> - Whether or not the player has the largest army</dd><dd><code>longestRoad</code> - Whether or not the player has the longest road</dd></dl>
 </li>
 </ul>
 <a name="updateGameState(java.lang.String, boolean)">

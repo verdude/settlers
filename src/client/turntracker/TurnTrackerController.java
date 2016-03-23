@@ -62,12 +62,12 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 
 //			int victoryPoints = 0;
-//			Player localPlayer = ClientFacade.getSingleton().getClientModel().getPlayers()[ClientFacade.getSingleton().getLocalPlayer().getPlayerIndex()];
+//			Player localPlayer = ClientFacade.getSingleton().getClientModel().getPlayers()[ClientFacade.getSingleton().getLocalPlayer().getPlayerIdAndUserIndex()];
 //			victoryPoints = localPlayer.getVictoryPoints();
-//			if(ClientFacade.getSingleton().getClientModel().getTurnTracker().getLargestArmy() == localPlayer.getPlayerIndex()){
+//			if(ClientFacade.getSingleton().getClientModel().getTurnTracker().getLargestArmy() == localPlayer.getPlayerIdAndUserIndex()){
 //				victoryPoints += 2;
 //			}
-//			if(ClientFacade.getSingleton().getClientModel().getTurnTracker().getLongestRoad() == localPlayer.getPlayerIndex()){
+//			if(ClientFacade.getSingleton().getClientModel().getTurnTracker().getLongestRoad() == localPlayer.getPlayerIdAndUserIndex()){
 //				victoryPoints += 2;
 //			}
 

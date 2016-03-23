@@ -2,7 +2,6 @@ package server.api;
 
 import org.json.JSONObject;
 import server.ServerFacade;
-import server.commands.GameAddAICommand;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
@@ -43,7 +42,7 @@ public class Game {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -66,7 +65,7 @@ public class Game {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\" : \"Unimplemented\"}").build();
 	}

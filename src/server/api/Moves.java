@@ -43,7 +43,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		JSONObject body = new JSONObject(request);
 		ICatanCommand acceptTrade = new MovesAcceptTradeCommand(Integer.parseInt(userCookieString), body.get("willAccept").toString().toLowerCase().contains("true"));
@@ -74,7 +74,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -99,7 +99,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -124,7 +124,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -149,7 +149,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -174,7 +174,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -199,7 +199,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -224,7 +224,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -249,7 +249,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -274,7 +274,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -299,7 +299,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -324,7 +324,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -349,7 +349,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -374,7 +374,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -399,7 +399,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -424,7 +424,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}
@@ -449,7 +449,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
-		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
 		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
 	}

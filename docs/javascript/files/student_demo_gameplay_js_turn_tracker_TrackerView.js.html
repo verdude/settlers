@@ -292,7 +292,7 @@ catan.turntracker.View = (function turntracker_namespace(){
 		 * updates the information for a player in the player table.
 		 * @method updatePlayer
 		 * @param {Object} updates an object with the updates for a single player
-		 * @param {int} updates.playerIndex the player to update
+		 * @param {int} updates.playerIdAndUserIndex the player to update
 		 * @param {int} updates.score the score
 		 * @param {Boolean} updates.highlight whether the player&#x27;s display box should be highlighted
 		 * @param {Boolean} updates.army whether the player has the largest army award
@@ -300,7 +300,7 @@ catan.turntracker.View = (function turntracker_namespace(){
 		 * @return void
 		 */
 		TurnTrackerView.prototype.updatePlayer = function(updates){
-			var playerDisplay = this.getDisplayElems()[updates.playerIndex];
+			var playerDisplay = this.getDisplayElems()[updates.playerIdAndUserIndex];
 				playerDisplay.setScore(updates.score);
 				playerDisplay.setHighlight(updates.highlight);
 				playerDisplay.setLargestArmy(updates.army);

@@ -33,7 +33,7 @@ public class DiscardController extends Controller implements IDiscardController 
 		ResourceList resourceList = null;
 //		try {
 //			//localPlayer = ClientFacade.getSingleton().getLocalPlayer();
-//			//resourceList = ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayer.getPlayerIndex()].getResources();
+//			//resourceList = ClientFacade.getSingleton().getClientModel().getPlayers()[localPlayer.getPlayerIdAndUserIndex()].getResources();
 //
 //		} catch (ClientException e) {
 //			e.printStackTrace();

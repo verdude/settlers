@@ -238,7 +238,7 @@ implements <a href="../../client/turntracker/ITurnTrackerView.html" title="inter
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../client/turntracker/TurnTrackerView.html#initializePlayer(int, java.lang.String, shared.definitions.CatanColor)">initializePlayer</a></strong>(int&nbsp;playerIndex,
+<td class="colLast"><code><strong><a href="../../client/turntracker/TurnTrackerView.html#initializePlayer(int, java.lang.String, shared.definitions.CatanColor)">initializePlayer</a></strong>(int&nbsp;playerIdAndUserIndex,
                 java.lang.String&nbsp;playerName,
                 <a href="../../shared/definitions/CatanColor.html" title="enum in shared.definitions">CatanColor</a>&nbsp;playerColor)</code>
 <div class="block">Initializes the properties for a player in the turn tracker display</div>
@@ -265,7 +265,7 @@ implements <a href="../../client/turntracker/ITurnTrackerView.html" title="inter
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../client/turntracker/TurnTrackerView.html#updatePlayer(int, int, boolean, boolean, boolean)">updatePlayer</a></strong>(int&nbsp;playerIndex,
+<td class="colLast"><code><strong><a href="../../client/turntracker/TurnTrackerView.html#updatePlayer(int, int, boolean, boolean, boolean)">updatePlayer</a></strong>(int&nbsp;playerIdAndUserIndex,
             int&nbsp;points,
             boolean&nbsp;highlight,
             boolean&nbsp;largestArmy,
@@ -396,7 +396,7 @@ implements <a href="../../client/turntracker/ITurnTrackerView.html" title="inter
 <ul class="blockList">
 <li class="blockList">
 <h4>initializePlayer</h4>
-<pre>public&nbsp;void&nbsp;initializePlayer(int&nbsp;playerIndex,
+<pre>public&nbsp;void&nbsp;initializePlayer(int&nbsp;playerIdAndUserIndex,
                     java.lang.String&nbsp;playerName,
                     <a href="../../shared/definitions/CatanColor.html" title="enum in shared.definitions">CatanColor</a>&nbsp;playerColor)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../client/turntracker/ITurnTrackerView.html#initializePlayer(int, java.lang.String, shared.definitions.CatanColor)">ITurnTrackerView</a></code></strong></div>
@@ -404,7 +404,7 @@ implements <a href="../../client/turntracker/ITurnTrackerView.html" title="inter
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/turntracker/ITurnTrackerView.html#initializePlayer(int, java.lang.String, shared.definitions.CatanColor)">initializePlayer</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/turntracker/ITurnTrackerView.html" title="interface in client.turntracker">ITurnTrackerView</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>playerIndex</code> - The player's index (0 - 3)</dd><dd><code>playerName</code> - The player's name</dd><dd><code>playerColor</code> - The player's color</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>playerIdAndUserIndex</code> - The player's index (0 - 3)</dd><dd><code>playerName</code> - The player's name</dd><dd><code>playerColor</code> - The player's color</dd></dl>
 </li>
 </ul>
 <a name="updatePlayer(int, int, boolean, boolean, boolean)">
@@ -413,7 +413,7 @@ implements <a href="../../client/turntracker/ITurnTrackerView.html" title="inter
 <ul class="blockList">
 <li class="blockList">
 <h4>updatePlayer</h4>
-<pre>public&nbsp;void&nbsp;updatePlayer(int&nbsp;playerIndex,
+<pre>public&nbsp;void&nbsp;updatePlayer(int&nbsp;playerIdAndUserIndex,
                 int&nbsp;points,
                 boolean&nbsp;highlight,
                 boolean&nbsp;largestArmy,
@@ -423,7 +423,7 @@ implements <a href="../../client/turntracker/ITurnTrackerView.html" title="inter
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../client/turntracker/ITurnTrackerView.html#updatePlayer(int, int, boolean, boolean, boolean)">updatePlayer</a></code>&nbsp;in interface&nbsp;<code><a href="../../client/turntracker/ITurnTrackerView.html" title="interface in client.turntracker">ITurnTrackerView</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>playerIndex</code> - The player's index (0-3)</dd><dd><code>points</code> - The number of victory points the player has</dd><dd><code>highlight</code> - Whether or not the player's display should be highlighted</dd><dd><code>largestArmy</code> - Whether or not the player has the largest army</dd><dd><code>longestRoad</code> - Whether or not the player has the longest road</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>playerIdAndUserIndex</code> - The player's index (0-3)</dd><dd><code>points</code> - The number of victory points the player has</dd><dd><code>highlight</code> - Whether or not the player's display should be highlighted</dd><dd><code>largestArmy</code> - Whether or not the player has the largest army</dd><dd><code>longestRoad</code> - Whether or not the player has the longest road</dd></dl>
 </li>
 </ul>
 <a name="updateGameState(java.lang.String, boolean)">
