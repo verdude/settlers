@@ -88,6 +88,9 @@ public class ServerFacade implements IFacade{
 		List<PlayerInfo> playersInfo = new ArrayList<>();
 		int playerIndex = 0;
 
+		if (games.size() == 0) {
+			return "{}";
+		}
 		for(Player player : games.get(currentGameID).getServerModel().getClientModel().getPlayers()){
 			PlayerInfo playerInfo = new PlayerInfo();
 			playerInfo.setPlayerIndex(playerIndex);

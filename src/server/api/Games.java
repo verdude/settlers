@@ -14,13 +14,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URLDecoder;
 
 /**
  * This class represents all of the games endpoints
  * @author S Jacob Powell
  *
  */
-@Path("games")
+@Path("/games")
 @Produces(MediaType.APPLICATION_JSON)
 public class Games {
 
@@ -68,7 +69,12 @@ public class Games {
 			@CookieParam(value = "catan.user") String userCookieString
 			) {
 		GamesListCommand list = new GamesListCommand();
-		ServerFacade.getSingleton().setPlayerIndex(Integer.parseInt(userCookieString));
+		String decodedCookie = URLDecoder.decode(userCookieString);
+		JSONObject cookie = new JSONObject(decodedCookie);
+
+		System.out.println(cookie.getInt("playerID"));
+
+		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
 		String result = list.execute(ServerFacade.getSingleton());
 		return Response.ok().entity(result).build();
 	}

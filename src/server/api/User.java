@@ -15,6 +15,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
 
 /**
@@ -47,7 +50,11 @@ public class User {
 		if(response.contains("Failed")) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("\""+response+"\"").build();
 		}
-		setUserCookie = ServerFacade.getSingleton().getUsers().size() + "";
+		JSONObject cookie = new JSONObject();
+		cookie.put("name", username);
+		cookie.put("password", password);
+		cookie.put("playerID", ServerFacade.getSingleton().getUsers().size());
+		setUserCookie = "catan.user="+ URLEncoder.encode(cookie.toString()) + ";Path=/;";
 		return Response.ok().header("Set-cookie", setUserCookie).entity("\""+response+"\"").build();
 	}
 
