@@ -170,7 +170,7 @@ public class Server {
 			HttpURLConnection conn= (HttpURLConnection) new URL("http://localhost:8081" + endPoint).openConnection();
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
-			conn.setRequestMethod("POST");
+			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Content-Type", "application/json");
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie + "; catan.game=" + gameID);
