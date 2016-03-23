@@ -1,19 +1,17 @@
 package server;
 
+import com.sun.jersey.api.container.httpserver.HttpServerFactory;
+import com.sun.jersey.api.core.PackagesResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
+import com.sun.net.httpserver.HttpServer;
+
+import javax.ws.rs.core.UriBuilder;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
-
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.UriBuilder;
-
-import com.sun.jersey.api.container.httpserver.HttpServerFactory;
-import com.sun.jersey.api.core.PackagesResourceConfig;
-import com.sun.jersey.api.core.ResourceConfig;
-import com.sun.net.httpserver.HttpServer;
 
 /**
  * This class contains the main class for the server. Everything is run from here to start the server.
@@ -52,11 +50,8 @@ public class Server {
 				"  \"randomPorts\": true," +
 				"  \"name\": \"Test game\"" +
 				"}");
+		gamesJoin(0,"puce");
 
-		post("/games/join", "{" +
-				"  \"id\": 0," +
-				"  \"color\": \"puce\"" +
-				"}");
 		post("/user/register", "{\"username\": \"Brooke\", \"password\" : \"brooke\"}");
 		userLogin("Brooke", "brooke");
 		post("/games/join", "{" +
@@ -65,33 +60,34 @@ public class Server {
 				"}");
 		post("/user/register", "{\"username\": \"b\", \"password\" : \"b\"}");
 		userLogin("b", "b");
-		post("/games/join", "{" +
-				"  \"id\": 0," +
-				"  \"color\": \"red\"" +
-				"}");
+		gamesJoin(0,"red");
 		post("/user/register", "{\"username\": \"e\", \"password\" : \"e\"}");
 		userLogin("e", "e");
-		post("/games/join", "{" +
-				"  \"id\": 0," +
-				"  \"color\": \"blue\"" +
-				"}");
+		gamesJoin(0,"blue");
 		System.out.println("");
-		String chatResponse = post("moves/sendChat", "{" +
+		String chatResponse = post("/moves/sendChat", "{" +
 				"\"playerIndex\": " + 0 +
 				",\"content\": \"Sam says Hi\""+
 				"}");
 
+
 		System.out.println(chatResponse);
 
-		String response = get("game/model?version=2");
+		String response = get("/game/model?version=2");
 		System.out.println(response);
-		response = get("game/model?version=2");
+		 chatResponse = post("/moves/sendChat", "{" +
+				"\"playerIndex\": " + 0 +
+				",\"content\": \"Sam says Bye\""+
+				"}");
+		System.out.println(chatResponse);
+		response = get("/game/model?version=2");
+
 		System.out.println(response);
-		response = get("game/model?version=2");
+		response = get("/game/model?version=2");
 		System.out.println(response);
-		response = get("game/model?version=2");
+		response = get("/game/model?version=2");
 		System.out.println(response);
-		response = get("game/model?version=2");
+		response = get("/game/model?version=2");
 		System.out.println(response);
 	}
 

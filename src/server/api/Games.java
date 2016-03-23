@@ -56,7 +56,8 @@ public class Games {
 		String color = body.getString("color");
 		GamesJoinCommand joinCommand = new GamesJoinCommand(id, color);
 		String result = joinCommand.execute(ServerFacade.getSingleton());
-		// TODO need to get the game id from the joinCommand result and then update the facade.
+		setGameCookie = "catan.game=" + id + ";Path=/;";
+
 		if (result.contains("The player could not be added to the specified game.")) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("\""+result+"\"").build();
 		}
