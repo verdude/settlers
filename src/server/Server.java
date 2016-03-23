@@ -40,7 +40,7 @@ public class Server {
 		HttpServer HTTPServer = createHttpServer();
 		HTTPServer.start();
 		System.out.println("Server started.");
-		auto_test_endpoints();
+//		auto_test_endpoints();
 	}
 
 	private static void auto_test_endpoints() {
