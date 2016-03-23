@@ -1,10 +1,18 @@
 package server.api;
 
+import model.Converter;
+import model.TradeOffer;
 import org.json.JSONObject;
 import server.ICatanCommand;
+import server.Server;
 import server.ServerFacade;
-import server.commands.MovesAcceptTradeCommand;
+import server.commands.*;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
+import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
@@ -13,6 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
 /**
  * This class represents all of the moves endpoints
@@ -44,14 +53,15 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
 		JSONObject body = new JSONObject(request);
 		ICatanCommand acceptTrade = new MovesAcceptTradeCommand(Integer.parseInt(userCookieString), body.get("willAccept").toString().toLowerCase().contains("true"));
 		String response = acceptTrade.execute(ServerFacade.getSingleton());
 		if(response.contains("error")) {
-			return Response.serverError().build();
+			return Response.serverError().entity("\""+response+"\"").build();
 		}
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -75,8 +85,19 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesBuildCityCommand buildCityCommand = new MovesBuildCityCommand(body.getInt("playerIndex"),
+				Converter.deserialize(body.getString("vertexLocation"), VertexLocation.class));
+
+		String response = buildCityCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -100,8 +121,19 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesBuildRoadCommand buildRoadCommand = new MovesBuildRoadCommand(body.getInt("playerIndex"),
+				Converter.deserialize(body.getString("edgeLocation"), EdgeLocation.class), body.getBoolean("free"));
+
+		String response = buildRoadCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -125,8 +157,19 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesBuildSettlementCommand buildSettlementCommand = new MovesBuildSettlementCommand(body.getInt("playerIndex"),
+				Converter.deserialize(body.getString("vertexLocation"), VertexLocation.class));
+
+		String response = buildSettlementCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -150,8 +193,18 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesBuyDevCardCommand buyDevCardCommand = new MovesBuyDevCardCommand(body.getInt("playerIndex"));
+
+		String response = buyDevCardCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -175,8 +228,26 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		ResourceType[] resources = Converter.deserialize(body.getString("discardedCards"), ResourceType[].class);
+
+		ArrayList<ResourceType> convertedResources = new ArrayList<ResourceType>();
+
+		for (ResourceType curr : resources) {
+			convertedResources.add(curr);
+		}
+
+		MovesDiscardCardsCommand discardCardsCommand = new MovesDiscardCardsCommand(body.getInt("playerIndex"), convertedResources);
+
+		String response = discardCardsCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -200,8 +271,18 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesFinishTurnCommand finishTurnCommand = new MovesFinishTurnCommand(body.getInt("playerIndex"));
+
+		String response = finishTurnCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -225,8 +306,20 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesMaritimeTradeCommand movesMaritimeTradeCommand = new MovesMaritimeTradeCommand(body.getInt("playerIndex"),
+				body.getInt("ratio"), Converter.deserialize(body.getString("inputResource"), ResourceType.class),
+				Converter.deserialize(body.getString("outputResource"), ResourceType.class));
+
+		String response = movesMaritimeTradeCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -250,8 +343,19 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesMonopolyCommand monopolyCommand = new MovesMonopolyCommand(Converter.deserialize(body.getString("resource"),
+				ResourceType.class), body.getInt("playerIndex"));
+
+		String response = monopolyCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -275,8 +379,18 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesMonumentCommand monumentCommand = new MovesMonumentCommand(body.getInt("playerIndex"));
+
+		String response = monumentCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -300,8 +414,20 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesOfferTradeCommand offerTradeCommand = new MovesOfferTradeCommand(
+				Converter.deserialize(body.getString("offer"), TradeOffer.class)
+		);
+
+		String response = offerTradeCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -325,8 +451,20 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesRoadBuildingCommand roadBuildingCommand = new MovesRoadBuildingCommand(body.getInt("playerIndex"),
+				Converter.deserialize(body.getString("spot1"), EdgeLocation.class),
+				Converter.deserialize(body.getString("spot2"), EdgeLocation.class));
+
+		String response = roadBuildingCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -350,8 +488,19 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesRobPlayerCommand robPlayerCommand = new MovesRobPlayerCommand(body.getInt("playerIndex"), body.getInt("victimIndex"),
+				Converter.deserialize(body.getString("location"), HexLocation.class));
+
+		String response = robPlayerCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -375,8 +524,19 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesRollNumberCommand rollNumberCommand = new MovesRollNumberCommand(body.getInt("playerIndex"),
+				body.getInt("number"));
+
+		String response = rollNumberCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -400,8 +560,18 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesSendChatCommand sendChatCommand = new MovesSendChatCommand(body.getInt("playerIndex"), body.getString("content"));
+
+		String response = sendChatCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -425,8 +595,19 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesSoldierCommand soldierCommand = new MovesSoldierCommand(body.getInt("playerIndex"), body.getInt("victimIndex"),
+				Converter.deserialize(body.getString("location"), HexLocation.class));
+
+		String response = soldierCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 	/**
@@ -450,8 +631,22 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
-		return Response.ok().entity("{\"error\" : \"Unimplemented\"}").build();
+		JSONObject body = new JSONObject(request);
+
+		MovesYearOfPlentyCommand yearOfPlentyCommand = new MovesYearOfPlentyCommand(body.getInt("playerIndex"),
+				Converter.deserialize(body.getString("resource1"), ResourceType.class),
+				Converter.deserialize(body.getString("resource2"), ResourceType.class)
+		);
+
+		String response = yearOfPlentyCommand.execute(ServerFacade.getSingleton());
+
+		if(response.contains("error")) {
+			return Response.serverError().entity("\""+response+"\"").build();
+		}
+		return Response.ok().entity(response).build();
 	}
 
 }
+
