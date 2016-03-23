@@ -19,7 +19,7 @@ import java.net.URLDecoder;
  * @author S Jacob Powell
  *
  */
-@Path("moves")
+@Path("/moves")
 @Produces(MediaType.APPLICATION_JSON)
 public class Moves {
 

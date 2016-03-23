@@ -73,7 +73,6 @@ public class User {
 	public Response register(
 			String request
 			) {
-		System.out.println("Messed up something really simple");
 		JSONObject body = new JSONObject(request);
 		String username = body.get("username").toString();
 		String password = body.get("password").toString();

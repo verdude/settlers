@@ -19,7 +19,7 @@ import java.net.URLDecoder;
  * @author S Jacob Powell
  *
  */
-@Path("game")
+@Path("/game")
 @Produces(MediaType.APPLICATION_JSON)
 public class Game {
 

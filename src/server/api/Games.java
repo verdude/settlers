@@ -45,7 +45,7 @@ public class Games {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIndex(cookie.getInt("playerID"));
-		
+
 		String setGameCookie = "";
 		JSONObject body = new JSONObject(request);
 		int id = body.getInt("id");
