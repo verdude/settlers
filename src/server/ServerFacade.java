@@ -300,7 +300,15 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String acceptTrade(boolean willAccept) {
-		//didn't implement in our  client
+
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canAcceptTrade(playerIdAndUserIndex)){
+			return "Failure";
+		}
+		TradeOffer tradeOffer = games.get(gameIdAndIndex).getServerModel().getClientModel().getTradeOffer();
+		if(!willAccept){
+
+		}
+
 		return "Not Implemented";
 	}
 
@@ -596,6 +604,9 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String offerTrade(TradeOffer offer) {
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canOfferTrade(playerIdAndUserIndex)){
+			return "Failure";
+		}
 		games.get(gameIdAndIndex).getServerModel().getClientModel().getTradeOffer().setOffer(offer.getOffer());
 		games.get(gameIdAndIndex).getServerModel().getClientModel().getTradeOffer().setReceiver(offer.getReceiver());
 		games.get(gameIdAndIndex).getServerModel().getClientModel().getTradeOffer().setSender(offer.getSender());

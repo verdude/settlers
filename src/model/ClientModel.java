@@ -1538,7 +1538,7 @@ public class ClientModel {
 	 * @post true if the player can roll a number, false otherwise
 	 */
 	public boolean canRollNumber(int playerIndex){
-		if(turnTracker.getCurrentTurn() == playerIndex){
+		if(turnTracker.getCurrentTurn() == playerIndex && !turnTracker.getStatus().equals("FirstRound") && !turnTracker.getStatus().equals("SecondRound")){
 			return true;
 		}else{
 			return false;
