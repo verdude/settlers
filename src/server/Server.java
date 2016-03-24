@@ -4,6 +4,8 @@ import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.net.httpserver.HttpServer;
+import model.ClientFacade;
+import model.ServerProxy;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.BufferedReader;
@@ -39,6 +41,8 @@ public class Server {
 		HTTPServer.start();
 		System.out.println("Server started.");
 
+		// initialize the facade and proxy
+		ClientFacade.getSingleton(ServerProxy.getSingleton("localhost","8081"));
 		auto_test_endpoints();
 	}
 
@@ -78,17 +82,29 @@ public class Server {
 				",\"content\": \"Sam says Hi\""+
 				"}");
 		System.out.println(chatResponse);
-		//save and load testing
+		//save
 		String response = get("/game/model?version=-2000000");
 		System.out.println(response);
 		String saveResponse = post("/games/save", "{" +
 				"  \"id\": 0," +
 				"  \"name\": \"WeBeSavin\""+
 				"}");
-		System.out.println("Save resonse= " + saveResponse);
+		System.out.println("Save response= " + saveResponse);
         response = get("/game/model?version=0");
 		System.out.println(response);
 
+		System.out.println(
+				"RollNumber Response: " +
+			post("/moves/rollNumber", "{\n" +
+					"  \"playerIndex\": 0,\n" +
+					"  \"number\": 3\n" +
+					"}")
+		);
+
+		System.out.println(
+				"Finish Turn Response: " +
+			post("/moves/finishTurn", "{\"playerIndex\":0}")
+		);
 	}
 
 	@SuppressWarnings("unchecked")
