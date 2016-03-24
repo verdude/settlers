@@ -45,7 +45,7 @@ public class Server {
 
 		// initialize the facade and proxy
 		ClientFacade.getSingleton(ServerProxy.getSingleton("localhost","8081"));
-//		auto_test_endpoints();
+		auto_test_endpoints();
 	}
 
 	private static void register_basic_players() {
@@ -76,10 +76,8 @@ public class Server {
 		userLogin("b", "b");
 		gamesJoin(0,"red");
 		post("/user/register", "{\"username\": \"e\", \"password\" : \"e\"}");
-		userLogin("e", "e");
-		gamesJoin(0,"blue");
 
-		String chatResponse = post("/moves/sendChat", "{" +
+/*		String chatResponse = post("/moves/sendChat", "{" +
 				"\"playerIndex\": " + 0 +
 				",\"content\": \"Sam says Hi\""+
 				"}");
@@ -106,7 +104,7 @@ public class Server {
 		System.out.println(
 				"Finish Turn Response: " +
 			post("/moves/finishTurn", "{\"playerIndex\":0}")
-		);
+		);*/
 	}
 
 	@SuppressWarnings("unchecked")

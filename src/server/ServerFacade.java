@@ -103,7 +103,7 @@ public class ServerFacade implements IFacade{
 
 
 		if (games.size() == 0) {
-			return "[{}]";
+			return "[]";
 		}
 		int playerIndex = 0;
 		for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){
@@ -224,6 +224,7 @@ public class ServerFacade implements IFacade{
 					games.get(ID).getServerModel().getClientModel().getPlayers()[count].setColor(CatanColor.BLUE.fromString(color.toLowerCase()));
 
 					response = "Success";
+					games.get(ID).getServerModel().getClientModel().setVersion(games.get(ID).getServerModel().getClientModel().getVersion()+1);
 					return response;
 				}
 				count++;
@@ -292,7 +293,6 @@ public class ServerFacade implements IFacade{
 	}
 
 	@Override
-
 	public String sendChat(int playerIndex, String message) {
 		MessageLine messageLine = new MessageLine(message,Integer.toString(playerIndex));
 		this.games.get(gameIdAndIndex).getServerModel().getClientModel().getChat().getLines().add(messageLine);

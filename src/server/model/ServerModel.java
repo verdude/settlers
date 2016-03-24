@@ -19,7 +19,7 @@ public class ServerModel {
         this.deck = new ResourceList(ResourceList.max);
         this.devCards = new DevCardList();
         this.clientModel = new ClientModel();
-
+		this.clientModel.setVersion(0);
     }
 
     /**
