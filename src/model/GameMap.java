@@ -27,9 +27,19 @@ public class GameMap {
 		settlements = new ArrayList<VertexObject>();
 		cities = new ArrayList<VertexObject>();
 		robber = new HexLocation(0, 0);
-		String jsonData = "[{\"location\":{\"x\":0,\"y\":-2},\"number\":0},{\"location\":{\"x\":1,\"y\":-2},\"resource\":\"brick\",\"number\":4},{\"location\":{\"x\":2,\"y\":-2},\"resource\":\"wood\",\"number\":11},{\"location\":{\"x\":-1,\"y\":-1},\"resource\":\"brick\",\"number\":8},{\"location\":{\"x\":0,\"y\":-1},\"resource\":\"wood\",\"number\":3},{\"location\":{\"x\":1,\"y\":-1},\"resource\":\"ore\",\"number\":9},{\"location\":{\"x\":2,\"y\":-1},\"resource\":\"sheep\",\"number\":12},{\"location\":{\"x\":-2,\"y\":0},\"resource\":\"ore\",\"number\":5},{\"location\":{\"x\":-1,\"y\":0},\"resource\":\"sheep\",\"number\":10},{\"location\":{\"x\":0,\"y\":0},\"resource\":\"wheat\",\"number\":11},{\"location\":{\"x\":1,\"y\":0},\"resource\":\"brick\",\"number\":5},{\"location\":{\"x\":2,\"y\":0},\"resource\":\"wheat\",\"number\":6},{\"location\":{\"x\":-2,\"y\":1},\"resource\":\"wheat\",\"number\":2},{\"location\":{\"x\":-1,\"y\":1},\"resource\":\"sheep\",\"number\":9},{\"location\":{\"x\":0,\"y\":1},\"resource\":\"wood\",\"number\":4},{\"location\":{\"x\":1,\"y\":1},\"resource\":\"sheep\",\"number\":10},{\"location\":{\"x\":-2,\"y\":2},\"resource\":\"wood\",\"number\":6},{\"location\":{\"x\":-1,\"y\":2},\"resource\":\"ore\",\"number\":3},{\"location\":{\"x\":0,\"y\":2},\"resource\":\"wheat\",\"number\":8}]";
+		String jsonDataHexes = "[{\"location\":{\"x\":0,\"y\":-2},\"number\":0},{\"location\":{\"x\":1,\"y\":-2},\"resource\":\"brick\",\"number\":4},{\"location\":{\"x\":2,\"y\":-2},\"resource\":\"wood\",\"number\":11},{\"location\":{\"x\":-1,\"y\":-1},\"resource\":\"brick\",\"number\":8},{\"location\":{\"x\":0,\"y\":-1},\"resource\":\"wood\",\"number\":3},{\"location\":{\"x\":1,\"y\":-1},\"resource\":\"ore\",\"number\":9},{\"location\":{\"x\":2,\"y\":-1},\"resource\":\"sheep\",\"number\":12},{\"location\":{\"x\":-2,\"y\":0},\"resource\":\"ore\",\"number\":5},{\"location\":{\"x\":-1,\"y\":0},\"resource\":\"sheep\",\"number\":10},{\"location\":{\"x\":0,\"y\":0},\"resource\":\"wheat\",\"number\":11},{\"location\":{\"x\":1,\"y\":0},\"resource\":\"brick\",\"number\":5},{\"location\":{\"x\":2,\"y\":0},\"resource\":\"wheat\",\"number\":6},{\"location\":{\"x\":-2,\"y\":1},\"resource\":\"wheat\",\"number\":2},{\"location\":{\"x\":-1,\"y\":1},\"resource\":\"sheep\",\"number\":9},{\"location\":{\"x\":0,\"y\":1},\"resource\":\"wood\",\"number\":4},{\"location\":{\"x\":1,\"y\":1},\"resource\":\"sheep\",\"number\":10},{\"location\":{\"x\":-2,\"y\":2},\"resource\":\"wood\",\"number\":6},{\"location\":{\"x\":-1,\"y\":2},\"resource\":\"ore\",\"number\":3},{\"location\":{\"x\":0,\"y\":2},\"resource\":\"wheat\",\"number\":8}]";
 
-		Hex[] hexesArray = Converter.deserialize(jsonData, Hex[].class);
+		String jasonDataPorts = "[{\\\"location\\\":{\\\"x\\\":2,\\\"y\\\":1},\\\"direction\\\":\\\"NW\\\",\\\"ratio\\\":3.0},{\\\"resource\\\":\\\"ore\\\",\\\"location\\\":{\\\"x\\\":1,\\\"y\\\":-3},\\\"direction\\\":\\\"S\\\",\\\"ratio\\\":2.0},{\\\"resource\\\":\\\"brick\\\",\\\"location\\\":{\\\"x\\\":-2,\\\"y\\\":3},\\\"direction\\\":\\\"NE\\\",\\\"ratio\\\":2.0},{\\\"resource\\\":\\\"wheat\\\",\\\"location\\\":{\\\"x\\\":-1,\\\"y\\\":-2},\\\"direction\\\":\\\"S\\\",\\\"ratio\\\":2.0},{\\\"resource\\\":\\\"wood\\\",\\\"location\\\":{\\\"x\\\":-3,\\\"y\\\":2},\\\"direction\\\":\\\"NE\\\",\\\"ratio\\\":2.0},{\\\"location\\\":{\\\"x\\\":3,\\\"y\\\":-3},\\\"direction\\\":\\\"SW\\\",\\\"ratio\\\":3.0},{\\\"resource\\\":\\\"sheep\\\",\\\"location\\\":{\\\"x\\\":3,\\\"y\\\":-1},\\\"direction\\\":\\\"NW\\\",\\\"ratio\\\":2.0},{\\\"location\\\":{\\\"x\\\":0,\\\"y\\\":3},\\\"direction\\\":\\\"N\\\",\\\"ratio\\\":3.0},{\\\"location\\\":{\\\"x\\\":-3,\\\"y\\\":0},\\\"direction\\\":\\\"SE\\\",\\\"ratio\\\":3.0}]0\n";
+
+		Port[] portsArray = Converter.deserialize(jasonDataPorts, Port[].class);
+		ArrayList<Port> convertedPorts = new ArrayList<>();
+		for(Port p : portsArray){
+			convertedPorts.add(p);
+		}
+		ports = convertedPorts;
+
+
+		Hex[] hexesArray = Converter.deserialize(jsonDataHexes, Hex[].class);
 
 		ArrayList<Hex> convertedHexes = new ArrayList<Hex>();
 
@@ -37,6 +47,12 @@ public class GameMap {
 			convertedHexes.add(hex);
 		}
 		hexes = convertedHexes;
+		for(Hex hex: hexes){
+			if(hex.getResource() == null){
+				robber = hex.getLocation();
+			}
+		}
+
 
 
 

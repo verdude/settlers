@@ -45,7 +45,7 @@ public class Server {
 
 		// initialize the facade and proxy
 		ClientFacade.getSingleton(ServerProxy.getSingleton("localhost","8081"));
-		auto_test_endpoints();
+		//auto_test_endpoints();
 	}
 
 	private static void register_basic_players() {

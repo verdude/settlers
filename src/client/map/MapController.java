@@ -66,12 +66,17 @@ public class MapController extends Controller implements IMapController,IObserve
 				GameMap map;
 				List<Hex> hexes;
 				List<Port> ports;
+
 				try {
 					map = ClientFacade.getSingleton().getClientModel().getMap();
 					hexes = map.getHexes();
 					//System.out.print("--------------\n" +new Converter().serialize(hexes)+ "--------------\n" );
 					ports = map.getPorts();
-
+//					try {
+//						System.out.print(Converter.serialize(ports));
+//					} catch (ClientException e) {
+//						e.printStackTrace();
+//					}
 					if(hexes.size() < 1){
 						return;
 					}
