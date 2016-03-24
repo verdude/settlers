@@ -20,6 +20,7 @@ public class ServerModel {
         this.devCards = new DevCardList();
         this.clientModel = new ClientModel();
 		this.clientModel.setVersion(0);
+		this.clientModel.getTurnTracker().setStatus("FirstRound");
     }
 
     /**

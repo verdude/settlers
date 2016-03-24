@@ -45,12 +45,13 @@ public class Server {
 
 		// initialize the facade and proxy
 		ClientFacade.getSingleton(ServerProxy.getSingleton("localhost","8081"));
-		//auto_test_endpoints();
+//		auto_test_endpoints();
+		register_basic_players();
 	}
 
 	private static void register_basic_players() {
 		post("/user/register", "{\"username\": \"Sam\", \"password\" : \"sam\"}");
-		post("/user/register", "{\"username\": \"Brooke\", \"password\" : \"brooke\"}");
+		post("/user/register", "{\"username\": \"a\", \"password\" : \"a\"}");
 		post("/user/register", "{\"username\": \"b\", \"password\" : \"b\"}");
 		post("/user/register", "{\"username\": \"e\", \"password\" : \"e\"}");
 	}

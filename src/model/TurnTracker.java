@@ -7,7 +7,14 @@ public class TurnTracker {
 	private int longestRoad;// (index): The index of who has the longest road, -1 if no one has it
 	private int largestArmy;// (index): The index of who has the biggest army (3 or more), -1 if no one has it
 	
-	
+
+	public TurnTracker() {
+		this.currentTurn = 0;
+		this.status = "FirstRound";
+		this.longestRoad = -1;
+		this.largestArmy = -1;
+	}
+
 	/**
 	 * @return index of the player who's turn it is (0-3)
 	 */
