@@ -26,7 +26,7 @@ public class ClientFacade  {
 	public Context getContext() {
 		if(context == null){
 			context = new Context();
-			context.setState(new PlayingState());
+			//context.setState(new PlayingState());
 		}
 		String status = clientModel.getTurnTracker().getStatus();
 		if(status != null){
@@ -35,7 +35,9 @@ public class ClientFacade  {
 		return context;
 	}
 
-
+	public void setStatus(String status) {
+		clientModel.getTurnTracker().setStatus(status);
+	}
 
 	/**
 	 * Default Constructor

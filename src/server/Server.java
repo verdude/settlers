@@ -1,9 +1,11 @@
 package server;
 
+import com.sun.deploy.util.SessionState;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.net.httpserver.HttpServer;
+import model.ClientException;
 import model.ClientFacade;
 import model.ServerProxy;
 
@@ -43,7 +45,7 @@ public class Server {
 
 		// initialize the facade and proxy
 		ClientFacade.getSingleton(ServerProxy.getSingleton("localhost","8081"));
-		auto_test_endpoints();
+//		auto_test_endpoints();
 	}
 
 	private static void register_basic_players() {

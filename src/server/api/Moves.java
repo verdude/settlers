@@ -532,6 +532,7 @@ public class Moves {
 		MovesRollNumberCommand rollNumberCommand = new MovesRollNumberCommand(body.getInt("playerIndex"),
 				body.getInt("number"));
 
+		ServerFacade.getSingleton();
 		String response = rollNumberCommand.execute(ServerFacade.getSingleton());
 
 		if(response.contains("error")) {
