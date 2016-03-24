@@ -123,6 +123,13 @@
 				<include name="**"/>
 			</fileset>
 		</copy>
+		<mkdir dir="${java.dist}/docs"/>
+		<copy todir="${java.dist}/docs">
+			<fileset dir="${demo.direction}/docs">
+				<include name="**"/>
+			</fileset>
+		</copy>
+
  		<jar jarfile="${java.dist}/catan-client.jar" basedir="${java.build}">
 			<manifest>
 				<attribute name="Main-Class" value="client.main.Catan"/>
@@ -132,9 +139,19 @@
 		</jar>
  		<jar jarfile="${java.dist}/catan-server.jar" basedir="${java.build}">
 			<manifest>
-				<attribute name="Main-Class" value="PUT THE NAME OF YOUR SERVER'S MAIN CLASS HERE"/>
+				<attribute name="Main-Class" value="server.Server"/>
 				<attribute name="Class-Path" 
-					value="lib/gson-2.2.4.jar" />
+					value="lib/gson-2.2.4.jar 
+							lib/hamcrest-core-1.3.jar 
+							lib/jersey-core-1.19.1.jar 
+							lib/jersey-multipart-1.19.1.jar 
+							lib/jersey-server-1.19.1.jar 
+							lib/json-20140107.jar 
+							lib/jsr311-api-1.1.1.jar 
+							lib/junit-4.11.jar 
+							lib/mimepull-1.9.3.jar
+							lib/jersey-bundle-1.19.1.jar
+							" />  
 			</manifest>
 		</jar>
 	</target>

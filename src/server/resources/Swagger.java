@@ -1,4 +1,4 @@
-package server.api;
+package server.resources;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

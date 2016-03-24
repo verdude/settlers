@@ -1,4 +1,4 @@
-package server.api;
+package server.resources;
 
 import model.Converter;
 import model.TradeOffer;

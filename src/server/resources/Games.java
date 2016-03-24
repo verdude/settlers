@@ -1,4 +1,4 @@
-package server.api;
+package server.resources;
 
 import org.json.JSONObject;
 import server.ServerFacade;

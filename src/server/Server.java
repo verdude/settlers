@@ -111,7 +111,7 @@ public class Server {
 
 	@SuppressWarnings("unchecked")
 	private static HttpServer createHttpServer() throws IOException {
-		ResourceConfig ResourceConfig = new PackagesResourceConfig("server.api");
+		ResourceConfig ResourceConfig = new PackagesResourceConfig("server.resources");
 		ResourceConfig.getContainerResponseFilters().add(CORSFilter.class);
 		return HttpServerFactory.create(getURI(), ResourceConfig);
 	}
