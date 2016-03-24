@@ -4,7 +4,6 @@ import model.Converter;
 import model.TradeOffer;
 import org.json.JSONObject;
 import server.ICatanCommand;
-import server.Server;
 import server.ServerFacade;
 import server.commands.*;
 import shared.definitions.ResourceType;
@@ -12,12 +11,7 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 
-import javax.annotation.Resource;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.CookieParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URLDecoder;
@@ -127,7 +121,7 @@ public class Moves {
 		JSONObject body = new JSONObject(request);
 
 		MovesBuildRoadCommand buildRoadCommand = new MovesBuildRoadCommand(body.getInt("playerIndex"),
-				Converter.deserialize(body.getString("edgeLocation"), EdgeLocation.class), body.getBoolean("free"));
+				Converter.deserialize(body.getJSONObject("roadLocation").toString(), EdgeLocation.class), body.getBoolean("free"));
 
 		String response = buildRoadCommand.execute(ServerFacade.getSingleton());
 

@@ -978,8 +978,9 @@ public class ServerFacade implements IFacade{
 		return playerIdAndUserIndex;
 	}
 
-	public void setPlayerIdAndUserIndex(int playerIdAndUserIndex) {
-		this.playerIdAndUserIndex = playerIdAndUserIndex;
+	public void setPlayerIdAndUserIndex(int newPlayerIdAndUserIndex) {
+		playerIdAndUserIndex = newPlayerIdAndUserIndex;
+		System.out.println(playerIdAndUserIndex);
 	}
 
 	public Game getCurrentGame(int gameID){
