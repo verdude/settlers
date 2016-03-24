@@ -56,6 +56,14 @@ public class ServerFacade implements IFacade{
 
 	}
 
+	public void getContext() {
+		try {
+			ClientFacade.getSingleton().getContext();
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public String userLogin(String username, String password) {
 
@@ -95,7 +103,7 @@ public class ServerFacade implements IFacade{
 
 
 		if (games.size() == 0) {
-			return "{}";
+			return "[{}]";
 		}
 		int playerIndex = 0;
 		for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){

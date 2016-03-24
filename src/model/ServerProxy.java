@@ -99,7 +99,7 @@ public class ServerProxy implements IProxy {
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestProperty("Content-Type", "application/json"); 
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
 			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie + "; catan.game=" + gameID);
@@ -122,11 +122,11 @@ public class ServerProxy implements IProxy {
 	private String get(String endPoint)
 	{
 		try {
-			HttpURLConnection conn= (HttpURLConnection) new URL(mainURL, endPoint).openConnection();           
+			HttpURLConnection conn= (HttpURLConnection) new URL(mainURL, endPoint).openConnection();
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Content-Type", "application/json"); 
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie + "; catan.game=" + gameID);
 			conn.setUseCaches(false);
@@ -154,7 +154,7 @@ public class ServerProxy implements IProxy {
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestProperty("Content-Type", "application/json"); 
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
 			conn.setUseCaches(false);
@@ -185,7 +185,7 @@ public class ServerProxy implements IProxy {
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestProperty("Content-Type", "application/json"); 
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString( postDataLength ));
 			conn.setRequestProperty("Cookie", "catan.user=" + encodedCookie);
