@@ -8,6 +8,7 @@ import server.model.Game;
 import server.model.ServerModel;
 import server.model.User;
 import shared.definitions.CatanColor;
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.locations.*;
 
@@ -197,8 +198,24 @@ public class ServerFacade implements IFacade{
 			if(currentPlayer == null) {
 				break;
 			} else {
+
 				if(currentPlayer.getName().equals(users.get(playerIdAndUserIndex).getUsername())) {
+
+					Player loggedInPlayer = games.get(ID).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex];
+					for(Player player : games.get(ID).getServerModel().getClientModel().getPlayers()){
+						//Rejects if the player is trying to be the color of another player
+						if(player.getColor().equals(CatanColor.BLUE.fromString(color))  && player.getPlayerID() != loggedInPlayer.getPlayerID()){
+							response = "The player could not be added to the specified game.";
+							return response;
+						}
+						//Rejects incorrect spellings of colors
+						if(CatanColor.BROWN.fromString(color) == null){
+							response = "The player could not be added to the specified game.";
+							return response;						}
+					}
 					games.get(ID).getServerModel().getClientModel().getPlayers()[count].setColor(CatanColor.BLUE.fromString(color.toLowerCase()));
+
+					response = "Success";
 					return response;
 				}
 				count++;
@@ -481,6 +498,15 @@ public class ServerFacade implements IFacade{
 			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
 					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
 
+			int longestRoad = 4;
+			int longestRoadIndex = -1;
+			for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){
+				if(15 -player.getRoads() > longestRoad){
+					longestRoadIndex = player.getPlayerIndex();
+					longestRoad = 15 -player.getRoads();
+				}
+			}
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setLongestRoad(longestRoadIndex);
 			return converter.serialize(this.games.get(gameIdAndIndex).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -671,6 +697,8 @@ public class ServerFacade implements IFacade{
 		games.set(gameIdAndIndex,currentGame);
 
 		try {
+			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
 			return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -722,6 +750,8 @@ public class ServerFacade implements IFacade{
 		}
 
 		try {
+			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
 			return Converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -732,6 +762,19 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String soldier(int victimIndex, HexLocation location) {
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.SOLDIER);
+
+		int largestArmy = 2;
+		int largestArmyIndex = -1;
+		for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){
+			if(player.getSoldiers() > largestArmy){
+				largestArmyIndex = player.getPlayerIndex();
+				largestArmy = player.getSoldiers();
+			}
+		}
+
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setLargestArmy(largestArmyIndex);
+
 		return robPlayer(victimIndex,location);
 	}
 
@@ -744,7 +787,9 @@ public class ServerFacade implements IFacade{
 			games.get(gameIdAndIndex).getServerModel().removeResource(resource2.toString(),1);
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getResources().addResource(resource1.toString(),1);
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getResources().addResource(resource2.toString(),1);
-
+			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.YEAR_OF_PLENTY);
 			return Converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -757,6 +802,8 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
 
+
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.ROAD_BUILD);
 		buildRoad(spot1,"true");
 
 		return buildRoad(spot2,"true");
@@ -764,12 +811,75 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String monopoly(ResourceType resource, int playerIndex) {
-		return null;
+		Player evilPlayer = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex];
+		ResourceList evilResources = evilPlayer.getResources();
+		for(Player betrayedPlayer : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()) {
+			ResourceList betrayedResources = betrayedPlayer.getResources();
+
+			switch (resource) {
+				case WOOD:
+					evilResources.addResource("wood",betrayedResources.getWood());
+					betrayedResources.setWood(0);
+					evilPlayer.setResources(evilResources);
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex] = evilPlayer;
+					betrayedPlayer.setResources(betrayedResources);
+					break;
+				case BRICK:
+					evilResources.addResource("brick",betrayedResources.getBrick());
+					betrayedResources.setBrick(0);
+					evilPlayer.setResources(evilResources);
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex] = evilPlayer;
+					betrayedPlayer.setResources(betrayedResources);
+					break;
+				case SHEEP:
+					evilResources.addResource("sheep",betrayedResources.getSheep());
+					betrayedResources.setSheep(0);
+					evilPlayer.setResources(evilResources);
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex] = evilPlayer;
+					betrayedPlayer.setResources(betrayedResources);
+					break;
+				case WHEAT:
+					evilResources.addResource("wheat",betrayedResources.getWheat());
+					betrayedResources.setWheat(0);
+					evilPlayer.setResources(evilResources);
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex] = evilPlayer;
+					betrayedPlayer.setResources(betrayedResources);
+					break;
+				case ORE:
+					evilResources.addResource("ore",betrayedResources.getOre());
+					betrayedResources.setOre(0);
+					evilPlayer.setResources(evilResources);
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex] = evilPlayer;
+					betrayedPlayer.setResources(betrayedResources);
+					break;
+			}
+
+		}
+		try {
+			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.MONOPOLY);
+			return Converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return "Failure";
 	}
 
 	@Override
 	public String monument() {
-		return null;
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].setMonuments(
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getMonuments() +1);
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.MONUMENT);
+		games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+
+		try {
+			return Converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		return "Failure";
 	}
 
 

@@ -477,35 +477,34 @@ public class Player {
 		this.victoryPoints = victoryPoints;
 	}
 	
-	public boolean hasDevCard(DevCardType card){
+	public void removeDevCard(DevCardType card){
 		switch(card){
 		case MONOPOLY:
 			if (oldDevCards.getMonopoly() > 0) {
-				return true;
+				oldDevCards.setMonopoly(oldDevCards.getMonopoly()-1);
 			}
 			break;
 		case YEAR_OF_PLENTY:
 			if (oldDevCards.getYearOfPlenty() > 0) {
-				return true;
+				oldDevCards.setYearOfPlenty(oldDevCards.getYearOfPlenty()-1);
 			}
 			break;
 		case SOLDIER:
 			if (oldDevCards.getSoldier() > 0) {
-				return true;
+				oldDevCards.setSoldier(oldDevCards.getSoldier()-1);
 			}
 			break;
 		case ROAD_BUILD:
 			if (oldDevCards.getRoadBuilding() > 0) {
-				return true;
+				oldDevCards.setRoadBuilding(oldDevCards.getRoadBuilding()-1);
 			}
 			break;
 		case MONUMENT:
 			if (oldDevCards.getMonument() > 0) {
-				return true;
+				oldDevCards.setMonument(oldDevCards.getMonument()-1);
 			}
 			break;
 		}
-		return false;
 	}
 
 

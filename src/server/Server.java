@@ -38,7 +38,7 @@ public class Server {
 		HttpServer HTTPServer = createHttpServer();
 		HTTPServer.start();
 		System.out.println("Server started.");
-		//register_basic_players();
+
 		auto_test_endpoints();
 	}
 
