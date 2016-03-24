@@ -376,7 +376,7 @@ public class ClientModel {
 	 */
 	public boolean canDiscardCards(int playerIndex ) {
 		Player player = players[playerIndex];
-		if(player.getResources().getTotal() > 7){
+		if(player.getResources().getTotal() > 7 && turnTracker.getStatus().equals("Discarding")){
 			return true;
 		}
 
@@ -391,6 +391,9 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildRoad(int playerIndex, shared.locations.EdgeLocation newLocation, boolean isFree) {
+		if(turnTracker.getStatus().equals("Robbing") || turnTracker.getStatus().equals("Discarding") || turnTracker.getStatus().equals("Rolling")){
+			return false;
+		}
 			Player player = players[playerIndex];
 			ResourceList resources = player.getResources();
 
@@ -815,7 +818,9 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildSettlement(int playerIndex, VertexLocation vertex, boolean isFree) {
-
+		if(turnTracker.getStatus().equals("Robbing") || turnTracker.getStatus().equals("Discarding") || turnTracker.getStatus().equals("Rolling")){
+			return false;
+		}
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
@@ -1043,6 +1048,9 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canBuildCity(int playerIndex, VertexLocation cityLoc) {
+		if(!turnTracker.getStatus().equals("Playing")){
+			return false;
+		}
 		Player player = players[playerIndex];
 		System.out.println(""+(player==null));
 		ResourceList resources = player.getResources();
@@ -1079,6 +1087,9 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canOfferTrade(int playerIndex) {
+		if(!turnTracker.getStatus().equals("Playing")){
+			return false;
+		}
 		Player player = players[playerIndex];
 
 		ResourceList resources = player.getResources();
@@ -1143,6 +1154,9 @@ public class ClientModel {
      * @return whether the player is allowed to perform a maritime trade for that option
      */
 	public boolean canFourToOneMaritime(int playerIndex, ResourceType resource) {
+		if(!turnTracker.getStatus().equals("Playing")){
+			return false;
+		}
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
@@ -1185,6 +1199,9 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canMaritimeTrade(int playerIndex, ResourceType resource) {
+		if(!turnTracker.getStatus().equals("Playing")){
+			return false;
+		}
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 		boolean access = false;
@@ -1363,6 +1380,9 @@ public class ClientModel {
 	 * @return Whether the action is possible
 	 */
 	public boolean canRobPlayer(int playerIndex) {
+		if(!turnTracker.getStatus().equals("Robbing")){
+			return false;
+		}
 		HexLocation robber = map.getRobber();
 		Player player = players[playerIndex];
 		 HexLocation robberLocation = robber;
@@ -1463,7 +1483,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex && !player.getPlayedDevCard()
-				&& player.getOldDevCards().getSoldier() > 0){
+				&& player.getOldDevCards().getSoldier() > 0 && !turnTracker.getStatus().equals("FirstRound") && !turnTracker.getStatus().equals("SecondRound")){
 			return true;
 		}
 		return false;
@@ -1478,7 +1498,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex  && !player.getPlayedDevCard()
-				&& player.getOldDevCards().getYearOfPlenty() > 0){
+				&& player.getOldDevCards().getYearOfPlenty() > 0 && !turnTracker.getStatus().equals("FirstRound") && !turnTracker.getStatus().equals("SecondRound")){
 			return true;
 		}
 		return false;
@@ -1493,7 +1513,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex  && !player.getPlayedDevCard()
-				&& player.getOldDevCards().getRoadBuilding() > 0){
+				&& player.getOldDevCards().getRoadBuilding() > 0 && !turnTracker.getStatus().equals("FirstRound") && !turnTracker.getStatus().equals("SecondRound")){
 			return true;
 		}
 		return false;
@@ -1508,7 +1528,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex && !player.getPlayedDevCard()
-				&& player.getOldDevCards().getMonument() > 0) {
+				&& player.getOldDevCards().getMonument() > 0 && !turnTracker.getStatus().equals("FirstRound") && !turnTracker.getStatus().equals("SecondRound")) {
 			return true;
 		}
 		return false;
@@ -1523,7 +1543,7 @@ public class ClientModel {
 		Player player = players[playerIndex];
 
 		if(turnTracker.getCurrentTurn() == playerIndex &&  !player.getPlayedDevCard()
-				&& player.getOldDevCards().getMonopoly() > 0){
+				&& player.getOldDevCards().getMonopoly() > 0 && !turnTracker.getStatus().equals("FirstRound") && !turnTracker.getStatus().equals("SecondRound")){
 			return true;
 		}
 		return false;
@@ -1553,6 +1573,9 @@ public class ClientModel {
 	 * @post true if a player can play a dev card, false otherwise
 	 */
 	public boolean canBuyDevCard(int playerIndex) {
+		if(!turnTracker.getStatus().equals("Playing")){
+			return false;
+		}
 		Player player = players[playerIndex];
 		ResourceList resources = player.getResources();
 
@@ -1574,6 +1597,9 @@ public class ClientModel {
 	}
 	
 	public boolean canPlaceRobber(HexLocation hexLoc){
+		if(!turnTracker.getStatus().equals("Robbing")){
+			return false;
+		}
 		try {
 			HexLocation robber = ClientFacade.getSingleton().getClientModel().getMap().getRobber();
 			if(robber != null && (robber.getX() != hexLoc.getX() || robber.getY() != hexLoc.getY())) {
