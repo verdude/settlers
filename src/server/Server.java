@@ -38,7 +38,15 @@ public class Server {
 		HttpServer HTTPServer = createHttpServer();
 		HTTPServer.start();
 		System.out.println("Server started.");
+		//register_basic_players();
 		auto_test_endpoints();
+	}
+
+	private static void register_basic_players() {
+		post("/user/register", "{\"username\": \"Sam\", \"password\" : \"sam\"}");
+		post("/user/register", "{\"username\": \"Brooke\", \"password\" : \"brooke\"}");
+		post("/user/register", "{\"username\": \"b\", \"password\" : \"b\"}");
+		post("/user/register", "{\"username\": \"e\", \"password\" : \"e\"}");
 	}
 
 	private static void auto_test_endpoints() {
@@ -64,31 +72,23 @@ public class Server {
 		post("/user/register", "{\"username\": \"e\", \"password\" : \"e\"}");
 		userLogin("e", "e");
 		gamesJoin(0,"blue");
-		System.out.println("");
+
 		String chatResponse = post("/moves/sendChat", "{" +
 				"\"playerIndex\": " + 0 +
 				",\"content\": \"Sam says Hi\""+
 				"}");
-
-
 		System.out.println(chatResponse);
-
-		String response = get("/game/model?version=2");
+		//save and load testing
+		String response = get("/game/model?version=-2000000");
 		System.out.println(response);
-		 chatResponse = post("/moves/sendChat", "{" +
-				"\"playerIndex\": " + 0 +
-				",\"content\": \"Sam says Bye\""+
+		String saveResponse = post("/games/save", "{" +
+				"  \"id\": 0," +
+				"  \"name\": \"WeBeSavin\""+
 				"}");
-		System.out.println(chatResponse);
-		response = get("/game/model?version=2");
+		System.out.println("Save resonse= " + saveResponse);
+        response = get("/game/model?version=0");
+		System.out.println(response);
 
-		System.out.println(response);
-		response = get("/game/model?version=2");
-		System.out.println(response);
-		response = get("/game/model?version=2");
-		System.out.println(response);
-		response = get("/game/model?version=2");
-		System.out.println(response);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -2,9 +2,7 @@ package server.api;
 
 import org.json.JSONObject;
 import server.ServerFacade;
-import server.commands.GamesCreateCommand;
-import server.commands.GamesJoinCommand;
-import server.commands.GamesListCommand;
+import server.commands.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
@@ -116,6 +114,45 @@ public class Games {
 		GamesCreateCommand createCommand = new GamesCreateCommand(randomTiles, randomNumbers, randomPorts, gameName);
 		String result = createCommand.execute(ServerFacade.getSingleton());
 		if (result.equals("Invalid request")) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(result).build();
+		}
+		return Response.ok().entity(result).build();
+	}
+
+	@POST
+	@Path("/save")
+	@Produces({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON})
+	public Response save(
+			String request
+			) {
+		JSONObject body = new JSONObject(request);
+		int id = body.getInt("id");
+		String name = body.getString("name");
+
+		GamesSaveCommand saveCommand = new GamesSaveCommand(id, name);
+		String result = saveCommand.execute(ServerFacade.getSingleton());
+		System.out.println(result);
+		if (!result.equals("Success")) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(result).build();
+		}
+		return Response.ok().entity(result).build();
+	}
+
+	@POST
+	@Path("/load")
+	@Produces({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON})
+	public Response load(
+			String request
+			) {
+		JSONObject body = new JSONObject(request);
+		String name = body.getString("name");
+
+		GamesLoadCommand loadCommand = new GamesLoadCommand(name);
+		String result = loadCommand.execute(ServerFacade.getSingleton());
+		System.out.println(result);
+		if (result.equals("Success")) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(result).build();
 		}
 		return Response.ok().entity(result).build();

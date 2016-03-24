@@ -85,6 +85,7 @@ public class Moves {
 		JSONObject cookie = new JSONObject(decodedCookie);
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
+		System.out.println(gameCookieString);
 		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
 		JSONObject body = new JSONObject(request);
@@ -559,6 +560,7 @@ public class Moves {
 		String decodedCookie = URLDecoder.decode(userCookieString);
 		JSONObject cookie = new JSONObject(decodedCookie);
 
+		System.out.println(gameCookieString);
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 		ServerFacade.getSingleton().setGameIdAndIndex(Integer.parseInt(gameCookieString));
 
