@@ -157,7 +157,8 @@ public class Moves {
 		JSONObject body = new JSONObject(request);
 
 		MovesBuildSettlementCommand buildSettlementCommand = new MovesBuildSettlementCommand(body.getInt("playerIndex"),
-				Converter.deserialize(body.getString("vertexLocation"), VertexLocation.class));
+		Converter.deserialize(body.getJSONObject("vertexLocation").toString(), VertexLocation.class), body.getBoolean("free"));
+
 
 		String response = buildSettlementCommand.execute(ServerFacade.getSingleton());
 

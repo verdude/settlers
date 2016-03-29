@@ -20,11 +20,10 @@ public class MovesBuildSettlementCommand extends ICatanCommand {
 	 * @param playerIndex index of the player building the settlement
 	 * @param vertexLocation location of where the settlement will be built
 	 */
-	public MovesBuildSettlementCommand(int playerIndex, VertexLocation vertexLocation){
+	public MovesBuildSettlementCommand(int playerIndex, VertexLocation vertexLocation, boolean free){
 		this.playerIndex = playerIndex;
 		this.vertexLocation = vertexLocation;
-		this.free = "true";
-	}
+		this.free = "" + free;	}
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command
