@@ -7,20 +7,32 @@ public class VertexLocation
 {
 	
 	private HexLocation hexLoc;
-	private VertexDirection direction;
+	private VertexDirection dir;
+	private EdgeDirection direction;
+
+
+	private int x;
+	private int y;
 	
-	public VertexLocation(HexLocation hexLoc, VertexDirection dir)
+	public VertexLocation(HexLocation hexLoc, VertexDirection direction)
 	{
 		setHexLoc(hexLoc);
-		setDirection(dir);
+		setDirection(direction);
+		this.x = hexLoc.getX();
+		this.y = hexLoc.getY();
+		this.direction = EdgeDirection.North.fromString(direction.toString());
 	}
 	
 	public HexLocation getHexLoc()
 	{
+		if(hexLoc == null){
+			return new HexLocation(x,y);
+		}
+
 		return hexLoc;
 	}
 	public void setVertexDirection(VertexDirection direction){
-		this.direction = direction;
+		this.dir = direction;
 	}
 	private void setHexLoc(HexLocation hexLoc)
 	{
@@ -33,12 +45,16 @@ public class VertexLocation
 	
 	public VertexDirection getDirection()
 	{
-		return direction;
+
+		if(dir == null){
+			dir = VertexDirection.East.fromString(direction.toString());
+		}
+		return dir;
 	}
 	
 	private void setDirection(VertexDirection direction)
 	{
-		this.direction = direction;
+		this.dir = direction;
 	}
 	
 	@Override
@@ -89,10 +105,16 @@ public class VertexLocation
 	 */
 	public VertexLocation getNormalizedLocation()
 	{
-		
+
+		if(dir == null){
+			dir = VertexDirection.East.fromString(direction.toString());
+		}
+		if(hexLoc == null){
+			hexLoc = new HexLocation(x,y);
+		}
 		// Return location that has direction NW or NE
 		
-		switch (direction)
+		switch (dir)
 		{
 			case NorthWest:
 			case NorthEast:
@@ -117,6 +139,21 @@ public class VertexLocation
 				assert false;
 				return null;
 		}
+	}
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 //	public EdgeValue toEdgeLoc(){
 //

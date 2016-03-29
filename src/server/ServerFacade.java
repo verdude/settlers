@@ -553,8 +553,7 @@ public class ServerFacade implements IFacade{
 		}else if(isFree && settlements.size() <= 8 && roads.size() < 8){
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("SecondRound");
 		}
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().
-				canBuildSettlement(playerIdAndUserIndex,vertexLocation,isFree)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildSettlement(playerIdAndUserIndex,vertexLocation,isFree)){
 			return "Failure";
 		}
 
