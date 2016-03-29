@@ -248,9 +248,9 @@ public class ServerFacade implements IFacade{
 		File file = new File( System.getProperty("user.dir") + "/saves/");
 		if (!file.exists()) {
 			if (file.mkdir()) {
-				System.out.println("Directory is created!");
+				System.out.println("saves directory is created!");
 			} else {
-				System.out.println("Failed to create directory!");
+				System.out.println("Failed to create saves directory!");
 			}
 		}
 		String response = "Invalid request";
@@ -482,6 +482,7 @@ public class ServerFacade implements IFacade{
 	public String buildRoad(EdgeLocation roadLocation, String free) {
 
 		free = free.toLowerCase();
+
 		boolean isFree = free.equals("true");
 		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildRoad(playerIdAndUserIndex,roadLocation,isFree)){
 			return "Failure";
@@ -501,30 +502,37 @@ public class ServerFacade implements IFacade{
 		map.getRoads().add(newRoad);
 
 		games.get(gameIdAndIndex).getServerModel().getClientModel().setMap(map);
-		if(!isFree){
-			try {
+		try {
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].playRoad();
+
+			if(!isFree){
+
 				games.get(gameIdAndIndex).getServerModel().addResource("brick",1);
 				games.get(gameIdAndIndex).getServerModel().addResource("wood",1);
+				//games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].playRoad();
 
-			} catch (ClientException e) {
-				e.printStackTrace();
+			}
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+
+		games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+
+		int longestRoad = 4;
+		int longestRoadIndex = -1;
+		for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){
+			if(15 -player.getRoads() > longestRoad){
+				longestRoadIndex = player.getPlayerIndex();
+				longestRoad = 15 -player.getRoads();
 			}
 		}
 		try {
-			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
-					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
-
-			int longestRoad = 4;
-			int longestRoadIndex = -1;
-			for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){
-				if(15 -player.getRoads() > longestRoad){
-					longestRoadIndex = player.getPlayerIndex();
-					longestRoad = 15 -player.getRoads();
-				}
-			}
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setLongestRoad(longestRoadIndex);
+
 			return converter.serialize(this.games.get(gameIdAndIndex).getServerModel().getClientModel());
-		} catch (ClientException e) {
+
+		}catch (ClientException e){
 			e.printStackTrace();
 		}
 		return "Failure";
@@ -539,15 +547,19 @@ public class ServerFacade implements IFacade{
 				canBuildSettlement(playerIdAndUserIndex,vertexLocation,isFree)){
 			return "Failure";
 		}
+		try {
+
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].playSettlement();
+
 		if(!isFree){
-			try {
 				games.get(gameIdAndIndex).getServerModel().addResource("wheat",1);
 				games.get(gameIdAndIndex).getServerModel().addResource("brick",1);
 				games.get(gameIdAndIndex).getServerModel().addResource("wood",1);
 				games.get(gameIdAndIndex).getServerModel().addResource("sheep",1);
-			} catch (ClientException e) {
-				e.printStackTrace();
+
 			}
+		}catch (ClientException e) {
+			e.printStackTrace();
 		}
 
 		GameMap map = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap();
@@ -558,13 +570,27 @@ public class ServerFacade implements IFacade{
 		map.getSettlements().add(vertexObject);
 		games.get(gameIdAndIndex).getServerModel().getClientModel().setMap(map);
 
-		try {
 			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+		try {
 
-			return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
-		} catch (ClientException e) {
+			if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("FirstRound")){
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIdAndUserIndex +1) %4);
+				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+
+			}
+
+			if (games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("SecondRound")) {
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIdAndUserIndex - 1) % 4);
+				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+
+			}
+			return converter.serialize(this.games.get(gameIdAndIndex).getServerModel().getClientModel());
+
+		}catch (ClientException e){
 			e.printStackTrace();
 		}
+
+
 		return "Failure";
 	}
 
@@ -577,6 +603,8 @@ public class ServerFacade implements IFacade{
 		try {
 			games.get(gameIdAndIndex).getServerModel().addResource("wheat",2);
 			games.get(gameIdAndIndex).getServerModel().addResource("ore",3);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].playCity();
+
 
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -640,8 +668,7 @@ public class ServerFacade implements IFacade{
 		try {
 			games.get(gameIdAndIndex).getServerModel().addResource(inputResource.toString(),ratio);
 			games.get(gameIdAndIndex).getServerModel().removeResource(outputResource.toString(),1);
-			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
-					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
 
 			return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 		} catch (ClientException e) {
