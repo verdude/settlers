@@ -496,10 +496,13 @@ public class ServerFacade implements IFacade{
 		}
 		List<Road> roads = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getRoads();
 		List<VertexObject> settlements = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getSettlements();
-		if(isFree && settlements.size() <= 4 && roads.size() < 4){
+		if(isFree && settlements.size() <= 5 && roads.size() < 5){
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("FirstRound");
 		}else if(isFree && settlements.size() <= 8 && roads.size() < 8){
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("SecondRound");
+		}else{
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("Playing");
+
 		}
 
 		GameMap map = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap();
@@ -552,10 +555,13 @@ public class ServerFacade implements IFacade{
 		boolean isFree = free.equals("true");
 		List<Road> roads = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getRoads();
 		List<VertexObject> settlements = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getSettlements();
-		if(isFree && settlements.size() <= 4 && roads.size() < 4){
+		if(isFree && settlements.size() <= 5 && roads.size() < 5){
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("FirstRound");
 		}else if(isFree && settlements.size() <= 8 && roads.size() < 8){
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("SecondRound");
+		} else{
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("Playing");
+
 		}
 		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildSettlement(playerIndex,vertexLocation,isFree)){
 			return "Failure";
@@ -588,7 +594,10 @@ public class ServerFacade implements IFacade{
 		try {
 
 			if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("FirstRound")){
-				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIndex +1) %4);
+				if(playerIndex != 3) {
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIndex + 1) % 4);
+				}
+
 				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 
 			}
@@ -747,14 +756,18 @@ public class ServerFacade implements IFacade{
 			return "Failure";
 		}
 		Game currentGame = games.get(gameIdAndIndex);
-		int nextPlayer;
+		int nextPlayer = playerIndex;
 		if(playerIndex == 3){
 			nextPlayer = 0;
 		}else{
-			nextPlayer = playerIndex + 1;
+			if(!games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("SecondRound")) {
+				nextPlayer = playerIndex + 1;
+			}
 		}
 		currentGame.getServerModel().getClientModel().getTurnTracker().setCurrentTurn(nextPlayer);
-		currentGame.getServerModel().getClientModel().getTurnTracker().setStatus("Rolling");
+		if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("Playing") || (games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("Playing") && playerIndex == 0)) {
+			currentGame.getServerModel().getClientModel().getTurnTracker().setStatus("Rolling");
+		}
 
 		games.set(gameIdAndIndex,currentGame);
 

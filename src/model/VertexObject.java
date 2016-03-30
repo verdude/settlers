@@ -1,5 +1,6 @@
 package model;
 
+import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 
@@ -10,6 +11,11 @@ public class VertexObject {
 
 
 	public EdgeLocation getLocation() {
+		if(location == null){
+			EdgeLocation edgeLocation = new EdgeLocation(vertexLocation.getHexLoc(), EdgeDirection.North.fromString(vertexLocation.getDirection().toString()));
+			location = edgeLocation;
+
+		}
 		return location;
 	}
 
