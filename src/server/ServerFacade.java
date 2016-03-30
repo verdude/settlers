@@ -226,6 +226,7 @@ public class ServerFacade implements IFacade{
 							return response;						}
 					}
 					games.get(ID).getServerModel().getClientModel().getPlayers()[count].setColor(CatanColor.BLUE.fromString(color.toLowerCase()));
+				//	games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].setColor(CatanColor.BLUE.fromString(color.toLowerCase()));
 
 					response = "Success";
 					games.get(ID).getServerModel().getClientModel().setVersion(games.get(ID).getServerModel().getClientModel().getVersion()+1);
@@ -335,6 +336,14 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String rollNumber(int number) {
 
+
+		Player tempPlayer = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex];
+		try {
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just rolled a " + number, Integer.toString(playerIndex)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		if(number == 7){
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("Robbing");
 			try {
@@ -409,7 +418,7 @@ public class ServerFacade implements IFacade{
 					break;
 			}
 
-			currentGame.getServerModel().getClientModel().getPlayers()[playerIndex] = player;
+			currentGame.getServerModel().getClientModel().getPlayers()[player.getPlayerIndex()] = player;
 
 		}
 
@@ -470,7 +479,7 @@ public class ServerFacade implements IFacade{
 					}
 					break;
 			}
-			currentGame.getServerModel().getClientModel().getPlayers()[playerIndex] = player;
+			currentGame.getServerModel().getClientModel().getPlayers()[player.getPlayerIndex()] = player;
 
 		}
 
@@ -498,6 +507,12 @@ public class ServerFacade implements IFacade{
 		boolean isFree = free.equals("true");
 		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildRoad(playerIndex,roadLocation,isFree)){
 			return "Failure";
+		}
+		Player tempPlayer = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex];
+		try {
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just placed a road!", Integer.toString(playerIndex)));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		List<Road> roads = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getRoads();
 		List<VertexObject> settlements = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getSettlements();
@@ -574,6 +589,12 @@ public class ServerFacade implements IFacade{
 		}
 		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildSettlement(playerIndex,vertexLocation,isFree)){
 			return "Failure";
+		}
+		Player tempPlayer = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex];
+		try {
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just placed a settlement!", Integer.toString(playerIndex)));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		try {
@@ -701,12 +722,23 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String robPlayer(int victimIndex, HexLocation location) {
 
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().setRobber(location);
 		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canRobPlayer(victimIndex)){
 			return "Failure";
 		}
 
 		if (games.get(gameIdAndIndex).getServerModel().getClientModel().canRobPlayer(victimIndex)) {
 
+			if(games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[victimIndex].robPlayer() == null){
+				games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+						games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("Playing");
+				try {
+					return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+				} catch (ClientException e) {
+					e.printStackTrace();
+				}
+			}
 			switch (games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[victimIndex].robPlayer()) {
 
 				case WOOD:
@@ -735,7 +767,7 @@ public class ServerFacade implements IFacade{
 			try {
 				games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
 						games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
-				games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().setRobber(location);
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("Playing");
 				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 			} catch (ClientException e) {
 				e.printStackTrace();
