@@ -559,7 +559,11 @@ public class ServerFacade implements IFacade{
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("FirstRound");
 		}else if(isFree && settlements.size() <= 8 && roads.size() < 8){
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("SecondRound");
-		} else{
+		}else if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("SecondRound") && playerIndex == 0){
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("SecondRound");
+
+		}
+		else{
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("Playing");
 
 		}
@@ -593,20 +597,7 @@ public class ServerFacade implements IFacade{
 			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
 		try {
 
-			if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("FirstRound")){
-				if(playerIndex != 3) {
-					games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIndex + 1) % 4);
-				}
 
-				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
-
-			}
-
-			if (games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("SecondRound")) {
-				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIndex - 1) % 4);
-				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
-
-			}
 			return converter.serialize(this.games.get(gameIdAndIndex).getServerModel().getClientModel());
 
 		}catch (ClientException e){
@@ -752,9 +743,16 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String finishTurn() {
 
+		if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("SecondRound") && playerIndex == 0){
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn(0);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("Rolling");
+
+
+		}
 		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canFinishTurn(playerIndex)){
 			return "Failure";
 		}
+
 		Game currentGame = games.get(gameIdAndIndex);
 		int nextPlayer = playerIndex;
 		if(playerIndex == 3){
@@ -763,10 +761,44 @@ public class ServerFacade implements IFacade{
 			if(!games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("SecondRound")) {
 				nextPlayer = playerIndex + 1;
 			}
+
+
 		}
-		currentGame.getServerModel().getClientModel().getTurnTracker().setCurrentTurn(nextPlayer);
-		if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("Playing") || (games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("Playing") && playerIndex == 0)) {
+		try {
+			if (games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("FirstRound")) {
+				if (playerIndex != 3) {
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIndex + 1) % 4);
+				}
+				games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+						games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+
+				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+
+			}
+
+			if (games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("SecondRound") && playerIndex != 0) {
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIndex - 1) % 4);
+//				if(playerIndex == 0) {
+//					games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("Rolling");
+//				}
+				games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
+						games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
+				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
+
+			} else {
+
+				if(!games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("Rolling") && playerIndex != 0) {
+
+					currentGame.getServerModel().getClientModel().getTurnTracker().setCurrentTurn(nextPlayer);
+				}
+
+			}
+		}catch (ClientException e){
+			e.printStackTrace();
+		}
+		if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("Playing")) {
 			currentGame.getServerModel().getClientModel().getTurnTracker().setStatus("Rolling");
+
 		}
 
 		games.set(gameIdAndIndex,currentGame);

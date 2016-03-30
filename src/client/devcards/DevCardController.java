@@ -1,15 +1,14 @@
 package client.devcards;
 
 
+import client.base.Controller;
+import client.base.IAction;
 import model.ClientException;
 import model.ClientFacade;
 import model.ClientModel;
 import model.DevCardList;
-import model.Player;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
-import client.base.Controller;
-import client.base.IAction;
 
 
 /**
@@ -135,9 +134,9 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void notify(ClientModel model) {
 		
-		int localPlayerIndex = model.getTurnTracker().getCurrentTurn();
-		Player localPlayer = model.getPlayers()[localPlayerIndex];
-		
+//		int localPlayerIndex = model.getTurnTracker().getCurrentTurn();
+//		Player localPlayer = model.getPlayers()[localPlayerIndex];
+//
 		
 		
 	}
