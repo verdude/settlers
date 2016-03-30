@@ -2,6 +2,7 @@ package server.commands;
 
 import model.IFacade;
 import server.ICatanCommand;
+import server.ServerFacade;
 import shared.locations.EdgeLocation;
 
 /**
@@ -47,6 +48,8 @@ public class MovesRoadBuildingCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
+		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
+
 		String response = facade.roadBuilding(spot1, spot2);
 		
 		// TODO: on success, store this command in database

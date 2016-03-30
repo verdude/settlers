@@ -41,6 +41,10 @@ public class ServerFacade implements IFacade{
 	private int playerIdAndUserIndex;
 
 
+
+	private int playerIndex;
+
+
 	public static ServerFacade getSingleton() {
 		if (singleton == null) {
 			singleton = new ServerFacade();
@@ -209,7 +213,7 @@ public class ServerFacade implements IFacade{
 
 				if(currentPlayer.getName().equals(users.get(playerIdAndUserIndex).getUsername())) {
 
-					Player loggedInPlayer = games.get(ID).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex];
+					Player loggedInPlayer = games.get(ID).getServerModel().getClientModel().getPlayers()[playerIndex];
 					for(Player player : games.get(ID).getServerModel().getClientModel().getPlayers()){
 						//Rejects if the player is trying to be the color of another player
 						if(player != null &&player.getColor().equals(CatanColor.BLUE.fromString(color))  && player.getPlayerID() != loggedInPlayer.getPlayerID()){
@@ -310,7 +314,7 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String acceptTrade(boolean willAccept) {
 
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canAcceptTrade(playerIdAndUserIndex)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canAcceptTrade(playerIndex)){
 			return "Failure";
 		}
 		TradeOffer tradeOffer = games.get(gameIdAndIndex).getServerModel().getClientModel().getTradeOffer();
@@ -342,7 +346,7 @@ public class ServerFacade implements IFacade{
 		}
 
 		Game currentGame = games.get(gameIdAndIndex);
-		Player player  = currentGame.getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex];
+		Player player  = currentGame.getServerModel().getClientModel().getPlayers()[playerIndex];
 
 
 		List<Hex> hexList = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getHexes();
@@ -465,7 +469,7 @@ public class ServerFacade implements IFacade{
 		}
 
 
-		currentGame.getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex] = player;
+		currentGame.getServerModel().getClientModel().getPlayers()[playerIndex] = player;
 		games.set(gameIdAndIndex,currentGame);
 
 
@@ -487,7 +491,7 @@ public class ServerFacade implements IFacade{
 		free = free.toLowerCase();
 
 		boolean isFree = free.equals("true");
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildRoad(playerIdAndUserIndex,roadLocation,isFree)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildRoad(playerIndex,roadLocation,isFree)){
 			return "Failure";
 		}
 		List<Road> roads = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getRoads();
@@ -501,12 +505,12 @@ public class ServerFacade implements IFacade{
 		GameMap map = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap();
 
 		Road newRoad = new Road(roadLocation);
-		newRoad.setOwner(playerIdAndUserIndex);
+		newRoad.setOwner(playerIndex);
 		map.getRoads().add(newRoad);
 
 		games.get(gameIdAndIndex).getServerModel().getClientModel().setMap(map);
 		try {
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].playRoad();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].playRoad();
 
 			if(!isFree){
 
@@ -553,13 +557,13 @@ public class ServerFacade implements IFacade{
 		}else if(isFree && settlements.size() <= 8 && roads.size() < 8){
 			games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setStatus("SecondRound");
 		}
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildSettlement(playerIdAndUserIndex,vertexLocation,isFree)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildSettlement(playerIndex,vertexLocation,isFree)){
 			return "Failure";
 		}
 
 		try {
 
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].playSettlement();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].playSettlement();
 
 		if(!isFree){
 				games.get(gameIdAndIndex).getServerModel().addResource("wheat",1);
@@ -575,7 +579,7 @@ public class ServerFacade implements IFacade{
 		GameMap map = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap();
 		VertexObject vertexObject = new VertexObject();
 		vertexObject.setVertexLocation(vertexLocation);
-		vertexObject.setOwner(playerIdAndUserIndex);
+		vertexObject.setOwner(playerIndex);
 
 		map.getSettlements().add(vertexObject);
 		games.get(gameIdAndIndex).getServerModel().getClientModel().setMap(map);
@@ -584,13 +588,13 @@ public class ServerFacade implements IFacade{
 		try {
 
 			if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("FirstRound")){
-				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIdAndUserIndex +1) %4);
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIndex +1) %4);
 				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 
 			}
 
 			if (games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("SecondRound")) {
-				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIdAndUserIndex - 1) % 4);
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().setCurrentTurn((playerIndex - 1) % 4);
 				return converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 
 			}
@@ -607,13 +611,13 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String buildCity(VertexLocation vertexLocation) {
 
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildCity(playerIdAndUserIndex,vertexLocation)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuildCity(playerIndex,vertexLocation)){
 			return "Failure";
 		}
 		try {
 			games.get(gameIdAndIndex).getServerModel().addResource("wheat",2);
 			games.get(gameIdAndIndex).getServerModel().addResource("ore",3);
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].playCity();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].playCity();
 
 
 		} catch (ClientException e) {
@@ -623,7 +627,7 @@ public class ServerFacade implements IFacade{
 
 		GameMap map = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap();
 		VertexObject vertexObject = new VertexObject();
-		vertexObject.setOwner(playerIdAndUserIndex);
+		vertexObject.setOwner(playerIndex);
 		vertexObject.setVertexLocation(vertexLocation);
 		map.getCities().add(vertexObject);
 		//Removes the settlement from the settlement list since it is being replaced with a city in the same spot
@@ -651,7 +655,7 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String offerTrade(TradeOffer offer) {
 
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canOfferTrade(playerIdAndUserIndex)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canOfferTrade(playerIndex)){
 			return "Failure";
 		}
 		games.get(gameIdAndIndex).getServerModel().getClientModel().getTradeOffer().setOffer(offer.getOffer());
@@ -673,7 +677,7 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
 
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canMaritimeTrade(playerIdAndUserIndex,inputResource)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canMaritimeTrade(playerIndex,inputResource)){
 			return "Failure";
 		}
 		try {
@@ -701,23 +705,23 @@ public class ServerFacade implements IFacade{
 			switch (games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[victimIndex].robPlayer()) {
 
 				case WOOD:
-					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].
 							getResources().addResource("wood",1);
 					break;
 				case BRICK:
-					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].
 							getResources().addResource("brick",1);
 					break;
 				case SHEEP:
-					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].
 							getResources().addResource("sheep",1);
 					break;
 				case WHEAT:
-					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].
 							getResources().addResource("wheat",1);
 					break;
 				case ORE:
-					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].
+					games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].
 							getResources().addResource("ore",1);
 					break;
 			}
@@ -739,15 +743,15 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String finishTurn() {
 
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canFinishTurn(playerIdAndUserIndex)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canFinishTurn(playerIndex)){
 			return "Failure";
 		}
 		Game currentGame = games.get(gameIdAndIndex);
 		int nextPlayer;
-		if(playerIdAndUserIndex == 3){
+		if(playerIndex == 3){
 			nextPlayer = 0;
 		}else{
-			nextPlayer = playerIdAndUserIndex + 1;
+			nextPlayer = playerIndex + 1;
 		}
 		currentGame.getServerModel().getClientModel().getTurnTracker().setCurrentTurn(nextPlayer);
 		currentGame.getServerModel().getClientModel().getTurnTracker().setStatus("Rolling");
@@ -767,7 +771,7 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String buyDevCard() {
 
-		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuyDevCard(playerIdAndUserIndex)){
+		if(!games.get(gameIdAndIndex).getServerModel().getClientModel().canBuyDevCard(playerIndex)){
 			return "Failure";
 		}
 
@@ -783,28 +787,28 @@ public class ServerFacade implements IFacade{
 			return "Failure";
 		}else if(devCardList.getYearOfPlenty() > 0){
 			devCardList.setYearOfPlenty(devCardList.getYearOfPlenty() -1);
-			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setYearOfPlenty(newDevs.getYearOfPlenty()+1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards().setYearOfPlenty(newDevs.getYearOfPlenty()+1);
 
 		}else if(devCardList.getRoadBuilding() > 0){
 			devCardList.setRoadBuilding(devCardList.getRoadBuilding() -1);
-			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setRoadBuilding(newDevs.getRoadBuilding()+1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards().setRoadBuilding(newDevs.getRoadBuilding()+1);
 
 		}else if(devCardList.getMonument() > 0){
 			devCardList.setMonument(devCardList.getMonument() -1);
-			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setMonument(newDevs.getMonument()+1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards().setMonument(newDevs.getMonument()+1);
 
 		}else if(devCardList.getMonopoly() > 0){
 			devCardList.setMonopoly(devCardList.getMonopoly() -1);
-			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setMonopoly(newDevs.getMonopoly()+1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards().setMonopoly(newDevs.getMonopoly()+1);
 
 		}else if(devCardList.getSoldier() > 0){
 			devCardList.setSoldier(devCardList.getSoldier() -1);
-			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards();
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getNewDevCards().setSoldier(newDevs.getSoldier()+1);
+			DevCardList newDevs = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getNewDevCards().setSoldier(newDevs.getSoldier()+1);
 
 		}
 
@@ -822,7 +826,7 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String soldier(int victimIndex, HexLocation location) {
 
-		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.SOLDIER);
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].removeDevCard(DevCardType.SOLDIER);
 
 		int largestArmy = 2;
 		int largestArmyIndex = -1;
@@ -845,11 +849,11 @@ public class ServerFacade implements IFacade{
 		try {
 			games.get(gameIdAndIndex).getServerModel().removeResource(resource1.toString(),1);
 			games.get(gameIdAndIndex).getServerModel().removeResource(resource2.toString(),1);
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getResources().addResource(resource1.toString(),1);
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getResources().addResource(resource2.toString(),1);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getResources().addResource(resource1.toString(),1);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getResources().addResource(resource2.toString(),1);
 			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
 					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.YEAR_OF_PLENTY);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].removeDevCard(DevCardType.YEAR_OF_PLENTY);
 			return Converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -863,7 +867,7 @@ public class ServerFacade implements IFacade{
 	public String roadBuilding(EdgeLocation spot1, EdgeLocation spot2) {
 
 
-		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.ROAD_BUILD);
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].removeDevCard(DevCardType.ROAD_BUILD);
 		buildRoad(spot1,"true");
 
 		return buildRoad(spot2,"true");
@@ -918,7 +922,7 @@ public class ServerFacade implements IFacade{
 		try {
 			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
 					games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.MONOPOLY);
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].removeDevCard(DevCardType.MONOPOLY);
 			return Converter.serialize(games.get(gameIdAndIndex).getServerModel().getClientModel());
 		} catch (ClientException e) {
 			e.printStackTrace();
@@ -929,9 +933,9 @@ public class ServerFacade implements IFacade{
 	@Override
 	public String monument() {
 
-		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].setMonuments(
-				games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].getMonuments() +1);
-		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].removeDevCard(DevCardType.MONUMENT);
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].setMonuments(
+				games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getMonuments() +1);
+		games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].removeDevCard(DevCardType.MONUMENT);
 		games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
 				games.get(gameIdAndIndex).getServerModel().getClientModel().getVersion() +1);
 
@@ -1026,6 +1030,15 @@ public class ServerFacade implements IFacade{
 		playerIdAndUserIndex = newPlayerIdAndUserIndex;
 		System.out.println(playerIdAndUserIndex);
 	}
+
+	public int getPlayerIndex() {
+		return playerIndex;
+	}
+
+	public void setPlayerIndex(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
+
 
 //	public void updateColors(){
 //		for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){

@@ -1,11 +1,11 @@
 package server.commands;
 
-import java.util.ArrayList;
-
 import model.IFacade;
-import model.ResourceList;
 import server.ICatanCommand;
+import server.ServerFacade;
 import shared.definitions.ResourceType;
+
+import java.util.ArrayList;
 
 /**
  * This represents the moves/discardCards endpoint
@@ -33,6 +33,8 @@ public class MovesDiscardCardsCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
+		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
+
 		String response = facade.discardCards(discardedCards);
 		
 		// TODO: on success, store this command in database

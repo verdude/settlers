@@ -2,6 +2,7 @@ package server.commands;
 
 import model.IFacade;
 import server.ICatanCommand;
+import server.ServerFacade;
 import shared.definitions.ResourceType;
 
 /**
@@ -31,6 +32,8 @@ public class MovesYearOfPlentyCommand extends ICatanCommand {
 
 	@Override
 	public String execute(IFacade facade) {
+		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
+
 		String response = facade.yearOfPlenty(resource1, resource2);
 		
 		// TODO: on success, store this command in database

@@ -29,6 +29,7 @@ public class MovesOfferTradeCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
+
 		String response = facade.offerTrade(offer);
 		
 		// TODO: on success, store this command in database

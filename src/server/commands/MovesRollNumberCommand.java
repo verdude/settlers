@@ -2,6 +2,7 @@ package server.commands;
 
 import model.IFacade;
 import server.ICatanCommand;
+import server.ServerFacade;
 
 /**
  * This represents the moves/rollNumber endpoint
@@ -30,6 +31,8 @@ public class MovesRollNumberCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
+		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
+
 		String response = facade.rollNumber(number);
 		
 		// TODO: on success, store this command in database
