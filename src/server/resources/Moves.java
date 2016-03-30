@@ -489,7 +489,7 @@ public class Moves {
 		JSONObject body = new JSONObject(request);
 
 		MovesRobPlayerCommand robPlayerCommand = new MovesRobPlayerCommand(body.getInt("playerIndex"), body.getInt("victimIndex"),
-				Converter.deserialize(body.getString("location"), HexLocation.class));
+				Converter.deserialize(body.getJSONObject("location").toString(), HexLocation.class));
 
 		String response = robPlayerCommand.execute(ServerFacade.getSingleton());
 
