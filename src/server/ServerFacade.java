@@ -346,12 +346,13 @@ public class ServerFacade implements IFacade{
 		}
 
 		Game currentGame = games.get(gameIdAndIndex);
-		Player player  = currentGame.getServerModel().getClientModel().getPlayers()[playerIndex];
+
 
 
 		List<Hex> hexList = games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getHexes();
 
 		for(VertexObject setttlement : games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getSettlements()){
+			Player player  = currentGame.getServerModel().getClientModel().getPlayers()[setttlement.getOwner()];
 			VertexDirection settDirec = setttlement.getVertexLocation().getNormalizedLocation().getDirection();
 			HexLocation settHexLoc = setttlement.getVertexLocation().getNormalizedLocation().getHexLoc();
 			HexLocation northNeighbor = settHexLoc.getNeighborLoc(EdgeDirection.North);
@@ -408,10 +409,13 @@ public class ServerFacade implements IFacade{
 					break;
 			}
 
+			currentGame.getServerModel().getClientModel().getPlayers()[playerIndex] = player;
 
 		}
 
 		for(VertexObject city : games.get(gameIdAndIndex).getServerModel().getClientModel().getMap().getCities()){
+			Player player  = currentGame.getServerModel().getClientModel().getPlayers()[city.getOwner()];
+
 			VertexDirection cityDirec = city.getVertexLocation().getNormalizedLocation().getDirection();
 			HexLocation cityHexLoc = city.getVertexLocation().getNormalizedLocation().getHexLoc();
 			HexLocation northNeighbor = cityHexLoc.getNeighborLoc(EdgeDirection.North);
@@ -466,10 +470,11 @@ public class ServerFacade implements IFacade{
 					}
 					break;
 			}
+			currentGame.getServerModel().getClientModel().getPlayers()[playerIndex] = player;
+
 		}
 
 
-		currentGame.getServerModel().getClientModel().getPlayers()[playerIndex] = player;
 		games.set(gameIdAndIndex,currentGame);
 
 
