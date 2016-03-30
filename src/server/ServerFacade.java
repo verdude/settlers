@@ -299,8 +299,9 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String sendChat(int playerIndex, String message) {
+		String source = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getName();
 
-		MessageLine messageLine = new MessageLine(message,Integer.toString(playerIndex));
+		MessageLine messageLine = new MessageLine(message,source);
 		this.games.get(gameIdAndIndex).getServerModel().getClientModel().getChat().getLines().add(messageLine);
 		try {
 			games.get(gameIdAndIndex).getServerModel().getClientModel().setVersion(
@@ -338,8 +339,10 @@ public class ServerFacade implements IFacade{
 
 
 		Player tempPlayer = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex];
+		String source = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].getName();
+
 		try {
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just rolled a " + number, Integer.toString(playerIndex)));
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just rolled a " + number, source));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -510,7 +513,7 @@ public class ServerFacade implements IFacade{
 		}
 		Player tempPlayer = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex];
 		try {
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just placed a road!", Integer.toString(playerIndex)));
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just placed a road!", tempPlayer.getName()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -592,7 +595,7 @@ public class ServerFacade implements IFacade{
 		}
 		Player tempPlayer = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex];
 		try {
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just placed a settlement!", Integer.toString(playerIndex)));
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just placed a settlement!", tempPlayer.getName()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
