@@ -4,6 +4,7 @@ package server;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.*;
+import server.database.IDAO;
 import server.model.Game;
 import server.model.ServerModel;
 import server.model.User;
@@ -36,14 +37,11 @@ public class ServerFacade implements IFacade{
 	private Converter converter;
 	private List<User> loggedInUsers;
 
-
 	private int gameIdAndIndex;
 	private int playerIdAndUserIndex;
-
-
-
 	private int playerIndex;
 
+	private IDAO dao;
 
 	public static ServerFacade getSingleton() {
 		if (singleton == null) {
@@ -57,7 +55,8 @@ public class ServerFacade implements IFacade{
 		this.converter = new Converter();
 		this.loggedInUsers = new ArrayList<>();
 
-
+//		this.dao = Factory.getDAO(db_type, jar_filename);
+		this.dao = Factory.getDAO("sql", "c:\\path\\stuff.jar");
 	}
 
 	public void getContext() {
