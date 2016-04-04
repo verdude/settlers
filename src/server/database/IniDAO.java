@@ -32,7 +32,17 @@ public class IniDAO implements IDAO{
 	public void storeModel(ClientModel clientModel) {
 
 	}
-	
+
+	@Override
+	public void startTransaction() {
+
+	}
+
+	@Override
+	public void endTransaction(boolean commit) {
+
+	}
+
 	public String getJarName() {
 		return jarName;
 	}

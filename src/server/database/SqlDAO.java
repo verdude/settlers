@@ -34,6 +34,16 @@ public class SqlDAO implements IDAO{
 
 	}
 
+	@Override
+	public void startTransaction() {
+
+	}
+
+	@Override
+	public void endTransaction(boolean commit) {
+
+	}
+
 	public String getJarName() {
 		return jarName;
 	}

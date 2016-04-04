@@ -40,6 +40,7 @@ public class ServerFacade implements IFacade{
 	private int gameIdAndIndex;
 	private int playerIdAndUserIndex;
 	private int playerIndex;
+	private Factory factory;
 
 	private IDAO dao;
 
@@ -54,9 +55,10 @@ public class ServerFacade implements IFacade{
 		this.users = new ArrayList<>();
 		this.converter = new Converter();
 		this.loggedInUsers = new ArrayList<>();
+		this.factory = new Factory();
 
 //		this.dao = Factory.getDAO(db_type, jar_filename);
-		this.dao = Factory.getDAO("sql", "c:\\path\\stuff.jar");
+		this.dao = factory.getDAO("sql", "c:\\path\\stuff.jar");
 	}
 
 	public void getContext() {
