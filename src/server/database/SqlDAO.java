@@ -6,9 +6,11 @@ import server.ICatanCommand;
 public class SqlDAO implements IDAO{
 	
 	private Database database;
-	
+	private String jarName;
+
 	public SqlDAO(String jar_filename){
-		
+		jarName = jar_filename;
+
 	}
 
 	@Override
@@ -32,5 +34,12 @@ public class SqlDAO implements IDAO{
 
 	}
 
+	public String getJarName() {
+		return jarName;
+	}
+
+	public void setJarName(String jarName) {
+		this.jarName = jarName;
+	}
 
 }

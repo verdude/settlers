@@ -6,9 +6,11 @@ import server.ICatanCommand;
 public class IniDAO implements IDAO{
 
 	private Database database;
+
+	private String jarName;
 	
 	public IniDAO(String jar_filename){
-		
+		jarName = jar_filename;
 	}
 
 	@Override
@@ -30,6 +32,13 @@ public class IniDAO implements IDAO{
 	public void storeModel(ClientModel clientModel) {
 
 	}
+	
+	public String getJarName() {
+		return jarName;
+	}
 
+	public void setJarName(String jarName) {
+		this.jarName = jarName;
+	}
 
 }
