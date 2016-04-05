@@ -31,4 +31,8 @@ public interface PeristenceProvider {
      */
     public void endTransaction(boolean commit);
 
+    /**
+     * Clears whatever plugin is currently being used back to a default state.
+     */
+    public void clearPersistance();
 }

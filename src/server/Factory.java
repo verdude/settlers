@@ -1,7 +1,6 @@
 package server;
 
 import server.database.IDAO;
-import server.database.*;
 
 public class Factory implements PeristenceProvider{
 
@@ -13,10 +12,10 @@ public class Factory implements PeristenceProvider{
 
 		switch (db_type) {
 			case "sql":
-				currentDAO = (IDAO) new SqlDAO(jar_filename);
+				//currentDAO = (IDAO) new SqlDAO(jar_filename);
 				return currentDAO;
 			case "ini":
-				currentDAO = (IDAO) new IniDAO(jar_filename);
+				//currentDAO = (IDAO) new IniDAO(jar_filename);
 				return currentDAO;
 			default:
 				System.out.println("ERROR: Invalid databaseType!");
@@ -35,6 +34,11 @@ public class Factory implements PeristenceProvider{
 	@Override
 	public void endTransaction(boolean commit) {
 
+	}
+
+	@Override
+	public void clearPersistance() {
+		
 	}
 
 

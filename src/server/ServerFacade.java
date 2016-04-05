@@ -42,6 +42,7 @@ public class ServerFacade implements IFacade{
 	private int playerIndex;
 	private Factory factory;
 
+
 	private IDAO dao;
 
 	public static ServerFacade getSingleton() {
@@ -211,13 +212,28 @@ public class ServerFacade implements IFacade{
 			if(currentPlayer == null) {
 				break;
 			} else {
-
+				int loggedInIndex = -1;
 				if(currentPlayer.getName().equals(users.get(playerIdAndUserIndex).getUsername())) {
+					for(Player player : games.get(ID).getServerModel().getClientModel().getPlayers()){
+						if( player != null && player.getPlayerID() == playerIdAndUserIndex ){
+							loggedInIndex = player.getPlayerIndex();
+							games.get(ID).getServerModel().getClientModel().getPlayers()[count].setColor(CatanColor.BLUE.fromString(color.toLowerCase()));
+
+
+							response = "Success";
+							games.get(ID).getServerModel().getClientModel().setVersion(games.get(ID).getServerModel().getClientModel().getVersion()+1);
+							Player newPplayer = new Player(users.get(count).getUsername(), CatanColor.BLUE.fromString(color.toLowerCase()), loggedInIndex);
+							return response;
+						}
+
+					}
+
 
 					Player loggedInPlayer = games.get(ID).getServerModel().getClientModel().getPlayers()[playerIndex];
 					for(Player player : games.get(ID).getServerModel().getClientModel().getPlayers()){
 						//Rejects if the player is trying to be the color of another player
-						if(player != null &&player.getColor().equals(CatanColor.BLUE.fromString(color))  && player.getPlayerID() != loggedInPlayer.getPlayerID()){
+
+						if(player != null && player.getColor().equals(CatanColor.BLUE.fromString(color))  && player.getPlayerID() != loggedInPlayer.getPlayerID()){
 							response = "The player could not be added to the specified game.";
 							return response;
 						}
@@ -231,6 +247,9 @@ public class ServerFacade implements IFacade{
 
 					response = "Success";
 					games.get(ID).getServerModel().getClientModel().setVersion(games.get(ID).getServerModel().getClientModel().getVersion()+1);
+					Player player = new Player(users.get(count).getUsername(), CatanColor.BLUE.fromString(color.toLowerCase()), count);
+					player.setPlayerID(playerIdAndUserIndex);
+					games.get(ID).getServerModel().getClientModel().getPlayers()[count] = player;
 					return response;
 				}
 				count++;
@@ -1125,6 +1144,14 @@ public class ServerFacade implements IFacade{
 		this.playerIndex = playerIndex;
 	}
 
+
+	public IDAO getDao() {
+		return dao;
+	}
+
+	public void setDao(IDAO dao) {
+		this.dao = dao;
+	}
 
 //	public void updateColors(){
 //		for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){
