@@ -3,11 +3,25 @@ package server.database;
 import model.ClientModel;
 import server.ICatanCommand;
 
-public interface IDAO {
+/**
+ * Created by Sean_George on 4/5/16.
+ */
+public interface IGameDAO  {
 
-
-
-
+    /**
+     * Stores a command persistently
+     * @param command ICatanCommand to be stored
+     * @pre None
+     * @post Stores a command persistently
+     */
+    public void storeCommand(ICatanCommand command);
+    /**
+     * Persistently stores a ClientModel
+     * @param clientModel The ClientMOodel to be stored
+     * @pre None
+     * @post The ClientModel will be persistently stored
+     */
+    public void storeModel(ClientModel clientModel);
 
     /**
      * Begins a transaction on the database
