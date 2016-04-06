@@ -1,12 +1,12 @@
 package server;
 
-import server.database.GameDAO;
-import server.database.UserDAO;
+import server.database.IGameDAO;
+import server.database.IUserDAO;
 
 public class Factory implements PeristenceProvider{
 
-	private  GameDAO gameDAO;
-	private  UserDAO userDAO;
+	private  IGameDAO gameDAO;
+	private  IUserDAO userDAO;
 
 
 //	@Override
@@ -44,12 +44,12 @@ public class Factory implements PeristenceProvider{
 	}
 
 	@Override
-	public UserDAO getUserDAO() {
+	public IUserDAO getUserDAO() {
 		return userDAO;
 	}
 
 	@Override
-	public GameDAO getGameDAO() {
+	public IGameDAO getGameDAO() {
 		return gameDAO;
 	}
 
