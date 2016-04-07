@@ -6,7 +6,7 @@ import server.database.IUserDAO;
 /**
  * Created by Sean_George on 4/4/16.
  */
-public interface PeristenceProvider {
+public interface IPeristenceProvider {
 
 //    /**
 //     * @param db_type The command line argument that determines what kind of persistence system will be used.
@@ -22,7 +22,7 @@ public interface PeristenceProvider {
      * @pre the database exists and is modifiable
      * @post a transaction will be started
      */
-    public void startTransaction();
+    public  void startTransaction();
 
     /**
      * Ends transaction with the database
@@ -30,15 +30,15 @@ public interface PeristenceProvider {
      * @pre a transaction has already started
      * @post transaction is ended, it gets committed if commit is true
      */
-    public void endTransaction(boolean commit);
+    public  void endTransaction(boolean commit);
 
     /**
      * Clears whatever plugin is currently being used back to a default state.
      */
-    public void clearPersistence();
+    public  void clearPersistence();
 
-    public IUserDAO getUserDAO();
+    public  IUserDAO getUserDAO();
 
-    public IGameDAO getGameDAO();
+    public  IGameDAO getGameDAO();
 
 }

@@ -4,7 +4,8 @@ package server;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.*;
-import server.database.IDAO;
+import server.database.IGameDAO;
+import server.database.IUserDAO;
 import server.model.Game;
 import server.model.ServerModel;
 import server.model.User;
@@ -43,7 +44,11 @@ public class ServerFacade implements IFacade{
 	private Factory factory;
 
 
-	private IDAO dao;
+	private IUserDAO userDAO;
+	private IGameDAO gameDAO;
+
+	private int commandsToStore;
+	String persistenceType;
 
 	public static ServerFacade getSingleton() {
 		if (singleton == null) {
@@ -56,10 +61,9 @@ public class ServerFacade implements IFacade{
 		this.users = new ArrayList<>();
 		this.converter = new Converter();
 		this.loggedInUsers = new ArrayList<>();
-		this.factory = new Factory();
 
 //		this.dao = Factory.getDAO(db_type, jar_filename);
-		this.dao = factory.getDAO("sql", "c:\\path\\stuff.jar");
+		//this.dao = factory.getDAO("sql", "c:\\path\\stuff.jar");
 	}
 
 	public void getContext() {
@@ -1145,12 +1149,21 @@ public class ServerFacade implements IFacade{
 	}
 
 
-	public IDAO getDao() {
-		return dao;
+
+	public int getCommandsToStore() {
+		return commandsToStore;
 	}
 
-	public void setDao(IDAO dao) {
-		this.dao = dao;
+	public void setCommandsToStore(int commandsToStore) {
+		this.commandsToStore = commandsToStore;
+	}
+
+	public String getPersistenceType() {
+		return persistenceType;
+	}
+
+	public void setPersistenceType(String persistenceType) {
+		this.persistenceType = persistenceType;
 	}
 
 //	public void updateColors(){
