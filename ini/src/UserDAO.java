@@ -1,5 +1,6 @@
 import org.ini4j.Ini;
 import org.ini4j.Wini;
+import pluginInterfaces.IUserDAO;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class UserDAO implements IUserDAO {
     public void addUser(String username, String password, int userID) {
         String json = "{\"username\":\"" + username +"\"," +
                 "\"password\":\"" + password + "\"," +
-                "\"username\":\"" + userID + "\"}";
+                "\"userID\":" + userID + "}";
         ini.put(SECTION, username, json);
 
     }
@@ -49,6 +50,9 @@ public class UserDAO implements IUserDAO {
         Ini.Section section = ini.get(SECTION);
 
 
+        if(section == null){
+            return "[]";
+        }
         for(String key : section.keySet()){
             users.append(section.get(key) + ",");
         }

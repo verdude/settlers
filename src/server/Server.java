@@ -44,9 +44,8 @@ public class Server {
 
 		// initialize the facade and proxy
 		ClientFacade.getSingleton(ServerProxy.getSingleton("localhost","8081"));
-		ServerFacade.getSingleton().setPersistenceType(args[0]);
+		Factory.getSingleton(args[0]);
 		ServerFacade.getSingleton().setCommandsToStore(Integer.parseInt(args[1]));
-		Factory.getSingleton();
 
 		//auto_test_endpoints();
 		//register_basic_players();

@@ -1,4 +1,4 @@
-package server.database;
+package pluginInterfaces;
 
 /**
  * Created by Sean_George on 4/5/16.
@@ -36,5 +36,6 @@ public interface IGameDAO {
      */
     public void endTransaction(boolean commit);
     public void clearPersistence();
+    public String getCommands();
 
 }

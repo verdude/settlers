@@ -1,5 +1,7 @@
+package pluginInterfaces;
+
 /**
- * Created by Sean_George on 4/6/16.
+ * Created by Sean_George on 4/5/16.
  */
 public interface IUserDAO {
     /**
@@ -41,3 +43,4 @@ public interface IUserDAO {
 
 
 }
+

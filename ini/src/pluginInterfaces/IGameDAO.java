@@ -1,3 +1,5 @@
+package pluginInterfaces;
+
 /**
  * Created by Sean_George on 4/6/16.
  */
@@ -34,6 +36,7 @@ public interface IGameDAO {
      */
     public void endTransaction(boolean commit);
     public void clearPersistence();
+    public String getCommands();
 
 
 }

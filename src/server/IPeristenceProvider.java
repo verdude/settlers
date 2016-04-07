@@ -1,7 +1,7 @@
 package server;
 
-import server.database.IGameDAO;
-import server.database.IUserDAO;
+import pluginInterfaces.IGameDAO;
+import pluginInterfaces.IUserDAO;
 
 /**
  * Created by Sean_George on 4/4/16.
@@ -37,8 +37,8 @@ public interface IPeristenceProvider {
      */
     public  void clearPersistence();
 
-    public  IUserDAO getUserDAO();
+    public IUserDAO getUserDAO();
 
-    public  IGameDAO getGameDAO();
+    public IGameDAO getGameDAO();
 
 }

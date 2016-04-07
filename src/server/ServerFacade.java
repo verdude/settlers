@@ -4,8 +4,8 @@ package server;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.*;
-import server.database.IGameDAO;
-import server.database.IUserDAO;
+import pluginInterfaces.IGameDAO;
+import pluginInterfaces.IUserDAO;
 import server.model.Game;
 import server.model.ServerModel;
 import server.model.User;
@@ -41,14 +41,14 @@ public class ServerFacade implements IFacade{
 	private int gameIdAndIndex;
 	private int playerIdAndUserIndex;
 	private int playerIndex;
-	private Factory factory;
+
 
 
 	private IUserDAO userDAO;
 	private IGameDAO gameDAO;
+	private Factory factory;
 
 	private int commandsToStore;
-	String persistenceType;
 
 	public static ServerFacade getSingleton() {
 		if (singleton == null) {
@@ -61,6 +61,23 @@ public class ServerFacade implements IFacade{
 		this.users = new ArrayList<>();
 		this.converter = new Converter();
 		this.loggedInUsers = new ArrayList<>();
+		factory = Factory.getSingleton("");
+		userDAO = factory.getUserDAO();
+		gameDAO = factory.getGameDAO();
+
+		System.out.println(userDAO.getUsers());
+
+		User[] tempUserArray =  Converter.deserialize(userDAO.getUsers(), User[].class);
+		for(User user : tempUserArray){
+			users.add(user);
+		}
+		users.sort((user1, user2) -> user1.getUserID() < user2.getUserID() ? -1:1);
+		Game[] tempGameArray =  Converter.deserialize(gameDAO.getGames(), Game[].class);
+		for(Game game : tempGameArray){
+			games.add(game);
+		}
+		games.sort((game1, game2) -> game1.getGameID() < game2.getGameID() ? -1:1);
+
 
 //		this.dao = Factory.getDAO(db_type, jar_filename);
 		//this.dao = factory.getDAO("sql", "c:\\path\\stuff.jar");
@@ -102,7 +119,15 @@ public class ServerFacade implements IFacade{
 
 		User newUser = new User(username,password,users.size());
 		users.add(newUser);
-
+		userDAO.startTransaction();
+		try {
+			userDAO.addUser(username, password, users.size() - 1);
+		}catch (Exception e){
+			e.printStackTrace();
+			userDAO.endTransaction(false);
+			return "Failed to persist!!!";
+		}
+		userDAO.endTransaction(true);
 		return "Success";
 }
 
@@ -201,6 +226,16 @@ public class ServerFacade implements IFacade{
 				e.printStackTrace();
 			}
 		}
+
+		gameDAO.startTransaction();
+		try{
+			gameDAO.storeGame(Converter.serialize(games.get(games.size()-1)), games.size()-1);
+		}catch (Exception e){
+			e.printStackTrace();
+			gameDAO.endTransaction(false);
+			return "Invalid, failed to persist!!!";
+		}
+		gameDAO.endTransaction(true);
 		return response;
 	}
 
@@ -1060,7 +1095,29 @@ public class ServerFacade implements IFacade{
 
 
 	public void storeCommand(ICatanCommand command){
-		//TODO: Auto-generated method stub
+		gameDAO.startTransaction();
+		List<ICatanCommand> commandListArray = new ArrayList<>();
+
+		try{
+			ICatanCommand[] commandList = Converter.deserialize(gameDAO.getCommands(),ICatanCommand[].class);
+			for(ICatanCommand tempCommand : commandList){
+				commandListArray.add(tempCommand);
+			}
+			commandListArray.add(command);
+			if(commandListArray.size() == commandsToStore){
+				gameDAO.storeCommands("[]", gameIdAndIndex);
+				gameDAO.storeGame(Converter.serialize(games.get(gameIdAndIndex)),gameIdAndIndex);
+			}
+			gameDAO.storeCommands(Converter.serialize(commandListArray.toArray()),gameIdAndIndexss);
+		}catch (Exception e){
+			e.printStackTrace();
+			gameDAO.endTransaction(false);
+			return;
+		}
+		gameDAO.endTransaction(true);
+
+
+
 	}
 
 	public String gamesModel(int version) {
@@ -1158,13 +1215,13 @@ public class ServerFacade implements IFacade{
 		this.commandsToStore = commandsToStore;
 	}
 
-	public String getPersistenceType() {
-		return persistenceType;
-	}
-
-	public void setPersistenceType(String persistenceType) {
-		this.persistenceType = persistenceType;
-	}
+//	public String getPersistenceType() {
+//		return persistenceType;
+//	}
+//
+//	public void setPersistenceType(String persistenceType) {
+//		this.persistenceType = persistenceType;
+//	}
 
 //	public void updateColors(){
 //		for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){

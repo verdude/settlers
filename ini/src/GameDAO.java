@@ -1,5 +1,6 @@
 import org.ini4j.Ini;
 import org.ini4j.Wini;
+import pluginInterfaces.IGameDAO;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +35,9 @@ public class GameDAO implements IGameDAO {
         games.append("[");
         Ini.Section section = ini.get(SECTION);
 
-
+        if(section == null){
+            return "[]";
+        }
         for(String key : section.keySet()){
             if(key.contains("game")) {
                 games.append(section.get(key) + ",");
@@ -46,6 +49,8 @@ public class GameDAO implements IGameDAO {
         games.append("]");
         return games.toString();
     }
+
+
 
     @Override
     public void storeCommands(String commands, int gameID) {
@@ -86,6 +91,26 @@ public class GameDAO implements IGameDAO {
         iniFile.delete();
     }
 
+    @Override
+    public String getCommands() {
+        StringBuilder commandList = new StringBuilder();
+        commandList.append("[");
+        Ini.Section section = ini.get(SECTION);
+
+        if(section == null){
+            return "[]";
+        }
+        for(String key : section.keySet()){
+            if(key.contains("commandList")) {
+                commandList.append(section.get(key) + ",");
+            }
+        }
+        if(commandList.length() != 1) {
+            commandList.deleteCharAt(commandList.length() - 1);
+        }
+        commandList.append("]");
+        return commandList.toString();
+    }
 
 
 }

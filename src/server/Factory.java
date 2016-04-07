@@ -1,24 +1,29 @@
 package server;
 
 import org.ini4j.Ini;
-import server.database.IGameDAO;
-import server.database.IUserDAO;
+import pluginInterfaces.IGameDAO;
+import pluginInterfaces.IUserDAO;
 
 import java.io.File;
 import java.io.FileReader;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 public class Factory implements IPeristenceProvider{
 
 	private  static IGameDAO gameDAO;
 	private  static IUserDAO userDAO;
-	private static final Factory singleton = new Factory();
+	private static  Factory singleton = null;
 
 
 
-	public static Factory getSingleton(){
+	public static Factory getSingleton(String persistenceType){
+		if(singleton == null) {
+			singleton = new Factory(persistenceType);
+		}
 		return singleton;
 	}
-	private Factory(){
+	private Factory(String persistenceType){
 		try {
 			File config = new File(System.getProperty("user.dir") + "/plugins/config.ini");
 			if(!config.exists()){
@@ -30,20 +35,23 @@ public class Factory implements IPeristenceProvider{
 			Ini.Section section = ini.get("plugins");
 
 
-			String jarPath = section.get(ServerFacade.getSingleton().getPersistenceType());
-			//System.out.println(jarPath);
+			String jarPath = section.get(persistenceType);
 
 
-//			File file = new File("plugins\\" + jarPath);
-//
-//			String userDAOToLoad = "UserDAO";
-//			String gameDAOToLoad = "GameDAO";
+			File file = new File("plugins/" + jarPath);
 
-//			URL jarUrl = new URL("jar", "","file:" + file.getAbsolutePath()+"!/");
-//			URLClassLoader cl = new URLClassLoader(new URL[] {jarUrl}, TestJarLoading.class.getClassLoader());
-//			Class loadedClass = cl.loadClass(classToLoad);
-//			IUserDAO userDAO = (IUserDAO) loadedClass.newInstance();
-//			IGameDAO gameDAO = (IGameDAO) loadedClass.newInstance();
+			String userDAOToLoad = "UserDAO";
+			String gameDAOToLoad = "GameDAO";
+
+			URL jarUrl = new URL("jar", "","file:" + file.getAbsolutePath()+"!/");
+			URLClassLoader cl = new URLClassLoader(new URL[] {jarUrl}, Factory.class.getClassLoader());
+			Class userDAOLoaded = cl.loadClass(userDAOToLoad);
+			Class gameDAOLoaded = cl.loadClass(gameDAOToLoad);
+			userDAO = (IUserDAO) userDAOLoaded.newInstance();
+			gameDAO = (IGameDAO) gameDAOLoaded.newInstance();
+//			userDAO.startTransaction();
+//			userDAO.addUser("e","e",0);
+//			userDAO.endTransaction(true);
 
 		} catch (Exception e) {
 			e.printStackTrace();
