@@ -61,11 +61,45 @@ public class Converter {
 		return games;
 	}
 
-	public static ICatanCommand[] deserializeCommands(String json) {
-		return new ICatanCommand[0];
+	public static List<ICatanCommand> deserializeCommands(String json) {
+		RuntimeTypeAdapterFactory<ICatanCommand> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
+            .of(ICatanCommand.class, "type")
+            .registerSubtype(GameAddAICommand.class,GameAddAICommand.class.toString())
+            .registerSubtype(GameListAICommand.class,GameListAICommand.class.toString())
+            .registerSubtype(GamesCreateCommand.class,GamesCreateCommand.class.toString())
+            .registerSubtype(GamesJoinCommand.class,GamesJoinCommand.class.toString())
+            .registerSubtype(GamesListCommand.class,GamesListCommand.class.toString())
+            .registerSubtype(GamesLoadCommand.class,GamesLoadCommand.class.toString())
+            .registerSubtype(GamesModelCommand.class,GamesModelCommand.class.toString())
+            .registerSubtype(GamesSaveCommand.class,GamesSaveCommand.class.toString())
+            .registerSubtype(MovesAcceptTradeCommand.class,MovesAcceptTradeCommand.class.toString())
+            .registerSubtype(MovesBuildCityCommand.class,MovesBuildCityCommand.class.toString())
+            .registerSubtype(MovesBuildRoadCommand.class,MovesBuildRoadCommand.class.toString())
+            .registerSubtype(MovesBuildSettlementCommand.class,MovesBuildSettlementCommand.class.toString())
+            .registerSubtype(MovesBuyDevCardCommand.class,MovesBuyDevCardCommand.class.toString())
+            .registerSubtype(MovesDiscardCardsCommand.class,MovesDiscardCardsCommand.class.toString())
+            .registerSubtype(MovesFinishTurnCommand.class,MovesFinishTurnCommand.class.toString())
+            .registerSubtype(MovesMaritimeTradeCommand.class,MovesMaritimeTradeCommand.class.toString())
+            .registerSubtype(MovesMonopolyCommand.class,MovesMonopolyCommand.class.toString())
+            .registerSubtype(MovesMonumentCommand.class,MovesMonumentCommand.class.toString())
+            .registerSubtype(MovesOfferTradeCommand.class,MovesOfferTradeCommand.class.toString())
+            .registerSubtype(MovesRoadBuildingCommand.class,MovesRoadBuildingCommand.class.toString())
+            .registerSubtype(MovesRobPlayerCommand.class,MovesRobPlayerCommand.class.toString())
+            .registerSubtype(MovesRollNumberCommand.class,MovesRollNumberCommand.class.toString())
+            .registerSubtype(MovesSendChatCommand.class,MovesSendChatCommand.class.toString())
+            .registerSubtype(MovesSoldierCommand.class,MovesSoldierCommand.class.toString())
+            .registerSubtype(MovesYearOfPlentyCommand.class,MovesYearOfPlentyCommand.class.toString())
+            .registerSubtype(UserLoginCommand.class,UserLoginCommand.class.toString())
+            .registerSubtype(UserRegisterCommand.class,UserRegisterCommand.class.toString());
+
+		Gson gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+
+		Type listType = new TypeToken<List<ICatanCommand>>(){}.getType();
+		List<ICatanCommand> commands = gson.fromJson(json, listType);
+		return commands;
 	}
 
-	public static String serializeCommands(ICatanCommand[] commands) {
+	public static String serializeCommands(List<ICatanCommand> commands) {
 		RuntimeTypeAdapterFactory<ICatanCommand> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
             .of(ICatanCommand.class, "type")
             .registerSubtype(GameAddAICommand.class,GameAddAICommand.class.toString())
