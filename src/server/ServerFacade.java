@@ -584,7 +584,7 @@ public class ServerFacade implements IFacade{
 		}
 		Player tempPlayer = games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex];
 		try {
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just placed a road!", tempPlayer.getName()));
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getLog().addMessage(new MessageLine(tempPlayer.getName() + " just placed a road!!", tempPlayer.getName()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -613,7 +613,6 @@ public class ServerFacade implements IFacade{
 
 				games.get(gameIdAndIndex).getServerModel().addResource("brick",1);
 				games.get(gameIdAndIndex).getServerModel().addResource("wood",1);
-				//games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIdAndUserIndex].playRoad();
 
 			}
 		} catch (ClientException e) {

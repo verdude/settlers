@@ -87,8 +87,8 @@ public class Player {
 			Random rand = new Random();
 			int roll = rand.nextInt(6)+1;
 			roll += rand.nextInt(6)+1;
-			return roll;
-		
+			return roll == 7 ? 6:roll;
+
 	}
 	
 	

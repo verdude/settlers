@@ -2,6 +2,7 @@ package server.commands;
 
 import model.IFacade;
 import server.ICatanCommand;
+import server.ServerFacade;
 import shared.locations.EdgeLocation;
 
 /**
@@ -38,6 +39,7 @@ public class MovesBuildRoadCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
+		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
 
 		String response = facade.buildRoad(roadLocation, free);
 

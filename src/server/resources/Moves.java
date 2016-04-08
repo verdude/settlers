@@ -125,7 +125,7 @@ public class Moves {
 
 		String response = buildRoadCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failed")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
