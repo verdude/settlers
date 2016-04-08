@@ -19,6 +19,8 @@ public class MovesBuyDevCardCommand extends ICatanCommand {
      */
 	public MovesBuyDevCardCommand(int playerIndex){
 		this.playerIndex = playerIndex;
+		super.setType(this.getClass().toString());
+
 	}
 
 

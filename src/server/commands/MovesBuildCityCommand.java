@@ -24,6 +24,8 @@ public class MovesBuildCityCommand extends ICatanCommand {
 	public MovesBuildCityCommand(int playerIndex, VertexLocation vertexLocation){
 		this.playerIndex = playerIndex;
 		this.vertexLocation = vertexLocation;
+		super.setType(this.getClass().toString());
+
 	}
 
 	/**

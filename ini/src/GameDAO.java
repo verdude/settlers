@@ -100,8 +100,11 @@ public class GameDAO implements IGameDAO {
         if(section == null){
             return "[]";
         }
+        boolean changed = false;
+
         for(String key : section.keySet()){
             if(key.contains("commandList")) {
+                changed = true;
                 commandList.append(section.get(key) + ",");
             }
         }
@@ -109,6 +112,11 @@ public class GameDAO implements IGameDAO {
             commandList.deleteCharAt(commandList.length() - 1);
         }
         commandList.append("]");
+        if(changed){
+            commandList.deleteCharAt(commandList.length() - 1);
+            commandList.deleteCharAt(0);
+
+        }
         return commandList.toString();
     }
 

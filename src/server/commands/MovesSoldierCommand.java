@@ -28,6 +28,8 @@ public class MovesSoldierCommand extends ICatanCommand {
 		this.playerIndex = playerIndex;
 		this.victimIndex = victimIndex;
 		this.location = location;
+		super.setType(this.getClass().toString());
+
 	}
 
 	@Override

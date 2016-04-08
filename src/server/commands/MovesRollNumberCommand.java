@@ -23,6 +23,8 @@ public class MovesRollNumberCommand extends ICatanCommand {
 	public MovesRollNumberCommand(int playerIndex, int number) {
 		this.playerIndex = playerIndex;
 		this.number = number;
+		super.setType(this.getClass().toString());
+
 	}
 
 	/**

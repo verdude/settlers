@@ -31,6 +31,8 @@ public class MovesMaritimeTradeCommand extends ICatanCommand {
 		this.ratio = ratio;
 		this.inputResource = inputResource;
 		this.outputResource = outputResource;
+		super.setType(this.getClass().toString());
+
 	}
 
 

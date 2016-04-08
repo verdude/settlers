@@ -24,7 +24,10 @@ public class MovesBuildSettlementCommand extends ICatanCommand {
 	public MovesBuildSettlementCommand(int playerIndex, VertexLocation vertexLocation, boolean free){
 		this.playerIndex = playerIndex;
 		this.vertexLocation = vertexLocation;
-		this.free = "" + free;	}
+		this.free = "" + free;
+		super.setType(this.getClass().toString());
+	}
+
 
 	/**
 	 * @pre The object is instantiated and a game exists on which to execute this command

@@ -25,6 +25,8 @@ public class MovesDiscardCardsCommand extends ICatanCommand {
 	public MovesDiscardCardsCommand(int playerIndex, ArrayList<ResourceType> discardedCards){
 		this.playerIndex = playerIndex;
 		this.discardedCards = discardedCards;
+		super.setType(this.getClass().toString());
+
 	}
 
 	/**

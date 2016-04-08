@@ -23,6 +23,8 @@ public class MovesSendChatCommand extends ICatanCommand {
 	public MovesSendChatCommand(int playerIndex, String content) {
 		this.playerIndex = playerIndex;
 		this.content = content;
+		super.setType(this.getClass().toString());
+
 	}
 
 	/**

@@ -19,6 +19,8 @@ public class MovesMonumentCommand extends ICatanCommand {
      */
 	public MovesMonumentCommand(int playerIndex) {
 		this.playerIndex = playerIndex;
+		super.setType(this.getClass().toString());
+
 	}
 
 	/**

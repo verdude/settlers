@@ -27,6 +27,8 @@ public class MovesRobPlayerCommand extends ICatanCommand {
 		this.playerIndex = playerIndex;
 		this.victimIndex = victimIndex;
 		this.location = location;
+		super.setType(this.getClass().toString());
+
 	}
 
 	/**

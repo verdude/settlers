@@ -21,6 +21,8 @@ public class MovesOfferTradeCommand extends ICatanCommand {
      */
 	public MovesOfferTradeCommand(TradeOffer offer) {
 		this.offer = offer;
+		super.setType(this.getClass().toString());
+
 	}
 
 	/**

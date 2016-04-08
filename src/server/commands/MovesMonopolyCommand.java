@@ -24,6 +24,8 @@ public class MovesMonopolyCommand extends ICatanCommand {
 	public MovesMonopolyCommand(ResourceType resource, int playerIndex) {
 		this.resource = resource;
 		this.playerIndex = playerIndex;
+		super.setType(this.getClass().toString());
+
 	}
 
 	/**

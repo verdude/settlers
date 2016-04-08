@@ -21,6 +21,8 @@ public class MovesFinishTurnCommand extends ICatanCommand {
      */
 	public MovesFinishTurnCommand(int playerIndex){
 		this.playerIndex = playerIndex;
+		super.setType(this.getClass().toString());
+
 	}
 
 

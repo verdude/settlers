@@ -12,7 +12,7 @@ import server.ServerFacade;
 public class MovesAcceptTradeCommand extends ICatanCommand {
 	private int playerIndex;
 	private boolean willAccept;
-	
+
 	/**
 	 * @pre There is a trade from another player to this player
 	 * @post The trade is either accepted or not according to "willAccept"
@@ -22,6 +22,7 @@ public class MovesAcceptTradeCommand extends ICatanCommand {
 	public MovesAcceptTradeCommand(int playerIndex, boolean willAccept) {
 		this.playerIndex = playerIndex;
 		this.willAccept = willAccept;
+		super.setType(this.getClass().toString());
 	}
 
 

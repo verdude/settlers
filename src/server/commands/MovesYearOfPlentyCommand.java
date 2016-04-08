@@ -28,6 +28,8 @@ public class MovesYearOfPlentyCommand extends ICatanCommand {
 		this.playerIndex = playerIndex;
 		this.resource1 = resource1;
 		this.resource2 = resource2;
+		super.setType(this.getClass().toString());
+
 	}
 
 	@Override

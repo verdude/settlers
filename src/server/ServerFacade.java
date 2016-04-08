@@ -1109,6 +1109,7 @@ public class ServerFacade implements IFacade{
 		try{
 			List<ICatanCommand> commandList = Converter.deserializeCommands(gameDAO.getCommands());
 			commandList.add(command);
+			commandList.forEach(command1 -> command1.setType(command1.getClass().toString()));
 			if(commandList.size() >= commandsToStore){
 				gameDAO.storeCommands("[]", gameIdAndIndex);
 				gameDAO.storeGame(Converter.serialize(games.get(gameIdAndIndex)),gameIdAndIndex);

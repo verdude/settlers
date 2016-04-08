@@ -39,6 +39,8 @@ public class MovesRoadBuildingCommand extends ICatanCommand {
 	public MovesRoadBuildingCommand(int playerIndex, EdgeLocation spot1, EdgeLocation spot2 /*The spots*/) {
 		this.playerIndex = playerIndex;
 		this.spot1 = spot1;
+		super.setType(this.getClass().toString());
+
 		this.spot2 = spot2;
 	}
 
