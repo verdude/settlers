@@ -53,7 +53,13 @@ public class User {
 		JSONObject cookie = new JSONObject();
 		cookie.put("name", username);
 		cookie.put("password", password);
-		cookie.put("playerID", ServerFacade.getSingleton().getUsers().size()-1);
+		int playerID = 0;
+		for(server.model.User user : ServerFacade.getSingleton().getUsers())  {
+			if(user.getUsername().equals(username)) {
+				cookie.put("playerID", user.getUserID());
+				break;
+			}
+		}
 		setUserCookie = "catan.user="+ URLEncoder.encode(cookie.toString()) + ";Path=/;";
 		return Response.ok().header("Set-cookie", setUserCookie).entity("\""+response+"\"").build();
 	}

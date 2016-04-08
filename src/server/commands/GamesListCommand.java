@@ -19,9 +19,6 @@ public class GamesListCommand extends ICatanCommand {
 	@Override
 	public String execute(IFacade facade) {
 		String response = facade.gamesList();
-		
-		// TODO: on success, store this command in database
-		facade.storeCommand(this);
 		return response;
 	}
 }

@@ -36,7 +36,6 @@ public class ServerFacade implements IFacade{
 	private List<Game> games;
 	private List<User> users;
 	private Converter converter;
-	private List<User> loggedInUsers;
 
 	private int gameIdAndIndex;
 	private int playerIdAndUserIndex;
@@ -60,7 +59,6 @@ public class ServerFacade implements IFacade{
 		this.games = new ArrayList<>();
 		this.users = new ArrayList<>();
 		this.converter = new Converter();
-		this.loggedInUsers = new ArrayList<>();
 		factory = Factory.getSingleton("");
 		userDAO = factory.getUserDAO();
 		gameDAO = factory.getGameDAO();
@@ -107,19 +105,10 @@ public class ServerFacade implements IFacade{
 
 	@Override
 	public String userLogin(String username, String password) {
-
 		if(username == null || username.matches("\\s*") || password == null || password.equals("\\s*")){
 			return "Invalid Request";
 		}
-		for (User user : users){
-			if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-				loggedInUsers.add(user);
-				return "Success";
-			}
-		}
-
-		return "Failed to login - bad username or password.";
-
+		return userDAO.verifyUser(username, password)?"Success logging in.":"Failed to login.";
 	}
 
 	@Override
@@ -311,10 +300,19 @@ public class ServerFacade implements IFacade{
 				return response;
 			}
 		}
-		Player player = new Player(users.get(count).getUsername(), CatanColor.BLUE.fromString(color.toLowerCase()), count);
+		Player player = new Player(users.get(playerIdAndUserIndex).getUsername(), CatanColor.BLUE.fromString(color.toLowerCase()), count);
 		player.setPlayerID(playerIdAndUserIndex);
 		games.get(ID).getServerModel().getClientModel().getPlayers()[count] = player;
 
+		gameDAO.startTransaction();
+		try{
+			gameDAO.storeGame(Converter.serialize(games.get(ID)), ID);
+		}catch (Exception e){
+			e.printStackTrace();
+			gameDAO.endTransaction(false);
+			return "Invalid, failed to persist!!!";
+		}
+		gameDAO.endTransaction(true);
 		response = "Success";
 		return response;
 	}
@@ -1164,15 +1162,6 @@ public class ServerFacade implements IFacade{
 
 	public void setUsers(List<User> users) {
 		this.users = users;
-	}
-
-
-	public List<User> getLoggedInUsers() {
-		return loggedInUsers;
-	}
-
-	public void setLoggedInUsers(List<User> loggedInUsers) {
-		this.loggedInUsers = loggedInUsers;
 	}
 
 	public Converter getConverter() {

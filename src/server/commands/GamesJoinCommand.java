@@ -33,9 +33,6 @@ public class GamesJoinCommand extends ICatanCommand {
 	public String execute(IFacade facade) {
 
 		String response = facade.gamesJoin(id, color);
-		
-		// TODO: on success, store this command in database
-		facade.storeCommand(this);
 		return response;
 	}
 }

@@ -92,6 +92,7 @@ public class Converter {
             .registerSubtype(UserLoginCommand.class,UserLoginCommand.class.toString())
             .registerSubtype(UserRegisterCommand.class,UserRegisterCommand.class.toString());
 
+		System.out.println("Deserializing command: " + json);
 		Gson gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
 		Type listType = new TypeToken<List<ICatanCommand>>(){}.getType();
@@ -132,6 +133,7 @@ public class Converter {
 
 		Gson gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 
+		System.out.println("serializing command: ");
 		String json = gson.toJson(commands);
 		return json;
 	}
