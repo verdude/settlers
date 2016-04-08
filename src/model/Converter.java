@@ -1,13 +1,20 @@
 package model;
 
 import java.io.FileNotFoundException;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import model.RuntimeTypeAdapterFactory;
 
 import client.data.GameInfo;
 import client.data.PlayerInfo;
+import server.ICatanCommand;
+import server.commands.*;
 
 public class Converter {
 
@@ -53,17 +60,58 @@ public class Converter {
 		}
 		return games;
 	}
-	
+
+	public static ICatanCommand[] deserializeCommands(String json) {
+		return new ICatanCommand[0];
+	}
+
+	public static String serializeCommands(ICatanCommand[] commands) {
+		RuntimeTypeAdapterFactory<ICatanCommand> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
+            .of(ICatanCommand.class, "type")
+            .registerSubtype(GameAddAICommand.class,GameAddAICommand.class.toString())
+            .registerSubtype(GameListAICommand.class,GameListAICommand.class.toString())
+            .registerSubtype(GamesCreateCommand.class,GamesCreateCommand.class.toString())
+            .registerSubtype(GamesJoinCommand.class,GamesJoinCommand.class.toString())
+            .registerSubtype(GamesListCommand.class,GamesListCommand.class.toString())
+            .registerSubtype(GamesLoadCommand.class,GamesLoadCommand.class.toString())
+            .registerSubtype(GamesModelCommand.class,GamesModelCommand.class.toString())
+            .registerSubtype(GamesSaveCommand.class,GamesSaveCommand.class.toString())
+            .registerSubtype(MovesAcceptTradeCommand.class,MovesAcceptTradeCommand.class.toString())
+            .registerSubtype(MovesBuildCityCommand.class,MovesBuildCityCommand.class.toString())
+            .registerSubtype(MovesBuildRoadCommand.class,MovesBuildRoadCommand.class.toString())
+            .registerSubtype(MovesBuildSettlementCommand.class,MovesBuildSettlementCommand.class.toString())
+            .registerSubtype(MovesBuyDevCardCommand.class,MovesBuyDevCardCommand.class.toString())
+            .registerSubtype(MovesDiscardCardsCommand.class,MovesDiscardCardsCommand.class.toString())
+            .registerSubtype(MovesFinishTurnCommand.class,MovesFinishTurnCommand.class.toString())
+            .registerSubtype(MovesMaritimeTradeCommand.class,MovesMaritimeTradeCommand.class.toString())
+            .registerSubtype(MovesMonopolyCommand.class,MovesMonopolyCommand.class.toString())
+            .registerSubtype(MovesMonumentCommand.class,MovesMonumentCommand.class.toString())
+            .registerSubtype(MovesOfferTradeCommand.class,MovesOfferTradeCommand.class.toString())
+            .registerSubtype(MovesRoadBuildingCommand.class,MovesRoadBuildingCommand.class.toString())
+            .registerSubtype(MovesRobPlayerCommand.class,MovesRobPlayerCommand.class.toString())
+            .registerSubtype(MovesRollNumberCommand.class,MovesRollNumberCommand.class.toString())
+            .registerSubtype(MovesSendChatCommand.class,MovesSendChatCommand.class.toString())
+            .registerSubtype(MovesSoldierCommand.class,MovesSoldierCommand.class.toString())
+            .registerSubtype(MovesYearOfPlentyCommand.class,MovesYearOfPlentyCommand.class.toString())
+            .registerSubtype(UserLoginCommand.class,UserLoginCommand.class.toString())
+            .registerSubtype(UserRegisterCommand.class,UserRegisterCommand.class.toString());
+
+		Gson gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+
+		String json = gson.toJson(commands);
+		return json;
+	}
+
 	/**
 	 * @param o The object to Serialize
 	 * @return The serialized model object
 	 * @pre None
 	 * @post The object serialized as JSON
-	 * @throws ClientException when this function fails when it shouldn't 
+	 * @throws ClientException when this function fails when it shouldn't
 	 */
 	public static String serialize(Object o) throws ClientException{
 		Gson gson = new Gson();
 		return gson.toJson(o);
 	}
-	
+
 }

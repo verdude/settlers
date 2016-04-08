@@ -36,7 +36,7 @@ public class MovesRollNumberCommand extends ICatanCommand {
 		String response = facade.rollNumber(number);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

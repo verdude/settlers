@@ -32,7 +32,7 @@ public class MovesMonumentCommand extends ICatanCommand {
 		String response = facade.monument();
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

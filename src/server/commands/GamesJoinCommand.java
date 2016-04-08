@@ -1,5 +1,6 @@
 package server.commands;
 
+import model.Converter;
 import model.IFacade;
 import server.ICatanCommand;
 
@@ -34,7 +35,7 @@ public class GamesJoinCommand extends ICatanCommand {
 		String response = facade.gamesJoin(id, color);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

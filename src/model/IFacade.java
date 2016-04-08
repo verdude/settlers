@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import pluginInterfaces.IGameDAO;
+import pluginInterfaces.IUserDAO;
 import server.ICatanCommand;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
@@ -18,6 +20,18 @@ public interface IFacade {
 	 * @return Whether it was successful
 	 */
 	public abstract String userLogin(String username, String password);
+
+	/**
+	 * Gets the Game DAO
+	 * @return IGameDAO
+     */
+	public IGameDAO getGameDAO();
+
+	/**
+	 * Get the User DAO
+	 * @return IUserDAO
+     */
+	public IUserDAO getUserDAO();
 
 	/**
 	 * 1) Creates a new user account

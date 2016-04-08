@@ -17,6 +17,7 @@ public class GamesLoadCommand extends ICatanCommand {
     @Override
     public String execute(IFacade facade) {
         String result = facade.gamesLoad(name);
+        facade.storeCommand(this);
         return result;
     }
 }

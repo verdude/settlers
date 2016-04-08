@@ -36,7 +36,7 @@ public class MovesSendChatCommand extends ICatanCommand {
 		String response = facade.sendChat(playerIndex, content);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

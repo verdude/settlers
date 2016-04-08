@@ -31,7 +31,7 @@ public class MovesBuyDevCardCommand extends ICatanCommand {
 		String response = facade.buyDevCard();
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

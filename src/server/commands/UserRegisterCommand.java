@@ -23,7 +23,7 @@ public class UserRegisterCommand extends ICatanCommand {
 		String response = facade.userRegister(username, password);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

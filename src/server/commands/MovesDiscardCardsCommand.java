@@ -38,7 +38,7 @@ public class MovesDiscardCardsCommand extends ICatanCommand {
 		String response = facade.discardCards(discardedCards);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

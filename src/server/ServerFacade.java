@@ -72,15 +72,19 @@ public class ServerFacade implements IFacade{
 			users.add(user);
 		}
 		users.sort((user1, user2) -> user1.getUserID() < user2.getUserID() ? -1:1);
+		initializeGames();
+	}
+
+	private void initializeGames() {
+		// get the commands
+		ICatanCommand[] commands = Converter.deserialize(gameDAO.getCommands(), ICatanCommand[].class);
+		// Get the games
 		Game[] tempGameArray =  Converter.deserialize(gameDAO.getGames(), Game[].class);
 		for(Game game : tempGameArray){
 			games.add(game);
 		}
 		games.sort((game1, game2) -> game1.getGameID() < game2.getGameID() ? -1:1);
 
-
-//		this.dao = Factory.getDAO(db_type, jar_filename);
-		//this.dao = factory.getDAO("sql", "c:\\path\\stuff.jar");
 	}
 
 	public void getContext() {
@@ -89,6 +93,16 @@ public class ServerFacade implements IFacade{
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public IGameDAO getGameDAO() {
+		return gameDAO;
+	}
+
+	@Override
+	public IUserDAO getUserDAO() {
+		return userDAO;
 	}
 
 	@Override
@@ -1091,9 +1105,6 @@ public class ServerFacade implements IFacade{
 		return "Failure";
 	}
 
-
-
-
 	public void storeCommand(ICatanCommand command){
 		gameDAO.startTransaction();
 		List<ICatanCommand> commandListArray = new ArrayList<>();
@@ -1104,20 +1115,18 @@ public class ServerFacade implements IFacade{
 				commandListArray.add(tempCommand);
 			}
 			commandListArray.add(command);
-			if(commandListArray.size() == commandsToStore){
+			if(commandListArray.size() >= commandsToStore){
 				gameDAO.storeCommands("[]", gameIdAndIndex);
 				gameDAO.storeGame(Converter.serialize(games.get(gameIdAndIndex)),gameIdAndIndex);
+			} else {
+				gameDAO.storeCommands(Converter.serialize(commandListArray.toArray()),gameIdAndIndex);
 			}
-			gameDAO.storeCommands(Converter.serialize(commandListArray.toArray()),gameIdAndIndexss);
 		}catch (Exception e){
 			e.printStackTrace();
 			gameDAO.endTransaction(false);
 			return;
 		}
 		gameDAO.endTransaction(true);
-
-
-
 	}
 
 	public String gamesModel(int version) {

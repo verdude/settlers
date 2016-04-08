@@ -37,7 +37,7 @@ public class MovesSoldierCommand extends ICatanCommand {
 		String response = facade.soldier(victimIndex, location);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

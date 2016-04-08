@@ -40,7 +40,7 @@ public class MovesRobPlayerCommand extends ICatanCommand {
 		String response = facade.robPlayer(victimIndex, location);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

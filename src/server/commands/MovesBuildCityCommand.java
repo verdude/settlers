@@ -37,7 +37,7 @@ public class MovesBuildCityCommand extends ICatanCommand {
 		String response = facade.buildCity(vertexLocation);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

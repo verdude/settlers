@@ -36,7 +36,7 @@ public class MovesBuildSettlementCommand extends ICatanCommand {
 
 		String response = facade.buildSettlement(vertexLocation, free);
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }

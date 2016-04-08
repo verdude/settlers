@@ -40,7 +40,7 @@ public class GamesCreateCommand extends ICatanCommand {
 		String response = facade.gamesCreate(randomTiles, randomNumbers, randomPorts, name);
 		
 		// TODO: on success, store this command in database
-		
+		facade.storeCommand(this);
 		return response;
 	}
 }
