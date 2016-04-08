@@ -39,7 +39,7 @@ public class MovesBuildRoadCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
+		((ServerFacade) facade).setPlayerIndex(playerIndex);
 
 		String response = facade.buildRoad(roadLocation, free);
 

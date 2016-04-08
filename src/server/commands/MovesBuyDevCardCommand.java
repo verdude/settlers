@@ -2,6 +2,7 @@ package server.commands;
 
 import model.IFacade;
 import server.ICatanCommand;
+import server.ServerFacade;
 
 /**
  * This represents the moves/buyDevCard endpoint
@@ -30,6 +31,8 @@ public class MovesBuyDevCardCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
+		((ServerFacade) facade).setPlayerIndex(playerIndex);
+
 		String response = facade.buyDevCard();
 		
 		// TODO: on success, store this command in database

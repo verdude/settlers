@@ -75,11 +75,16 @@ public class ServerFacade implements IFacade{
 
 	private void initializeGames() {
 		// get the commands
-		ICatanCommand[] commands = Converter.deserialize(gameDAO.getCommands(), ICatanCommand[].class);
+
+
+		List<ICatanCommand> commandList = null;
 		// Get the games
 		Game[] tempGameArray =  Converter.deserialize(gameDAO.getGames(), Game[].class);
 		for(Game game : tempGameArray){
 			games.add(game);
+			commandList  = Converter.deserializeCommands(gameDAO.getCommands(game.getGameID()));
+			commandList.forEach(command -> command.execute(this));
+
 		}
 		games.sort((game1, game2) -> game1.getGameID() < game2.getGameID() ? -1:1);
 
@@ -1106,7 +1111,7 @@ public class ServerFacade implements IFacade{
 		gameDAO.startTransaction();
 
 		try{
-			List<ICatanCommand> commandList = Converter.deserializeCommands(gameDAO.getCommands());
+			List<ICatanCommand> commandList = Converter.deserializeCommands(gameDAO.getCommands(gameIdAndIndex));
 			commandList.add(command);
 			commandList.forEach(command1 -> command1.setType(command1.getClass().toString()));
 			if(commandList.size() >= commandsToStore){

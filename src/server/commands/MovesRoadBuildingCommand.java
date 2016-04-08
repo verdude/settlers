@@ -50,7 +50,7 @@ public class MovesRoadBuildingCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
+		((ServerFacade) facade).setPlayerIndex(playerIndex);
 
 		String response = facade.roadBuilding(spot1, spot2);
 		

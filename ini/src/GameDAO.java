@@ -92,32 +92,35 @@ public class GameDAO implements IGameDAO {
     }
 
     @Override
-    public String getCommands() {
-        StringBuilder commandList = new StringBuilder();
-        commandList.append("[");
+    public String getCommands(int gameID) {
+//        StringBuilder commandList = new StringBuilder();
+//        commandList.append("[");
         Ini.Section section = ini.get(SECTION);
 
         if(section == null){
             return "[]";
         }
-        boolean changed = false;
+        String commands = section.get("commandList" + gameID);
 
-        for(String key : section.keySet()){
-            if(key.contains("commandList")) {
-                changed = true;
-                commandList.append(section.get(key) + ",");
-            }
-        }
-        if(commandList.length() != 1) {
-            commandList.deleteCharAt(commandList.length() - 1);
-        }
-        commandList.append("]");
-        if(changed){
-            commandList.deleteCharAt(commandList.length() - 1);
-            commandList.deleteCharAt(0);
-
-        }
-        return commandList.toString();
+        return commands == null || commands.isEmpty() ? "[]":commands;
+//        boolean changed = false;
+//
+//        for(String key : section.keySet()){
+//            if(key.contains("commandList")) {
+//                changed = true;
+//                commandList.append(section.get(key) + ",");
+//            }
+//        }
+//        if(commandList.length() != 1) {
+//            commandList.deleteCharAt(commandList.length() - 1);
+//        }
+//        commandList.append("]");
+//        if(changed){
+//            commandList.deleteCharAt(commandList.length() - 1);
+//            commandList.deleteCharAt(0);
+//
+//        }
+//        return commandList.toString();
     }
 
 

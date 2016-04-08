@@ -34,7 +34,7 @@ public class MovesYearOfPlentyCommand extends ICatanCommand {
 
 	@Override
 	public String execute(IFacade facade) {
-		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
+		((ServerFacade) facade).setPlayerIndex(playerIndex);
 
 		String response = facade.yearOfPlenty(resource1, resource2);
 		

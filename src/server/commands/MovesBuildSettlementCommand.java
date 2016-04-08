@@ -35,7 +35,7 @@ public class MovesBuildSettlementCommand extends ICatanCommand {
 	 */
 	@Override
 	public String execute(IFacade facade) {
-		ServerFacade.getSingleton().setPlayerIndex(playerIndex);
+		((ServerFacade) facade).setPlayerIndex(playerIndex);
 
 		String response = facade.buildSettlement(vertexLocation, free);
 		// TODO: on success, store this command in database

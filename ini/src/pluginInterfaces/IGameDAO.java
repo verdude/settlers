@@ -36,7 +36,7 @@ public interface IGameDAO {
      */
     public void endTransaction(boolean commit);
     public void clearPersistence();
-    public String getCommands();
+    public String getCommands(int gameID);
 
 
 }
