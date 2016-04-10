@@ -55,6 +55,7 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(acceptTrade);
 		return Response.ok().entity(response).build();
 	}
 
@@ -92,6 +93,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(buildCityCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -130,6 +133,7 @@ public class Moves {
 
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(buildRoadCommand);
 		return Response.ok().entity(response).build();
 	}
 
