@@ -84,6 +84,7 @@ public class ServerFacade implements IFacade{
 		for(Game game : tempGameArray){
 			games.add(game);
 			commandList  = Converter.deserializeCommands(gameDAO.getCommands(game.getGameID()));
+			this.setGameIdAndIndex(game.getGameID());
 			commandList.forEach(command -> command.execute(this));
 
 		}
@@ -159,26 +160,28 @@ public class ServerFacade implements IFacade{
 			return "[]";
 		}
 		int playerIndex = 0;
-		for(Player player : games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()){
-			if (player == null) {
-				continue;
-			}
-			PlayerInfo playerInfo = new PlayerInfo();
-			playerInfo.setPlayerIndex(playerIndex);
-			playerIndex++;
-			playerInfo.setId(player.getPlayerID());
-			playerInfo.setName(player.getName());
-			playerInfo.setColor(player.getColor());
-			playersInfo.add(playerInfo);
-
-		}
-
 		for(Game game : games){
-			GameInfo gameInfo = new GameInfo();
-			gameInfo.setId(game.getGameID());
-			gameInfo.setPlayers(playersInfo);
-			gameInfo.setTitle(game.getTitle());
-			gamesInfo.add(gameInfo);
+			playersInfo = new ArrayList<>();
+			for(Player player : games.get(game.getGameID()).getServerModel().getClientModel().getPlayers()){
+				if (player == null) {
+					continue;
+				}
+				PlayerInfo playerInfo = new PlayerInfo();
+				playerInfo.setPlayerIndex(playerIndex);
+				playerIndex++;
+				playerInfo.setId(player.getPlayerID());
+				playerInfo.setName(player.getName());
+				playerInfo.setColor(player.getColor());
+				playersInfo.add(playerInfo);
+
+			}
+
+
+				GameInfo gameInfo = new GameInfo();
+				gameInfo.setId(game.getGameID());
+				gameInfo.setPlayers(playersInfo);
+				gameInfo.setTitle(game.getTitle());
+				gamesInfo.add(gameInfo);
 		}
 
 		String json = null;

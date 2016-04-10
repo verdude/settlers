@@ -88,5 +88,16 @@ public class UserDAO implements IUserDAO {
     @Override
     public void clearPersistence() {
         iniFile.delete();
+        try {
+            iniFile = new File(System.getProperty("user.dir") + "/persistence.ini");
+
+            if(!iniFile.exists()) {
+                iniFile.createNewFile();
+                ini = new Wini(iniFile);
+            }
+            ini = new Wini(iniFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
