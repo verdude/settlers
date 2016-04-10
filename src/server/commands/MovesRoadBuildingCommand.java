@@ -53,9 +53,7 @@ public class MovesRoadBuildingCommand extends ICatanCommand {
 		((ServerFacade) facade).setPlayerIndex(playerIndex);
 
 		String response = facade.roadBuilding(spot1, spot2);
-		
-		// TODO: on success, store this command in database
-		facade.storeCommand(this);
+
 		return response;
 	}
 }

@@ -43,8 +43,7 @@ public class MovesBuildRoadCommand extends ICatanCommand {
 
 		String response = facade.buildRoad(roadLocation, free);
 
-		// TODO: on success, store this command in database
-		facade.storeCommand(this);
+		// TODO: don't add this here double command problem
 		return response;
 	}
 }

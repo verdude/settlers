@@ -167,6 +167,7 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(buildSettlementCommand);
 		return Response.ok().entity(response).build();
 	}
 
@@ -202,6 +203,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(buyDevCardCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -245,6 +248,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(discardCardsCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -280,6 +285,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(finishTurnCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -317,6 +324,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(movesMaritimeTradeCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -353,6 +362,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(monopolyCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -388,6 +399,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(monumentCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -425,6 +438,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(offerTradeCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -462,6 +477,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(roadBuildingCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -498,6 +515,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(robPlayerCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -535,6 +554,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(rollNumberCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -571,6 +592,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(sendChatCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -607,6 +630,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(soldierCommand);
+
 		return Response.ok().entity(response).build();
 	}
 
@@ -645,6 +670,8 @@ public class Moves {
 		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
+		ServerFacade.getSingleton().storeCommand(yearOfPlentyCommand);
+
 		return Response.ok().entity(response).build();
 	}
 

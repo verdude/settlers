@@ -36,8 +36,6 @@ public class MovesAcceptTradeCommand extends ICatanCommand {
 
 		String response = facade.acceptTrade(willAccept);
 		
-		// TODO: on success, store this command in database
-		facade.storeCommand(this);
 		return response;
 	}
 }

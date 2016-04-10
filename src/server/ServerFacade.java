@@ -78,6 +78,7 @@ public class ServerFacade implements IFacade{
 
 
 		List<ICatanCommand> commandList = null;
+		gameDAO.startTransaction();
 		// Get the games
 		Game[] tempGameArray =  Converter.deserialize(gameDAO.getGames(), Game[].class);
 		for(Game game : tempGameArray){
@@ -86,6 +87,7 @@ public class ServerFacade implements IFacade{
 			commandList.forEach(command -> command.execute(this));
 
 		}
+		gameDAO.endTransaction(false);
 		games.sort((game1, game2) -> game1.getGameID() < game2.getGameID() ? -1:1);
 
 	}

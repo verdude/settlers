@@ -38,8 +38,7 @@ public class MovesMonopolyCommand extends ICatanCommand {
 
 		String response = facade.monopoly(resource, playerIndex);
 		
-		// TODO: on success, store this command in database
-		facade.storeCommand(this);
+
 		return response;
 	}
 }

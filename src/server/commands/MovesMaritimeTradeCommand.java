@@ -46,8 +46,7 @@ public class MovesMaritimeTradeCommand extends ICatanCommand {
 
 		String response = facade.maritimeTrade(ratio, inputResource, outputResource);
 		
-		// TODO: on success, store this command in database
-		facade.storeCommand(this);
+
 		return response;
 	}
 }
