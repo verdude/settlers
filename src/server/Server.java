@@ -41,10 +41,15 @@ public class Server {
 		HTTPServer.start();
 		System.out.println("Server started.");
 
-
 		// initialize the facade and proxy
 		ClientFacade.getSingleton(ServerProxy.getSingleton("localhost","8081"));
 		Factory.getSingleton(args[0]);
+		if (args.length >= 3 && args[2].equals("clear")) {
+			ServerFacade.getSingleton().clearPersistence();
+			if (args.length>= 4 && args[3].equals("exit")) {
+				return;
+			}
+		}
 		ServerFacade.getSingleton().setCommandsToStore(Integer.parseInt(args[1]));
 
 		//auto_test_endpoints();

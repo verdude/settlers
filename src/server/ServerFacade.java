@@ -90,6 +90,14 @@ public class ServerFacade implements IFacade{
 
 	}
 
+	/**
+	 * Will delete the database that has been loaded.
+	 */
+	public void clearPersistence() {
+		gameDAO.clearPersistence();
+		userDAO.clearPersistence();
+	}
+
 	public void getContext() {
 		try {
 			ClientFacade.getSingleton().getContext();
