@@ -209,7 +209,7 @@ public class UserDAO implements IUserDAO {
 
 	private void initDatabase(){
 		try{
-			databasePath = new File(System.getProperty("user.dir") + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
+			databasePath = new File(System.getProperty("user.dir") + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
 
 			// Create sqlite database if it doesn't exist
 			if(!databasePath.exists()){
@@ -217,7 +217,7 @@ public class UserDAO implements IUserDAO {
 				databasePath.createNewFile();
 
 				startTransaction();
-				connection.prepareStatement("CREATE TABLE Users (userID INTEGER, username TEXT, password TEXT);").execute();
+				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Users (userID INTEGER, username TEXT, password TEXT);").execute();
 				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Games (gameID INTEGER, game TEXT);").execute();
 				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Commands (gameID INTEGER, commands TEXT);").execute();
 				this.endTransaction(true);

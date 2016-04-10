@@ -187,7 +187,7 @@ public class GameDAO implements IGameDAO {
     
 	private void initDatabase(){
 		try{
-			databasePath = new File(System.getProperty("user.dir") + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
+			databasePath = new File(System.getProperty("user.dir") + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
 
 			// Create sqlite database if it doesn't exist
 			if(!databasePath.exists()){
