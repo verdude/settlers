@@ -10,7 +10,7 @@ public class GameDAO implements IGameDAO {
 
 	private static final String DATABASE_DIRECTORY 	= "sqlite";
 	private static final String DATABASE_FILE 		= "persistence.sqlite";
-	private static final String DATABASE_URL 		= "jdbc:sqlite:" + DATABASE_DIRECTORY + File.separator + DATABASE_FILE;
+	private static final String DATABASE_URL 		= "jdbc:sqlite:" + DATABASE_DIRECTORY + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_FILE;
 	private File databasePath;
 	private Connection connection;
 
