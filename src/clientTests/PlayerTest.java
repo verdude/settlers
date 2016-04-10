@@ -46,7 +46,7 @@ public class PlayerTest {
 		for (int i = 0; i < 5; i++){ // play all of the settlements that the player has
 			
 			try {
-				test1.playSettlement();
+				test1.playSettlement(false);
 			} catch (ClientException e) {
 				e.printStackTrace();
 			}
@@ -123,7 +123,7 @@ public class PlayerTest {
 
 		for (int i = 0; i < 15; i++){ // play all of the roads that the player has
 			try {
-				test1.playRoad();
+				test1.playRoad(false);
 			} catch (ClientException e) {
 				e.printStackTrace();
 			}

@@ -279,7 +279,7 @@ public class ClientFacade  {
 		{
 			try {
 				clientModel.getMap().placeRoad(roadLocation);
-				clientModel.getPlayers()[playerIndex].playRoad();
+				clientModel.getPlayers()[playerIndex].playRoad(isFree);
 			} catch (ClientException | GameMapException e) {
 				e.printStackTrace();
 				return false;
@@ -302,7 +302,7 @@ public class ClientFacade  {
 		{
 			try {
 				clientModel.getMap().placeSettlement(vertexObject);
-				clientModel.getPlayers()[playerIndex].playSettlement();
+				clientModel.getPlayers()[playerIndex].playSettlement(isFree);
 			} catch (ClientException | GameMapException e) {
 				e.printStackTrace();
 				return false;

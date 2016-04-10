@@ -4,7 +4,6 @@ import org.json.JSONObject;
 import server.ICatanCommand;
 import server.ServerFacade;
 import server.commands.GamesModelCommand;
-import server.commands.MovesAcceptTradeCommand;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -42,7 +41,7 @@ public class Game {
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
-		return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\" : \"Unimplemented\"}").build();
+		return Response.status(Response.Status.BAD_REQUEST).entity("{\"Failure\" : \"Unimplemented\"}").build();
 	}
 
 	/**
@@ -64,7 +63,7 @@ public class Game {
 
 		ServerFacade.getSingleton().setPlayerIdAndUserIndex(cookie.getInt("playerID"));
 
-		return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\" : \"Unimplemented\"}").build();
+		return Response.status(Response.Status.BAD_REQUEST).entity("{\"Failure\" : \"Unimplemented\"}").build();
 	}
 
 

@@ -63,7 +63,7 @@ public class ServerFacade implements IFacade{
 		userDAO = factory.getUserDAO();
 		gameDAO = factory.getGameDAO();
 
-		System.out.println(userDAO.getUsers());
+		//System.out.println(userDAO.getUsers());
 
 		User[] tempUserArray =  Converter.deserialize(userDAO.getUsers(), User[].class);
 		for(User user : tempUserArray){
@@ -620,7 +620,8 @@ public class ServerFacade implements IFacade{
 
 		games.get(gameIdAndIndex).getServerModel().getClientModel().setMap(map);
 		try {
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].playRoad();
+
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].playRoad(isFree);
 
 			if(!isFree){
 
@@ -685,7 +686,7 @@ public class ServerFacade implements IFacade{
 
 		try {
 
-			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].playSettlement();
+			games.get(gameIdAndIndex).getServerModel().getClientModel().getPlayers()[playerIndex].playSettlement(isFree);
 
 		if(!isFree){
 				games.get(gameIdAndIndex).getServerModel().addResource("wheat",1);
@@ -921,6 +922,7 @@ public class ServerFacade implements IFacade{
 		}
 		if(games.get(gameIdAndIndex).getServerModel().getClientModel().getTurnTracker().getStatus().equals("Playing")) {
 			currentGame.getServerModel().getClientModel().getTurnTracker().setStatus("Rolling");
+			currentGame.getServerModel().getClientModel().getTurnTracker().setCurrentTurn(nextPlayer);
 
 		}
 
@@ -1201,7 +1203,7 @@ public class ServerFacade implements IFacade{
 
 	public void setPlayerIdAndUserIndex(int newPlayerIdAndUserIndex) {
 		playerIdAndUserIndex = newPlayerIdAndUserIndex;
-		System.out.println(playerIdAndUserIndex);
+		//System.out.println(playerIdAndUserIndex);
 	}
 
 	public int getPlayerIndex() {

@@ -52,7 +52,7 @@ public class Moves {
 		JSONObject body = new JSONObject(request);
 		ICatanCommand acceptTrade = new MovesAcceptTradeCommand(Integer.parseInt(userCookieString), body.get("willAccept").toString().toLowerCase().contains("true"));
 		String response = acceptTrade.execute(ServerFacade.getSingleton());
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -89,7 +89,7 @@ public class Moves {
 
 		String response = buildCityCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -125,7 +125,9 @@ public class Moves {
 
 		String response = buildRoadCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("Failed")) {
+
+		if(response.contains("Failure")) {
+
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -162,7 +164,7 @@ public class Moves {
 
 		String response = buildSettlementCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -197,7 +199,7 @@ public class Moves {
 
 		String response = buyDevCardCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -240,7 +242,7 @@ public class Moves {
 
 		String response = discardCardsCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -275,7 +277,7 @@ public class Moves {
 
 		String response = finishTurnCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -312,7 +314,7 @@ public class Moves {
 
 		String response = movesMaritimeTradeCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -348,7 +350,7 @@ public class Moves {
 
 		String response = monopolyCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -383,7 +385,7 @@ public class Moves {
 
 		String response = monumentCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -420,7 +422,7 @@ public class Moves {
 
 		String response = offerTradeCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -457,7 +459,7 @@ public class Moves {
 
 		String response = roadBuildingCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -493,7 +495,7 @@ public class Moves {
 
 		String response = robPlayerCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -530,7 +532,7 @@ public class Moves {
 		ServerFacade.getSingleton();
 		String response = rollNumberCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -566,7 +568,7 @@ public class Moves {
 
 		String response = sendChatCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -602,7 +604,7 @@ public class Moves {
 
 		String response = soldierCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();
@@ -640,7 +642,7 @@ public class Moves {
 
 		String response = yearOfPlentyCommand.execute(ServerFacade.getSingleton());
 
-		if(response.contains("error")) {
+		if(response.contains("Failure")) {
 			return Response.serverError().entity("\""+response+"\"").build();
 		}
 		return Response.ok().entity(response).build();

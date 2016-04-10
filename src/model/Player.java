@@ -3,8 +3,6 @@ package model;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
-import state.FirstRoundState;
-import state.SecondRoundState;
 
 import java.util.Random;
 
@@ -98,17 +96,17 @@ public class Player {
 	 * @post a settlement will be placed at the desired vertex and settlements will be decremented by 1
 	 * @throws ClientException when the precondition is not met
 	 */
-	public void playSettlement() throws ClientException{
+	public void playSettlement(boolean isFree) throws ClientException{
 			settlements--;
-		boolean firstRounds = false;
-		try {
-			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
-					ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(!firstRounds) {
+//		boolean firstRounds = false;
+//		try {
+//			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
+//					ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
+//		} catch (ClientException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		if(!isFree) {
 			resources.setBrick(resources.getBrick() - 1);
 			resources.setWood(resources.getWood() - 1);
 			resources.setWheat(resources.getWheat() - 1);
@@ -139,17 +137,17 @@ public class Player {
 	 * @post a road will be placed at the desired edge
 	 * @throws ClientException when the precondition is not met
 	 */
-	public void playRoad() throws ClientException{
+	public void playRoad(boolean isFree) throws ClientException{
 			roads--;
-		boolean firstRounds = false;
-		try {
-			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
-					ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
-		} catch (ClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(!firstRounds) {
+//		boolean firstRounds = false;
+//		try {
+//			firstRounds = ClientFacade.getSingleton().getContext().getState() instanceof FirstRoundState ||
+//					ClientFacade.getSingleton().getContext().getState() instanceof SecondRoundState;
+//		} catch (ClientException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		if(!isFree) {
 			resources.setBrick(resources.getBrick() - 1);
 			resources.setWood(resources.getWood() - 1);
 		}
