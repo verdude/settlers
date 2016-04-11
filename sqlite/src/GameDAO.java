@@ -1,16 +1,14 @@
-import java.sql.*;
-
 import pluginInterfaces.IGameDAO;
 
 import java.io.File;
-import java.io.IOException;
+import java.sql.*;
 
 
 public class GameDAO implements IGameDAO {
 
 	private static final String DATABASE_DIRECTORY 	= "sqlite";
 	private static final String DATABASE_FILE 		= "persistence.sqlite";
-	private static final String DATABASE_URL 		= "jdbc:sqlite:" + File.separator + DATABASE_FILE;
+	private static final String DATABASE_URL 		= "jdbc:sqlite:" + DATABASE_FILE;
 	private File databasePath;
 	private Connection connection;
 
@@ -34,7 +32,6 @@ public class GameDAO implements IGameDAO {
     	games.append("[");
     	
     	try{
-    		startTransaction();
     		stmt = connection.prepareStatement("SELECT game FROM Games;");
     		result = stmt.executeQuery();
     		Boolean leadingComma = false;
@@ -57,7 +54,6 @@ public class GameDAO implements IGameDAO {
     		e.printStackTrace();
     	}
     	finally{
-    		endTransaction(false);
 			safeClose(result);
 			safeClose(stmt);
     	}
@@ -68,37 +64,39 @@ public class GameDAO implements IGameDAO {
 
     @Override
     public void storeCommands(String commands, int gameID) {
-    	String commandJson = "{%commands%:%" + commands +"%," + "%gameID%:" + gameID + "}";
-
+    	//String commandJson = "{%commands%:%" + commands +"%," + "%gameID%:" + gameID + "}";
+		commands = commands.replace("\"", "%");
+		String statement = "INSERT OR REPLACE INTO Commands (gameID, commands) VALUES("
+				+ "(SELECT gameID from Commands where gameID = " + gameID + "),"
+				+ " \""+ commands +"\");";
     	try{
-    		startTransaction();
-    		connection.prepareStatement("INSERT INTO Commands (gameID, commands) values("+ gameID +", \""+ commandJson +"\");").execute();  
-    	}
+			connection.prepareStatement(statement).execute();    	}
     	catch(Exception e){
     		e.printStackTrace();
-    		endTransaction(false);
     	}
-    	finally{
-    		endTransaction(true);
-    	}
+
 
     }
 
     @Override
     public void storeGame(String game, int gameID) {
-      String gameJson = "{%game%:%" + game +"%," + "%gameID%:" + gameID + "}";
-      
-      try{
-    	  startTransaction();
-    	  connection.prepareStatement("INSERT INTO Games (gameID, game) values("+ gameID +", \""+ gameJson +"\");").execute();  
+//      String gameJson = "{%game%:%" + game +"%," + "%gameID%:" + gameID + "}";
+//		String gameJson = "{game:" + game +"," + "gameID:" + gameID + "}";
+
+		PreparedStatement stmt = null;
+		ResultSet result = null;
+
+		game = game.replace("\"", "%");
+		try{
+//    	  connection.prepareStatement("INSERT INTO Games (gameID, game) values("+ gameID +", \""+ game +"\");").execute();
+			connection.prepareStatement("INSERT OR REPLACE INTO Games (gameID, game) VALUES("
+					+ "(SELECT gameID from Games where gameID = " + gameID + "),"
+					+ " \""+ game +"\");").execute();
       }
       catch(Exception e){
     	  e.printStackTrace();
-    	  endTransaction(false);
       }
-      finally{
-    	  endTransaction(true);
-      }
+
 
     }
 
@@ -151,7 +149,6 @@ public class GameDAO implements IGameDAO {
     	ResultSet result = null;
     	
     	try{
-    		startTransaction();
     		stmt 	= connection.prepareStatement("SELECT commands FROM Commands WHERE gameID = "+ gameID +";");
 			result	= stmt.executeQuery();
 			
@@ -176,7 +173,6 @@ public class GameDAO implements IGameDAO {
     		e.printStackTrace();
     	}
     	finally{
-    		endTransaction(false);
     		safeClose(result);
     		safeClose(stmt);
     	}
@@ -196,16 +192,15 @@ public class GameDAO implements IGameDAO {
 				databasePath.createNewFile();
 
 				startTransaction();
-				connection.prepareStatement("CREATE TABLE Users (userID INTEGER, username TEXT, password TEXT);").execute();
-				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Games (gameID INTEGER, game TEXT);").execute();
-				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Commands (gameID INTEGER, commands TEXT);").execute();
+				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Users (userID INTEGER NOT NULL, username TEXT, password TEXT);").execute();
+				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Games (gameID INTEGER NOT NULL , game TEXT);").execute();
+				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Commands (gameID INTEGER NOT NULL, commands TEXT);").execute();
 				this.endTransaction(true);
 			}
 		}
 		catch(Exception e){
 			System.out.println("Exception in GamesDAO Constructor!");
 			e.printStackTrace();
-			this.endTransaction(false);
 		}
 	}
 	

@@ -1,9 +1,7 @@
-import java.sql.*;
-
 import pluginInterfaces.IUserDAO;
 
 import java.io.File;
-import java.io.IOException;
+import java.sql.*;
 
 /**
  * Created by Sean_George on 4/6/16.
@@ -12,7 +10,7 @@ public class UserDAO implements IUserDAO {
 
 	private static final String DATABASE_DIRECTORY 	= "sqlite";
 	private static final String DATABASE_FILE 		= "persistence.sqlite";
-	private static final String DATABASE_URL 		= "jdbc:sqlite:" + File.separator + DATABASE_FILE;
+	private static final String DATABASE_URL 		= "jdbc:sqlite:" + DATABASE_FILE;
 	private File databasePath;
 	private Connection connection;
 
@@ -41,7 +39,6 @@ public class UserDAO implements IUserDAO {
 		 */    	
 
 		try{
-			startTransaction();
 			stmt 	= connection.prepareStatement("SELECT * FROM Users WHERE userID = " + userID);
 			result 	= stmt.executeQuery();
 
@@ -60,10 +57,8 @@ public class UserDAO implements IUserDAO {
 		catch(Exception e){
 			System.out.println("Exception in UserDAO addUser()");
 			e.printStackTrace();
-			endTransaction(false);
 		}
 		finally{
-			endTransaction(true);
 			safeClose(stmt);
 		}
 	}
@@ -84,7 +79,6 @@ public class UserDAO implements IUserDAO {
 		 */
 
 		try{
-			startTransaction();    		
 			stmt = connection.prepareStatement("SELECT username, password FROM Users WHERE username = \""+ username +"\";");
 			result = stmt.executeQuery();
 
@@ -108,7 +102,6 @@ public class UserDAO implements IUserDAO {
 			e.printStackTrace();
 		}
 		finally{
-			endTransaction(true);
 			safeClose(result);
 			safeClose(stmt);
 		}
@@ -125,7 +118,7 @@ public class UserDAO implements IUserDAO {
 
 		// Add Users to JSON Array
 		try{
-			startTransaction();
+
 			stmt 	= connection.prepareStatement("SELECT username, password, userID FROM Users;");
 			result	= stmt.executeQuery();
 			Boolean leadingComma = false;
@@ -157,7 +150,6 @@ public class UserDAO implements IUserDAO {
 			e.printStackTrace();
 		}
 		finally{
-			endTransaction(false);
 			safeClose(result);
 			safeClose(stmt);
 		}
@@ -218,9 +210,9 @@ public class UserDAO implements IUserDAO {
 				databasePath.createNewFile();
 
 				startTransaction();
-				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Users (userID INTEGER, username TEXT, password TEXT);").execute();
-				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Games (gameID INTEGER, game TEXT);").execute();
-				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Commands (gameID INTEGER, commands TEXT);").execute();
+				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Users (userID INTEGER NOT NULL, username TEXT, password TEXT);").execute();
+				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Games (gameID INTEGER NOT NULL , game TEXT);").execute();
+				connection.prepareStatement("CREATE TABLE IF NOT EXISTS Commands (gameID INTEGER NOT NULL, commands TEXT);").execute();
 				this.endTransaction(true);
 			}
 		}

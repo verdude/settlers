@@ -64,12 +64,13 @@ public class ServerFacade implements IFacade{
 		gameDAO = factory.getGameDAO();
 
 		//System.out.println(userDAO.getUsers());
-
+		userDAO.startTransaction();
 		User[] tempUserArray =  Converter.deserialize(userDAO.getUsers(), User[].class);
 		for(User user : tempUserArray){
 			users.add(user);
 		}
 		users.sort((user1, user2) -> user1.getUserID() < user2.getUserID() ? -1:1);
+		userDAO.endTransaction(true);
 		initializeGames();
 	}
 
@@ -124,7 +125,10 @@ public class ServerFacade implements IFacade{
 		if(username == null || username.matches("\\s*") || password == null || password.equals("\\s*")){
 			return "Invalid Request";
 		}
-		return userDAO.verifyUser(username, password)?"Success logging in.":"Failed to login.";
+		userDAO.startTransaction();
+		String verified  = userDAO.verifyUser(username, password)?"Success logging in.":"Failed to login.";
+		userDAO.endTransaction(false);
+		return verified;
 	}
 
 	@Override
