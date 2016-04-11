@@ -12,7 +12,7 @@ public class UserDAO implements IUserDAO {
 
 	private static final String DATABASE_DIRECTORY 	= "sqlite";
 	private static final String DATABASE_FILE 		= "persistence.sqlite";
-	private static final String DATABASE_URL 		= "jdbc:sqlite:" + DATABASE_DIRECTORY + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_FILE;
+	private static final String DATABASE_URL 		= "jdbc:sqlite:" + File.separator + DATABASE_FILE;
 	private File databasePath;
 	private Connection connection;
 
@@ -209,8 +209,9 @@ public class UserDAO implements IUserDAO {
 
 	private void initDatabase(){
 		try{
-			databasePath = new File(System.getProperty("user.dir") + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
-
+//			databasePath = new File(System.getProperty("user.dir") + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
+			databasePath = new File(System.getProperty("user.dir") + File.separator + DATABASE_FILE);
+			
 			// Create sqlite database if it doesn't exist
 			if(!databasePath.exists()){
 				System.out.println("Sqlite Database Created!");
